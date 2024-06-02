@@ -26,6 +26,7 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "scheme": "zerotoapp"
   }
 }

@@ -8,7 +8,7 @@ type FormSeparatorProps = {
 const FormSeparator = ({ text }: FormSeparatorProps) => (
   <View style={styles.separator}>
     <View style={styles.line} />
-    <Text style={styles.text}>{text}</Text>
+    { text ? <Text style={styles.text}>{text}</Text> : null }
     <View style={styles.line} />
   </View>
 );

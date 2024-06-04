@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 type FormSeparatorProps = {
-  text: string;
+  text?: string;
 }
 
 const FormSeparator = ({ text }: FormSeparatorProps) => (

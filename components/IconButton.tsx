@@ -10,7 +10,7 @@ type IconButtonProps = {
 const IconButton = ({iconName, name}: IconButtonProps) => {
     return (
         <TouchableOpacity onPress={() => console.log('Button pressed')} style={styles.container} >
-            <FontAwesome name={iconName} size={15} color='white' />
+            <FontAwesome name={iconName} size={20} color='white' />
             { name? <Text style={styles.buttonText}>{name}</Text> : null }        
         </TouchableOpacity> 
     );

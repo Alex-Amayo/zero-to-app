@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Stack } from 'expo-router';
 import Appbar from '../../components/AppBar';
 
 
@@ -11,13 +12,9 @@ const Layout = ({ children }: LayoutProps) => {
     return (
         <View style={styles.container}>
             <Appbar title='Zero To App' />
-            <View style={styles.content}>
-                {children}
-            </View>
-            <View style={styles.footer}>
-                {/* Footer */}
-                <Text style={styles.footerText}>Footer</Text>
-            </View>
+            <Stack>
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+            </Stack>
         </View>
     );
 };

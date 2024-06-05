@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ImageSourcePropType, StyleSheet, Image } from 'react-native';
+import IconButton from './IconButton';
 
 type AppbarProps = {
     logo?: ImageSourcePropType,
@@ -10,8 +11,8 @@ type AppbarProps = {
 const Appbar = ({logo, title}: AppbarProps) => {
     return (
         <View style={styles.appbar}>
-            <Image source={logo} style={styles.logo} />
             <Text style={styles.title}>{title}</Text>
+            <IconButton iconName="navicon"/>
         </View>
     );
 };
@@ -22,8 +23,9 @@ const styles = StyleSheet.create({
     appbar: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between',
         backgroundColor: 'blue',
-        padding: 10,
+        padding: 25,
     },
     logo: {
         width: 40,

@@ -4,7 +4,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 type ButtonProps = {
     title: string;
-    secondary: boolean;
+    secondary?: boolean;
 };
 
 const Button = ({title, secondary}: ButtonProps) => {

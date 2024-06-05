@@ -11,14 +11,14 @@ export default function SignupPage() {
         <Text style={styles.subTitle}>It's quick and easy.</Text>
         <FormSeparator/>
         <View style={styles.nameContainer} >
-            <TextInput placeholder="First Name" style={styles.textInput} /> 
-            <TextInput placeholder="Last Name" style={styles.textInput} />
+            <TextInput placeholder='First Name' style={styles.textInput} /> 
+            <TextInput placeholder='Last Name' style={styles.textInput} />
         </View>
-        <TextInput placeholder="Mobile number or email" style={styles.textInput} />
-        <TextInput placeholder="Re-enter email" style={styles.textInput} />
-        <TextInput placeholder="New Password" style={styles.textInput} secureTextEntry/>
-        <Button title="Sign Up" secondary /> 
-        <TextLink text="Already have an account?" />
+        <TextInput placeholder='Mobile number or email' style={styles.textInput} />
+        <TextInput placeholder='Re-enter email' style={styles.textInput} />
+        <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry/>
+        <Button title='Sign Up' secondary /> 
+        <TextLink text='Already have an account?' />
       </View>
     </View>
   );
@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#ddd",
-    alignItems: "stretch",
+    borderColor: '#ddd',
+    alignItems: 'stretch',
     gap: 10,
   },
   nameContainer: {    
-    flexDirection: "row",    
+    flexDirection: 'row',    
     gap: 10,
   },
   title: {
@@ -49,20 +49,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subTitle: {
-    color: "#666",
+    color: '#666',
     fontSize: 15,
     textAlign: 'center',
-    },
+  },
   textInput: {
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#ddd",
-    placeholderTextColor: "#ddd",
+    borderColor: '#ddd',
   },
   loginButton: {
-    backgroundColor: "blue",
-    color: "white",
+    backgroundColor: 'blue',
+    color: 'white',
     padding: 10,
     borderRadius: 5,
   },

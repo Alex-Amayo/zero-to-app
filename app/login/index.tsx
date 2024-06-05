@@ -8,17 +8,16 @@ export default function LoginPage() {
     <View style={styles.container}>
       <View style={styles.loginFormContainer}>
         <Text style={styles.title}>Log into Zero To App</Text>
-        <TextInput placeholder="Username" style={styles.textInput} />
-        <TextInput placeholder="Password" style={styles.textInput} secureTextEntry/>
-        <Button title="Log In"/>
-        <TextLink text="Forgot password?" />
-        <FormSeparator text="or" /> 
-        <Button title="Create New Account" secondary /> 
+        <TextInput placeholder='Username' style={styles.textInput} />
+        <TextInput placeholder='Password' style={styles.textInput} secureTextEntry/>
+        <Button title='Log In'/>
+        <TextLink text='Forgot password?' />
+        <FormSeparator text='or' /> 
+        <Button title='Create New Account' secondary /> 
       </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -30,8 +29,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#ddd",
-    alignItems: "stretch",
+    borderColor: '#ddd',
+    alignItems: 'stretch',
     gap: 15,
   },
   title: {
@@ -42,12 +41,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#ddd",
-    placeholderTextColor: "#ddd",
+    borderColor: '#ddd',
   },
   loginButton: {
-    backgroundColor: "blue",
-    color: "white",
+    backgroundColor: 'blue',
+    color: 'white',
     padding: 10,
     borderRadius: 5,
   },

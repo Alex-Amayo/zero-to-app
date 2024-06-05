@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, ImageSourcePropType, StyleSheet, Image } from 'react-native';
 
 type AppbarProps = {
-    logo: ImageSourcePropType,
-    title: string,
+    logo?: ImageSourcePropType,
+    title?: string,
     
 };
 
@@ -32,5 +32,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         marginLeft: 10,
+        color: '#FFFFFF',
     },
 });

@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Appbar from '../../components/AppBar';
+
 
 type LayoutProps = {
     children: React.ReactNode;
@@ -8,10 +10,7 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
     return (
         <View style={styles.container}>
-            <View style={styles.appbar}>
-                {/* Appbar */}
-                <Text style={styles.appbarText}>Appbar</Text>
-            </View>
+            <Appbar title='Zero To App' />
             <View style={styles.content}>
                 {children}
             </View>

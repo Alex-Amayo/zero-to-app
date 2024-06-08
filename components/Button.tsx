@@ -5,11 +5,12 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 type ButtonProps = {
     title: string;
     secondary?: boolean;
+    onPress?: () => void;
 };
 
-const Button = ({title, secondary}: ButtonProps) => {
+const Button = ({title, secondary, onPress}: ButtonProps) => {
     return (
-        <Pressable onPress={() => console.log('Button pressed')} style={secondary ? styles.secondary : styles.primary} >
+        <Pressable onPress={onPress} style={secondary ? styles.secondary : styles.primary} >
             <View>
                 <Text style={styles.text} >{title}</Text>
             </View>
@@ -38,6 +39,6 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontSize: 17,
         textAlign: 'center',
-        fontWeight: 'bold',
+        fontWeight: '500',
     },
 });

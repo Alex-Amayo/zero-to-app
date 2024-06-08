@@ -1,6 +1,17 @@
-import { Text } from 'react-native';
+import { useEffect } from 'react';
+import { router } from 'expo-router';
+import { View, Text } from 'react-native';
 
-{/* check for user, navigate to login or navigate to home */}
-export default function Page() {
-  return <Text>Home page</Text>;
+export default function HomePage() {
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/login');
+    }, 1000);
+  }, []);
+
+  return (
+    <View>
+      <Text>Welcome to My Screen!</Text>
+    </View>
+  );
 }

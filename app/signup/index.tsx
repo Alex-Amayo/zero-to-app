@@ -1,12 +1,14 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
 import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
+import { router } from 'expo-router';
 
 export default function SignupPage() {
   return  (
     <View style={styles.container}>
-      <View style={styles.loginFormContainer}>
+      <Image source={require('../../assets/logo.png')} style={styles.logo} />
+      <KeyboardAvoidingView style={styles.formContainer}>
         <Text style={styles.title}>Create A New Account</Text>
         <Text style={styles.subTitle}>It's quick and easy.</Text>
         <FormSeparator/>
@@ -18,8 +20,8 @@ export default function SignupPage() {
         <TextInput placeholder='Re-enter email' style={styles.textInput} />
         <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry/>
         <Button title='Sign Up' secondary /> 
-        <TextLink text='Already have an account?' />
-      </View>
+        <TextLink text='Already have an account?' onPress={()=>router.push('/login')} />
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -29,9 +31,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 15,
   },
-  loginFormContainer: {
-    width: 400,
+  formContainer: {
+    minWidth: '40%',
     padding: 15,
     borderWidth: 1,
     borderRadius: 5,
@@ -42,6 +45,11 @@ const styles = StyleSheet.create({
   nameContainer: {    
     flexDirection: 'row',    
     gap: 10,
+  },
+  logo: {
+    width: 300,
+    height: 100,
+    marginBottom: 15,
   },
   title: {
     fontSize: 25,
@@ -58,6 +66,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#ddd',
+    minWidth: '48%',
   },
   loginButton: {
     backgroundColor: 'blue',

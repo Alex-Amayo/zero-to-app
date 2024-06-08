@@ -12,7 +12,7 @@ const Appbar = ({logo, title}: AppbarProps) => {
     return (
         <View style={styles.appbar}>
             <Text style={styles.title}>{title}</Text>
-            <IconButton iconName="question-circle"/>
+            <IconButton iconName='question-circle'/>
         </View>
     );
 };

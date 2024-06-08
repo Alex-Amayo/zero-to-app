@@ -1,15 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 type TextLinkprops = {
     text: string;
+    onPress?: () => void;
 };
 
-const TextLink = ({ text }: TextLinkprops) => {
+const TextLink = ({ text, onPress }: TextLinkprops) => {
     return (
-        <TouchableHighlight style={styles.container} onPress={() => console.log('TextLink pressed')}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Text style={styles.text}>{text}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
     );
 };
 

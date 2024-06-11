@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import brand from '../brand/brandConfig';
 
 type FormSeparatorProps = {
   text?: string;
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    color: '#d7dade',
+    color: brand.colors.text,
     marginHorizontal: 10,
   },
 });

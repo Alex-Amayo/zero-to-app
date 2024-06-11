@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ImageSourcePropType, StyleSheet, Image } from 'react-native';
 import IconButton from './IconButton';
+import brand from '../brand/brandConfig';
 
 type AppbarProps = {
     logo?: ImageSourcePropType,
@@ -12,7 +13,7 @@ const Appbar = ({logo, title}: AppbarProps) => {
     return (
         <View style={styles.appbar}>
             <Text style={styles.title}>{title}</Text>
-            <IconButton iconName='question-circle'/>
+            <IconButton iconName='question-circle' />
         </View>
     );
 };
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: 'blue',
+        backgroundColor: brand.colors.primary,
         padding: 25,
     },
     logo: {
@@ -32,8 +33,8 @@ const styles = StyleSheet.create({
         height: 40,
     },
     title: {
-        fontSize: 20,
+        fontSize: brand.fontSizes.large,
         marginLeft: 10,
-        color: '#FFFFFF',
+        color: brand.colors.textAlternate,
     },
 });

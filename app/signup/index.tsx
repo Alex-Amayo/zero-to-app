@@ -3,6 +3,7 @@ import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
 import { router } from 'expo-router';
+import brand from '../../brand/brandConfig';
 
 export default function SignupPage() {
   return  (
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   formContainer: {
-    minWidth: '40%',
+    minWidth: '30%',
     padding: 15,
     borderWidth: 1,
     borderRadius: 5,
@@ -52,13 +53,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   title: {
-    fontSize: 25,
+    fontSize: brand.fontSizes.large,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: brand.colors.text,
   },
   subTitle: {
-    color: '#666',
-    fontSize: 15,
+    color: brand.colors.text,
+    fontSize: brand.fontSizes.medium,
     textAlign: 'center',
   },
   textInput: {
@@ -67,11 +69,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#ddd',
     minWidth: '48%',
-  },
-  loginButton: {
-    backgroundColor: 'blue',
-    color: 'white',
-    padding: 10,
-    borderRadius: 5,
-  },
+  }
 });

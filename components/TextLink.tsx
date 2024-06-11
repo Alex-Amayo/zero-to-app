@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import brand from '../brand/brandConfig';
 
 type TextLinkprops = {
     text: string;
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#1877f2',
-        fontSize: 16,
+        fontSize: brand.fontSizes.medium,
         textAlign: 'center',
     },
 });

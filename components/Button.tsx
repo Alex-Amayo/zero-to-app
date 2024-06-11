@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-
+import brand from '../brand/brandConfig';
 
 type ButtonProps = {
     title: string;
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: brand.borderRadius,
         backgroundColor: '#42b72a',
     },
     text: {
-        color: '#ffffff',
-        fontSize: 17,
+        color: brand.colors.textAlternate,
+        fontSize: brand.fontSizes.medium,
         textAlign: 'center',
         fontWeight: '500',
     },

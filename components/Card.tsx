@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         borderRadius: brand.card.borderRadius,
         borderWidth: 1,
         borderColor: '#ddd',
-        minWidth: '30%',
+        minWidth: '100%',
         gap: 15,
         shadowColor: brand.card.shadow ? '#171717' : undefined,
         shadowOffset: brand.card.shadow ? {width: -2, height: 4} : undefined,

@@ -5,14 +5,13 @@ import brand from '../brand/brandConfig';
 
 type IconButtonProps = {
     iconName: any;
-    name?: string;
+    onPress?: () => void;
 } 
 
-const IconButton = ({iconName, name}: IconButtonProps) => {
+const IconButton = ({iconName, onPress}: IconButtonProps) => {
     return (
-        <TouchableOpacity onPress={() => console.log('Button pressed')} style={styles.container} >
-            <FontAwesome name={iconName} size={20} color={brand.colors.textAlternate} />
-            { name? <Text style={styles.buttonText}>{name}</Text> : null }        
+        <TouchableOpacity onPress={onPress? onPress : () => console.log('Button pressed')} style={styles.container}>
+            <FontAwesome name={iconName} size={20} />
         </TouchableOpacity> 
     );
 };
@@ -21,13 +20,11 @@ export default IconButton;
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        width: 50,
-        height: 50,
-    },
-    buttonText: {
-        color: brand.colors.textAlternate,
-    },
+        width: 40,
+        height: 40,
+        backgroundColor: '#E4E6EB',
+        borderRadius: 25,
+    }
 });

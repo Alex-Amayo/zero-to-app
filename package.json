@@ -9,12 +9,15 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@dotlottie/react-player": "^1.6.19",
     "@expo/metro-runtime": "~3.2.1",
+    "@lottiefiles/react-lottie-player": "^3.5.4",
     "expo": "^51.0.11",
     "expo-constants": "~16.0.2",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.15",
     "expo-status-bar": "~1.12.1",
+    "lottie-react-native": "^6.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.2",

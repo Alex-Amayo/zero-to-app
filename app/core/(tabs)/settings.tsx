@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text,StyleSheet } from 'react-native';
+import brand from '../../../brand/brandConfig';
 
 type SettingsPageProps = {
     username: string;
@@ -20,5 +21,6 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: brand.colors.background,
     },
   });

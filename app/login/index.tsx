@@ -1,45 +1,38 @@
-import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, ScrollView } from 'react-native';
 import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
 import { router } from 'expo-router';
 import brand from '../../brand/brandConfig';
+import Card from '../../components/Card';
 
 export default function LoginPage() {
   return  (
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Log into Zero To App</Text>
+      <Card>
+        <Text style={styles.title}>Log Into Zero To App</Text>
         <TextInput placeholder='Username' style={styles.textInput} />
         <TextInput placeholder='Password' style={styles.textInput} secureTextEntry/>
         <Button title='Log In' onPress={() => router.push('/core')} />
         <TextLink text='Forgot password?' />
         <FormSeparator text='or' /> 
         <Button title='Create New Account' onPress={() => router.push('/signup')} secondary /> 
-      </View>
+      </Card>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    padding: 15,  
-  },
-  formContainer: {
-    minWidth: '30%',
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ddd',
-    alignItems: 'stretch',
-    gap: 15,
+    padding: 15, 
+    backgroundColor: brand.colors.background, 
   },
   logo: {
-    width: 300,
-    height: 100,
+    height: 250,
+    width: 250,
     marginBottom: 15,
   },
   title: {

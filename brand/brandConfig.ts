@@ -1,17 +1,17 @@
-import { Colors, FontSizes, BorderRadius } from './brandTypes';
+import { Colors, FontSizes, Card } from './brandTypes';
 
 interface Brand {
   colors: Colors;
   fontSizes: FontSizes;   
-  borderRadius: BorderRadius;
+  card: Card;
 }
 
 const brand: Brand = {
   colors: {
-    primary: '#3498db',
-    secondary: '#2ecc71',
+    primary: '#3839AF',
+    secondary: '#AE69DD',
     highlight: '#e74c3c',
-    background: '#f5f5f5',
+    background: 'white',
     text: '#333333',
     textAlternate: '#ffffff'
   },
@@ -21,7 +21,13 @@ const brand: Brand = {
     large: 20,
     xlarge: 24,
   },
-  borderRadius: 5,
+  card: {
+    borderRadius: 5,
+    shadowOpacity: 0.25,
+    elevation: 5,
+    shadow: true,
+    cardBackground: '#ffffff',
+  },
 };
 
 export default brand;

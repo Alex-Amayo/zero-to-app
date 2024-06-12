@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, Text, ImageSourcePropType, StyleSheet, Image } from 'react-native';
+import { View, Text, ImageSourcePropType, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import IconButton from './IconButton';
 import brand from '../brand/brandConfig';
+import { Link } from 'expo-router';
 
 type AppbarProps = {
-    logo?: ImageSourcePropType,
     title?: string,
     
 };
 
-const Appbar = ({logo, title}: AppbarProps) => {
+const Appbar = ({title}: AppbarProps) => {
     return (
         <View style={styles.appbar}>
-            <Text style={styles.title}>{title}</Text>
+            <Link href="/core/home">
+                <Text style={styles.title}>{title}</Text>
+            </Link>
             <IconButton iconName='question-circle' />
         </View>
     );
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: brand.colors.primary,
+        backgroundColor: brand.colors.background,
         padding: 25,
     },
     logo: {
@@ -34,7 +36,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: brand.fontSizes.large,
+        fontWeight: 'bold',
         marginLeft: 10,
-        color: brand.colors.textAlternate,
+        color: brand.colors.primary,
     },
 });

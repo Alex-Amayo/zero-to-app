@@ -1,18 +1,19 @@
 import { useEffect } from 'react';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
+import LottieView from 'lottie-react-native';
 
 
 export default function HomePage() {
   useEffect(() => {
     setTimeout(() => {
       router.push('/login');
-    }, 3000);
+    }, 5000);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Welcome to My Screen!</Text>
+      <LottieView source={require('../assets/loading.json')} autoPlay loop style={{width: '100%', height: '100%'}}/>
     </View>
   );
 }

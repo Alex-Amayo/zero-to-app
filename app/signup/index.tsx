@@ -4,12 +4,13 @@ import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
 import { router } from 'expo-router';
 import brand from '../../brand/brandConfig';
+import Card from '../../components/Card';
 
 export default function SignupPage() {
   return  (
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
-      <KeyboardAvoidingView style={styles.formContainer}>
+      <Card>
         <Text style={styles.title}>Create A New Account</Text>
         <Text style={styles.subTitle}>It's quick and easy.</Text>
         <FormSeparator/>
@@ -22,34 +23,26 @@ export default function SignupPage() {
         <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry/>
         <Button title='Sign Up' secondary /> 
         <TextLink text='Already have an account?' onPress={()=>router.push('/login')} />
-      </KeyboardAvoidingView>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: brand.colors.background,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     padding: 15,
-  },
-  formContainer: {
-    minWidth: '30%',
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ddd',
-    alignItems: 'stretch',
-    gap: 10,
   },
   nameContainer: {    
     flexDirection: 'row',    
     gap: 10,
   },
   logo: {
-    width: 300,
-    height: 100,
+    width: 250,
+    height: 250,
     marginBottom: 15,
   },
   title: {

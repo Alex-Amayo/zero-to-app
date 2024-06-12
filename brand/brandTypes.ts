@@ -17,4 +17,12 @@ export interface Colors {
     xlarge: number;
   }
 
+  export interface Card {
+    borderRadius: number;
+    shadowOpacity: number;
+    elevation: number;
+    shadow: boolean;
+    cardBackground: string;
+  }
+
 export type BorderRadius = number;

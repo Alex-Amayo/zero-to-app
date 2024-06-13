@@ -9,21 +9,23 @@ import Card from '../../components/Card';
 export default function SignupPage() {
   return  (
     <View style={styles.container}>
-      <Image source={require('../../assets/logo.png')} style={styles.logo} />
-      <Card>
-        <Text style={styles.title}>Create A New Account</Text>
-        <Text style={styles.subTitle}>It's quick and easy.</Text>
-        <FormSeparator/>
-        <View style={styles.nameContainer} >
-            <TextInput placeholder='First Name' style={styles.textInput} /> 
-            <TextInput placeholder='Last Name' style={styles.textInput} />
-        </View>
-        <TextInput placeholder='Mobile number or email' style={styles.textInput} />
-        <TextInput placeholder='Re-enter email' style={styles.textInput} />
-        <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry/>
-        <Button title='Sign Up' secondary /> 
-        <TextLink text='Already have an account?' onPress={()=>router.push('/login')} />
-      </Card>
+        <KeyboardAvoidingView behavior='padding'>
+          <Image source={require('../../assets/logo.png')} style={styles.logo} />
+          <Card>
+            <Text style={styles.title}>Create A New Account</Text>
+            <Text style={styles.subTitle}>It's quick and easy.</Text>
+            <FormSeparator/>
+            <View style={styles.nameContainer} >
+                <TextInput placeholder='First Name' style={styles.textInput} /> 
+                <TextInput placeholder='Last Name' style={styles.textInput} />
+            </View>
+            <TextInput placeholder='Mobile number or email' style={styles.textInput} />
+            <TextInput placeholder='Re-enter email' style={styles.textInput} />
+            <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry/>
+            <Button title='Sign Up' secondary /> 
+            <TextLink text='Already have an account?' onPress={()=>router.push('/login')} />
+          </Card>
+        </KeyboardAvoidingView>
     </View>
   );
 }
@@ -36,6 +38,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
   },
+  KeyboardAvoidingView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   nameContainer: {    
     flexDirection: 'row',    
     gap: 10,
@@ -44,6 +50,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     marginBottom: 15,
+    alignSelf: 'center'
   },
   title: {
     fontSize: brand.fontSizes.large,

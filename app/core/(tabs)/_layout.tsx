@@ -10,8 +10,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: brand.colors.primary,
         headerShown: false,
-        tabBarLabelStyle: { display: 'none'},
-        tabBarStyle: { justifyContent: 'center', backgroundColor: brand.colors.background, height: 100}, 
+        tabBarStyle: {backgroundColor: brand.colors.background}, 
 
       }}>  
       <Tabs.Screen
@@ -20,7 +19,7 @@ export default function TabLayout() {
           tabBarButton: CustomTabButton,
           title: 'Home',
           tabBarIcon: ({ focused }) => (
-            <FontAwesome size={30} name='home' color={focused ? brand.colors.primary : '#656469'} />
+            <FontAwesome size={20} name='home' color={focused ? brand.colors.primary : '#656469'} />
           ),
         }}
       />
@@ -30,7 +29,7 @@ export default function TabLayout() {
           tabBarButton: CustomTabButton,
           title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <FontAwesome size={30} name='cog' color={focused ? brand.colors.primary : '#656469'} />
+            <FontAwesome size={20} name='cog' color={focused ? brand.colors.primary : '#656469'} />
           ),
         }}
       />

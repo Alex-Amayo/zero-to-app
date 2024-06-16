@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     color: brand.colors.text,
   },
   textInput: {
-    padding: 10,
+    padding: 15,
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#ddd',

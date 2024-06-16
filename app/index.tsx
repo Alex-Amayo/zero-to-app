@@ -13,7 +13,11 @@ export default function HomePage() {
 
   return (
     <View style={styles.container}>
-      <LottieView source={require('../assets/loading.json')} autoPlay loop />
+      <LottieView 
+        source={require('../assets/loading.json')} 
+        autoPlay 
+        loop
+      />
     </View>
   );
 }

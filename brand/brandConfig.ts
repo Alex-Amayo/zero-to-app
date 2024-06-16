@@ -8,8 +8,8 @@ interface Brand {
 
 const brand: Brand = {
   colors: {
-    primary: '#3839AF',
-    secondary: '#AE69DD',
+    primary: '#1a4c9d',
+    secondary: '#db4691',
     highlight: '#e74c3c',
     background: 'white',
     text: '#333333',

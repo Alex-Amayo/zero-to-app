@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
@@ -7,26 +7,26 @@ import brand from '../../brand/brandConfig';
 import Card from '../../components/Card';
 
 export default function SignupPage() {
-  return  (
-    <View style={styles.container}>
-        <KeyboardAvoidingView behavior='padding'>
+  return (
+      <View style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Image source={require('../../assets/logo.png')} style={styles.logo} />
           <Card>
             <Text style={styles.title}>Create A New Account</Text>
             <Text style={styles.subTitle}>It's quick and easy.</Text>
-            <FormSeparator/>
-            <View style={styles.nameContainer} >
-                <TextInput placeholder='First Name' style={styles.textInput} /> 
-                <TextInput placeholder='Last Name' style={styles.textInput} />
+            <FormSeparator />
+            <View style={styles.nameContainer}>
+              <TextInput placeholder='First Name' style={styles.textInput} />
+              <TextInput placeholder='Last Name' style={styles.textInput} />
             </View>
             <TextInput placeholder='Mobile number or email' style={styles.textInput} />
             <TextInput placeholder='Re-enter email' style={styles.textInput} />
-            <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry/>
-            <Button title='Sign Up' secondary /> 
-            <TextLink text='Already have an account?' onPress={()=>router.push('/login')} />
+            <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry />
+            <Button title='Sign Up' secondary />
+            <TextLink text='Already have an account?' onPress={() => router.push('/login')} />
           </Card>
         </KeyboardAvoidingView>
-    </View>
+      </View>
   );
 }
 

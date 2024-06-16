@@ -8,12 +8,12 @@ export default function HomePage() {
   useEffect(() => {
     setTimeout(() => {
       router.push('/login');
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (
     <View style={styles.container}>
-      <LottieView source={require('../assets/loading.json')} autoPlay loop style={{width: '100%', height: '100%'}}/>
+      <LottieView source={require('../assets/loading.json')} autoPlay loop />
     </View>
   );
 }
@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 15,
     },
 });

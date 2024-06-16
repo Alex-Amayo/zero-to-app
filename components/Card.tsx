@@ -18,12 +18,12 @@ export default Card;
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         backgroundColor: brand.card.cardBackground,
         padding: 20,
         borderRadius: brand.card.borderRadius,
         borderWidth: 1,
         borderColor: '#ddd',
-        minWidth: '100%',
         gap: 15,
         shadowColor: brand.card.shadow ? '#171717' : undefined,
         shadowOffset: brand.card.shadow ? {width: -2, height: 4} : undefined,

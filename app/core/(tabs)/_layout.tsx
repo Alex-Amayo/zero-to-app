@@ -1,14 +1,15 @@
 import { Tabs } from 'expo-router';
 import brand from '../../../brand/brandConfig';
 import Feather from '@expo/vector-icons/Feather';
+import Appbar from '../../../components/AppBar';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: brand.colors.primary,
-        headerShown: false,
         tabBarStyle: { backgroundColor: brand.colors.background },
+        header: () => <Appbar title='Zero To App' />,
       }}
     >
       <Tabs.Screen

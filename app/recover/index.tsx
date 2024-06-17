@@ -1,30 +1,30 @@
 import { KeyboardAvoidingView, Text, TextInput, StyleSheet, Image, View, Platform, SafeAreaView, Keyboard } from 'react-native';
-import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
 import { router } from 'expo-router';
 import brand from '../../brand/brandConfig';
 import Card from '../../components/Card';
+import List from '../../components/List';
 
 export default function RecoverPage() {
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={-50} >
-          <View 
-            style={styles.formContainer}
-            onStartShouldSetResponder={() => {
-              Keyboard.dismiss();
-              return false;
-            }}
-            >
+    <SafeAreaView 
+      style={styles.container}
+      onStartShouldSetResponder={() => {
+        Keyboard.dismiss();
+        return false;
+      }}
+      >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={-50}>
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
-              <Text style={styles.title}>Recover Your Zero To App Account</Text>
-              <TextInput placeholder='Email or Phone Number' style={styles.textInput} />
-              <Button title='Reset Password' onPress={() => router.push('/core')} />
-              <TextLink text='Go back to login' onPress={() => router.push('/login')}/>
+              <List>
+                <Text style={styles.title}>Recover Your Zero To App Account</Text>
+                <TextInput placeholder='Email or Phone Number' style={styles.textInput} />
+                <Button title='Reset Password' onPress={() => router.push('/core')} />
+                <TextLink text='Go back to login' onPress={() => router.push('/login')}/>
+              </List>
             </Card>
-          </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -36,11 +36,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15, 
     backgroundColor: brand.colors.background, 
-  },
-  formContainer: {
-    minWidth: 350,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   logo: {
     height: 200,

@@ -18,7 +18,7 @@ export default List;
 const styles = StyleSheet.create({
     list: {
         minWidth: 350,
-        width: '80%',
+        width: '100%',
         padding: 15,
         gap: 15,
     }

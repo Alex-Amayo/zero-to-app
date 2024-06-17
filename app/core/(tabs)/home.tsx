@@ -2,11 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import brand from '../../../brand/brandConfig';
 
-type HomePageProps = {
-    username: String;
-};
-
-const HomePage = ({username}: HomePageProps) => {
+const HomePage = () => {
     return (
         <View style={styles.container}>
             <Text>Home Page</Text>

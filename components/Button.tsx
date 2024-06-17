@@ -10,7 +10,7 @@ type ButtonProps = {
 
 const Button = ({title, secondary, onPress}: ButtonProps) => {
     return (
-        <Pressable onPress={onPress} style={secondary ? styles.secondary : styles.primary} >
+        <Pressable onPress={onPress? onPress : () => console.log('Button pressed')} style={secondary ? styles.secondary : styles.primary} >
             <View>
                 <Text style={styles.text} >{title}</Text>
             </View>

@@ -1,22 +1,23 @@
 import React from 'react';
-import { View, Text,StyleSheet, TouchableHighlight } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
 import Card from '../../../components/Card';
 import brand from '../../../brand/brandConfig';
 import List from '../../../components/List';
 import ListButton from '../../../components/ListButton';
+import ListDivider from '../../../components/ListDivider';
 
-
-type SettingsPageProps = {
-    username: string;
-};
-
-const SettingsPage = ({username}: SettingsPageProps) => {
+const SettingsPage = () => {
     return (
         <View style={styles.container}>
             <View>
                 <Card>
-                    <List>
-                        <ListButton text='Settings'/>
+                    <List>                        
+                        <ListButton text='Billing & Payments' icon='credit-card'/>
+                        <ListDivider />
+                        <ListButton text='More Options' icon='more-horizontal'/>
+                        <ListDivider />
+                        <ListButton text='Sign Out' icon='log-out' onPress={() => router.push('/login')}/>
                     </List>
                 </Card>
             </View>

@@ -5,11 +5,12 @@ import Button from '../../components/Button';
 import { router } from 'expo-router';
 import brand from '../../brand/brandConfig';
 import Card from '../../components/Card';
+import List from '../../components/List';
 
 export default function SignupPage() {
   return (
       <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={50} >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={50}>
           <View 
             style={styles.formContainer}
             onStartShouldSetResponder={() => {
@@ -19,18 +20,20 @@ export default function SignupPage() {
             >
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
-              <Text style={styles.title}>Create A New Account</Text>
-              <Text style={styles.subTitle}>It's quick and easy.</Text>
-              <FormSeparator />
-              <View style={styles.nameContainer}>
-                <TextInput placeholder='First Name' style={styles.nameTextInput} />
-                <TextInput placeholder='Last Name' style={styles.nameTextInput} />
-              </View>
-              <TextInput placeholder='Mobile number or email' style={styles.textInput} />
-              <TextInput placeholder='Re-enter email' style={styles.textInput} />
-              <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry />
-              <Button title='Sign Up' secondary />
-              <TextLink text='Already have an account?' onPress={() => router.push('/login')} />
+              <List>
+                <Text style={styles.title}>Create A New Account</Text>
+                <Text style={styles.subTitle}>It's quick and easy.</Text>
+                <FormSeparator />
+                <View style={styles.nameContainer}>
+                  <TextInput placeholder='First Name' style={styles.nameTextInput} />
+                  <TextInput placeholder='Last Name' style={styles.nameTextInput} />
+                </View>
+                <TextInput placeholder='Mobile number or email' style={styles.textInput} />
+                <TextInput placeholder='Re-enter email' style={styles.textInput} />
+                <TextInput placeholder='New Password' style={styles.textInput} secureTextEntry />
+                <Button title='Sign Up' secondary />
+                <TextLink text='Already have an account?' onPress={() => router.push('/login')} />
+              </List>
             </Card>
           </View>
         </KeyboardAvoidingView>

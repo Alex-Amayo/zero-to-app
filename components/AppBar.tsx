@@ -6,7 +6,6 @@ import { Link } from 'expo-router';
 
 type AppbarProps = {
     title?: string,
-    
 };
 
 const Appbar = ({title}: AppbarProps) => {

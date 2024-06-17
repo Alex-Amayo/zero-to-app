@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type CardProps = {
-    children?: React.ReactNode;
+    children?: React.ReactNode | React.ReactNode[];
 };
 
 const Card = ({children}: CardProps) => {
@@ -18,13 +18,10 @@ export default Card;
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
         backgroundColor: brand.card.cardBackground,
-        padding: 20,
         borderRadius: brand.card.borderRadius,
         borderWidth: 1,
         borderColor: '#ddd',
-        gap: 15,
         shadowColor: brand.card.shadow ? '#171717' : undefined,
         shadowOffset: brand.card.shadow ? {width: -2, height: 4} : undefined,
         shadowOpacity: brand.card.shadow ? 0.2 : undefined,

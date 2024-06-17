@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, Platform, SafeAreaView, Keyboard } from 'react-native';
 import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
@@ -9,8 +9,14 @@ import Card from '../../components/Card';
 export default function SignupPage() {
   return (
       <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-          <View style={styles.formContainer}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={50} >
+          <View 
+            style={styles.formContainer}
+            onStartShouldSetResponder={() => {
+              Keyboard.dismiss();
+              return false;
+            }}
+            >
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <Text style={styles.title}>Create A New Account</Text>
@@ -35,7 +41,7 @@ export default function SignupPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     padding: 15, 
     backgroundColor: brand.colors.background, 

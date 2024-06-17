@@ -5,28 +5,26 @@ import Button from '../../components/Button';
 import { router } from 'expo-router';
 import brand from '../../brand/brandConfig';
 import Card from '../../components/Card';
-import List from '../../components/List';
 
-export default function LoginPage() {
+export default function RecoverPage() {
   return (
-    <SafeAreaView style={styles.container} 
-      onStartShouldSetResponder={() => {
-      Keyboard.dismiss();
-      return false;
-    }}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={-50} >
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={-50} >
+          <View 
+            style={styles.formContainer}
+            onStartShouldSetResponder={() => {
+              Keyboard.dismiss();
+              return false;
+            }}
+            >
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
-              <List>
-                  <Text style={styles.title}>Log Into Zero To App</Text>
-                  <TextInput placeholder='Username' style={styles.textInput} />
-                  <TextInput placeholder='Password' style={styles.textInput} secureTextEntry/>
-                  <Button title='Log In' onPress={() => router.push('/core')} />
-                  <TextLink text='Forgot password?' onPress={() => router.push('/recover')}/>
-                  <FormSeparator text='or' /> 
-                  <Button title='Create New Account' onPress={() => router.push('/signup')} secondary />
-              </List>
+              <Text style={styles.title}>Recover Your Zero To App Account</Text>
+              <TextInput placeholder='Email or Phone Number' style={styles.textInput} />
+              <Button title='Reset Password' onPress={() => router.push('/core')} />
+              <TextLink text='Go back to login' onPress={() => router.push('/login')}/>
             </Card>
+          </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -34,10 +32,15 @@ export default function LoginPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     padding: 15, 
     backgroundColor: brand.colors.background, 
+  },
+  formContainer: {
+    minWidth: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo: {
     height: 200,

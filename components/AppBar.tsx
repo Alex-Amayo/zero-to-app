@@ -15,7 +15,11 @@ const Appbar = ({title}: AppbarProps) => {
             <Link href="/core/home">
                 <Text style={styles.title}>{title}</Text>
             </Link>
-            <IconButton iconName='question-circle' />
+            <View style={styles.iconContainer}>
+                <IconButton iconName='search' />
+                <IconButton iconName='plus' />
+                <IconButton iconName='message-square' />
+            </View>
         </View>
     );
 };
@@ -29,6 +33,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: brand.colors.background,
         padding: 25,
+    },
+    iconContainer: {
+        flexDirection: 'row',
+        gap: 10,
     },
     logo: {
         width: 40,

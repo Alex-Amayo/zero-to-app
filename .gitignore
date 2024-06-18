@@ -30,6 +30,7 @@ yarn-error.*
 
 # local env files
 .env*.local
+%ProgramData%/
 
 # typescript
 *.tsbuildinfo

@@ -3,11 +3,9 @@ import { View, Text, TouchableHighlight, StyleSheet, TouchableOpacity } from 're
 import { Feather } from '@expo/vector-icons';
 import brand from '../brand/brandConfig';
 
-// Rest of the code
-
 type ListButtonProps = {
     text: string;
-    icon: any;
+    icon: keyof typeof Feather.glyphMap;
     onPress?: () => void;
 };
 
@@ -27,7 +25,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
         padding: 15,
     },
     text: {

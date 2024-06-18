@@ -15,7 +15,7 @@ export default function RecoverPage() {
         return false;
       }}
       >
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={-50}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { JSXElementConstructor } from 'react';
 import { View, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type CardProps = {
-    children?: React.ReactNode | React.ReactNode[];
+    children?: JSX.Element | JSX.Element[];
 };
 
 const Card = ({children}: CardProps) => {
@@ -18,6 +18,7 @@ export default Card;
 
 const styles = StyleSheet.create({
     container: {
+        minWidth: 350,
         backgroundColor: brand.card.cardBackground,
         borderRadius: brand.card.borderRadius,
         borderWidth: 1,

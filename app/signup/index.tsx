@@ -10,7 +10,7 @@ import List from '../../components/List';
 export default function SignupPage() {
   return (
       <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={50}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={150}>
           <View 
             style={styles.formContainer}
             onStartShouldSetResponder={() => {

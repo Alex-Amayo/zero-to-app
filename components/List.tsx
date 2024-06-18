@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 type ListProps = {
-    children?: React.ReactNode | React.ReactNode[]
+    children?: JSX.Element | JSX.Element[]
 };
 
 const List = ({children}: ListProps) => {
@@ -17,7 +17,7 @@ export default List;
 
 const styles = StyleSheet.create({
     list: {
-        minWidth: 350,
+        alignSelf: 'center',
         width: '100%',
         padding: 15,
         gap: 15,

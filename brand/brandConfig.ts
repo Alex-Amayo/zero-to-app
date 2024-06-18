@@ -1,12 +1,14 @@
-import { Colors, FontSizes, Card } from './brandTypes';
+import { Colors, FontSizes, Card, Name } from './brandTypes';
 
 interface Brand {
   colors: Colors;
   fontSizes: FontSizes;   
   card: Card;
+  name: Name;
 }
 
 const brand: Brand = {
+  name: 'Nudge',
   colors: {
     primary: '#1a4c9d',
     secondary: '#db4691',

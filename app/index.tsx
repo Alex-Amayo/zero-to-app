@@ -8,7 +8,7 @@ export default function HomePage() {
   useEffect(() => {
     setTimeout(() => {
       router.push('/login');
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (

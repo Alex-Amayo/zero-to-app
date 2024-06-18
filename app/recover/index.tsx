@@ -19,7 +19,7 @@ export default function RecoverPage() {
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>
-                <Text style={styles.title}>Recover Your Zero To App Account</Text>
+                <Text style={styles.title}>Recover Your {brand.name} Password</Text>
                 <TextInput placeholder='Email or Phone Number' style={styles.textInput} />
                 <Button title='Reset Password' onPress={() => router.push('/core')} />
                 <TextLink text='Go back to login' onPress={() => router.push('/login')}/>

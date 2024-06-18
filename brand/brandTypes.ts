@@ -1,6 +1,8 @@
 
 // Branding types for the application
 
+export type Name = string;
+
 export interface Colors {
     primary: string;
     secondary: string;

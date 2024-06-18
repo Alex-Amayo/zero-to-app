@@ -18,7 +18,7 @@ export default function LoginPage() {
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>
-                  <Text style={styles.title}>Log Into Zero To App</Text>
+                  <Text style={styles.title}>Log Into {brand.name}</Text>
                   <TextInput placeholder='Username' style={styles.textInput} />
                   <TextInput placeholder='Password' style={styles.textInput} secureTextEntry/>
                   <Button title='Log In' onPress={() => router.push('/core')} />

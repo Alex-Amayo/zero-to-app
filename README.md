@@ -18,9 +18,9 @@ The `brandConfig.ts` file defines the styling for the application. It uses a `Br
 
 ## Core Tech
 - **React-Native** - Expo Router
-- **React-Native-Web** - Lottie React Native
 - **Expo** - Lottie React Native
 - **Typescript** - Lottie React Native
+- **React-Native-Web** - Lottie React Native
 
 ## Libraries
 - **Navigation** - Expo Router

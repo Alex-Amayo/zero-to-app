@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type FormSeparatorProps = {
-  text?: string;
+  text: string;
 }
 
 const FormSeparator = ({ text }: FormSeparatorProps) => (

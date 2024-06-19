@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import brand from '../../brand/brandConfig';
 import Card from '../../components/Card';
 import List from '../../components/List';
+import ListDivider from '../../components/ListDivider';
 
 export default function SignupPage() {
   return (
@@ -23,7 +24,7 @@ export default function SignupPage() {
               <List>
                 <Text style={styles.title}>Create A New Account</Text>
                 <Text style={styles.subTitle}>It's quick and easy.</Text>
-                <FormSeparator />
+                <ListDivider />
                 <View style={styles.nameContainer}>
                   <TextInput placeholder='First Name' style={styles.nameTextInput} />
                   <TextInput placeholder='Last Name' style={styles.nameTextInput} />
@@ -75,17 +76,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#ddd'
+    borderColor: '#ddd',
+    minWidth: 300,
   },
   nameTextInput: {
     padding: 10,
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: brand.card.borderRadius,
     borderColor: '#ddd',
-    width: '50%',
+    minWidth: '48%',
+
   },
   nameContainer: {    
     flexDirection: 'row',   
-    gap: 10,
+    width: '100%',
+    justifyContent: 'space-between',
   },
 });

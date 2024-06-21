@@ -22,6 +22,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name='explore'
+        options={{
+          title: 'Explore',
+          tabBarIcon: ({ focused }) => (
+            <Feather size={20} name='compass' color={focused ? brand.colors.primary : '#656469'} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name='settings'
         options={{
           title: 'Settings',

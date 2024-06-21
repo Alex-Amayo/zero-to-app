@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type CardProps = {
-    children?: JSX.Element | JSX.Element[];
+    children?: React.ReactNode | React.ReactNode[];
 };
 
 const Card = ({children}: CardProps) => {
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd',
         shadowColor: brand.card.shadow ? '#171717' : undefined,
-        shadowOffset: brand.card.shadow ? {width: -2, height: 4} : undefined,
-        shadowOpacity: brand.card.shadow ? 0.2 : undefined,
+        shadowOffset: brand.card.shadow ? {width: -2, height: 2} : undefined,
+        shadowOpacity: brand.card.shadow ? 0.1 : undefined,
         shadowRadius: brand.card.shadow ? 3 : undefined,
         elevation: brand.card.shadow ? 20 : undefined
     }

@@ -1,4 +1,3 @@
-import { Tabs } from 'expo-router';
 import brand from '../../../brand/brandConfig';
 import Feather from '@expo/vector-icons/Feather';
 import Appbar from '../../../components/AppBar';
@@ -54,17 +53,19 @@ const iconMapping: { [key: string]: string } = {
 };
 
 
-function MyTabBar({ state, descriptors, navigation, position }: MyTabBarProps) {
+function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
     
     return (
         <Appbar title={brand.name} tabs={
+            <View style={{   flexDirection: 'row', height: '100%',  width:  (useWindowWidth() >= breakpoints.medium ? '50%' : '100%'), }} >
+            {
             state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const title = options.title || route.name; // Use the title from options, or fallback to route name
 
                 // Determine if the current route is focused
                 const isFocused = state.index === index;
-                const iconName = iconMapping[route.name as keyof typeof Feather.glyphMap] as keyof typeof Feather.glyphMap || 'info';
+                const iconName = iconMapping[route.name] as keyof typeof Feather.glyphMap;
                 
                 return (
                     <TouchableOpacity
@@ -82,8 +83,8 @@ function MyTabBar({ state, descriptors, navigation, position }: MyTabBarProps) {
                             }
                         }}
                         style={{
-                            height: 60,
-                            width: 100,
+                            flex: 1,
+                            height: '100%',
                             alignItems: 'center',
                             justifyContent: 'center',
                             borderColor: brand.colors.primary,
@@ -98,6 +99,8 @@ function MyTabBar({ state, descriptors, navigation, position }: MyTabBarProps) {
                     </TouchableOpacity>
                 );
             })
+            }
+            </View>
         }/>
     );
 }

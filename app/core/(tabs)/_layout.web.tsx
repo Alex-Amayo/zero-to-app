@@ -2,59 +2,102 @@ import { Tabs } from 'expo-router';
 import brand from '../../../brand/brandConfig';
 import Feather from '@expo/vector-icons/Feather';
 import Appbar from '../../../components/AppBar';
-import {  View } from 'react-native';
+import {  View, TouchableOpacity } from 'react-native';
 import { useWindowWidth, breakpoints } from '../../../components/hooks/useWindowWidth';
+
+import { createMaterialTopTabNavigator, MaterialTopTabNavigationOptions, MaterialTopTabNavigationEventMap } from '@react-navigation/material-top-tabs';
+import { ParamListBase, TabNavigationState } from '@react-navigation/native';
+import { withLayoutContext } from 'expo-router';
+
+const { Navigator } = createMaterialTopTabNavigator();
+import { router } from 'expo-router';
+
+export const MaterialTopTabs = withLayoutContext<
+MaterialTopTabNavigationOptions, 
+typeof Navigator,
+TabNavigationState<ParamListBase>,
+MaterialTopTabNavigationEventMap>(Navigator);
 
 export default function TabLayout() {
     return (
-        <Appbar title={brand.name} tabs=
-            {<Tabs
+        <View style={{flex: 1}}>
+            <MaterialTopTabs tabBar={props => <MyTabBar {...props} />}
+                
+                tabBarPosition='top'
                 screenOptions={{
-                    tabBarStyle: {
-                        backgroundColor: brand.colors.background,
-                        flex: 1,
-                        height: '100%',
-                        width:  (useWindowWidth() >= breakpoints.medium ? '50%' : '100%'),
-                        alignSelf: 'center',
-                        borderTopWidth: 0
-                    },
-                    tabBarLabelStyle: { display: 'none' },
+                    tabBarActiveTintColor: brand.colors.primary,
+                    tabBarInactiveTintColor: 'gray',
                 }}
             >
-                <Tabs.Screen
-                    name='home'
-                    options={{
-                        title: 'Home',
-                        tabBarIcon: ({ focused }) => (
-                            <View style={{ height: 60, width: 100, alignItems: 'center', justifyContent: 'center', borderColor: brand.colors.primary, borderBottomWidth: focused ? 2 : 0, }}>
-                                <Feather size={20} name='home' color={focused ? brand.colors.primary : '#656469'} />
-                            </View>
-                        ),
-                    }}
-                />
-                <Tabs.Screen
-                    name='explore'
-                    options={{
-                        title: 'Explore',
-                        tabBarIcon: ({ focused }) => (
-                            <View style={{ height: 60, width: 100, alignItems: 'center', justifyContent: 'center', borderColor: brand.colors.primary, borderBottomWidth: focused ? 2 : 0, }}>
-                                <Feather size={20} name='compass' color={focused ? brand.colors.primary : '#656469'} />
-                            </View>
-                        ),
-                    }}
-                />
-                <Tabs.Screen
-                    name='settings'
-                    options={{
-                        title: 'Settings',
-                        tabBarIcon: ({ focused }) => (
-                            <View style={{ height: 60, width: 100, alignItems: 'center', justifyContent: 'center', borderColor: brand.colors.primary, borderBottomWidth: focused ? 2 : 0, }}>
-                                <Feather size={20} name='settings' color={focused ? brand.colors.primary : '#656469'} />
-                            </View>
-                        ),
-                    }}
-                />
-            </Tabs>
-            } />
+                <MaterialTopTabs.Screen name='home' options={{title: 'home'}} />
+                <MaterialTopTabs.Screen name='explore' options={{title: 'explore'}} />
+                <MaterialTopTabs.Screen name="settings"  options={{title: 'settings'}} />
+            </MaterialTopTabs>
+        </View>
+    );
+}
+
+
+
+type MyTabBarProps = {
+    state: TabNavigationState<ParamListBase>;
+    descriptors: any;
+    navigation: any;
+    position: any;
+};
+// Define the icon mapping object
+const iconMapping: { [key: string]: string } = {
+    home: 'home',
+    explore: 'compass',
+    settings: 'settings',
+    // Add more mappings as needed
+};
+
+
+function MyTabBar({ state, descriptors, navigation, position }: MyTabBarProps) {
+    
+    return (
+        <Appbar title={brand.name} tabs={
+            state.routes.map((route, index) => {
+                const { options } = descriptors[route.key];
+                const title = options.title || route.name; // Use the title from options, or fallback to route name
+
+                // Determine if the current route is focused
+                const isFocused = state.index === index;
+                const iconName = iconMapping[route.name as keyof typeof Feather.glyphMap] as keyof typeof Feather.glyphMap || 'info';
+                
+                return (
+                    <TouchableOpacity
+                        key={route.key} // Ensure each button has a unique key
+                        onPress={() => {
+                            const event = navigation.emit({
+                                type: 'tabPress',
+                                target: route.key,
+                                canPreventDefault: true,
+                            });
+
+                            if (!event.defaultPrevented) {
+                                // Navigate to the route
+                                navigation.navigate(route.name);
+                            }
+                        }}
+                        style={{
+                            height: 60,
+                            width: 100,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderColor: brand.colors.primary,
+                            borderBottomWidth: isFocused ? 2 : 0,
+                        }}
+                    >
+                        <Feather
+                            size={20}
+                            name={iconName}
+                            color={isFocused ? brand.colors.primary : '#656469'}
+                        />
+                    </TouchableOpacity>
+                );
+            })
+        }/>
     );
 }

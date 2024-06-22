@@ -8,7 +8,7 @@ import { useWindowWidth, breakpoints } from './hooks/useWindowWidth';
 
 type AppbarProps = {
     title?: string,
-    tabs?: JSX.Element,
+    tabs?: JSX.Element | JSX.Element[],
 };
 
 const Appbar = ({ title, tabs }: AppbarProps) => {

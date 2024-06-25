@@ -9,13 +9,13 @@ import List from '../../components/List';
 export default function RecoverPage() {
   return (
     <SafeAreaView 
-      style={styles.container}
+      style={styles.screen}
       onStartShouldSetResponder={() => {
         Keyboard.dismiss();
         return false;
       }}
       >
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>
@@ -30,9 +30,13 @@ export default function RecoverPage() {
   );
 }
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: brand.colors.background,
+  },
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     padding: 15, 
     backgroundColor: brand.colors.background, 

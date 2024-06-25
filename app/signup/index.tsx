@@ -10,15 +10,13 @@ import ListDivider from '../../components/ListDivider';
 
 export default function SignupPage() {
   return (
-      <SafeAreaView style={styles.container}>
+    <SafeAreaView 
+      style={styles.screen}
+      onStartShouldSetResponder={() => {
+      Keyboard.dismiss();
+      return false;
+      }}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={150}>
-          <View 
-            style={styles.formContainer}
-            onStartShouldSetResponder={() => {
-              Keyboard.dismiss();
-              return false;
-            }}
-            >
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>
@@ -36,39 +34,36 @@ export default function SignupPage() {
                 <TextLink text='Already have an account?' onPress={() => router.push('/login')} />
               </List>
             </Card>
-          </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: brand.colors.background,
+  },
   container: {
     flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    padding: 15, 
-    backgroundColor: brand.colors.background, 
-  },
-  formContainer: {
-    minWidth: 350,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: brand.colors.background,
   },
   logo: {
     height: 200,
     width: 200,
-    marginBottom: 15,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   title: {
     fontSize: brand.fontSizes.large,
-    textAlign: 'center',
+    textAlign: "center",
     color: brand.colors.text,
   },
   subTitle: {
     fontSize: brand.fontSizes.medium,
-    textAlign: 'center',
+    textAlign: "center",
     color: brand.colors.text,
     marginBottom: 15,
   },
@@ -76,20 +71,19 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     minWidth: 300,
   },
   nameTextInput: {
     padding: 10,
     borderWidth: 1,
     borderRadius: brand.card.borderRadius,
-    borderColor: '#ddd',
-    minWidth: '48%',
-
+    borderColor: "#ddd",
+    width: "48%"
   },
-  nameContainer: {    
-    flexDirection: 'row',   
-    width: '100%',
-    justifyContent: 'space-between',
+  nameContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
   },
 });

@@ -9,12 +9,13 @@ import List from '../../components/List';
 
 export default function LoginPage() {
   return (
-    <SafeAreaView style={styles.container} 
+    <SafeAreaView 
+      style={styles.screen}
       onStartShouldSetResponder={() => {
       Keyboard.dismiss();
       return false;
     }}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>
@@ -32,6 +33,10 @@ export default function LoginPage() {
   );
 }
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: brand.colors.background,
+  },
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
@@ -42,7 +47,6 @@ const styles = StyleSheet.create({
   logo: {
     height: 200,
     width: 200,
-    marginBottom: 15,
     alignSelf: 'center'
   },
   title: {

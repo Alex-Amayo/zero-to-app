@@ -1,7 +1,7 @@
-import { Tabs } from 'expo-router';
-import brand from '../../../brand/brandConfig';
-import Feather from '@expo/vector-icons/Feather';
-import Appbar from '../../../components/AppBar';
+import { Tabs } from "expo-router";
+import brand from "../../../brand/brandConfig";
+import Feather from "@expo/vector-icons/Feather";
+import AppbarMobile from "../../../components/Appbar/AppbarMobile";
 
 export default function TabLayout() {
   return (
@@ -9,33 +9,45 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: brand.colors.primary,
         tabBarStyle: { backgroundColor: brand.colors.background },
-        header: () => <Appbar title={brand.name} />,
+        header: () => <AppbarMobile title={brand.name} />,
       }}
     >
       <Tabs.Screen
-        name='home'
+        name="home"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ focused }) => (
-            <Feather size={20} name='home' color={focused ? brand.colors.primary : '#656469'} />
+            <Feather
+              size={20}
+              name="home"
+              color={focused ? brand.colors.primary : "#656469"}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name='explore'
+        name="explore"
         options={{
-          title: 'Explore',
+          title: "Explore",
           tabBarIcon: ({ focused }) => (
-            <Feather size={20} name='compass' color={focused ? brand.colors.primary : '#656469'} />
+            <Feather
+              size={20}
+              name="compass"
+              color={focused ? brand.colors.primary : "#656469"}
+            />
           ),
         }}
       />
       <Tabs.Screen
-        name='settings'
+        name="settings"
         options={{
-          title: 'Settings',
+          title: "Settings",
           tabBarIcon: ({ focused }) => (
-            <Feather size={20} name='settings' color={focused ? brand.colors.primary : '#656469'} />
+            <Feather
+              size={20}
+              name="settings"
+              color={focused ? brand.colors.primary : "#656469"}
+            />
           ),
         }}
       />

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
         shadowColor: brand.card.shadow ? '#171717' : undefined,
         shadowOffset: brand.card.shadow ? {width: -2, height: 2} : undefined,
-        shadowOpacity: brand.card.shadow ? 0.1 : undefined,
+        shadowOpacity: brand.card.shadow ? 0.15 : undefined,
         shadowRadius: brand.card.shadow ? 3 : undefined,
         elevation: brand.card.shadow ? 20 : undefined
     }

@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: 15, 
+    gap: 15,
     backgroundColor: brand.colors.background, 
   },
   logo: {

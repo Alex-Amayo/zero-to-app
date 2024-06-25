@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    padding: 15,
-    backgroundColor: brand.colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 15,
+    backgroundColor: brand.colors.background, 
   },
   logo: {
     height: 200,

@@ -2,10 +2,7 @@ import brand from "../../../brand/brandConfig";
 import Feather from "@expo/vector-icons/Feather";
 import AppbarWeb from "../../../components/Appbar/AppbarWeb";
 import { View, TouchableOpacity } from "react-native";
-import {
-  useWindowWidth,
-  breakpoints,
-} from "../../../hooks/useWindowWidth";
+import { useWindowWidth, breakpoints } from "../../../hooks/useWindowWidth";
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabNavigationOptions,
@@ -13,6 +10,9 @@ import {
 } from "@react-navigation/material-top-tabs";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
+import { Animated } from "react-native";
+import { NavigationHelpers } from "@react-navigation/native";
+
 const { Navigator } = createMaterialTopTabNavigator();
 
 export const MaterialTopTabs = withLayoutContext<
@@ -44,19 +44,22 @@ export default function TabLayout() {
   );
 }
 
-type MyTabBarProps = {
-  state: TabNavigationState<ParamListBase>;
-  descriptors: any;
-  navigation: any;
-  position: any;
-};
-
 // Define the icon mapping object
 const iconMapping: { [key: string]: string } = {
   home: "home",
   explore: "compass",
   settings: "settings",
   // Add more mappings as needed
+};
+
+type MyTabBarProps = {
+  state: TabNavigationState<ParamListBase>;
+  descriptors: { [key: string]: object };
+  navigation: NavigationHelpers<
+    ParamListBase,
+    MaterialTopTabNavigationEventMap
+  >;
+  position: Animated.AnimatedInterpolation<number> | number;
 };
 
 function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
@@ -72,9 +75,6 @@ function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
           }}
         >
           {state.routes.map((route, index) => {
-            const { options } = descriptors[route.key];
-            const title = options.title || route.name; // Use the title from options, or fallback to route name
-
             // Determine if the current route is focused
             const isFocused = state.index === index;
             const iconName = iconMapping[

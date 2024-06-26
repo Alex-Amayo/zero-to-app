@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Link } from "expo-router";
-import { useWindowWidth, breakpoints } from "../hooks/useWindowWidth";
+import { useWindowWidth, breakpoints } from "../../hooks/useWindowWidth";
 import IconButton from "../IconButton";
 import brand from "../../brand/brandConfig";
 

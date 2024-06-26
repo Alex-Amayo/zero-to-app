@@ -1,5 +1,4 @@
 import { View, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView, Platform, SafeAreaView, Keyboard } from 'react-native';
-import FormSeparator from '../../components/FormSeparator';
 import TextLink from '../../components/TextLink';
 import Button from '../../components/Button';
 import { router } from 'expo-router';
@@ -7,8 +6,10 @@ import brand from '../../brand/brandConfig';
 import Card from '../../components/Card';
 import List from '../../components/List';
 import ListDivider from '../../components/ListDivider';
+import { useWindowHeight } from '../../hooks/useWindowHeight';
 
 export default function SignupPage() {
+  const windowHeight = useWindowHeight();
   return (
     <SafeAreaView 
       style={styles.screen}
@@ -16,7 +17,7 @@ export default function SignupPage() {
       Keyboard.dismiss();
       return false;
       }}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={150}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container} keyboardVerticalOffset={ windowHeight * 0.2}>
             <Image source={require('../../assets/logo.png')} style={styles.logo} />
             <Card>
               <List>
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: brand.colors.background,
+    margin: 15,
   },
   container: {
     flex: 1,

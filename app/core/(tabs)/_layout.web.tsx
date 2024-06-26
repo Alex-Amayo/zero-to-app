@@ -5,7 +5,7 @@ import { View, TouchableOpacity } from "react-native";
 import {
   useWindowWidth,
   breakpoints,
-} from "../../../components/hooks/useWindowWidth";
+} from "../../../hooks/useWindowWidth";
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabNavigationOptions,

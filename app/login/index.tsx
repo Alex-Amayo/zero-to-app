@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: brand.colors.background,
+    margin: 15,
   },
   container: {
     flex: 1,

@@ -9,8 +9,8 @@ import ListDivider from "../../../components/ListDivider";
 
 const SettingsPage = () => {
   return (
-    <View style={styles.container}>
-      <View>
+    <View style={styles.screen}>
+      <View style={styles.container}>
         <Card>
           <List>
             <ListButton text="Billing & Payments" icon="credit-card" />
@@ -32,10 +32,13 @@ const SettingsPage = () => {
 export default SettingsPage;
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: brand.colors.background,
+  },
+  container: {
+    width: 300,
   },
 });

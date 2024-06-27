@@ -13,7 +13,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   container: {
-    minWidth: 350,
+    width: "100%",
     backgroundColor: brand.card.cardBackground,
     borderRadius: brand.card.borderRadius,
     borderWidth: 1,

@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: brand.colors.background,
-    margin: 15,
+    alignItems: "center",
   },
   container: {
     flex: 1,
+    width: 300,
     justifyContent: "center",
     alignItems: "center",
     gap: 15,
-    backgroundColor: brand.colors.background,
   },
   logo: {
     height: 200,

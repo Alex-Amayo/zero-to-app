@@ -9,14 +9,15 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 
 
 
-## Core Tech
-- **React-Native**
-- **React-Native-Web**
-- **Expo** 
-- **Typescript** 
-- **ES Lint**
-- **Expo Router**
-- **Lottie-React-Native**
+This project relies on the following npm packages:
+
+1. [React-Native](https://www.npmjs.com/package/react-native)
+2. [React-Native-Web](https://www.npmjs.com/package/react-native-web)
+3. [Expo](https://www.npmjs.com/package/expo)
+4. [TypeScript](https://www.npmjs.com/package/typescript)
+5. [ESLint](https://www.npmjs.com/package/eslint)
+6. [Expo Router](https://www.npmjs.com/package/expo-router)
+7. [Lottie-React-Native](https://www.npmjs.com/package/lottie-react-native)
 
 
 ## Included Authentication Screen/Page Templates

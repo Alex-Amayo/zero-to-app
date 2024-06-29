@@ -41,7 +41,7 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
             <IconButton iconName="message-square" />
           </View>
         </View>
-        {windowWidth <= breakpoints.medium ? (
+        {windowWidth < breakpoints.medium ? (
           <View style={styles.appbarWebSmall}>{tabs}</View>
         ) : null}
       </View>

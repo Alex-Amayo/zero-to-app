@@ -57,7 +57,7 @@ npx expo start
 The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
 This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the Context API.
 
- The properties set in brand.ts will style most of the compoents that come pre-built giving you a custom look for your app. 
+ The properties set in brand/brand.ts will style most of the compoents that come pre-built giving you a custom look for your app. 
 
 ```typescript
 import { Colors, FontSizes, Card, Name } from "./brandTypes";

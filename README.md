@@ -32,7 +32,7 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 
 # Brand Configuration
 The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
-This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the context API.
+This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the Context API.
 
  The properties set in brand.ts will style most of the compoents that come pre-built giving you a custom look for your app. 
 

@@ -9,13 +9,6 @@
 Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website. 
 It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file. 
 
-
-
-
-This project relies on the following npm packages:
-
-## Core Technologies and Tools
-
 ### Core Frameworks and Libraries
 - [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
 - [React Native](https://reactnative.dev/): A framework for building native apps using React.
@@ -39,7 +32,9 @@ This project relies on the following npm packages:
 
 # Brand Configuration
 The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
-This is not to be confused with light mode/dark mode. Which will be confugured in a later iteration of the boilerplate using the context API. The properties set in brand.ts will style most of the compoents that come pre-built giving you a custom look for your app. 
+This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the context API.
+
+ The properties set in brand.ts will style most of the compoents that come pre-built giving you a custom look for your app. 
 
 ```typescript
 import { Colors, FontSizes, Card, Name } from "./brandTypes";
@@ -77,7 +72,6 @@ const brand: Brand = {
 
 export default brand;
 ```
-
   
 ## Provided Components
 

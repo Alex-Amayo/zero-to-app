@@ -1,7 +1,8 @@
 
 <p align="center">
-  <img src="https://github.com/Alex-Amayo/ZeroToApp/blob/master/assets/logo.png" alt="Logo">
+  <img src="https://github.com/Alex-Amayo/ZeroToApp/blob/master/assets/logo.png" alt="Logo" width="200">
 </p>
+
 <p align="center">
   <img src="https://uploads-ssl.webflow.com/6620407a7c67462e0cddbda9/667f6ad206ecd330b36b7765_React-Native-Web%20(1).png">
 </p>

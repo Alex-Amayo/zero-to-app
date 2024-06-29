@@ -12,7 +12,7 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 
 
 
-### Core Frameworks and Libraries
+## Core Frameworks and Libraries
 - [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
 - [React Native](https://reactnative.dev/): A framework for building native apps using React.
 - [React Native Web](https://necolas.github.io/react-native-web/): A project to bring React Native components and APIs to the web.
@@ -21,17 +21,10 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 - [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps.
 - [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
 
-### Development Tools
+## Development Tools
 - [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 - [Prettier](https://prettier.io/): An opinionated code formatter.
 - [TypeScript ESLint](https://typescript-eslint.io/): Monorepo for all the tooling which enables ESLint to support TypeScript.
-
-
-## Included Authentication Screen/Page Templates
-- **Login**
-- **Signup**
-- **Account Recovery**
-- **Settings**
 
 
 ## Getting Started
@@ -97,8 +90,18 @@ const brand: Brand = {
 
 export default brand;
 
-```
-  
+Replace found at assets/logo.png with your own custom logo.
+
+``` 
+
+
+ ## Included Authentication Screen/Page Templates
+- **Login**
+- **Signup**
+- **Account Recovery**
+- **Settings**
+
+ 
 ## Provided Components
 
 - **Appbar**

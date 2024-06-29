@@ -6,7 +6,7 @@ Zero To App is an easily customizable React Native boilerplate that works seamle
 It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file. 
 
 ## Try A Live Demo on the Web!
-### [🚀 Try Zero To App Now! 🚀](https://d57xfeu0gmhs7.cloudfront.net/login)
+### [🚀 Try Zero To App Now! 🚀](https://d57xfeu0gmhs7.cloudfront.net)
 
 
 

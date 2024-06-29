@@ -1,10 +1,5 @@
-
 <p align="center">
-  <img src="https://github.com/Alex-Amayo/ZeroToApp/blob/master/assets/logo.png" alt="Logo" width="200">
-</p>
-
-<p align="center">
-  <img src="https://uploads-ssl.webflow.com/6620407a7c67462e0cddbda9/667f6ad206ecd330b36b7765_React-Native-Web%20(1).png">
+  <img src="https://uploads-ssl.webflow.com/6535b557dfd7d23795a6744e/66806a45fbcab3ee0a274730_Zero%20To%20App%20GIF.gif">
 </p>
 
 Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website. 

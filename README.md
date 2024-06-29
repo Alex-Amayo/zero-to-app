@@ -31,6 +31,28 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 - **Account Recovery**
 - **Settings**
 
+
+## Getting Started
+
+### Installation
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/alex-amayo/zerotoapp.git
+cd zerotoapp
+```
+
+Install dependencies using npm:
+```bash
+npm install
+```
+
+Start the app:
+```bash
+npx expo start
+```
+
 # Brand Configuration
 The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
 This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the Context API.

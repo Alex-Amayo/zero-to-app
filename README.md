@@ -5,13 +5,10 @@
 Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website. 
 It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file. 
 
-## Try Zero To App Live on the Web!
-
-I've deployed **Zero To App** on the web, hosted on Amazon S3 and CloudFront. Click the link below to see the template in action:
-
+## Try A Live Demo on the Web!
 ### [🚀 Try Zero To App Now! 🚀](https://d57xfeu0gmhs7.cloudfront.net/login)
 
-Experience the full functionality directly in your browser.
+
 
 ### Core Frameworks and Libraries
 - [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.

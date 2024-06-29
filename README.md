@@ -6,8 +6,26 @@
 Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website. 
 It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file. 
 
-# Brand Configuration
 
+
+
+## Core Tech
+- **React-Native**
+- **React-Native-Web**
+- **Expo** 
+- **Typescript** 
+- **ES Lint**
+- **Expo Router**
+- **Lottie-React-Native**
+
+
+## Included Authentication Screen/Page Templates
+- **Login**
+- **Signup**
+- **Account Recovery**
+- **Settings**
+
+# Brand Configuration
 The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various style properties:
 
 - **name**: The name of the brand.
@@ -15,25 +33,7 @@ The `brandConfig.ts` file defines the styling for the application. It uses a `Br
 - **fontSizes**: Sets the font sizes for small, medium, large, and extra-large text.
 - **card**: Defines the style for cards, including border radius, shadow opacity, elevation, whether to display a shadow, and the card background color.
 
-
-## Core Tech
-- **React-Native** - Expo Router
-- **Expo** - Lottie React Native
-- **Typescript** - Lottie React Native
-- **React-Native-Web** - Lottie React Native
-
-## Libraries
-- **Navigation** - Expo Router
-- **Animation** - Lottie React Native
-
-## Included Authentication Screen/Page Templates
-
-- **Login**
-- **Signup**
-- **Account Recovery**
-- **Settings**
-
-
+  
 ## Provided Components
 
 - **Appbar**

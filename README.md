@@ -69,7 +69,7 @@ const brand: Brand = {
   colors: {
     primary: "#1a4c9d",
     secondary: "#db4691",
-    background: "white",
+    background: "#ffffff",
     text: "#333333",
     textAlternate: "#ffffff",
   },
@@ -89,6 +89,7 @@ const brand: Brand = {
 };
 
 export default brand;
+
 ```
   
 ## Provided Components

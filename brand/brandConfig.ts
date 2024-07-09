@@ -1,4 +1,4 @@
-import { BorderRadius, Colors, FontSizes, Name, Shadow } from "./brandTypes";
+import { BorderRadius, Colors, FontSizes, Name, Shadow } from './brandTypes';
 
 interface Brand {
   colors: Colors;
@@ -9,12 +9,12 @@ interface Brand {
 }
 
 const brand: Brand = {
-  name: "Zero To App",
+  name: 'Zero To App',
   borderRadius: 5,
   shadow: true,
   colors: {
-    primary: "#1a4c9d",
-    secondary: "#db4691",
+    primary: '#1a4c9d',
+    secondary: '#db4691',
   },
   fontSizes: {
     small: 12,

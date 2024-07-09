@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { TextInput, StyleSheet } from "react-native";
-import brand from "../brand/brandConfig";
-import { ThemeContext } from "../theme/theme";
+import React, { useContext } from 'react';
+import { TextInput, StyleSheet } from 'react-native';
+import brand from '../brand/brandConfig';
+import { ThemeContext } from '../theme/theme';
 
 type FormInputProps = {
   placeholder: string;
@@ -12,9 +12,9 @@ type FormInputProps = {
 };
 
 const FormInput = ({ placeholder, half, secure }: FormInputProps) => {
-    const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
   return (
-    <TextInput 
+    <TextInput
       placeholder={placeholder}
       secureTextEntry={secure}
       style={{
@@ -23,8 +23,8 @@ const FormInput = ({ placeholder, half, secure }: FormInputProps) => {
         //Border color is overridden with theme text color
         borderColor: theme.values.color,
         //Conditionally applying styles based on half prop
-        ...(half ? styles.halfSizeTextInput : styles.textInput)
-      }} 
+        ...(half ? styles.halfSizeTextInput : styles.textInput),
+      }}
     />
   );
 };
@@ -32,15 +32,15 @@ const FormInput = ({ placeholder, half, secure }: FormInputProps) => {
 export default FormInput;
 
 const styles = StyleSheet.create({
-    textInput: {
-        padding: 15,
-        borderWidth: 1,
-        borderRadius: brand.borderRadius,
-    },
-    halfSizeTextInput: {
-      padding: 10,
-      borderWidth: 1,
-      borderRadius: brand.borderRadius,
-      width: "48%",
-    },
+  textInput: {
+    padding: 15,
+    borderWidth: 1,
+    borderRadius: brand.borderRadius,
+  },
+  halfSizeTextInput: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: brand.borderRadius,
+    width: '48%',
+  },
 });

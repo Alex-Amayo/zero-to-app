@@ -15,4 +15,3 @@ export interface FontSizes {
   large: number;
   xlarge: number;
 }
-

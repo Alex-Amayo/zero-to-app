@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import { Text, TextInput, StyleSheet } from "react-native";
-import Button from "../../../components/Button";
-import { router } from "expo-router";
-import brand from "../../../brand/brandConfig";
-import Card from "../../../components/Card";
-import List from "../../../components/List";
-import TextLink from "../../../components/TextLink";
-import { ThemeContext } from "../../../theme/theme";
-import FormInput from "../../../components/FormInput";
+import React, { useContext } from 'react';
+import { Text, StyleSheet } from 'react-native';
+import Button from '../../../components/Button';
+import { router } from 'expo-router';
+import brand from '../../../brand/brandConfig';
+import Card from '../../../components/Card';
+import List from '../../../components/List';
+import TextLink from '../../../components/TextLink';
+import { ThemeContext } from '../../../theme/theme';
+import FormInput from '../../../components/FormInput';
 
 export default function RecoverPage() {
   //Initializing theme context
@@ -15,21 +15,17 @@ export default function RecoverPage() {
   return (
     <Card>
       <List>
-        <Text 
+        <Text
           style={{
             ...styles.title,
             //Text color is set using theme values
-            color: theme.values.color
-          }}>Recover Your {brand.name} Password</Text>
-        <FormInput placeholder="Email or Password"/>
-        <Button
-          title="Reset Password"
-          onPress={() => router.push("/core")}
-        />
-        <TextLink
-          text="Go back to login"
-          onPress={() => router.push("/auth/login")}
-        />
+            color: theme.values.color,
+          }}>
+          Recover Your {brand.name} Password
+        </Text>
+        <FormInput placeholder="Email or Password" />
+        <Button title="Reset Password" onPress={() => router.push('/core')} />
+        <TextLink text="Go back to login" onPress={() => router.push('/auth/login')} />
       </List>
     </Card>
   );
@@ -38,7 +34,7 @@ export default function RecoverPage() {
 const styles = StyleSheet.create({
   title: {
     fontSize: brand.fontSizes.large,
-    textAlign: "center"
+    textAlign: 'center',
   },
   textInput: {
     padding: 15,

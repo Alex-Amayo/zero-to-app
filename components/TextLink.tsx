@@ -1,6 +1,6 @@
-import React from "react";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
-import brand from "../brand/brandConfig";
+import React from 'react';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import brand from '../brand/brandConfig';
 
 type TextLinkprops = {
   text: string;
@@ -11,8 +11,7 @@ const TextLink = ({ text, onPress }: TextLinkprops) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={onPress ? onPress : () => console.log("Icon Button pressed")}
-    >
+      onPress={onPress ? onPress : () => console.log('Icon Button pressed')}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
@@ -20,14 +19,14 @@ const TextLink = ({ text, onPress }: TextLinkprops) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     //text color for the link
-    color: "#1877f2",
+    color: '#1877f2',
     fontSize: brand.fontSizes.medium,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 

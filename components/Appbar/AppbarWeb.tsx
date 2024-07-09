@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Link } from "expo-router";
-import { useWindowWidth, breakpoints } from "../../hooks/useWindowWidth";
-import IconButton from "../IconButton";
-import brand from "../../brand/brandConfig";
-import { ThemeContext } from "../../theme/theme";
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
+import { useWindowWidth, breakpoints } from '../../hooks/useWindowWidth';
+import IconButton from '../IconButton';
+import brand from '../../brand/brandConfig';
+import { ThemeContext } from '../../theme/theme';
 
 type AppbarProps = {
   title?: string;
@@ -12,7 +12,6 @@ type AppbarProps = {
 };
 
 const AppbarWeb = ({ title, tabs }: AppbarProps) => {
-
   //Initialize theme
   const theme = useContext(ThemeContext);
 
@@ -38,25 +37,27 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
     <View
       style={{
         paddingBottom: 10,
-        //Configure background with theme background (**Different from appbar background, color of the space for shadows)  
-        backgroundColor: theme.values.backgroundColor,  
-      }}
-    >
-      <View style={{
+        //Configure background with theme background (**Different from appbar background, color of the space for shadows)
+        backgroundColor: theme.values.backgroundColor,
+      }}>
+      <View
+        style={{
           ...styles.webContainer,
           //Configure appbar with theme appbar color
           backgroundColor: theme.values.appbarColor,
-          }}>
-        <View style={{
-          ...styles.appbar,
+        }}>
+        <View
+          style={{
+            ...styles.appbar,
           }}>
           <Link href="/core/home">
-            <Text style={{
-              ...styles.title,
-              //Configure title color with theme
-              color: theme.values.highlightColor,
+            <Text
+              style={{
+                ...styles.title,
+                //Configure title color with theme
+                color: theme.values.highlightColor,
               }}>
-                {title}
+              {title}
             </Text>
           </Link>
           {windowWidth >= breakpoints.medium ? tabs : null}
@@ -67,8 +68,14 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
           </View>
         </View>
         {windowWidth < breakpoints.medium ? (
-          <View style={{...styles.appbarWebSmall, borderBottomColor: theme.values.dividerColor,
-            borderBottomWidth: 1,}}>{tabs}</View>
+          <View
+            style={{
+              ...styles.appbarWebSmall,
+              borderBottomColor: theme.values.dividerColor,
+              borderBottomWidth: 1,
+            }}>
+            {tabs}
+          </View>
         ) : null}
       </View>
     </View>
@@ -78,22 +85,22 @@ export default AppbarWeb;
 
 const styles = StyleSheet.create({
   appbar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     height: 60,
     paddingHorizontal: 15,
   },
   appbarWebSmall: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     height: 60,
-    width: "100%",
+    width: '100%',
     paddingHorizontal: 15,
   },
   iconContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 10,
   },
   logo: {
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: brand.fontSizes.large,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginLeft: 10,
   },
   webContainer: {}, // WebContainer property

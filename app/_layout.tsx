@@ -1,11 +1,10 @@
-import React, { ReactNode } from "react";
 import { Slot } from 'expo-router';
-import { ThemeProvider } from "../theme/theme";
+import { ThemeProvider } from '../theme/theme';
 
 const Layout = () => {
   return (
     <ThemeProvider>
-        <Slot />
+      <Slot />
     </ThemeProvider>
   );
 };

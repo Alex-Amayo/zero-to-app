@@ -2,17 +2,15 @@
   <img src="https://uploads-ssl.webflow.com/6535b557dfd7d23795a6744e/66806a45fbcab3ee0a274730_Zero%20To%20App%20GIF.gif">
 </p>
 
-Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website. 
-It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file. 
+Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website.
+It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file.
 
 ## Try A Live Demo on the Web!
+
 ### <a href="https://d57xfeu0gmhs7.cloudfront.net" target="_blank">🚀 Try Zero To App Now! 🚀</a>
 
-
-
-
-
 ## Core Frameworks and Libraries
+
 - [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
 - [React Native](https://reactnative.dev/): A framework for building native apps using React.
 - [React Native Web](https://necolas.github.io/react-native-web/): A project to bring React Native components and APIs to the web.
@@ -22,10 +20,10 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 - [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
 
 ## Development Tools
+
 - [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 - [Prettier](https://prettier.io/): An opinionated code formatter.
 - [TypeScript ESLint](https://typescript-eslint.io/): Monorepo for all the tooling which enables ESLint to support TypeScript.
-
 
 ## Getting Started
 
@@ -39,20 +37,23 @@ cd zerotoapp
 ```
 
 Install dependencies using npm:
+
 ```bash
 npm install
 ```
 
 Start the app:
+
 ```bash
 npx expo start
 ```
 
 # Brand Configuration
+
 The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
 This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the Context API.
 
- The properties set in brand/brand.ts will style most of the compoents that come pre-built giving you a custom look for your app. 
+The properties set in brand/brand.ts will style most of the compoents that come pre-built giving you a custom look for your app.
 
 ```typescript
 import { Colors, FontSizes, Card, Name } from "./brandTypes";
@@ -92,16 +93,15 @@ export default brand;
 
 Replace found at assets/logo.png with your own custom logo.
 
-``` 
+```
 
+## Included Authentication Screen/Page Templates
 
- ## Included Authentication Screen/Page Templates
 - **Login**
 - **Signup**
 - **Account Recovery**
 - **Settings**
 
- 
 ## Provided Components
 
 - **Appbar**

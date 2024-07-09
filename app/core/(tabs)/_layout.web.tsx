@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
-import brand from "../../../brand/brandConfig";
-import Feather from "@expo/vector-icons/Feather";
-import AppbarWeb from "../../../components/Appbar/AppbarWeb";
-import { View, TouchableOpacity } from "react-native";
-import { useWindowWidth, breakpoints } from "../../../hooks/useWindowWidth";
+import React, { useContext } from 'react';
+import brand from '../../../brand/brandConfig';
+import Feather from '@expo/vector-icons/Feather';
+import AppbarWeb from '../../../components/Appbar/AppbarWeb';
+import { View, TouchableOpacity } from 'react-native';
+import { useWindowWidth, breakpoints } from '../../../hooks/useWindowWidth';
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabNavigationOptions,
   MaterialTopTabNavigationEventMap,
-} from "@react-navigation/material-top-tabs";
-import { ParamListBase, TabNavigationState } from "@react-navigation/native";
-import { withLayoutContext } from "expo-router";
-import { Animated } from "react-native";
-import { NavigationHelpers } from "@react-navigation/native";
-import { ThemeContext } from "../../../theme/theme";
+} from '@react-navigation/material-top-tabs';
+import { ParamListBase, TabNavigationState } from '@react-navigation/native';
+import { withLayoutContext } from 'expo-router';
+import { Animated } from 'react-native';
+import { NavigationHelpers } from '@react-navigation/native';
+import { ThemeContext } from '../../../theme/theme';
 
 //Initialize Material Top Navigator
 const { Navigator } = createMaterialTopTabNavigator();
@@ -36,11 +36,10 @@ export default function TabLayout() {
         screenOptions={{
           // Tab tint color with theme
           tabBarActiveTintColor: theme.values.highlightColor,
-        }}
-      >
-        <MaterialTopTabs.Screen name="home" options={{ title: "home" }} />
-        <MaterialTopTabs.Screen name="explore" options={{ title: "explore" }} />
-        <MaterialTopTabs.Screen name="settings" options={{ title: "settings" }} />
+        }}>
+        <MaterialTopTabs.Screen name="home" options={{ title: 'home' }} />
+        <MaterialTopTabs.Screen name="explore" options={{ title: 'explore' }} />
+        <MaterialTopTabs.Screen name="settings" options={{ title: 'settings' }} />
       </MaterialTopTabs>
     </View>
   );
@@ -48,19 +47,16 @@ export default function TabLayout() {
 
 // Defining the icon mapping object
 const iconMapping: { [key: string]: string } = {
-  home: "home",
-  explore: "compass",
-  settings: "settings",
+  home: 'home',
+  explore: 'compass',
+  settings: 'settings',
   // Add more mappings as needed
 };
 
 type MyTabBarProps = {
   state: TabNavigationState<ParamListBase>;
   descriptors: { [key: string]: object };
-  navigation: NavigationHelpers<
-    ParamListBase,
-    MaterialTopTabNavigationEventMap
-  >;
+  navigation: NavigationHelpers<ParamListBase, MaterialTopTabNavigationEventMap>;
   position: Animated.AnimatedInterpolation<number> | number;
 };
 
@@ -73,24 +69,21 @@ function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
       tabs={
         <View
           style={{
-            flexDirection: "row",
-            height: "100%",
-            width: useWindowWidth() >= breakpoints.medium ? "50%" : "100%",
-          }}
-        >
+            flexDirection: 'row',
+            height: '100%',
+            width: useWindowWidth() >= breakpoints.medium ? '50%' : '100%',
+          }}>
           {state.routes.map((route, index) => {
             // Determine if the current route is focused
             const isFocused = state.index === index;
-            const iconName = iconMapping[
-              route.name
-            ] as keyof typeof Feather.glyphMap;
+            const iconName = iconMapping[route.name] as keyof typeof Feather.glyphMap;
 
             return (
               <TouchableOpacity
                 key={route.key} // Ensure each button has a unique key
                 onPress={() => {
                   const event = navigation.emit({
-                    type: "tabPress",
+                    type: 'tabPress',
                     target: route.key,
                     canPreventDefault: true,
                   });
@@ -101,13 +94,12 @@ function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
                 }}
                 style={{
                   flex: 1,
-                  height: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderColor:theme.values.highlightColor,
+                  height: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderColor: theme.values.highlightColor,
                   borderBottomWidth: isFocused ? 5 : 0,
-                }}
-              >
+                }}>
                 <Feather
                   size={20}
                   name={iconName}

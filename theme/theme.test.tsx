@@ -11,7 +11,9 @@ const TestComponent = () => {
         <>
           <Text testID="backgroundColor">{values.backgroundColor}</Text>
           <Text testID="color">{values.color}</Text>
-          <Text onPress={toggleTheme} testID="toggleTheme">Toggle Theme</Text>
+          <Text onPress={toggleTheme} testID="toggleTheme">
+            Toggle Theme
+          </Text>
         </>
       )}
     </ThemeContext.Consumer>
@@ -23,7 +25,7 @@ describe('ThemeProvider', () => {
     const { getByTestId } = render(
       <ThemeProvider>
         <TestComponent />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     expect(getByTestId('backgroundColor').props.children).toBe('#FFFFFF'); // Light theme background color

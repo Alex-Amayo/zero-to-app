@@ -1,17 +1,12 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-} from "react-native";
-import TextLink from "../../../components/TextLink";
-import Button from "../../../components/Button";
-import Card from "../../../components/Card";
-import List from "../../../components/List";
-import ListDivider from "../../../components/ListDivider";
-import { router } from "expo-router";
-import FormInput from "../../../components/FormInput";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import TextLink from '../../../components/TextLink';
+import Button from '../../../components/Button';
+import Card from '../../../components/Card';
+import List from '../../../components/List';
+import ListDivider from '../../../components/ListDivider';
+import { router } from 'expo-router';
+import FormInput from '../../../components/FormInput';
 
 export default function SignupPage() {
   return (
@@ -34,10 +29,7 @@ export default function SignupPage() {
         <FormInput placeholder="Re-ednter password" secure />
         {/* Sign up button */}
         <Button title="Sign Up" secondary />
-        <TextLink
-          text="Already have an account?"
-          onPress={() => router.push("/auth/login")}
-        />
+        <TextLink text="Already have an account?" onPress={() => router.push('/auth/login')} />
       </List>
     </Card>
   );
@@ -46,25 +38,25 @@ export default function SignupPage() {
 const styles = StyleSheet.create({
   title: {
     fontSize: 20,
-    textAlign: "center",
-    color: "#000",
+    textAlign: 'center',
+    color: '#000',
   },
   subTitle: {
     fontSize: 16,
-    textAlign: "center",
-    color: "#000",
+    textAlign: 'center',
+    color: '#000',
     marginBottom: 15,
   },
   textInput: {
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#ddd",
+    borderColor: '#ddd',
   },
 
   nameContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
   },
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 
 type ListProps = {
   children?: JSX.Element | JSX.Element[];
@@ -13,8 +13,8 @@ export default List;
 
 const styles = StyleSheet.create({
   list: {
-    alignSelf: "center",
-    width: "100%",
+    alignSelf: 'center',
+    width: '100%',
     padding: 15,
     gap: 15,
   },

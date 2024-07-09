@@ -24,7 +24,7 @@ export const lightTheme: ThemeValuesType = {
   appbarColor: '#FFFFFF',
   borderColor: '#F2F2F7FF',
   shadowColor: '#000000',
-  inactiveIconColor: '#808080',
+  inactiveIconColor: '#F2F2F7FF',
   dividerColor: '#DDDDDD',
   iconButtonBackgroundColor: '#E4E6EB',
   iconButtonIconColor: '#000000',

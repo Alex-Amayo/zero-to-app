@@ -21,7 +21,7 @@ const FormInput = ({ placeholder, half, secure }: FormInputProps) => {
         //Inline styles used for theme access in state
         color: theme.values.color,
         //Border color is overridden with theme text color
-        borderColor: theme.values.color,
+        borderColor: theme.values.dividerColor,
         //Conditionally applying styles based on half prop
         ...(half ? styles.halfSizeTextInput : styles.textInput),
       }}

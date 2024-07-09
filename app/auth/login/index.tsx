@@ -13,7 +13,6 @@ import { ThemeContext } from '../../../theme/theme';
 export default function LoginPage() {
   //Initializing theme context and toggleTheme function
   const theme = useContext(ThemeContext);
-  const { toggleTheme } = useContext(ThemeContext);
   return (
     <Card>
       <List>
@@ -23,7 +22,7 @@ export default function LoginPage() {
         <Button title="Log In" onPress={() => router.push('/core')} />
         <TextLink text="Forgot password?" onPress={() => router.push('/auth/recover')} />
         <FormSeparator text="or" />
-        <Button title="Create New Account" onPress={toggleTheme} secondary />
+        <Button title="Create New Account" onPress={() => router.push('/auth/signup')} secondary />
       </List>
     </Card>
   );

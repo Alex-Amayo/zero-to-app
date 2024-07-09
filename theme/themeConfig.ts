@@ -24,7 +24,7 @@ export const lightTheme: ThemeValuesType = {
   appbarColor: '#FFFFFF',
   borderColor: '#F2F2F7FF',
   shadowColor: '#000000',
-  inactiveIconColor: '#F2F2F7FF',
+  inactiveIconColor: '#65676b',
   dividerColor: '#DDDDDD',
   iconButtonBackgroundColor: '#E4E6EB',
   iconButtonIconColor: '#000000',
@@ -33,14 +33,14 @@ export const lightTheme: ThemeValuesType = {
 //Defining dark theme
 export const darkTheme: ThemeValuesType = {
   color: '#FFFFFF',
-  backgroundColor: '#000000FF',
-  cardBackgroundColor: '#1C1C1EFF',
+  backgroundColor: '#000000',
+  cardBackgroundColor: '#18191a',
   highlightColor: brand.colors.secondary,
-  appbarColor: '#000000FF',
+  appbarColor: '#1C1C1EFF',
   borderColor: '#1C1C1EFF',
-  shadowColor: '#F2F2F7FF',
+  shadowColor: '',
   inactiveIconColor: '#808080',
   dividerColor: '#808080',
-  iconButtonBackgroundColor: '#1C1C1EFF',
+  iconButtonBackgroundColor: '#3a3b3c',
   iconButtonIconColor: '#FFFFFF',
 };

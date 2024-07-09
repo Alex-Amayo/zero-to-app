@@ -101,7 +101,7 @@ function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
                   borderBottomWidth: isFocused ? 5 : 0,
                 }}>
                 <Feather
-                  size={20}
+                  size={25}
                   name={iconName}
                   color={isFocused ? theme.values.highlightColor : theme.values.inactiveIconColor}
                 />

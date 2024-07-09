@@ -29,7 +29,7 @@ const ToggleIconButton = ({ iconName, alternateIconName, onPress }: IconButtonPr
       }}>
       <Feather
         name={isToggled ? alternateIconName : iconName}
-        size={25}
+        size={20}
         color={theme.values.iconButtonIconColor}
       />
     </TouchableOpacity>

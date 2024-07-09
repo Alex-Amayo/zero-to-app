@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
 import { useWindowWidth, breakpoints } from '../../hooks/useWindowWidth';
 import IconButton from '../IconButton';
 import brand from '../../brand/brandConfig';
 import { ThemeContext } from '../../theme/theme';
+import ToggleIconButton from '../ToggleIconButton';
 
 type AppbarProps = {
   title?: string;
@@ -14,6 +15,9 @@ type AppbarProps = {
 const AppbarWeb = ({ title, tabs }: AppbarProps) => {
   //Initialize theme
   const theme = useContext(ThemeContext);
+
+  //Initialize theme toggle
+  const { toggleTheme } = useContext(ThemeContext);
 
   //Iniitialize window width
   const windowWidth = useWindowWidth();
@@ -64,7 +68,10 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
           <View style={styles.iconContainer}>
             <IconButton iconName="search" />
             <IconButton iconName="plus" />
-            <IconButton iconName="message-square" />
+            <ToggleIconButton 
+              iconName='sun' 
+              alternateIconName='moon' 
+              onPress={toggleTheme} />
           </View>
         </View>
         {windowWidth < breakpoints.medium ? (
@@ -112,5 +119,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 10,
   },
-  webContainer: {}, // WebContainer property
+  webContainer: {}, // WebContainer property to inject shadow styles for web 
 });

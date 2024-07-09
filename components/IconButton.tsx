@@ -18,7 +18,7 @@ const IconButton = ({ iconName, onPress }: IconButtonProps) => {
         ...styles.container,
         backgroundColor: theme.values.iconButtonBackgroundColor,
       }}>
-      <Feather name={iconName} size={25} color={theme.values.iconButtonIconColor} />
+      <Feather name={iconName} size={20} color={theme.values.iconButtonIconColor} />
     </TouchableOpacity>
   );
 };

@@ -20,7 +20,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
-            <Feather size={20} name="home" color={focused ? brand.colors.primary : '#656469'} />
+            <Feather size={20} name="home" color={focused ? theme.values.highlightColor : '#656469'} />
           ),
         }}
       />
@@ -29,7 +29,7 @@ export default function TabLayout() {
         options={{
           title: 'Explore',
           tabBarIcon: ({ focused }) => (
-            <Feather size={20} name="compass" color={focused ? brand.colors.primary : '#656469'} />
+            <Feather size={20} name="compass" color={focused ? theme.values.highlightColor : '#656469'} />
           ),
         }}
       />
@@ -38,7 +38,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <Feather size={20} name="settings" color={focused ? brand.colors.primary : '#656469'} />
+            <Feather size={20} name="settings" color={focused ? theme.values.highlightColor : '#656469'} />
           ),
         }}
       />

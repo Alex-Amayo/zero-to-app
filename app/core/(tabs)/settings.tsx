@@ -10,7 +10,6 @@ import { ThemeContext } from '../../../theme/theme';
 const SettingsPage = () => {
   // Initialize theme
   const theme = React.useContext(ThemeContext);
-  const { toggleTheme } = useContext(ThemeContext);
   return (
     <View
       style={{
@@ -23,7 +22,7 @@ const SettingsPage = () => {
           <List>
             <ListButton text="Billing & Payments" icon="credit-card" />
             <ListDivider />
-            <ListButton text="More Options" icon="more-horizontal" onPress={toggleTheme} />
+            <ListButton text="More Options" icon="more-horizontal" />
             <ListDivider />
             <ListButton text="Sign Out" icon="log-out" onPress={() => router.push('/auth/login')} />
           </List>

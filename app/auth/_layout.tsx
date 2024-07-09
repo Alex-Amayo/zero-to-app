@@ -28,7 +28,7 @@ export default function LoginPage() {
         return false;
       }}>
         <View style={styles.toggleThemeButton}>
-          <ToggleIconButton iconName='sun' alternateIconName='moon' onPress={toggleTheme}/>
+          <ToggleIconButton iconName='moon' alternateIconName='sun' onPress={toggleTheme}/>
         </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

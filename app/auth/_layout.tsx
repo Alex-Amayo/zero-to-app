@@ -6,13 +6,16 @@ import {
   Platform,
   SafeAreaView,
   Keyboard,
+  View,
 } from 'react-native';
 import { Slot } from 'expo-router';
 import { ThemeContext } from '../../theme/theme';
+import ToggleIconButton from '../../components/ToggleIconButton';
 
 export default function LoginPage() {
   //Initializing theme context
   const theme = useContext(ThemeContext);
+  const { toggleTheme } = useContext(ThemeContext);
   return (
     <SafeAreaView
       style={{
@@ -24,6 +27,9 @@ export default function LoginPage() {
         Keyboard.dismiss();
         return false;
       }}>
+        <View style={styles.toggleThemeButton}>
+          <ToggleIconButton iconName='sun' alternateIconName='moon' onPress={toggleTheme}/>
+        </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
@@ -46,5 +52,11 @@ const styles = StyleSheet.create({
     height: 200,
     width: 200,
     alignSelf: 'center',
+  },
+  toggleThemeButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 10,
   },
 });

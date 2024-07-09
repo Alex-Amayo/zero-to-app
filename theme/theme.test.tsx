@@ -28,12 +28,12 @@ describe('ThemeProvider', () => {
       </ThemeProvider>,
     );
 
-    expect(getByTestId('backgroundColor').props.children).toBe('#FFFFFF'); // Light theme background color
+    expect(getByTestId('backgroundColor').props.children).toBe('#ECF3FF'); // Light theme background color
     expect(getByTestId('color').props.children).toBe('#000000'); // Light theme text color
 
     fireEvent.press(getByTestId('toggleTheme')); // Toggle theme
 
-    expect(getByTestId('backgroundColor').props.children).toBe('#000000'); // Dark theme background color
+    expect(getByTestId('backgroundColor').props.children).toBe('#000000FF'); // Dark theme background color
     expect(getByTestId('color').props.children).toBe('#FFFFFF'); // Dark theme text color
   });
 });

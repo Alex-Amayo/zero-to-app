@@ -1,6 +1,9 @@
 import React, { createContext, useState } from 'react';
 import { lightTheme, darkTheme, ThemeValuesType } from './themeConfig';
 
+//Defining theme type
+export type ThemeType = 'light' | 'dark';
+
 //Defining types fror the ThemeContext
 export type ThemeContextType = {
   values: ThemeValuesType;
@@ -8,7 +11,9 @@ export type ThemeContextType = {
 };
 
 //Initialize ThemeContext with a toggle function placeholder
-const ThemeContext = createContext<ThemeContextType>({ values: lightTheme, toggleTheme: () => {} });
+const ThemeContext = createContext<ThemeContextType>({
+  values: lightTheme, toggleTheme: () => { },
+});
 
 type ThemeProviderProps = {
   children: React.ReactNode;

@@ -12,7 +12,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: brand.colors.primary,
-        tabBarStyle: { backgroundColor: theme.values.backgroundColor },
+        tabBarStyle: { backgroundColor: theme.values.appbarColor },
         header: () => <AppbarMobile title={brand.name} />,
       }}>
       <Tabs.Screen

@@ -17,6 +17,7 @@ const FormInput = ({ placeholder, half, secure }: FormInputProps) => {
     <TextInput
       placeholder={placeholder}
       secureTextEntry={secure}
+      placeholderTextColor={theme.values.color}
       style={{
         //Inline styles used for theme access in state
         color: theme.values.color,

@@ -28,17 +28,6 @@ export default function LoginPage() {
   );
 }
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    width: 300,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 50,
-  },
   logo: {
     height: 200,
     width: 200,

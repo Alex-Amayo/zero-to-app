@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import IconButton from '../IconButton';
 import { Link } from 'expo-router';
 import brand from '../../brand/brandConfig';
+import { ThemeContext } from '../../theme/theme';
+import ToggleIconButton from '../ToggleIconButton';
 
 type AppbarProps = {
   title?: string;
@@ -10,16 +12,23 @@ type AppbarProps = {
 };
 
 const Appbar = ({ title, tabs }: AppbarProps) => {
+  // Initialize the theme
+  const theme = useContext(ThemeContext);
+  //Initialize theme toggle
+  const { toggleTheme } = useContext(ThemeContext);
   return (
-    <View style={styles.appbar}>
+    <View style={{...styles.appbar, backgroundColor: theme.values.appbarColor}}>
       <Link href="/core/home">
-        <Text style={styles.title}>{title}</Text>
+        <Text style={{...styles.title, color: theme.values.highlightColor}}>{title}</Text>
       </Link>
       {tabs ? tabs : null}
-      <View style={styles.iconContainer}>
+      <View style={{...styles.iconContainer, backgroundColor: theme.values.appbarColor }}>
         <IconButton iconName="search" />
         <IconButton iconName="plus" />
-        <IconButton iconName="message-square" />
+        <ToggleIconButton 
+              iconName='sun' 
+              alternateIconName='moon' 
+              onPress={toggleTheme} />
       </View>
     </View>
   );
@@ -28,16 +37,6 @@ const Appbar = ({ title, tabs }: AppbarProps) => {
 export default Appbar;
 
 const styles = StyleSheet.create({
-  webContainer: {
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: brand.borderRadius,
-    shadowColor: brand.shadow ? '#171717' : undefined,
-    shadowOffset: brand.shadow ? { width: -2, height: 2 } : undefined,
-    shadowOpacity: brand.shadow ? 0.15 : undefined,
-    shadowRadius: brand.shadow ? 3 : undefined,
-    elevation: brand.shadow ? 20 : undefined,
-  },
   appbar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -45,26 +44,13 @@ const styles = StyleSheet.create({
     height: 60,
     paddingHorizontal: 15,
   },
-  appbarWebSmall: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 60,
-    width: '100%',
-    paddingHorizontal: 15,
-  },
   iconContainer: {
     flexDirection: 'row',
     gap: 10,
   },
-  logo: {
-    width: 40,
-    height: 40,
-  },
   title: {
     fontSize: brand.fontSizes.large,
     fontWeight: 'bold',
-    marginLeft: 10,
-    color: brand.colors.primary,
+    textAlign: 'center',
   },
 });

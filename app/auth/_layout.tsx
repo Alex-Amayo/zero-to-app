@@ -1,52 +1,53 @@
-import { useContext } from 'react';
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Image,
-  Platform,
-  SafeAreaView,
-  Keyboard,
-  View,
-} from 'react-native';
-import { Slot } from 'expo-router';
+import React, { useContext } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Image, View, Keyboard, Platform, KeyboardAvoidingView } from 'react-native';
 import { ThemeContext } from '../../theme/theme';
-import ToggleIconButton from '../../components/ToggleIconButton';
-
+import { Slot } from 'expo-router';
+import ToggleIconButton from '../../components/ToggleIconButton'; 
 export default function LoginPage() {
-  //Initializing theme context
+  // Initializing theme context
   const theme = useContext(ThemeContext);
   const { toggleTheme } = useContext(ThemeContext);
+
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: theme.values.backgroundColor,
-      }}
-      onStartShouldSetResponder={() => {
-        Keyboard.dismiss();
-        return false;
-      }}>
-        <View style={styles.toggleThemeButton}>
-          <ToggleIconButton iconName='moon' alternateIconName='sun' onPress={toggleTheme}/>
+    <SafeAreaView style={{...styles.safeArea,  backgroundColor: theme.values.backgroundColor }}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.container}>
+          <View style={styles.toggleThemeButton}>
+            <ToggleIconButton iconName='moon' alternateIconName='sun' onPress={toggleTheme} />
+          </View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.keyboardAvoidingView}>
+            <Image source={require('../../assets/logo.png')} style={styles.logo} />
+            <Slot /> 
+          </KeyboardAvoidingView>
         </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}>
-        <Image source={require('../../assets/logo.png')} style={styles.logo} />
-        <Slot />
-      </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
   container: {
     flex: 1,
-    width: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%', 
+  },
+  keyboardAvoidingView: {
+    width: 300, 
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 50,
+    gap: 20,
   },
   logo: {
     height: 200,

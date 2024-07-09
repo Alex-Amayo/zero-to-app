@@ -52,12 +52,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 15,
   },
-  textInput: {
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-
   nameContainer: {
     flexDirection: 'row',
     width: '100%',

@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
+    //text color for the link
     color: "#1877f2",
     fontSize: brand.fontSizes.medium,
     textAlign: "center",

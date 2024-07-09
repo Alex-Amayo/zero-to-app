@@ -4,9 +4,10 @@ import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 
 export default function HomePage() {
+  //Plays animation for 3 sec then pushes '/login' route
   useEffect(() => {
     setTimeout(() => {
-      router.push("/login");
+      router.push("/auth/login");
     }, 3000);
   }, []);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import brand from "../brand/brandConfig";
 
@@ -15,7 +15,12 @@ const Button = ({ title, secondary, onPress }: ButtonProps) => {
       style={secondary ? styles.secondary : styles.primary}
     >
       <View>
-        <Text style={styles.text}>{title}</Text>
+        <Text 
+          style={{
+            ...styles.text,
+          }}>
+            {title}
+          </Text>
       </View>
     </Pressable>
   );
@@ -28,20 +33,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-    borderRadius: brand.card.borderRadius,
+    borderRadius: brand.borderRadius,
     backgroundColor: brand.colors.primary,
   },
   secondary: {
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-    borderRadius: brand.card.borderRadius,
+    borderRadius: brand.borderRadius,
     backgroundColor: brand.colors.secondary,
   },
   text: {
-    color: brand.colors.textAlternate,
     fontSize: brand.fontSizes.medium,
     textAlign: "center",
     fontWeight: "500",
+    color: "#FFFFFF"
   },
 });

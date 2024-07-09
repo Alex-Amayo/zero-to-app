@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import brand from "../../../brand/brandConfig";
+import { ThemeContext } from "../../../theme/theme";
 
 const HomePage = () => {
+  // Initialize theme
+  const theme = useContext(ThemeContext);
+  
   return (
-    <View style={styles.container}>
-      <Text>Home Page</Text>
+    <View style={{
+      ...styles.container,
+      // Configure background color with theme
+      backgroundColor: theme.values.backgroundColor
+    }}>
+      <Text style={{color: theme.values.color}}>Home Page</Text>
     </View>
   );
 };
@@ -17,6 +25,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: brand.colors.background,
   },
 });

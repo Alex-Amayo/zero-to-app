@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import brand from "../../../brand/brandConfig";
+import { ThemeContext } from "../../../theme/theme";
 
 const ExplorePage = () => {
+  //Initialze theme
+  const theme = useContext(ThemeContext);
   return (
-    <View style={styles.container}>
-      <Text>Explore Page</Text>
+    <View style={{
+      ...styles.container,
+      //Confingure background color with theme
+      backgroundColor: theme.values.backgroundColor
+    }}>
+      <Text style={{color: theme.values.color}}>Explore Page</Text>
     </View>
   );
 };
@@ -17,6 +23,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: brand.colors.background,
   },
 });

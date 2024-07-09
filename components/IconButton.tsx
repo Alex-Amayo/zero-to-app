@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
+import { ThemeContext } from "../theme/theme";
+
 
 type IconButtonProps = {
   iconName: keyof typeof Feather.glyphMap;
@@ -8,12 +10,23 @@ type IconButtonProps = {
 };
 
 const IconButton = ({ iconName, onPress }: IconButtonProps) => {
+  //Initialize theme
+  const theme = useContext(ThemeContext);
   return (
     <TouchableOpacity
       onPress={onPress ? onPress : () => console.log("Icon Button pressed")}
-      style={styles.container}
+      style={{
+        ...styles.container,
+        backgroundColor: theme.values.iconButtonBackgroundColor,
+        }
+      }
     >
-      <Feather name={iconName} size={25} />
+      <Feather 
+        name={iconName} 
+        size={25} 
+        color={
+          theme.values.iconButtonIconColor
+      } />
     </TouchableOpacity>
   );
 };
@@ -26,7 +39,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 40,
     height: 40,
-    backgroundColor: "#E4E6EB",
     borderRadius: 25,
   },
 });

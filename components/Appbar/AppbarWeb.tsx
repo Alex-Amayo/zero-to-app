@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { useWindowWidth, breakpoints } from "../../hooks/useWindowWidth";
 import IconButton from "../IconButton";
 import brand from "../../brand/brandConfig";
+import { ThemeContext } from "../../theme/theme";
 
 type AppbarProps = {
   title?: string;
@@ -11,28 +12,52 @@ type AppbarProps = {
 };
 
 const AppbarWeb = ({ title, tabs }: AppbarProps) => {
+
+  //Initialize theme
+  const theme = useContext(ThemeContext);
+
+  //Iniitialize window width
   const windowWidth = useWindowWidth();
+
+  //If window width is greater than medium breakpoint, apply card styles to appbar
   if (windowWidth >= breakpoints.medium) {
     styles.webContainer = {
-      ...styles.webContainer,
       ...{
-        borderRadius: brand.card.borderRadius,
-        shadowColor: brand.card.shadow ? "#171717" : undefined,
-        shadowOffset: brand.card.shadow ? { width: -2, height: 2 } : undefined,
-        shadowOpacity: brand.card.shadow ? 0.15 : undefined,
-        shadowRadius: brand.card.shadow ? 3 : undefined,
-        elevation: brand.card.shadow ? 20 : undefined,
+        //Appbar card styling
+        //Shadow color from theme
+        shadowColor: brand.shadow ? theme.values.shadowColor : undefined,
+        //Verticle shadow offset for Appbar
+        shadowOffset: brand.shadow ? { width: -2, height: 2 } : undefined,
+        shadowOpacity: brand.shadow ? 0.4 : undefined,
+        shadowRadius: brand.shadow ? 3 : undefined,
+        elevation: brand.shadow ? 20 : undefined,
       },
     };
   }
   return (
     <View
-      style={{ backgroundColor: brand.colors.background, paddingBottom: 10 }}
+      style={{
+        paddingBottom: 10,
+        //Configure background with theme background (**Different from appbar background, color of the space for shadows)  
+        backgroundColor: theme.values.backgroundColor,  
+      }}
     >
-      <View style={styles.webContainer}>
-        <View style={styles.appbar}>
+      <View style={{
+          ...styles.webContainer,
+          //Configure appbar with theme appbar color
+          backgroundColor: theme.values.appbarColor,
+          }}>
+        <View style={{
+          ...styles.appbar,
+          }}>
           <Link href="/core/home">
-            <Text style={styles.title}>{title}</Text>
+            <Text style={{
+              ...styles.title,
+              //Configure title color with theme
+              color: theme.values.highlightColor,
+              }}>
+                {title}
+            </Text>
           </Link>
           {windowWidth >= breakpoints.medium ? tabs : null}
           <View style={styles.iconContainer}>
@@ -42,7 +67,8 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
           </View>
         </View>
         {windowWidth < breakpoints.medium ? (
-          <View style={styles.appbarWebSmall}>{tabs}</View>
+          <View style={{...styles.appbarWebSmall, borderBottomColor: theme.values.dividerColor,
+            borderBottomWidth: 1,}}>{tabs}</View>
         ) : null}
       </View>
     </View>
@@ -51,13 +77,7 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
 export default AppbarWeb;
 
 const styles = StyleSheet.create({
-  webContainer: {
-    backgroundColor: brand.colors.background,
-    borderBottomWidth: 1,
-    borderColor: "#ddd",
-  },
   appbar: {
-    backgroundColor: brand.colors.background,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -84,6 +104,6 @@ const styles = StyleSheet.create({
     fontSize: brand.fontSizes.large,
     fontWeight: "bold",
     marginLeft: 10,
-    color: brand.colors.primary,
   },
+  webContainer: {}, // WebContainer property
 });

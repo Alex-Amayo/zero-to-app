@@ -1,14 +1,18 @@
+import React, {useContext} from "react";
 import { Tabs } from "expo-router";
 import brand from "../../../brand/brandConfig";
 import Feather from "@expo/vector-icons/Feather";
 import AppbarMobile from "../../../components/Appbar/AppbarMobile";
+import { ThemeContext } from "../../../theme/theme";
 
 export default function TabLayout() {
+  // Initialize theme
+  const theme = React.useContext(ThemeContext);
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: brand.colors.primary,
-        tabBarStyle: { backgroundColor: brand.colors.background },
+        tabBarStyle: { backgroundColor: theme.values.backgroundColor },
         header: () => <AppbarMobile title={brand.name} />,
       }}
     >

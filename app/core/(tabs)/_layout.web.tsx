@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import brand from "../../../brand/brandConfig";
 import Feather from "@expo/vector-icons/Feather";
 import AppbarWeb from "../../../components/Appbar/AppbarWeb";
@@ -12,7 +13,9 @@ import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
 import { Animated } from "react-native";
 import { NavigationHelpers } from "@react-navigation/native";
+import { ThemeContext } from "../../../theme/theme";
 
+//Initialize Material Top Navigator
 const { Navigator } = createMaterialTopTabNavigator();
 
 export const MaterialTopTabs = withLayoutContext<
@@ -23,28 +26,27 @@ export const MaterialTopTabs = withLayoutContext<
 >(Navigator);
 
 export default function TabLayout() {
+  // Initialize theme
+  const theme = useContext(ThemeContext);
   return (
     <View style={{ flex: 1 }}>
       <MaterialTopTabs
         tabBar={(props) => <MyTabBar {...props} />}
         tabBarPosition="top"
         screenOptions={{
-          tabBarActiveTintColor: brand.colors.primary,
-          tabBarInactiveTintColor: "gray",
+          // Tab tint color with theme
+          tabBarActiveTintColor: theme.values.highlightColor,
         }}
       >
         <MaterialTopTabs.Screen name="home" options={{ title: "home" }} />
         <MaterialTopTabs.Screen name="explore" options={{ title: "explore" }} />
-        <MaterialTopTabs.Screen
-          name="settings"
-          options={{ title: "settings" }}
-        />
+        <MaterialTopTabs.Screen name="settings" options={{ title: "settings" }} />
       </MaterialTopTabs>
     </View>
   );
 }
 
-// Define the icon mapping object
+// Defining the icon mapping object
 const iconMapping: { [key: string]: string } = {
   home: "home",
   explore: "compass",
@@ -63,6 +65,8 @@ type MyTabBarProps = {
 };
 
 function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
+  // Initialize theme
+  const theme = useContext(ThemeContext);
   return (
     <AppbarWeb
       title={brand.name}
@@ -100,14 +104,14 @@ function MyTabBar({ state, descriptors, navigation }: MyTabBarProps) {
                   height: "100%",
                   alignItems: "center",
                   justifyContent: "center",
-                  borderColor: brand.colors.primary,
-                  borderBottomWidth: isFocused ? 2 : 0,
+                  borderColor:theme.values.highlightColor,
+                  borderBottomWidth: isFocused ? 5 : 0,
                 }}
               >
                 <Feather
                   size={20}
                   name={iconName}
-                  color={isFocused ? brand.colors.primary : "#656469"}
+                  color={isFocused ? theme.values.highlightColor : theme.values.inactiveIconColor}
                 />
               </TouchableOpacity>
             );

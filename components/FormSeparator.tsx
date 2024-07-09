@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useContext} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import brand from "../brand/brandConfig";
+
+import { ThemeContext } from "../theme/theme";
 
 type FormSeparatorProps = {
   text: string;
 };
 
-const FormSeparator = ({ text }: FormSeparatorProps) => (
-  <View style={styles.separator}>
-    <View style={styles.line} />
-    {text ? <Text style={styles.text}>{text}</Text> : null}
-    <View style={styles.line} />
-  </View>
-);
+const FormSeparator = ({ text }: FormSeparatorProps) => {
+  // Initialize theme
+  const theme = useContext(ThemeContext);
+  return (
+    <View style={styles.separator}>
+      <View style={styles.line} />
+      {
+        //if text is present display text in theme color
+        text ? <Text style={{...styles.text, color: theme.values.color }}>{text}</Text> : null
+      }
+      <View style={styles.line} />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   separator: {
@@ -28,7 +37,6 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    color: brand.colors.text,
     marginHorizontal: 10,
   },
 });

@@ -29,18 +29,16 @@ export default Appbar;
 
 const styles = StyleSheet.create({
   webContainer: {
-    backgroundColor: brand.colors.background,
     borderBottomWidth: 1,
     borderColor: "#ddd",
-    borderRadius: brand.card.borderRadius,
-    shadowColor: brand.card.shadow ? "#171717" : undefined,
-    shadowOffset: brand.card.shadow ? { width: -2, height: 2 } : undefined,
-    shadowOpacity: brand.card.shadow ? 0.15 : undefined,
-    shadowRadius: brand.card.shadow ? 3 : undefined,
-    elevation: brand.card.shadow ? 20 : undefined,
+    borderRadius: brand.borderRadius,
+    shadowColor: brand.shadow ? "#171717" : undefined,
+    shadowOffset: brand.shadow ? { width: -2, height: 2 } : undefined,
+    shadowOpacity: brand.shadow ? 0.15 : undefined,
+    shadowRadius: brand.shadow ? 3 : undefined,
+    elevation: brand.shadow ? 20 : undefined,
   },
   appbar: {
-    backgroundColor: brand.colors.background,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

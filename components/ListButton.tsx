@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import brand from "../brand/brandConfig";
+import { ThemeContext } from "../theme/theme";
 
 type ListButtonProps = {
   text: string;
@@ -10,13 +11,21 @@ type ListButtonProps = {
 };
 
 const ListButton = ({ onPress, text, icon }: ListButtonProps) => {
+  // Initialize theme
+  const theme = useContext(ThemeContext);
   return (
     <TouchableOpacity
       style={styles.listButton}
       onPress={onPress ? onPress : () => console.log("List Button pressed")}
     >
-      <Text style={styles.text}>{text}</Text>
-      <Feather name={icon} size={25} />
+      <Text style={{
+        ...styles.text,
+        //Text color is set with theme color
+        color: theme.values.color,
+        }}>
+          {text}
+      </Text>
+      <Feather name={icon} size={25} color={theme.values.color} />
     </TouchableOpacity>
   );
 };

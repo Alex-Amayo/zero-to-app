@@ -1,33 +1,26 @@
-import { Colors, FontSizes, Card, Name } from "./brandTypes";
+import { BorderRadius, Colors, FontSizes, Name, Shadow } from "./brandTypes";
 
 interface Brand {
   colors: Colors;
   fontSizes: FontSizes;
-  card: Card;
+  borderRadius: BorderRadius;
   name: Name;
+  shadow: Shadow;
 }
 
 const brand: Brand = {
   name: "Zero To App",
+  borderRadius: 5,
+  shadow: true,
   colors: {
     primary: "#1a4c9d",
     secondary: "#db4691",
-    background: "#ffffff",
-    text: "#333333",
-    textAlternate: "#ffffff",
   },
   fontSizes: {
     small: 12,
     medium: 16,
     large: 20,
     xlarge: 24,
-  },
-  card: {
-    borderRadius: 5,
-    shadow: true,
-    shadowOpacity: 0.25,
-    elevation: 5,
-    cardBackground: "#ffffff",
   },
 };
 

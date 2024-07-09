@@ -1,13 +1,12 @@
 // Branding types for the application
 
 export type Name = string;
+export type BorderRadius = number;
+export type Shadow = boolean;
 
 export interface Colors {
   primary: string;
   secondary: string;
-  background: string;
-  text: string;
-  textAlternate: string;
 }
 
 export interface FontSizes {
@@ -17,12 +16,3 @@ export interface FontSizes {
   xlarge: number;
 }
 
-export interface Card {
-  borderRadius: number;
-  shadowOpacity: number;
-  elevation: number;
-  shadow: boolean;
-  cardBackground: string;
-}
-
-export type BorderRadius = number;

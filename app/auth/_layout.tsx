@@ -3,6 +3,8 @@ import { SafeAreaView, ScrollView, StyleSheet, Image, View, Keyboard, Platform, 
 import { ThemeContext } from '../../theme/theme';
 import { Slot } from 'expo-router';
 import ToggleIconButton from '../../components/ToggleIconButton'; 
+import { StatusBar } from 'expo-status-bar';
+
 export default function LoginPage() {
   // Initializing theme context
   const theme = useContext(ThemeContext);
@@ -10,6 +12,7 @@ export default function LoginPage() {
 
   return (
     <SafeAreaView style={{...styles.safeArea,  backgroundColor: theme.values.backgroundColor }}>
+      <StatusBar style={theme.values.isDark ? 'light' : 'dark'}/>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
           <View style={styles.toggleThemeButton}>

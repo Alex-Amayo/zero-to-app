@@ -18,7 +18,7 @@ export default function LoginPage() {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.keyboardAvoidingView}>
-            <Image source={require('../../assets/logo.png')} style={styles.logo} />
+            <Image source={theme.values.isDark ? require('../../assets/logo-dark.png') : require('../../assets/logo.png')} style={styles.logo} />
             <Slot /> 
           </KeyboardAvoidingView>
         </View>

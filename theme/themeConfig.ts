@@ -13,6 +13,7 @@ export type ThemeValuesType = {
   iconButtonBackgroundColor: string;
   iconButtonIconColor: string;
   appbarColor: string;
+  isDark: boolean;
 };
 
 //Defining light theme
@@ -28,6 +29,7 @@ export const lightTheme: ThemeValuesType = {
   dividerColor: '#DDDDDD',
   iconButtonBackgroundColor: '#E4E6EB',
   iconButtonIconColor: '#000000',
+  isDark: false,
 };
 
 //Defining dark theme
@@ -43,4 +45,5 @@ export const darkTheme: ThemeValuesType = {
   dividerColor: '#808080',
   iconButtonBackgroundColor: '#3a3b3c',
   iconButtonIconColor: '#FFFFFF',
+  isDark: true,
 };

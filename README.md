@@ -16,7 +16,7 @@ It includes pre-built template pages for your authentication flow, bottom naviga
 - [React Native Web](https://necolas.github.io/react-native-web/): A project to bring React Native components and APIs to the web.
 - [React Native Lottie](https://github.com/lottie-react-native/lottie-react-native): A library for rendering Adobe After Effects animations natively on mobile.
 - [Expo Router](https://expo.github.io/router/docs/): A file-based routing library for Expo and React Native.
-- [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps.
+- [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps. (Top Tabs on web with context from Expo-Router)
 - [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
 
 ## Development Tools

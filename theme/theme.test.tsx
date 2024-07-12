@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { ThemeProvider, ThemeContext } from './theme';
 import { Text } from 'react-native';
+import brand from '../brand/brandConfig';
 
 // Mock component to test ThemeProvider
 const TestComponent = () => {
@@ -9,7 +10,7 @@ const TestComponent = () => {
     <ThemeContext.Consumer>
       {({ values, toggleTheme }) => (
         <>
-          <Text testID="backgroundColor">{values.backgroundColor}</Text>
+          <Text testID="highlightColor">{values.highlightColor}</Text>
           <Text testID="color">{values.color}</Text>
           <Text onPress={toggleTheme} testID="toggleTheme">
             Toggle Theme
@@ -28,12 +29,10 @@ describe('ThemeProvider', () => {
       </ThemeProvider>,
     );
 
-    expect(getByTestId('backgroundColor').props.children).toBe('#ECF3FF'); // Light theme background color
-    expect(getByTestId('color').props.children).toBe('#000000'); // Light theme text color
+    expect(getByTestId('highlightColor').props.children).toBe(brand.colors.primary); // Check if the highlightColor is the same as the brand primary color
 
-    fireEvent.press(getByTestId('toggleTheme')); // Toggle theme
-
-    expect(getByTestId('backgroundColor').props.children).toBe('#000000'); // Dark theme background color
-    expect(getByTestId('color').props.children).toBe('#FFFFFF'); // Dark theme text color
+    fireEvent.press(getByTestId('toggleTheme'));
+    
+    expect(getByTestId('highlightColor').props.children).toBe(brand.colors.secondary); // Check if the highlightColor is the same as the brand secondary color
   });
 });

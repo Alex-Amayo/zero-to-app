@@ -21,6 +21,7 @@ const TestComponent = () => {
   );
 };
 
+// Test ThemeProvider by toggling theme from light to dark
 describe('ThemeProvider', () => {
   it('toggles theme from light to dark', () => {
     const { getByTestId } = render(

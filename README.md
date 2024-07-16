@@ -3,7 +3,7 @@
 </p>
 
 Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website.
-It includes pre-built template pages for your authentication flow, bottom navigation, and basic components that all share common styles you can easily configure from a single file.
+It includes pre-built template pages for your authentication flow, bottom navigation/responsive yop navigation on web and basic components that all share common styles you can easily configure from a single file.
 
 ## Try A Live Demo on the Web!
 

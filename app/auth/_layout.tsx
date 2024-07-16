@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Image, View, Keyboard, Platform, KeyboardAvoidingView } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Image, View, Platform, KeyboardAvoidingView } from 'react-native';
 import { ThemeContext } from '../../theme/theme';
 import { Slot } from 'expo-router';
 import ToggleIconButton from '../../components/ToggleIconButton'; 

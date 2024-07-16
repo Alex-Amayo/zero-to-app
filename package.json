@@ -40,14 +40,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
-    "@eslint/compat": "^1.1.0",
-    "@eslint/js": "^9.6.0",
     "@testing-library/react-native": "^12.5.1",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.3",
     "@types/react-test-renderer": "^18.3.0",
-    "eslint": "^8.57.0",
     "eslint-config-expo": "^7.1.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -60,7 +57,8 @@
     "prettier": "^3.3.2",
     "ts-jest": "^29.1.5",
     "typescript": "~5.5.3",
-    "typescript-eslint": "^7.16.0"
+    "typescript-eslint": "^7.16.0",
+    "eslint": "^8.57.0"
   },
   "private": true
 }

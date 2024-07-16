@@ -48,31 +48,24 @@ Start the app:
 npx expo start
 ```
 
+
+### Customizaytion
+
+Replave the assets in '/assets with yor logo, icon and splash screen images. 
+
 # Brand Configuration
 
-The `brandConfig.ts` file defines the styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
-This is not to be confused with a theme (dark mode/ light mode) Which will be confugured in a later iteration of the boilerplate using the Context API.
-
-The properties set in brand/brand.ts will style most of the compoents that come pre-built giving you a custom look for your app.
+The `brandConfig.ts` file defines the basic styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
 
 ```typescript
-import { Colors, FontSizes, Card, Name } from "./brandTypes";
-
-interface Brand {
-  colors: Colors;
-  fontSizes: FontSizes;
-  card: Card;
-  name: Name;
-}
 
 const brand: Brand = {
-  name: "Zero To App",
+  name: 'Zero To App',
+  borderRadius: 5,
+  shadow: true,
   colors: {
-    primary: "#1a4c9d",
-    secondary: "#db4691",
-    background: "#ffffff",
-    text: "#333333",
-    textAlternate: "#ffffff",
+    primary: '#1a4c9d',
+    secondary: '#db4691',
   },
   fontSizes: {
     small: 12,
@@ -80,22 +73,52 @@ const brand: Brand = {
     large: 20,
     xlarge: 24,
   },
-  card: {
-    borderRadius: 5,
-    shadow: true,
-    shadowOpacity: 0.25,
-    elevation: 5,
-    cardBackground: "#ffffff",
-  },
 };
 
 export default brand;
 
-Replace found at assets/logo.png with your own custom logo.
-
 ```
 
-## Included Authentication Screen/Page Templates
+# Theme Configuration
+
+The 'themeConfig.ts' file defines the rest of the global styles  of the app, you can set properties for your light mode / dark mode by editing the respective
+theme.
+
+```typescript
+
+//Defining light theme
+export const lightTheme: ThemeValuesType = {
+  color: '#000000',
+  backgroundColor: '#ECF3FF',
+  cardBackgroundColor: '#FFFFFF',
+  highlightColor: brand.colors.primary,
+  appbarColor: '#FFFFFF',
+  borderColor: '#F2F2F7FF',
+  shadowColor: '#000000',
+  inactiveIconColor: '#65676b',
+  dividerColor: '#DDDDDD',
+  iconButtonBackgroundColor: '#E4E6EB',
+  iconButtonIconColor: '#000000',
+  isDark: false,
+};
+
+//Defining dark theme
+export const darkTheme: ThemeValuesType = {
+  color: '#FFFFFF',
+  backgroundColor: '#242526',
+  cardBackgroundColor: '#18191a',
+  highlightColor: brand.colors.secondary,
+  appbarColor: '#18191a',
+  borderColor: '#1C1C1EFF',
+  shadowColor: '',
+  inactiveIconColor: '#808080',
+  dividerColor: '#808080',
+  iconButtonBackgroundColor: '#3a3b3c',
+  iconButtonIconColor: '#FFFFFF',
+  isDark: true,
+};
+
+```
 
 - **Login**
 - **Signup**

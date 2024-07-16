@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Slot } from 'expo-router';
 import { ThemeProvider } from '../theme/theme';
 

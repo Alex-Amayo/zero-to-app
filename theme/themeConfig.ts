@@ -35,10 +35,10 @@ export const lightTheme: ThemeValuesType = {
 //Defining dark theme
 export const darkTheme: ThemeValuesType = {
   color: '#FFFFFF',
-  backgroundColor: '#000000',
+  backgroundColor: '#242526',
   cardBackgroundColor: '#18191a',
   highlightColor: brand.colors.secondary,
-  appbarColor: '#1C1C1EFF',
+  appbarColor: '#18191a',
   borderColor: '#1C1C1EFF',
   shadowColor: '',
   inactiveIconColor: '#808080',

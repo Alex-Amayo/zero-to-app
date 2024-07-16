@@ -49,11 +49,11 @@ npx expo start
 ```
 
 
-### Customization
+# Customization
 
 Replave the assets in '/assets with yor logo, icon and splash screen images. 
 
-# Brand Configuration
+## Brand Configuration
 
 The `brandConfig.ts` file defines the basic styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.
 
@@ -79,7 +79,7 @@ export default brand;
 
 ```
 
-# Theme Configuration
+## Theme Configuration
 
 The `themeConfig.ts` file defines the rest of the global styles  of the app, you can set properties for your light mode / dark mode by editing the respective
 theme.
@@ -120,14 +120,14 @@ export const darkTheme: ThemeValuesType = {
 
 ```
 
-## Screens / Pages 
+# Screens / Pages 
 
 - **Login**
 - **Signup**
 - **Account Recovery**
 - **Settings**
 
-## Components
+# Components
 
 - **Appbar**
 - **Button**

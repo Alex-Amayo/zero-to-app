@@ -81,7 +81,7 @@ export default brand;
 
 # Theme Configuration
 
-The 'themeConfig.ts' file defines the rest of the global styles  of the app, you can set properties for your light mode / dark mode by editing the respective
+The `themeConfig.ts` file defines the rest of the global styles  of the app, you can set properties for your light mode / dark mode by editing the respective
 theme.
 
 ```typescript
@@ -120,12 +120,14 @@ export const darkTheme: ThemeValuesType = {
 
 ```
 
+## Screens / Pages 
+
 - **Login**
 - **Signup**
 - **Account Recovery**
 - **Settings**
 
-## Provided Components
+## Components
 
 - **Appbar**
 - **Button**

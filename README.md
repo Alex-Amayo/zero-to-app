@@ -49,7 +49,7 @@ npx expo start
 ```
 
 
-### Customizaytion
+### Customization
 
 Replave the assets in '/assets with yor logo, icon and splash screen images. 
 

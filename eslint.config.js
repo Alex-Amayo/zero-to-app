@@ -1,8 +1,16 @@
-import jsdoc from "eslint-plugin-jsdoc";
+const jsdoc = require("eslint-plugin-jsdoc");
 
-export default [
+module.exports = [
     {
-        files: ["**/*.js"],
+        files: ["**/*.js", "**/*.ts"], 
+        ignores: [
+            '**/node_modules/**',
+            '**/__tests__/**',
+            'build/',
+            '*.test.js',
+            '.expo/**',
+            'dist/**'
+        ],
         plugins: {
             jsdoc: jsdoc
         },

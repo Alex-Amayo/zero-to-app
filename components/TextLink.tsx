@@ -4,14 +4,12 @@ import brand from '../brand/brandConfig';
 
 type TextLinkprops = {
   text: string;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const TextLink = ({ text, onPress }: TextLinkprops) => {
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={onPress ? onPress : () => console.log('Icon Button pressed')}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

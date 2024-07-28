@@ -8,8 +8,8 @@ const Layout = () => {
   // Initializing theme context
   const theme = useContext(ThemeContext);
   return (
-    <SafeAreaView style={{...styles.container, backgroundColor: theme.values.appbarColor}}>
-      <StatusBar style={theme.values.isDark ? 'light' : 'dark'} backgroundColor='red'/>
+    <SafeAreaView style={{ ...styles.container, backgroundColor: theme.values.appbarColor }}>
+      <StatusBar style={theme.values.isDark ? 'light' : 'dark'} backgroundColor="red" />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>

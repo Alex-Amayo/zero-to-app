@@ -5,7 +5,7 @@ import { ThemeContext } from '../theme/theme';
 
 type IconButtonProps = {
   iconName: keyof typeof Feather.glyphMap;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const IconButton = ({ iconName, onPress }: IconButtonProps) => {
@@ -13,7 +13,7 @@ const IconButton = ({ iconName, onPress }: IconButtonProps) => {
   const theme = useContext(ThemeContext);
   return (
     <TouchableOpacity
-      onPress={onPress ? onPress : () => console.log('Icon Button pressed')}
+      onPress={onPress}
       style={{
         ...styles.container,
         backgroundColor: theme.values.iconButtonBackgroundColor,

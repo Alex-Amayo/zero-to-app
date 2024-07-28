@@ -1,7 +1,7 @@
 import brand from '../brand/brandConfig';
 
 //Defining types for ThemeValues
-export type ThemeValuesType = {
+export interface ThemeValuesType {
   color: string;
   backgroundColor: string;
   highlightColor: string;
@@ -14,7 +14,7 @@ export type ThemeValuesType = {
   iconButtonIconColor: string;
   appbarColor: string;
   isDark: boolean;
-};
+}
 
 //Defining light theme
 export const lightTheme: ThemeValuesType = {

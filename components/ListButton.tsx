@@ -7,16 +7,14 @@ import { ThemeContext } from '../theme/theme';
 type ListButtonProps = {
   text: string;
   icon: keyof typeof Feather.glyphMap;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const ListButton = ({ onPress, text, icon }: ListButtonProps) => {
   // Initialize theme
   const theme = useContext(ThemeContext);
   return (
-    <TouchableOpacity
-      style={styles.listButton}
-      onPress={onPress ? onPress : () => console.log('List Button pressed')}>
+    <TouchableOpacity style={styles.listButton} onPress={onPress}>
       <Text
         style={{
           ...styles.text,

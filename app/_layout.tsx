@@ -2,7 +2,6 @@ import React from 'react';
 import { Slot } from 'expo-router';
 import { ThemeProvider } from '../theme/theme';
 
-
 const Layout = () => {
   return (
     <ThemeProvider>

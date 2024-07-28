@@ -33,7 +33,7 @@ describe('ThemeProvider', () => {
     expect(getByTestId('highlightColor').props.children).toBe(brand.colors.primary); // Check if the highlightColor is the same as the brand primary color
 
     fireEvent.press(getByTestId('toggleTheme'));
-    
+
     expect(getByTestId('highlightColor').props.children).toBe(brand.colors.secondary); // Check if the highlightColor is the same as the brand secondary color
   });
 });

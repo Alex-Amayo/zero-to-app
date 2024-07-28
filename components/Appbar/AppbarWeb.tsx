@@ -68,10 +68,7 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
           <View style={styles.iconContainer}>
             <IconButton iconName="search" />
             <IconButton iconName="plus" />
-            <ToggleIconButton 
-              iconName='sun' 
-              alternateIconName='moon' 
-              onPress={toggleTheme} />
+            <ToggleIconButton iconName="sun" alternateIconName="moon" onPress={toggleTheme} />
           </View>
         </View>
         {windowWidth < breakpoints.medium ? (
@@ -119,5 +116,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 10,
   },
-  webContainer: {}, // WebContainer property to inject shadow styles for web 
+  webContainer: {}, // WebContainer property to inject shadow styles for web
 });

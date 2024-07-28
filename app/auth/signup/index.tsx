@@ -16,12 +16,15 @@ export default function SignupPage() {
     <Card>
       <List>
         {/* Title for the signup form */}
-        <Text style={{
-          //Use the theme to set the font color
-          color: theme.values.color,
-          ...styles.title,
-        }}>Create A New Account</Text>
-        <Text style={{...styles.subTitle, color: theme.values.color}}>It's quick and easy.</Text>
+        <Text
+          style={{
+            //Use the theme to set the font color
+            color: theme.values.color,
+            ...styles.title,
+          }}>
+          Create A New Account
+        </Text>
+        <Text style={{ ...styles.subTitle, color: theme.values.color }}>It's quick and easy.</Text>
         <ListDivider />
         {/* Input for Names half property added to display in rows*/}
         <View style={styles.nameContainer}>

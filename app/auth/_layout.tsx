@@ -1,8 +1,16 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Image, View, Platform, KeyboardAvoidingView } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Image,
+  View,
+  Platform,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { ThemeContext } from '../../theme/theme';
 import { Slot } from 'expo-router';
-import ToggleIconButton from '../../components/ToggleIconButton'; 
+import ToggleIconButton from '../../components/ToggleIconButton';
 import { StatusBar } from 'expo-status-bar';
 
 export default function LoginPage() {
@@ -11,18 +19,25 @@ export default function LoginPage() {
   const { toggleTheme } = useContext(ThemeContext);
 
   return (
-    <SafeAreaView style={{...styles.safeArea,  backgroundColor: theme.values.backgroundColor }}>
-      <StatusBar style={theme.values.isDark ? 'light' : 'dark'}/>
+    <SafeAreaView style={{ ...styles.safeArea, backgroundColor: theme.values.backgroundColor }}>
+      <StatusBar style={theme.values.isDark ? 'light' : 'dark'} />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
           <View style={styles.toggleThemeButton}>
-            <ToggleIconButton iconName='moon' alternateIconName='sun' onPress={toggleTheme} />
+            <ToggleIconButton iconName="moon" alternateIconName="sun" onPress={toggleTheme} />
           </View>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.keyboardAvoidingView}>
-            <Image source={theme.values.isDark ? require('../../assets/logo-dark.png') : require('../../assets/logo.png')} style={styles.logo} />
-            <Slot /> 
+            <Image
+              source={
+                theme.values.isDark
+                  ? require('../../assets/logo-dark.png')
+                  : require('../../assets/logo.png')
+              }
+              style={styles.logo}
+            />
+            <Slot />
           </KeyboardAvoidingView>
         </View>
       </ScrollView>
@@ -44,10 +59,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%', 
+    width: '100%',
   },
   keyboardAvoidingView: {
-    width: 300, 
+    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,

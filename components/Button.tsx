@@ -4,14 +4,12 @@ import brand from '../brand/brandConfig';
 type ButtonProps = {
   title: string;
   secondary?: boolean;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const Button = ({ title, secondary, onPress }: ButtonProps) => {
   return (
-    <Pressable
-      onPress={onPress ? onPress : () => console.log('Button pressed')}
-      style={secondary ? styles.secondary : styles.primary}>
+    <Pressable onPress={onPress} style={secondary ? styles.secondary : styles.primary}>
       <View>
         <Text
           style={{

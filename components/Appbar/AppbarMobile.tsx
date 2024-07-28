@@ -17,18 +17,15 @@ const Appbar = ({ title, tabs }: AppbarProps) => {
   //Initialize theme toggle
   const { toggleTheme } = useContext(ThemeContext);
   return (
-    <View style={{...styles.appbar, backgroundColor: theme.values.appbarColor}}>
+    <View style={{ ...styles.appbar, backgroundColor: theme.values.appbarColor }}>
       <Link href="/core/home">
-        <Text style={{...styles.title, color: theme.values.highlightColor}}>{title}</Text>
+        <Text style={{ ...styles.title, color: theme.values.highlightColor }}>{title}</Text>
       </Link>
       {tabs ? tabs : null}
-      <View style={{...styles.iconContainer, backgroundColor: theme.values.appbarColor }}>
+      <View style={{ ...styles.iconContainer, backgroundColor: theme.values.appbarColor }}>
         <IconButton iconName="search" />
         <IconButton iconName="plus" />
-        <ToggleIconButton 
-              iconName='sun' 
-              alternateIconName='moon' 
-              onPress={toggleTheme} />
+        <ToggleIconButton iconName="sun" alternateIconName="moon" onPress={toggleTheme} />
       </View>
     </View>
   );

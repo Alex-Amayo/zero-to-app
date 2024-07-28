@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 type ListProps = {
-  children?: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 };
 
 const List = ({ children }: ListProps) => {

@@ -12,7 +12,8 @@ export type ThemeContextType = {
 
 //Initialize ThemeContext with a toggle function placeholder
 const ThemeContext = createContext<ThemeContextType>({
-  values: lightTheme, toggleTheme: () => { },
+  values: lightTheme,
+  toggleTheme: () => {},
 });
 
 type ThemeProviderProps = {

@@ -23,8 +23,8 @@ const Appbar = ({ title, tabs }: AppbarProps) => {
       </Link>
       {tabs ? tabs : null}
       <View style={{ ...styles.iconContainer, backgroundColor: theme.values.appbarColor }}>
-        <IconButton iconName="search" />
-        <IconButton iconName="plus" />
+        <IconButton iconName="search" onPress={() => {}} />
+        <IconButton iconName="plus" onPress={() => {}} />
         <ToggleIconButton iconName="sun" alternateIconName="moon" onPress={toggleTheme} />
       </View>
     </View>

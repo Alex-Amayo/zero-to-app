@@ -38,7 +38,7 @@ export default function SignupPage() {
         {/* Input for password confirmation */}
         <FormInput placeholder="Re-enter password" secure />
         {/* Sign up button */}
-        <Button title="Sign Up" secondary />
+        <Button title="Sign Up" secondary onPress={() => {}} />
         <TextLink text="Already have an account?" onPress={() => router.push('/auth/login')} />
       </List>
     </Card>

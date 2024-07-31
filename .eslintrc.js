@@ -15,7 +15,6 @@ module.exports = {
     indent: ['error', 2],
     semi: ['error', 'always'],
     'no-unused-vars': 'warn',
-    'no-console': 'warn',
     eqeqeq: ['error', 'always'],
     curly: ['error', 'all'],
     'no-var': 'error',

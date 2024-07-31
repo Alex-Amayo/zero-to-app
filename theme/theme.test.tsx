@@ -30,10 +30,12 @@ describe('ThemeProvider', () => {
       </ThemeProvider>,
     );
 
-    expect(getByTestId('highlightColor').props.children).toBe(brand.colors.primary); // Check if the highlightColor is the same as the brand primary color
-
+    // Check initial highlightColor is the same as the brand primary color
+    expect(getByTestId('highlightColor').props.children).toBe(brand.colors.primary);
+    // Toggle the theme
     fireEvent.press(getByTestId('toggleTheme'));
 
-    expect(getByTestId('highlightColor').props.children).toBe(brand.colors.secondary); // Check if the highlightColor is the same as the brand secondary color
+    // Check if the highlightColor changed to the brand secondary color
+    expect(getByTestId('highlightColor').props.children).toBe(brand.colors.secondary);
   });
 });

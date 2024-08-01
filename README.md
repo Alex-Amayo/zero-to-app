@@ -1,6 +1,7 @@
 <p align="center">
-  <img src="https://utfs.io/f/3ad214ce-4174-463e-a2ed-616cc8ad43f9-w7f70.png">
+  <img src="https://utfs.io/f/3ad214ce-4174-463e-a2ed-616cc8ad43f9-w7f70.png" width="500" height="auto">
 </p>
+
 
 **Zero To App** is a customizable boilerplate built with **React Native**, **TypeScript**, and **Expo**, designed to work seamlessly on **web**,**ios** & **android**. It integrates **Supabase** for **authentication** and **database management**. **Zustand** is included for predictable client-side state management, making it perfect for quickly setting up and launching scalable apps.  
 

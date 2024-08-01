@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://utfs.io/f/3ad214ce-4174-463e-a2ed-616cc8ad43f9-w7f70.png" width="500" height="auto">
+  <img src="https://utfs.io/f/4303f89d-69c1-4d9f-a4b4-64ea767ee7cc-w7f70.png" width="500" height="auto">
 </p>
 
 

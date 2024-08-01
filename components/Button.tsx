@@ -1,10 +1,10 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, GestureResponderEvent } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type ButtonProps = {
   title: string;
   secondary?: boolean;
-  onPress: () => void;
+  onPress: (event: GestureResponderEvent) => void | Promise<void>;
 };
 
 const Button = ({ title, secondary, onPress }: ButtonProps) => {

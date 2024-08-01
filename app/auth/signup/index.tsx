@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TextLink from '../../../components/TextLink';
 import Button from '../../../components/Button';
@@ -8,10 +8,27 @@ import ListDivider from '../../../components/ListDivider';
 import { router } from 'expo-router';
 import FormInput from '../../../components/FormInput';
 import { ThemeContext } from '../../../theme/theme';
+import { useAuthStore } from '../../../store/authStore/authStore';
 
 export default function SignupPage() {
   //Initialize the theme
   const theme = useContext(ThemeContext);
+
+  //Initialize first name, last name, email, and password state
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [PasswordConfirmation, setPasswordConfirmation] = useState('');
+
+  //Destructure the signup function from the auth store
+  const { signup } = useAuthStore();
+
+  //Function to handle form submission
+  const handleSubmit = async () => {
+    await signup(email, password);
+  };
+
   return (
     <Card>
       <List>
@@ -26,19 +43,34 @@ export default function SignupPage() {
         </Text>
         <Text style={{ ...styles.subTitle, color: theme.values.color }}>It's quick and easy.</Text>
         <ListDivider />
+
         {/* Input for Names half property added to display in rows*/}
         <View style={styles.nameContainer}>
-          <FormInput half placeholder="First Name" />
-          <FormInput half placeholder="Last Name" />
+          <FormInput
+            half
+            placeholder="First Name"
+            onChange={(e) => setFirstName(e.nativeEvent.text)}
+          />
+          <FormInput
+            half
+            placeholder="Last Name"
+            onChange={(e) => setLastName(e.nativeEvent.text)}
+          />
         </View>
-        {/* Input for Mobile or email */}
-        <FormInput placeholder="Email or Mobile number" />
+
+        {/* Input for Email */}
+        <FormInput placeholder="Mobile or Email" onChange={(e) => setEmail(e.nativeEvent.text)} />
+
         {/* Input for password */}
-        <FormInput placeholder="Password" secure />
+        <FormInput placeholder="Password" onChange={(e) => setPassword(e.nativeEvent.text)} />
+
         {/* Input for password confirmation */}
-        <FormInput placeholder="Re-enter password" secure />
+        <FormInput
+          placeholder="Confirm your password"
+          onChange={(e) => setPasswordConfirmation(e.nativeEvent.text)}
+        />
         {/* Sign up button */}
-        <Button title="Sign Up" secondary onPress={() => {}} />
+        <Button title="Sign Up" secondary onPress={handleSubmit} />
         <TextLink text="Already have an account?" onPress={() => router.push('/auth/login')} />
       </List>
     </Card>

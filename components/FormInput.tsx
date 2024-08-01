@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
+import { TextInputChangeEventData } from 'react-native';
 
 type FormInputProps = {
   placeholder: string;
@@ -9,15 +10,17 @@ type FormInputProps = {
   half?: boolean;
   //Secure prop added to conditionally set secureTextEntry
   secure?: boolean;
+  onChange: (event: { nativeEvent: TextInputChangeEventData }) => void;
 };
 
-const FormInput = ({ placeholder, half, secure }: FormInputProps) => {
+const FormInput = ({ placeholder, half, secure, onChange }: FormInputProps) => {
   const theme = useContext(ThemeContext);
   return (
     <TextInput
       placeholder={placeholder}
       secureTextEntry={secure}
       placeholderTextColor={theme.values.color}
+      onChange={onChange}
       style={{
         //Inline styles used for theme access in state
         color: theme.values.color,

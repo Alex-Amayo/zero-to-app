@@ -8,7 +8,7 @@ import ListDivider from '../../../components/ListDivider';
 import { router } from 'expo-router';
 import FormInput from '../../../components/FormInput';
 import { ThemeContext } from '../../../theme/theme';
-import { useAuthStore } from '../../../store/authStore/authStore';
+import useAuthStore from '../../../store/authStore/authStore';
 
 export default function SignupPage() {
   //Initialize the theme
@@ -22,11 +22,11 @@ export default function SignupPage() {
   const [PasswordConfirmation, setPasswordConfirmation] = useState('');
 
   //Destructure the signup function from the auth store
-  const { signup } = useAuthStore();
+  const { signUp } = useAuthStore();
 
   //Function to handle form submission
   const handleSubmit = async () => {
-    await signup(email, password);
+    await signUp(email, password);
   };
 
   return (

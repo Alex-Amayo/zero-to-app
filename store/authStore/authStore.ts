@@ -1,4 +1,3 @@
-// authStore.ts
 import { create } from 'zustand';
 import { supabase } from '../../utils/supabase'; // Ensure supabase is imported correctly
 import { AuthState, AuthActions } from './authTypes';

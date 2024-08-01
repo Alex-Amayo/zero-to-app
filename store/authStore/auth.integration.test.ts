@@ -3,10 +3,9 @@ import { config } from 'dotenv';
 import { describe, it, expect } from '@jest/globals';
 
 /*
-This file is an integration test for Supabase authentication.
-It tests sign-up, sign-in, and sign-out functionality.
-If the rate limit is exceeded or the email already exists,
-the test will skip the sign-up part and proceed with the rest.
+This file is an integration test for Supabase authentication
+This test requires you to disable email confirmations on in your Supabase dashboard auth/providers.
+It will test the following: sign up, sign in, and sign out.a
 */
 
 // Load environment variables from .env file
@@ -16,7 +15,8 @@ const supabaseUrl = process.env.SUPABASE_URL!;
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const testEmail = 'test@test.com';
+const randomNumber = Math.floor(Math.random() * 1000);
+const testEmail = `test.${randomNumber}@test.com`;
 const testPassword = 'password';
 
 describe('Supabase Authentication Integration Tests', () => {

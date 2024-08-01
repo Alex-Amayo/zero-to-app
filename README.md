@@ -1,23 +1,27 @@
 <p align="center">
-  <img src="https://uploads-ssl.webflow.com/6620407a7c67462e0cddbda9/668ee693b99bbbb68f1501b0_Zero%20To%20App%20-%20web-mobile.gif">
+  <img src="https://utfs.io/f/3ad214ce-4174-463e-a2ed-616cc8ad43f9-w7f70.png">
 </p>
 
-Zero To App is an easily customizable React Native boilerplate that works seamlessly on both web and mobile. The design is loosely based on Facebook's mobile app and website.
-It includes pre-built template pages for your authentication flow, bottom navigation/responsive yop navigation on web and basic components that all share common styles you can easily configure from a single file.
+**Zero To App** is a customizable boilerplate built with **React Native**, **TypeScript**, and **Expo**, designed to work seamlessly on **web**,**ios** & **android**. It integrates **Supabase** for **authentication** and **database management**. **Zustand** is included for predictable client-side state management, making it perfect for quickly setting up and launching scalable apps.  
+
+Zero To App comes pre-configured with essential **development tools** to streamline your workflow. It includes **ESLint and Prettier** configurations with common linting rules to ensure code quality and consistency, helping you maintain clean and readable code. Additionally, it features **unit and integration tests** set up with **Jest and React Native Testing Library**, allowing you to easily build on these foundations to verify your application's functionality and reliability.
 
 ## Try A Live Demo on the Web!
 
 ### <a href="https://d57xfeu0gmhs7.cloudfront.net" target="_blank">🚀 Try Zero To App Now! 🚀</a>
 
 ## Core Frameworks and Libraries
-
-- [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
-- [React Native](https://reactnative.dev/): A framework for building native apps using React.
-- [React Native Web](https://necolas.github.io/react-native-web/): A project to bring React Native components and APIs to the web.
-- [React Native Lottie](https://github.com/lottie-react-native/lottie-react-native): A library for rendering Adobe After Effects animations natively on mobile.
-- [Expo Router](https://expo.github.io/router/docs/): A file-based routing library for Expo and React Native.
-- [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps. (Top Tabs on web with context from Expo-Router)
 - [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
+- [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React Native and React Native Web.
+- [Supabase](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
+- [Zustand](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
+
+
+## Animations
+- [React Native Lottie](https://github.com/lottie-react-native/lottie-react-native): A library for rendering Adobe After Effects animations natively on mobile.
+
+- [Expo Router](https://expo.github.io/router/docs/): A file-based routing library for Expo and React Native.
+- [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps. (Utilized for Top Tabs on web with context from Expo-Router)
 
 ## Development Tools
 
@@ -51,7 +55,7 @@ npx expo start
 
 # Customization
 
-Replave the assets in '/assets with yor logo, icon and splash screen images. 
+Replace the assets in '/assets with yor logo, icon and splash screen images. 
 
 ## Brand Configuration
 

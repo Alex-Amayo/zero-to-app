@@ -3,6 +3,14 @@ import { supabase } from '../../utils/supabase'; // Ensure supabase is imported 
 import { AuthState, AuthActions } from './authTypes';
 import { Session as SupabaseSession, AuthChangeEvent } from '@supabase/supabase-js';
 
+// Auth store with Zustand
+
+// Timeout amount for error messages in milliseconds
+const ERRORTIMEOUT = 5000;
+
+// Redirect URL for password reset
+const RESETPASSWORDREDIRECT = 'https://example.com';
+
 const useAuthStore = create<AuthState & AuthActions>((set) => ({
   user: null,
   session: null,
@@ -24,6 +32,25 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
+  // Clears auth store state
+  clearAuthState: () => {
+    set({
+      user: null,
+      session: null,
+      loading: false,
+      error: null,
+    });
+  },
+
+  // Set auth error message
+  setAuthError: (errorMessage: string) => {
+    set({ error: errorMessage });
+    //clear the auth state after 5 seconds
+    setTimeout(() => {
+      useAuthStore.getState().clearAuthState();
+    }, ERRORTIMEOUT);
+  },
+
   // Sign up function
   signUp: async (email: string, password: string) => {
     set({ loading: true });
@@ -34,6 +61,12 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
+    // If there is an error, clear the auth state after 5 seconds
+    if (error) {
+      setTimeout(() => {
+        useAuthStore.getState().clearAuthState();
+      }, ERRORTIMEOUT);
+    }
   },
 
   // Log in function
@@ -46,6 +79,12 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
+    // If there is an error, clear the auth state after 5 seconds
+    if (error) {
+      setTimeout(() => {
+        useAuthStore.getState().clearAuthState();
+      }, ERRORTIMEOUT);
+    }
   },
 
   // Log out function
@@ -53,6 +92,12 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     set({ loading: true });
     const { error } = await supabase.auth.signOut();
     set({ user: null, session: null, loading: false, error: error?.message || null });
+    // If there is an error, clear the auth state after 5 seconds
+    if (error) {
+      setTimeout(() => {
+        useAuthStore.getState().clearAuthState();
+      }, ERRORTIMEOUT);
+    }
   },
 
   // Handle auth state changes
@@ -65,6 +110,36 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
         callback(event, session ?? null);
       }
     });
+  },
+
+  // Reset password function
+  resetPassword: async (email: string) => {
+    set({ loading: true });
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: RESETPASSWORDREDIRECT,
+    });
+    set({ loading: false, error: error?.message || null });
+    // If there is an error, clear the auth state after 5 seconds
+    if (error) {
+      setTimeout(() => {
+        useAuthStore.getState().clearAuthState();
+      }, ERRORTIMEOUT);
+    }
+  },
+
+  // Change password function
+  changePassword: async (newPassword: string) => {
+    set({ loading: true });
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+    set({ loading: false, error: error?.message || null });
+    // If there is an error, clear the auth state after 5 seconds
+    if (error) {
+      setTimeout(() => {
+        useAuthStore.getState().clearAuthState();
+      }, ERRORTIMEOUT);
+    }
   },
 }));
 

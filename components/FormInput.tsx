@@ -4,9 +4,11 @@ import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
 import { TextInputChangeEventData } from 'react-native';
 
+// Form input component with placeholder, half, secure, and onChange props
+
 type FormInputProps = {
   placeholder: string;
-  //Half prop added to conditionally set width
+  //Half prop sets input to 50% container size added to conditionally set width
   half?: boolean;
   //Secure prop added to conditionally set secureTextEntry
   secure?: boolean;

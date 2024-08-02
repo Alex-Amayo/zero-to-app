@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TextLink from '../../../components/TextLink';
 import Button from '../../../components/Button';
@@ -9,10 +9,19 @@ import { router } from 'expo-router';
 import FormInput from '../../../components/FormInput';
 import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../store/authStore/authStore';
+import FormErrors from '../../../components/FormErrors';
 
 export default function SignupPage() {
   //Initialize the theme
   const theme = useContext(ThemeContext);
+
+  //Retrieving logIn, loading and error, setAuthError from useAuthStore
+  const { signUp, loading, error, setAuthError, clearAuthState } = useAuthStore();
+
+  //Clear auth state on mount
+  useEffect(() => {
+    clearAuthState();
+  }, [clearAuthState]);
 
   //Initialize first name, last name, email, and password state
   const [firstName, setFirstName] = useState('');
@@ -21,14 +30,23 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [PasswordConfirmation, setPasswordConfirmation] = useState('');
 
-  //Destructure the signup function from the auth store
-  const { signUp } = useAuthStore();
-
-  //Function to handle form submission
+  //Function to handle sign up form submission
   const handleSubmit = async () => {
-    await signUp(email, password);
+    //check if any fields are empty
+    if (!firstName || !lastName || !email || !password || !PasswordConfirmation) {
+      setAuthError('Please fill out all fields');
+      return;
+    }
+    //check if password and password confirmation match
+    else if (password !== PasswordConfirmation) {
+      setAuthError('Passwords do not match');
+      return;
+    } else {
+      //sign up
+      await signUp(email, password);
+      return;
+    }
   };
-
   return (
     <Card>
       <List>
@@ -59,7 +77,7 @@ export default function SignupPage() {
         </View>
 
         {/* Input for Email */}
-        <FormInput placeholder="Mobile or Email" onChange={(e) => setEmail(e.nativeEvent.text)} />
+        <FormInput placeholder="Email" onChange={(e) => setEmail(e.nativeEvent.text)} />
 
         {/* Input for password */}
         <FormInput placeholder="Password" onChange={(e) => setPassword(e.nativeEvent.text)} />
@@ -70,7 +88,12 @@ export default function SignupPage() {
           onChange={(e) => setPasswordConfirmation(e.nativeEvent.text)}
         />
         {/* Sign up button */}
-        <Button title="Sign Up" secondary onPress={handleSubmit} />
+        <Button title={loading ? 'Signing Up...' : 'Sign Up'} onPress={handleSubmit} />
+
+        {/* Error message */}
+        <FormErrors error={error} />
+
+        {/* Navigate back to login */}
         <TextLink text="Already have an account?" onPress={() => router.push('/auth/login')} />
       </List>
     </Card>

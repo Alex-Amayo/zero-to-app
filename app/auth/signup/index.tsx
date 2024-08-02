@@ -31,7 +31,7 @@ export default function SignupPage() {
   const [PasswordConfirmation, setPasswordConfirmation] = useState('');
 
   //Function to handle sign up form submission
-  const handleSubmit = async () => {
+  const handleEmailSignupSubmit = async () => {
     //check if any fields are empty
     if (!firstName || !lastName || !email || !password || !PasswordConfirmation) {
       setAuthError('Please fill out all fields');
@@ -88,7 +88,7 @@ export default function SignupPage() {
           onChange={(e) => setPasswordConfirmation(e.nativeEvent.text)}
         />
         {/* Sign up button */}
-        <Button title={loading ? 'Signing Up...' : 'Sign Up'} onPress={handleSubmit} />
+        <Button title={loading ? 'Signing Up...' : 'Sign Up'} onPress={handleEmailSignupSubmit} />
 
         {/* Error message */}
         <FormErrors error={error} />

@@ -30,7 +30,7 @@ export default function RecoverPage() {
   const [success, setSuccess] = useState(false);
 
   //Function to handle password recovery form submission
-  const handleSubmit = async () => {
+  const handleEmailRecoverySubmit = async () => {
     //check if email is empty
     if (!email) {
       setAuthError('Please enter your email');
@@ -79,7 +79,7 @@ export default function RecoverPage() {
           <FormInput placeholder="Enter email" onChange={(e) => setEmail(e.nativeEvent.text)} />
           <Button
             title={loading ? 'Looking for account...' : 'Reset Password'}
-            onPress={handleSubmit}
+            onPress={handleEmailRecoverySubmit}
           />
 
           {/* Display errors */}

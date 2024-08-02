@@ -29,7 +29,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   //Function to handle form submission
-  const handleSubmit = async () => {
+  const handleEmailLoginSubmit = async () => {
     await logIn(email, password);
   };
 
@@ -44,7 +44,7 @@ export default function LoginPage() {
           secure
           onChange={(e) => setPassword(e.nativeEvent.text)}
         />
-        <Button title={loading ? 'Logging in...' : 'Log In'} onPress={handleSubmit} />
+        <Button title={loading ? 'Logging in...' : 'Log In'} onPress={handleEmailLoginSubmit} />
 
         {/* Error message */}
         <FormErrors error={error} />

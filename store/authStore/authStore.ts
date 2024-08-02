@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { supabase } from '../../utils/supabase'; // Ensure supabase is imported correctly
 import { AuthState, AuthActions } from './authTypes';
 import { Session as SupabaseSession, AuthChangeEvent } from '@supabase/supabase-js';
+import { router } from 'expo-router';
 
 // Auth store with Zustand
 
@@ -79,6 +80,12 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
+
+    // If login is successful, push the /core route
+    if (data.user) {
+      router.push('/core');
+    }
+
     // If there is an error, clear the auth state after 5 seconds
     if (error) {
       setTimeout(() => {
@@ -92,11 +99,10 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     set({ loading: true });
     const { error } = await supabase.auth.signOut();
     set({ user: null, session: null, loading: false, error: error?.message || null });
-    // If there is an error, clear the auth state after 5 seconds
+    router.push('/auth/login');
+    // Log the error if there is one
     if (error) {
-      setTimeout(() => {
-        useAuthStore.getState().clearAuthState();
-      }, ERRORTIMEOUT);
+      console.error('Logout error:', error.message);
     }
   },
 

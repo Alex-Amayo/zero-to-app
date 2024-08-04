@@ -1,34 +1,32 @@
-// db.integration.test.ts
 import { supabase } from './supabase';
 
-describe('Supabase Database Integration Tests', () => {
-  let insertedDataId: string;
+// Initialize Supabase client
 
-  test('Insert data into table', async () => {
-    const { data, error } = await supabase
-      .from('your_table_name')
-      .insert([{ column1: 'value1', column2: 'value2' }])
-      .single();
+describe('Supabase Integration Tests', () => {
+  test('Insert a record and verify its existence', async () => {
+    const tableName = 'test_table';
+    const record = { test_data: 'Test Data' };
 
-    console.log('Insert Error:', error); // Log the error
+    // Insert a new record into the table
+    const { data: insertData, error: insertError } = await supabase.from(tableName).insert([record]);
 
-    expect(error).toBeNull();
-    expect(data).toBeDefined();
-    insertedDataId = data.id; // Assuming 'id' is the primary key
-  });
+    // Log the error for debugging
+    if (insertError) {
+      console.error('Error inserting record:', JSON.stringify(insertError, null, 2));
+      throw new Error('Failed to insert record');
+    }
 
-  test('Fetch inserted data from table', async () => {
-    const { data, error } = await supabase
-      .from('your_table_name')
-      .select('*')
-      .eq('id', insertedDataId)
-      .single();
+    // Verify the record was inserted
+    const { data: selectData, error: selectError } = await supabase.from(tableName).select('*').eq('test_data', 'Test Data');
 
-    console.log('Fetch Error:', error); // Log the error
+    // Log the error for debugging
+    if (selectError) {
+      console.error('Error selecting record:', JSON.stringify(selectError, null, 2));
+      throw new Error('Failed to select record');
+    }
 
-    expect(error).toBeNull();
-    expect(data).toBeDefined();
-    expect(data.column1).toBe('value1');
-    expect(data.column2).toBe('value2');
+    // Check if the record exists
+    expect(selectData).toHaveLength(1);
+    expect(selectData[0].test_data).toBe('Test Data');
   });
 });

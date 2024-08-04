@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import { supabase } from '../../utils/supabase'; // Ensure supabase is imported correctly
+import { supabase } from '../../supabase/supabase';
 import { AuthState, AuthActions } from './authTypes';
 import { Session as SupabaseSession, AuthChangeEvent } from '@supabase/supabase-js';
 import { router } from 'expo-router';
 
-// Auth store with Zustand
+// Authentication store with Zustand
 
 // Timeout amount for error messages in milliseconds
 const ERRORTIMEOUT = 5000;
@@ -52,8 +52,20 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }, ERRORTIMEOUT);
   },
 
+  // Log out function
+  logOut: async () => {
+    set({ loading: true });
+    const { error } = await supabase.auth.signOut();
+    set({ user: null, session: null, loading: false, error: error?.message || null });
+    router.push('/auth/login');
+    // Log the error if there is one
+    if (error) {
+      console.error('Logout error:', error.message);
+    }
+  },
+
   // Sign up function
-  signUp: async (email: string, password: string) => {
+  signUpWithEmail: async (email: string, password: string) => {
     set({ loading: true });
     const { data, error } = await supabase.auth.signUp({ email, password });
     set({
@@ -71,7 +83,7 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
   },
 
   // Log in function
-  logIn: async (email: string, password: string) => {
+  logInWithEmail: async (email: string, password: string) => {
     set({ loading: true });
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     set({
@@ -94,18 +106,6 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  // Log out function
-  logOut: async () => {
-    set({ loading: true });
-    const { error } = await supabase.auth.signOut();
-    set({ user: null, session: null, loading: false, error: error?.message || null });
-    router.push('/auth/login');
-    // Log the error if there is one
-    if (error) {
-      console.error('Logout error:', error.message);
-    }
-  },
-
   // Handle auth state changes
   handleAuthStateChange: (
     callback: (event: AuthChangeEvent, session: SupabaseSession | null) => void,
@@ -118,8 +118,8 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  // Reset password function
-  resetPassword: async (email: string) => {
+  // Reset password with email function
+  resetPasswordWithEmail: async (email: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: RESETPASSWORDREDIRECT,
@@ -133,8 +133,8 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  // Change password function
-  changePassword: async (newPassword: string) => {
+  // Change password from email function
+  changePasswordWithEmail: async (newPassword: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.updateUser({
       password: newPassword,

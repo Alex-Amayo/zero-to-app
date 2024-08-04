@@ -16,7 +16,7 @@ export default function SignupPage() {
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { signUp, loading, error, setAuthError, clearAuthState } = useAuthStore();
+  const { signUpWithEmail, loading, error, setAuthError, clearAuthState } = useAuthStore();
 
   //Clear auth state on mount
   useEffect(() => {
@@ -28,22 +28,22 @@ export default function SignupPage() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [PasswordConfirmation, setPasswordConfirmation] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   //Function to handle sign up form submission
   const handleEmailSignupSubmit = async () => {
     //check if any fields are empty
-    if (!firstName || !lastName || !email || !password || !PasswordConfirmation) {
+    if (!firstName || !lastName || !email || !password || !passwordConfirmation) {
       setAuthError('Please fill out all fields');
       return;
     }
     //check if password and password confirmation match
-    else if (password !== PasswordConfirmation) {
+    else if (password !== passwordConfirmation) {
       setAuthError('Passwords do not match');
       return;
     } else {
       //sign up
-      await signUp(email, password);
+      await signUpWithEmail(email, password);
       return;
     }
   };
@@ -67,25 +67,25 @@ export default function SignupPage() {
           <FormInput
             half
             placeholder="First Name"
-            onChange={(e) => setFirstName(e.nativeEvent.text)}
+            onChangeText={(firstName) => setFirstName(firstName)}
           />
           <FormInput
             half
             placeholder="Last Name"
-            onChange={(e) => setLastName(e.nativeEvent.text)}
+            onChangeText={(lastName) => setLastName(lastName)}
           />
         </View>
 
         {/* Input for Email */}
-        <FormInput placeholder="Email" onChange={(e) => setEmail(e.nativeEvent.text)} />
+        <FormInput placeholder="Email" onChangeText={(email) => setEmail(email)} />
 
         {/* Input for password */}
-        <FormInput placeholder="Password" onChange={(e) => setPassword(e.nativeEvent.text)} />
+        <FormInput placeholder="Password" onChangeText={(password) => setPassword(password)} />
 
         {/* Input for password confirmation */}
         <FormInput
           placeholder="Confirm your password"
-          onChange={(e) => setPasswordConfirmation(e.nativeEvent.text)}
+          onChangeText={(passwordConfirmation) => setPasswordConfirmation(passwordConfirmation)}
         />
         {/* Sign up button */}
         <Button title={loading ? 'Signing Up...' : 'Sign Up'} onPress={handleEmailSignupSubmit} />

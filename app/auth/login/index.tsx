@@ -14,7 +14,7 @@ import FormErrors from '../../../components/FormErrors';
 
 export default function LoginPage() {
   //Retrieving logIn, loading and error from useAuthStore
-  const { logIn, loading, error, clearAuthState } = useAuthStore();
+  const { logInWithEmail, loading, error, clearAuthState } = useAuthStore();
 
   //Clear auth state on mount
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function LoginPage() {
 
   //Function to handle form submission
   const handleEmailLoginSubmit = async () => {
-    await logIn(email, password);
+    await logInWithEmail(email, password);
   };
 
   return (
@@ -38,11 +38,11 @@ export default function LoginPage() {
       <List>
         {/* Email, password and login button */}
         <Text style={{ ...styles.title, color: theme.values.color }}>Log Into {brand.name}</Text>
-        <FormInput placeholder="Mobile or Email" onChange={(e) => setEmail(e.nativeEvent.text)} />
+        <FormInput placeholder="Email" onChangeText={(email) => setEmail(email)} />
         <FormInput
           placeholder="Password"
           secure
-          onChange={(e) => setPassword(e.nativeEvent.text)}
+          onChangeText={(password) => setPassword(password)}
         />
         <Button title={loading ? 'Logging in...' : 'Log In'} onPress={handleEmailLoginSubmit} />
 

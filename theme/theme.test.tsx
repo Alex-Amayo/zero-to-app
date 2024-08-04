@@ -4,6 +4,9 @@ import { ThemeProvider, ThemeContext } from './theme';
 import { Text } from 'react-native';
 import brand from '../brand/brandConfig';
 
+//This is a test file for the theme provider. It tests the theme provider by toggling the theme from light to dark.
+//The test checks if the highlightColor changes to the brand secondary color after the theme is toggled.
+
 // Mock component to test ThemeProvider
 const TestComponent = () => {
   return (

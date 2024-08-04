@@ -12,6 +12,10 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "setupFiles": ["./jestSetup.js"],
+    "testMatch": [
+      "**/?(*.)+(spec|test).[tj]s?(x)"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ]
@@ -20,7 +24,7 @@
     "@dotlottie/react-player": "^1.6.19",
     "@expo/metro-runtime": "~3.2.1",
     "@lottiefiles/react-lottie-player": "^3.5.4",
-    "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/material-top-tabs": "^6.6.13",
     "@supabase/supabase-js": "^2.45.0",
     "eslint-plugin-jsdoc": "^48.8.3",

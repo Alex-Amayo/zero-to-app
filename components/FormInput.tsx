@@ -2,27 +2,28 @@ import React, { useContext } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
-import { TextInputChangeEventData } from 'react-native';
 
-// Form input component with placeholder, half, secure, and onChange props
+// FormInput component: A customizable text input field with optional secure entry and half-width styling
 
 type FormInputProps = {
+  // Placeholder text for the input field
   placeholder: string;
-  //Half prop sets input to 50% container size added to conditionally set width
+  // If true, sets the input field to 50% of the container's width
   half?: boolean;
-  //Secure prop added to conditionally set secureTextEntry
+  // If true, enables secure text entry (e.g., for passwords)
   secure?: boolean;
-  onChange: (event: { nativeEvent: TextInputChangeEventData }) => void;
+  // Callback function to handle text input change
+  onChangeText: (text: string) => void;
 };
 
-const FormInput = ({ placeholder, half, secure, onChange }: FormInputProps) => {
+const FormInput = ({ placeholder, half, secure, onChangeText }: FormInputProps) => {
   const theme = useContext(ThemeContext);
   return (
     <TextInput
       placeholder={placeholder}
       secureTextEntry={secure}
       placeholderTextColor={theme.values.color}
-      onChange={onChange}
+      onChangeText={onChangeText}
       style={{
         //Inline styles used for theme access in state
         color: theme.values.color,

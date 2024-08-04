@@ -12,11 +12,11 @@ export interface AuthActions {
   initialize: () => Promise<void>;
   clearAuthState: () => void;
   setAuthError: (errorMessage: string) => void;
-  signUp: (email: string, password: string) => Promise<void>;
-  logIn: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (email: string, password: string) => Promise<void>;
+  logInWithEmail: (email: string, password: string) => Promise<void>;
   logOut: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
-  changePassword: (newPassword: string) => Promise<void>;
+  resetPasswordWithEmail: (email: string) => Promise<void>;
+  changePasswordWithEmail: (newPassword: string) => Promise<void>;
   handleAuthStateChange: (
     callback: (event: AuthChangeEvent, session: SupabaseSession | null) => void,
   ) => void;

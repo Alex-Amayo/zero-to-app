@@ -16,7 +16,7 @@ export default function RecoverPage() {
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { resetPassword, loading, error, setAuthError, clearAuthState } = useAuthStore();
+  const { resetPasswordWithEmail, loading, error, setAuthError, clearAuthState } = useAuthStore();
 
   //Clear auth state on mount
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function RecoverPage() {
     } else {
       //reset password
       try {
-        await resetPassword(email);
+        await resetPasswordWithEmail(email);
         setSuccess(true);
       } catch (error) {
         setAuthError(error as string);
@@ -76,7 +76,7 @@ export default function RecoverPage() {
             Recover Your {brand.name} Password
           </Text>
           {/* Input for email and Reset Password Button */}
-          <FormInput placeholder="Enter email" onChange={(e) => setEmail(e.nativeEvent.text)} />
+          <FormInput placeholder="Enter email" onChangeText={(email) => setEmail(email)} />
           <Button
             title={loading ? 'Looking for account...' : 'Reset Password'}
             onPress={handleEmailRecoverySubmit}

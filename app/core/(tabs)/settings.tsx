@@ -6,10 +6,20 @@ import List from '../../../components/List';
 import ListButton from '../../../components/ListButton';
 import ListDivider from '../../../components/ListDivider';
 import { ThemeContext } from '../../../theme/theme';
+import useAuthStore from '../../../store/authStore/authStore';
 
 const SettingsPage = () => {
   // Initialize theme
   const theme = React.useContext(ThemeContext);
+
+  // Retrieve logOut from auth store
+  const { logOut } = useAuthStore();
+
+  const handleLogOut = () => {
+    logOut();
+    router.push('/auth/login');
+  };
+
   return (
     <View
       style={{
@@ -24,7 +34,7 @@ const SettingsPage = () => {
             <ListDivider />
             <ListButton text="More Options" icon="more-horizontal" />
             <ListDivider />
-            <ListButton text="Sign Out" icon="log-out" onPress={() => router.push('/auth/login')} />
+            <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut} />
           </List>
         </Card>
       </View>

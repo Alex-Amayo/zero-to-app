@@ -12,7 +12,9 @@
   },
   "jest": {
     "preset": "jest-expo",
-    "setupFiles": ["./jestSetup.js"],
+    "setupFiles": [
+      "./jestSetup.js"
+    ],
     "testMatch": [
       "**/?(*.)+(spec|test).[tj]s?(x)"
     ],
@@ -28,10 +30,10 @@
     "@react-navigation/material-top-tabs": "^6.6.13",
     "@supabase/supabase-js": "^2.45.0",
     "eslint-plugin-jsdoc": "^48.8.3",
-    "expo": "~51.0.22",
+    "expo": "~51.0.24",
     "expo-constants": "~16.0.2",
     "expo-linking": "~6.3.1",
-    "expo-router": "~3.5.18",
+    "expo-router": "~3.5.20",
     "expo-status-bar": "~1.12.1",
     "lottie-react-native": "6.7.0",
     "react": "18.2.0",

@@ -40,7 +40,8 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
   return (
     <View
       style={{
-        paddingBottom: 10,
+        //padding for displaying shadow on larger screens
+        paddingBottom: windowWidth >= breakpoints.medium ? 10 : 0,
         //Configure background with theme background (**Different from appbar background, color of the space for shadows)
         backgroundColor: theme.values.backgroundColor,
       }}>
@@ -76,7 +77,6 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
             style={{
               ...styles.appbarWebSmall,
               borderBottomColor: theme.values.dividerColor,
-              borderBottomWidth: 1,
             }}>
             {tabs}
           </View>

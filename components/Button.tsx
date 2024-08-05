@@ -1,14 +1,29 @@
-import { View, Text, Pressable, StyleSheet, GestureResponderEvent } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  GestureResponderEvent,
+  ActivityIndicator,
+} from 'react-native';
 import brand from '../brand/brandConfig';
 
 type ButtonProps = {
   title: string;
   secondary?: boolean;
+  loading?: boolean;
   onPress: (event: GestureResponderEvent) => void | Promise<void>;
 };
 
-const Button = ({ title, secondary, onPress }: ButtonProps) => {
-  return (
+const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
+  return loading ? (
+    <View>
+      <ActivityIndicator
+        size="large"
+        color={secondary ? brand.colors.secondary : brand.colors.primary}
+      />
+    </View>
+  ) : (
     <Pressable onPress={onPress} style={secondary ? styles.secondary : styles.primary}>
       <View>
         <Text

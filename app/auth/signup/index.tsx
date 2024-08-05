@@ -88,7 +88,7 @@ export default function SignupPage() {
           onChangeText={(passwordConfirmation) => setPasswordConfirmation(passwordConfirmation)}
         />
         {/* Sign up button */}
-        <Button title={loading ? 'Signing Up...' : 'Sign Up'} onPress={handleEmailSignupSubmit} />
+        <Button title="Sign Up" onPress={handleEmailSignupSubmit} loading={loading} />
 
         {/* Error message */}
         <FormErrors error={error} />

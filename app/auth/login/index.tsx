@@ -44,7 +44,7 @@ export default function LoginPage() {
           secure
           onChangeText={(password) => setPassword(password)}
         />
-        <Button title={loading ? 'Logging in...' : 'Log In'} onPress={handleEmailLoginSubmit} />
+        <Button title="Login" onPress={handleEmailLoginSubmit} loading={loading} />
 
         {/* Error message */}
         <FormErrors error={error} />
@@ -58,11 +58,6 @@ export default function LoginPage() {
   );
 }
 const styles = StyleSheet.create({
-  logo: {
-    height: 200,
-    width: 200,
-    alignSelf: 'center',
-  },
   title: {
     fontSize: brand.fontSizes.large,
     textAlign: 'center',

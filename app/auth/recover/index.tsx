@@ -77,10 +77,7 @@ export default function RecoverPage() {
           </Text>
           {/* Input for email and Reset Password Button */}
           <FormInput placeholder="Enter email" onChangeText={(email) => setEmail(email)} />
-          <Button
-            title={loading ? 'Looking for account...' : 'Reset Password'}
-            onPress={handleEmailRecoverySubmit}
-          />
+          <Button title="Reset Password" onPress={handleEmailRecoverySubmit} loading={loading} />
 
           {/* Display errors */}
           <FormErrors error={error} />

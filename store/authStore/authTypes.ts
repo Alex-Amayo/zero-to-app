@@ -10,13 +10,14 @@ export interface AuthState {
 
 export interface AuthActions {
   initialize: () => Promise<void>;
+  isAuthenticated: () => boolean;
   clearAuthState: () => void;
   setAuthError: (errorMessage: string) => void;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
   logInWithEmail: (email: string, password: string) => Promise<void>;
   logOut: () => Promise<void>;
   resetPasswordWithEmail: (email: string) => Promise<void>;
-  changePasswordWithEmail: (newPassword: string) => Promise<void>;
+  changePassword: (newPassword: string) => Promise<void>;
   handleAuthStateChange: (
     callback: (event: AuthChangeEvent, session: SupabaseSession | null) => void,
   ) => void;

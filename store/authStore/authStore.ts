@@ -33,6 +33,11 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
+  // Check if the user is authenticated
+  isAuthenticated: (): boolean => {
+    return useAuthStore.getState().session !== null;
+  },
+
   // Clears auth store state
   clearAuthState: () => {
     set({
@@ -133,8 +138,8 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  // Change password from email function
-  changePasswordWithEmail: async (newPassword: string) => {
+  // Change password , should only be called in an authenticated route
+  changePassword: async (newPassword: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.updateUser({
       password: newPassword,

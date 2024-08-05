@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import Button from '../../../components/Button';
-import { useRootNavigationState, router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
@@ -17,14 +17,6 @@ export default function ChangePasswordPage() {
 
   // Retrieving changePassword, loading, error, setAuthError from useAuthStore
   const { changePassword, loading, error, setAuthError, isAuthenticated } = useAuthStore();
-
-  // Navigate if not authenticated and navigation state is ready
-  const navigationState = useRootNavigationState();
-  useEffect(() => {
-    if (navigationState?.key && !isAuthenticated) {
-      router.replace('/auth/login'); // Replace 'Login' with your target screen
-    }
-  }, [navigationState, isAuthenticated]);
 
   // Initializing state variables
   const [password, setPassword] = useState('');
@@ -53,6 +45,11 @@ export default function ChangePasswordPage() {
       setAuthError(error as string);
     }
   };
+
+  // Redirect to login page if user is not authenticated
+  if (!isAuthenticated()) {
+    return <Redirect href="/auth/login" />;
+  }
 
   return (
     <Card>

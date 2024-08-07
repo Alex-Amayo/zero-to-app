@@ -4,7 +4,7 @@ import { AuthState, AuthActions } from './authTypes';
 import { Session as SupabaseSession, AuthChangeEvent } from '@supabase/supabase-js';
 import { router } from 'expo-router';
 
-// Authentication store with Zustand
+// Authentication store with Zustand and supabase
 
 // Timeout amount for error messages in milliseconds
 const ERRORTIMEOUT = 5000;
@@ -31,6 +31,12 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
+  },
+
+  // Get the current user_id
+  getUserId: (): string | null => {
+    const state = useAuthStore.getState();
+    return state.user ? state.user.id : null;
   },
 
   // Check if the user is authenticated

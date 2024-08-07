@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { Stack, Redirect } from 'expo-router';
 import { ThemeContext } from '../../theme/theme';
 import { StatusBar } from 'expo-status-bar';
-import useAuthStore from '../../store/authStore/authStore';
+import useAuthStore from '../../stores/authStore/authStore';
 
 // This layout component redirects to the login page if the user is not authenticated otherwise it renders the main layout
 

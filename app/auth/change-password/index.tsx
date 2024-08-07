@@ -6,7 +6,7 @@ import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
 import { ThemeContext } from '../../../theme/theme';
-import useAuthStore from '../../../store/authStore/authStore';
+import useAuthStore from '../../../stores/authStore/authStore';
 import FormInput from '../../../components/FormInput';
 import FormErrors from '../../../components/FormErrors';
 import TextLink from '../../../components/TextLink';

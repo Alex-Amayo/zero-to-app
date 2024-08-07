@@ -1,15 +1,23 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type TextLinkprops = {
   text: string;
-  onPress: () => void;
+  onPress?: () => void;
+  href?: string;
 };
+const TextLink = ({ text, onPress, href }: TextLinkprops) => {
+  const handlePress = () => {
+    if (href) {
+      Linking.openURL(href);
+    } else if (onPress) {
+      onPress();
+    }
+  };
 
-const TextLink = ({ text, onPress }: TextLinkprops) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

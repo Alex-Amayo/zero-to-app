@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
+import { ThemeContext } from '../theme/theme';
 
 const LoadingScreen = () => {
+  // Initialize theme
+  const theme = useContext(ThemeContext);
+
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: theme.values.backgroundColor }}>
       <LottieView
         source={require('../assets/loading.json')}
         autoPlay
@@ -20,7 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', // Optional: Set background color
   },
   lottieView: {
     width: 200,

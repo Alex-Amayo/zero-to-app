@@ -6,7 +6,7 @@ import List from '../../../components/List';
 import ListButton from '../../../components/ListButton';
 import ListDivider from '../../../components/ListDivider';
 import { ThemeContext } from '../../../theme/theme';
-import useAuthStore from '../../../store/authStore/authStore';
+import useAuthStore from '../../../stores/authStore/authStore';
 
 const SettingsPage = () => {
   // Initialize theme

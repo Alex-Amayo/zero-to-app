@@ -30,11 +30,11 @@ export default function LoginPage() {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.keyboardAvoidingView}>
             <Image
-              source={
-                theme.values.isDark
-                  ? require('../../assets/logo-dark.png')
-                  : require('../../assets/logo.png')
-              }
+              source={{
+                uri: theme.values.isDark
+                  ? 'https://utfs.io/f/0f641941-fe3a-447e-bff3-a9ea1201006c-qkt02w.png'
+                  : 'https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png',
+              }}
               style={styles.logo}
             />
             <Slot />

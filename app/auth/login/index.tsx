@@ -9,7 +9,7 @@ import List from '../../../components/List';
 import FormInput from '../../../components/FormInput';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../../theme/theme';
-import useAuthStore from '../../../store/authStore/authStore';
+import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
 
 export default function LoginPage() {

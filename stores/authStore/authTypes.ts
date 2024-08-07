@@ -11,6 +11,7 @@ export interface AuthState {
 export interface AuthActions {
   initialize: () => Promise<void>;
   isAuthenticated: () => boolean;
+  getUserId: () => string | null;
   clearAuthState: () => void;
   setAuthError: (errorMessage: string) => void;
   signUpWithEmail: (email: string, password: string) => Promise<void>;

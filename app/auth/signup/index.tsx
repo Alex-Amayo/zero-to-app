@@ -8,15 +8,17 @@ import ListDivider from '../../../components/ListDivider';
 import { router } from 'expo-router';
 import FormInput from '../../../components/FormInput';
 import { ThemeContext } from '../../../theme/theme';
-import useAuthStore from '../../../store/authStore/authStore';
+import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
+import { useCreateUserProfile } from '../../../hooks/useUserProfile';
 
 export default function SignupPage() {
   //Initialize the theme
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { signUpWithEmail, loading, error, setAuthError, clearAuthState } = useAuthStore();
+  const { signUpWithEmail, loading, error, setAuthError, clearAuthState, getUserId } =
+    useAuthStore();
 
   //Clear auth state on mount
   useEffect(() => {
@@ -30,20 +32,26 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  //Function to handle sign up form submission
+  const createUserProfile = useCreateUserProfile();
+
+  // Function to handle sign up form submission
   const handleEmailSignupSubmit = async () => {
-    //check if any fields are empty
+    // Check if any fields are empty
     if (!firstName || !lastName || !email || !password || !passwordConfirmation) {
       setAuthError('Please fill out all fields');
       return;
     }
-    //check if password and password confirmation match
+    // Check if password and password confirmation match
     else if (password !== passwordConfirmation) {
       setAuthError('Passwords do not match');
       return;
     } else {
-      //sign up
+      // Sign up
       await signUpWithEmail(email, password);
+      // Get the user id
+      const user_id = getUserId();
+      // Create the user profile
+      createUserProfile.mutate(user_id, firstName, lastName);
       return;
     }
   };

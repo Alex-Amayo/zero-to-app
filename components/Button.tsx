@@ -19,7 +19,7 @@ const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
   return loading ? (
     <View>
       <ActivityIndicator
-        size="large"
+        size="small"
         color={secondary ? brand.colors.secondary : brand.colors.primary}
       />
     </View>

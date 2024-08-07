@@ -1,4 +1,4 @@
-// This file is used to create a Supabase client instance that is used in production
+// This file is used to create a Supabase client instance that is used in testing files
 
 import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,10 +8,10 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.SUPABASE_TEST_URL || '';
+const supabaseServiceRoleKey = process.env.SUPABASE_TEST_SERVICE_ROLE_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabaseTestClient = createClient(supabaseUrl, supabaseServiceRoleKey, {
   auth: {
     storage: AsyncStorage,
     autoRefreshToken: true,

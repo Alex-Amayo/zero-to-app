@@ -1,3 +1,4 @@
+import React from 'react';
 import { useContext, useEffect, useState } from 'react'; // Import useEffect
 import { View, Text, StyleSheet } from 'react-native';
 import TextLink from '../../../components/TextLink';
@@ -42,9 +43,12 @@ export default function SignupPage() {
       return;
     }
     try {
+      // Call the signUpWithEmail function from useAuthStore
       const result = await signUpWithEmail(email, password);
       const uuid = result?.user?.id ?? '';
+      // Set the userId state to the user id
       setUserId(uuid);
+      // Call the logInWithEmail function from useAuthStore
       await logInWithEmail(email, password);
     } catch (error) {
       setAuthError('Signup failed');
@@ -52,6 +56,7 @@ export default function SignupPage() {
     }
   };
 
+  // useEffect to create user profile and navigate to /home  after userID is set
   useEffect(() => {
     if (userId !== '') {
       const createUserProfileAsync = async () => {

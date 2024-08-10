@@ -18,7 +18,10 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
   loading: false,
   error: null,
 
-  // Initialize auth state
+  /**
+   * Initialize the auth store
+   * This function checks if there is a session and sets the user and session in the store
+   */
   initialize: async () => {
     set({ loading: true });
     const {
@@ -33,18 +36,26 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  // Get the current user_id
+  /**
+   * Returns the user id if the user is authenticated
+   * @returns {string} user id or null if the user is not authenticated
+   */
   getUserId: (): string | null => {
     const state = useAuthStore.getState();
     return state.user ? state.user.id : null;
   },
 
-  // Check if the user is authenticated
+  /**
+   * Checks if the user is authenticated
+   * @returns {boolean} true if the user is authenticated, false otherwise
+   */
   isAuthenticated: (): boolean => {
     return useAuthStore.getState().session !== null;
   },
 
-  // Clears auth store state
+  /**
+   * Clears the auth store state
+   */
   clearAuthState: () => {
     set({
       user: null,
@@ -54,7 +65,10 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  // Set auth error message
+  /**
+   * Sets an error message in the auth store
+   * @param errorMessage {string} error message to be displayed
+   */
   setAuthError: (errorMessage: string) => {
     set({ error: errorMessage });
     //clear the auth state after 5 seconds
@@ -63,7 +77,9 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }, ERRORTIMEOUT);
   },
 
-  // Log out function
+  /**
+   * Logs out the user, clears the user session, and redirects to the login page.
+   */
   logOut: async () => {
     set({ loading: true });
     const { error } = await supabase.auth.signOut();
@@ -75,7 +91,12 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  // Sign up function
+  /**
+   * Signs up a user with email and password and sets the user and session in the store.
+   * @param email {string}
+   * @param password {string}
+   * @returns user, session, and error data
+   */
   signUpWithEmail: async (email: string, password: string) => {
     set({ loading: true });
     const { data, error } = await supabase.auth.signUp({ email, password });
@@ -91,9 +112,19 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
         useAuthStore.getState().clearAuthState();
       }, ERRORTIMEOUT);
     }
+    // Return the user and session and error data
+    return {
+      user: data.user ?? null,
+      session: data.session ?? null,
+      error: error?.message || null,
+    };
   },
 
-  // Log in function
+  /**
+   * Logs in a user with email and password and sets the user and session in the auth store.
+   * @param email {string}
+   * @param password {string}
+   */
   logInWithEmail: async (email: string, password: string) => {
     set({ loading: true });
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -103,12 +134,6 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
-
-    // If login is successful, push the /core route
-    if (data.user) {
-      router.push('/core');
-    }
-
     // If there is an error, clear the auth state after 5 seconds
     if (error) {
       setTimeout(() => {
@@ -117,7 +142,10 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  // Handle auth state changes
+  /**
+   * Handles the auth state change and sets the user and session in the auth store.
+   * @param callback {function} callback function to handle the auth state change
+   */
   handleAuthStateChange: (
     callback: (event: AuthChangeEvent, session: SupabaseSession | null) => void,
   ) => {
@@ -129,7 +157,13 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  // Reset password with email function
+  /**
+   * Sends and email reset email to the user if they are registered.
+   * This function does not check if the email is registered.
+   * It will NOT return an error if the email is not registered.
+   * @param email {string}
+   * @returns error message if there is an error
+   */
   resetPasswordWithEmail: async (email: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -144,7 +178,11 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  // Change password , should only be called in an authenticated route
+  /**
+   * Changes the user password
+   * This function requires the user to be authenticated
+   * @param newPassword {string} new password to be set
+   */
   changePassword: async (newPassword: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.updateUser({

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ThemeContext } from '../../../theme/theme';
-import { useUserProfile } from '../../../hooks/useUserProfile';
+import { useFetchUserProfile } from '../../../hooks/useFetchUserProfile';
 import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
@@ -12,10 +12,11 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 const HomePage = () => {
   // Initialize theme
   const theme = useContext(ThemeContext);
+  // Retrieve user from auth store
   const { getUserId } = useAuthStore();
   const userId = getUserId();
-  const { data, isLoading } = useUserProfile(userId ?? '');
-
+  console.log(userId);
+  const { data, isLoading } = useFetchUserProfile(userId as string);
   return (
     <View
       style={{

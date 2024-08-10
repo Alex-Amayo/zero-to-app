@@ -14,7 +14,14 @@ export interface AuthActions {
   getUserId: () => string | null;
   clearAuthState: () => void;
   setAuthError: (errorMessage: string) => void;
-  signUpWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (
+    email: string,
+    password: string,
+  ) => Promise<{
+    user: SupabaseUser | null;
+    session: SupabaseSession | null;
+    error: string | null;
+  }>;
   logInWithEmail: (email: string, password: string) => Promise<void>;
   logOut: () => Promise<void>;
   resetPasswordWithEmail: (email: string) => Promise<void>;

@@ -31,6 +31,7 @@ export default function LoginPage() {
   //Function to handle form submission
   const handleEmailLoginSubmit = async () => {
     await logInWithEmail(email, password);
+    router.push('/home');
   };
 
   return (

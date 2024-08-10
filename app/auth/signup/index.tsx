@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react'; // Import useEffect
 import { View, Text, StyleSheet } from 'react-native';
 import TextLink from '../../../components/TextLink';
 import Button from '../../../components/Button';
@@ -10,20 +10,14 @@ import FormInput from '../../../components/FormInput';
 import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
-import { useCreateUserProfile } from '../../../hooks/useUserProfile';
+import { useCreateUserProfile } from '../../../hooks/useCreateUserProfile';
 
 export default function SignupPage() {
   //Initialize the theme
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { signUpWithEmail, loading, error, setAuthError, clearAuthState, getUserId } =
-    useAuthStore();
-
-  //Clear auth state on mount
-  useEffect(() => {
-    clearAuthState();
-  }, [clearAuthState]);
+  const { signUpWithEmail, loading, error, setAuthError, logInWithEmail } = useAuthStore();
 
   //Initialize first name, last name, email, and password state
   const [firstName, setFirstName] = useState('');
@@ -31,30 +25,48 @@ export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [userId, setUserId] = useState('');
 
-  const createUserProfile = useCreateUserProfile();
+  //Create user user profile user id is createdz
+  const { mutateAsync: createUserProfile } = useCreateUserProfile(userId, firstName, lastName);
 
-  // Function to handle sign up form submission
-  const handleEmailSignupSubmit = async () => {
-    // Check if any fields are empty
+  //Function to handle email signup
+  const handleEmailSignup = async (): Promise<void> => {
+    if (password !== passwordConfirmation) {
+      setAuthError('Passwords do not match');
+      return;
+    }
+    // Check that all fields are filled out
     if (!firstName || !lastName || !email || !password || !passwordConfirmation) {
       setAuthError('Please fill out all fields');
       return;
     }
-    // Check if password and password confirmation match
-    else if (password !== passwordConfirmation) {
-      setAuthError('Passwords do not match');
-      return;
-    } else {
-      // Sign up
-      await signUpWithEmail(email, password);
-      // Get the user id
-      const user_id = getUserId();
-      // Create the user profile
-      createUserProfile.mutate(user_id, firstName, lastName);
-      return;
+    try {
+      const result = await signUpWithEmail(email, password);
+      const uuid = result?.user?.id ?? '';
+      setUserId(uuid);
+      await logInWithEmail(email, password);
+    } catch (error) {
+      setAuthError('Signup failed');
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (userId !== '') {
+      const createUserProfileAsync = async () => {
+        try {
+          await createUserProfile();
+          console.log('User profile created');
+        } catch (error) {
+          console.error('Failed to create user profile', error);
+        }
+      };
+      createUserProfileAsync();
+      router.push('/home');
+    }
+  }, [createUserProfile, userId]);
+
   return (
     <Card>
       <List>
@@ -88,15 +100,20 @@ export default function SignupPage() {
         <FormInput placeholder="Email" onChangeText={(email) => setEmail(email)} />
 
         {/* Input for password */}
-        <FormInput placeholder="Password" onChangeText={(password) => setPassword(password)} />
+        <FormInput
+          placeholder="Password"
+          secure
+          onChangeText={(password) => setPassword(password)}
+        />
 
         {/* Input for password confirmation */}
         <FormInput
           placeholder="Confirm your password"
           onChangeText={(passwordConfirmation) => setPasswordConfirmation(passwordConfirmation)}
+          secure
         />
         {/* Sign up button */}
-        <Button title="Sign Up" onPress={handleEmailSignupSubmit} loading={loading} />
+        <Button title="Sign Up" onPress={handleEmailSignup} loading={loading} />
 
         {/* Error message */}
         <FormErrors error={error} />

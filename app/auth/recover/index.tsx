@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import Button from '../../../components/Button';
 import { router } from 'expo-router';
@@ -16,12 +16,7 @@ export default function RecoverPage() {
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { resetPasswordWithEmail, loading, error, setAuthError, clearAuthState } = useAuthStore();
-
-  //Clear auth state on mount
-  useEffect(() => {
-    clearAuthState();
-  }, [clearAuthState]);
+  const { resetPasswordWithEmail, loading, error, setAuthError } = useAuthStore();
 
   //Initializing email state
   const [email, setEmail] = useState('');
@@ -45,13 +40,6 @@ export default function RecoverPage() {
       }
     }
   };
-
-  //Clear auth state on unmount
-  useEffect(() => {
-    return () => {
-      clearAuthState();
-    };
-  }, [clearAuthState]);
 
   return (
     <Card>

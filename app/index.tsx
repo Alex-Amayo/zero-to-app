@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { router } from 'expo-router';
 import LoadingScreen from '../components/LoadingScreen';

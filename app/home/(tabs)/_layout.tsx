@@ -1,3 +1,4 @@
+import React from 'react';
 import { useContext } from 'react';
 import { Tabs } from 'expo-router';
 import brand from '../../../brand/brandConfig';

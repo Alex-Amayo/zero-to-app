@@ -1,3 +1,4 @@
+import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import FormSeparator from '../../../components/FormSeparator';
 import TextLink from '../../../components/TextLink';
@@ -7,19 +8,14 @@ import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
 import FormInput from '../../../components/FormInput';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
 
 export default function LoginPage() {
   //Retrieving logIn, loading and error from useAuthStore
-  const { logInWithEmail, loading, error, clearAuthState } = useAuthStore();
-
-  //Clear auth state on mount
-  useEffect(() => {
-    clearAuthState();
-  }, [clearAuthState]);
+  const { logInWithEmail, loading, error } = useAuthStore();
 
   //Initializing theme context and toggleTheme function
   const theme = useContext(ThemeContext);

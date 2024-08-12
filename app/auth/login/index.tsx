@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import FormSeparator from '../../../components/FormSeparator';
 import TextLink from '../../../components/TextLink';
@@ -25,31 +25,43 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   //Function to handle form submission
-  const handleEmailLoginSubmit = async () => {
+  const handleEmailLoginSubmit = useCallback(async () => {
     await logInWithEmail(email, password);
     router.push('/home');
+  }, [email, password, logInWithEmail]);
+
+  const handleAccountRecoveryPush = () => {
+    router.push('/auth/recover');
   };
+
+  const handleSignUpPush = () => {
+    router.push('/auth/recover');
+  };
+
+  const handleEmailChange = useCallback((email: string) => {
+    setEmail(email);
+  }, []);
+
+  const handlePasswordChange = useCallback((password: string) => {
+    setPassword(password);
+  }, []);
 
   return (
     <Card>
       <List>
         {/* Email, password and login button */}
         <Text style={{ ...styles.title, color: theme.values.color }}>Log Into {brand.name}</Text>
-        <FormInput placeholder="Email" onChangeText={(email) => setEmail(email)} />
-        <FormInput
-          placeholder="Password"
-          secure
-          onChangeText={(password) => setPassword(password)}
-        />
+        <FormInput placeholder="Email" onChangeText={handleEmailChange} />
+        <FormInput placeholder="Password" secure onChangeText={handlePasswordChange} />
         <Button title="Login" onPress={handleEmailLoginSubmit} loading={loading} />
 
         {/* Error message */}
         <FormErrors error={error} />
 
         {/* Forgot password button, create new account button */}
-        <TextLink text="Forgot password?" onPress={() => router.push('/auth/recover')} />
+        <TextLink text="Forgot password?" onPress={handleAccountRecoveryPush} />
         <FormSeparator text="or" />
-        <Button title="Create New Account" onPress={() => router.push('/auth/signup')} secondary />
+        <Button title="Create New Account" onPress={handleSignUpPush} secondary />
       </List>
     </Card>
   );

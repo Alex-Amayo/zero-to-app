@@ -6,9 +6,11 @@ import LoadingScreen from '../components/LoadingScreen';
 export default function HomePage() {
   //Plays animation for 3 sec then pushes '/login' route
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       router.push('/auth/login');
-    }, 3000);
+    }, 3000); // 3 seconds
+
+    return () => clearTimeout(timer);
   }, []);
 
   return <LoadingScreen />;

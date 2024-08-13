@@ -35,7 +35,7 @@ export default function LoginPage() {
   };
 
   const handleSignUpPush = () => {
-    router.push('/auth/recover');
+    router.push('/auth/signup');
   };
 
   const handleEmailChange = useCallback((email: string) => {
@@ -69,10 +69,6 @@ export default function LoginPage() {
 const styles = StyleSheet.create({
   title: {
     fontSize: brand.fontSizes.large,
-    textAlign: 'center',
-  },
-  error: {
-    color: 'red',
     textAlign: 'center',
   },
 });

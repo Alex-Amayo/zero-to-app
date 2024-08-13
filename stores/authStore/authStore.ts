@@ -6,22 +6,12 @@ import { router } from 'expo-router';
 
 // Authentication store with Zustand and supabase
 
-// Timeout amount for error messages in milliseconds
-const ERRORTIMEOUT = 5000;
-
-// Redirect URL for password reset
-const RESETPASSWORDREDIRECT = 'https://example.com';
-
 const useAuthStore = create<AuthState & AuthActions>((set) => ({
   user: null,
   session: null,
   loading: false,
   error: null,
 
-  /**
-   * Initialize the auth store
-   * This function checks if there is a session and sets the user and session in the store
-   */
   initialize: async () => {
     set({ loading: true });
     const {
@@ -36,26 +26,15 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  /**
-   * Returns the user id if the user is authenticated
-   * @returns {string} user id or null if the user is not authenticated
-   */
   getUserId: (): string | null => {
     const state = useAuthStore.getState();
     return state.user ? state.user.id : null;
   },
 
-  /**
-   * Checks if the user is authenticated
-   * @returns {boolean} true if the user is authenticated, false otherwise
-   */
   isAuthenticated: (): boolean => {
     return useAuthStore.getState().session !== null;
   },
 
-  /**
-   * Clears the auth store state
-   */
   clearAuthState: () => {
     set({
       user: null,
@@ -65,21 +44,11 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  /**
-   * Sets an error message in the auth store
-   * @param errorMessage {string} error message to be displayed
-   */
   setAuthError: (errorMessage: string) => {
     set({ error: errorMessage });
-    //clear the auth state after 5 seconds
-    setTimeout(() => {
-      useAuthStore.getState().clearAuthState();
-    }, ERRORTIMEOUT);
+    // Optionally, you might want to handle the error differently
   },
 
-  /**
-   * Logs out the user, clears the user session, and redirects to the login page.
-   */
   logOut: async () => {
     set({ loading: true });
     const { error } = await supabase.auth.signOut();
@@ -91,12 +60,6 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     }
   },
 
-  /**
-   * Signs up a user with email and password and sets the user and session in the store.
-   * @param email {string}
-   * @param password {string}
-   * @returns user, session, and error data
-   */
   signUpWithEmail: async (email: string, password: string) => {
     set({ loading: true });
     const { data, error } = await supabase.auth.signUp({ email, password });
@@ -106,13 +69,11 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
-    // If there is an error, clear the auth state after 5 seconds
+    // Handle the error without a timer
     if (error) {
-      setTimeout(() => {
-        useAuthStore.getState().clearAuthState();
-      }, ERRORTIMEOUT);
+      // Handle the error immediately or with another approach if needed
+      set({ error: error.message });
     }
-    // Return the user and session and error data
     return {
       user: data.user ?? null,
       session: data.session ?? null,
@@ -120,11 +81,6 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     };
   },
 
-  /**
-   * Logs in a user with email and password and sets the user and session in the auth store.
-   * @param email {string}
-   * @param password {string}
-   */
   logInWithEmail: async (email: string, password: string) => {
     set({ loading: true });
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -134,18 +90,13 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
-    // If there is an error, clear the auth state after 5 seconds
+    // Handle the error without a timer
     if (error) {
-      setTimeout(() => {
-        useAuthStore.getState().clearAuthState();
-      }, ERRORTIMEOUT);
+      // Handle the error immediately or with another approach if needed
+      set({ error: error.message });
     }
   },
 
-  /**
-   * Handles the auth state change and sets the user and session in the auth store.
-   * @param callback {function} callback function to handle the auth state change
-   */
   handleAuthStateChange: (
     callback: (event: AuthChangeEvent, session: SupabaseSession | null) => void,
   ) => {
@@ -157,43 +108,29 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     });
   },
 
-  /**
-   * Sends and email reset email to the user if they are registered.
-   * This function does not check if the email is registered.
-   * It will NOT return an error if the email is not registered.
-   * @param email {string}
-   * @returns error message if there is an error
-   */
   resetPasswordWithEmail: async (email: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: RESETPASSWORDREDIRECT,
+      redirectTo: 'https://example.com',
     });
     set({ loading: false, error: error?.message || null });
-    // If there is an error, clear the auth state after 5 seconds
+    // Handle the error without a timer
     if (error) {
-      setTimeout(() => {
-        useAuthStore.getState().clearAuthState();
-      }, ERRORTIMEOUT);
+      // Handle the error immediately or with another approach if needed
+      set({ error: error.message });
     }
   },
 
-  /**
-   * Changes the user password
-   * This function requires the user to be authenticated
-   * @param newPassword {string} new password to be set
-   */
   changePassword: async (newPassword: string) => {
     set({ loading: true });
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     });
     set({ loading: false, error: error?.message || null });
-    // If there is an error, clear the auth state after 5 seconds
+    // Handle the error without a timer
     if (error) {
-      setTimeout(() => {
-        useAuthStore.getState().clearAuthState();
-      }, ERRORTIMEOUT);
+      // Handle the error immediately or with another approach if needed
+      set({ error: error.message });
     }
   },
 }));

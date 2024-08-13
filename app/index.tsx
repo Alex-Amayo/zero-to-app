@@ -9,7 +9,7 @@ export default function HomePage() {
     const timer = setTimeout(() => {
       router.push('/auth/login');
     }, 3000); // 3 seconds
-
+    // Clear timer when component unmounts
     return () => clearTimeout(timer);
   }, []);
 

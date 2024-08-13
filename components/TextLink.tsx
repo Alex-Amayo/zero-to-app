@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { Text, StyleSheet, Pressable, Linking } from 'react-native';
 import brand from '../brand/brandConfig';
 
 type TextLinkprops = {
@@ -17,9 +17,9 @@ const TextLink = ({ text, onPress, href }: TextLinkprops) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={handlePress}>
+    <Pressable style={styles.container} onPress={handlePress}>
       <Text style={styles.text}>{text}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

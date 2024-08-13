@@ -1,13 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image,
-  View,
-  Platform,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Image, View } from 'react-native';
 import { ThemeContext } from '../../theme/theme';
 import { Slot } from 'expo-router';
 import ToggleIconButton from '../../components/ToggleIconButton';
@@ -26,19 +18,15 @@ export default function LoginPage() {
           <View style={styles.toggleThemeButton}>
             <ToggleIconButton iconName="moon" alternateIconName="sun" onPress={toggleTheme} />
           </View>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoidingView}>
-            <Image
-              source={{
-                uri: theme.values.isDark
-                  ? 'https://utfs.io/f/0f641941-fe3a-447e-bff3-a9ea1201006c-qkt02w.png'
-                  : 'https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png',
-              }}
-              style={styles.logo}
-            />
-            <Slot />
-          </KeyboardAvoidingView>
+          <Image
+            source={{
+              uri: theme.values.isDark
+                ? 'https://utfs.io/f/0f641941-fe3a-447e-bff3-a9ea1201006c-qkt02w.png'
+                : 'https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png',
+            }}
+            style={styles.logo}
+          />
+          <Slot />
         </View>
       </ScrollView>
     </SafeAreaView>

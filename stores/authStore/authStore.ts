@@ -46,7 +46,6 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
 
   setAuthError: (errorMessage: string) => {
     set({ error: errorMessage });
-    // Optionally, you might want to handle the error differently
   },
 
   logOut: async () => {

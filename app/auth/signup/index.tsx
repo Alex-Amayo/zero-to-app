@@ -62,7 +62,6 @@ export default function SignupPage() {
       const createUserProfileAsync = async () => {
         try {
           await createUserProfile();
-          console.log('User profile created');
         } catch (error) {
           console.error('Failed to create user profile', error);
         }

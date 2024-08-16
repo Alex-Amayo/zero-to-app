@@ -14,10 +14,16 @@ Zero To App comes pre-configured with essential **development tools** to streaml
 ### <a href="https://d57xfeu0gmhs7.cloudfront.net" target="_blank">🚀 Try Zero To App Now! 🚀</a>
 
 ## Core Frameworks and Libraries
-- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
-- [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React Native and React Native Web.
-- [Supabase](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
-- [Zustand](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
+
+| Library                                               | Category         | Version | Description                                                                                   |
+| ----------------------------------------------------- | ---------------- | ------- | --------------------------------------------------------------------------------------------- |
+| [React Native](https://reactnative.dev/)              | Framework        | Latest  | Build cross-platform mobile applications for iOS and Android.                                  |
+| [Expo](https://expo.dev/)                             | Framework        | Latest  | An open-source platform for making universal native apps for Android, iOS, and the web.        |
+| [TypeScript](https://www.typescriptlang.org/)         | Language         | Latest  | A typed superset of JavaScript that compiles to plain JavaScript.                               |
+| [Supabase](https://supabase.com/)                     | Backend-as-a-Service | Latest  | Provides real-time databases, authentication, and storage.                                     |
+| [React Query](https://react-query.tanstack.com/)      | Data Management  | Latest  | Simplifies data fetching and state management in React apps.                                   |
+| [Zustand](https://zustand-demo.pmnd.rs/)              | State Management | Latest  | A minimalistic, scalable state management library for React.                                   |
+| [Jest](https://jestjs.io/)                            | Testing          | Latest  | A comprehensive JavaScript testing framework for unit tests.                                   |
 
 
 ## Animations

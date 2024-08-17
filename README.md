@@ -1,16 +1,17 @@
-Launch on **Web**, **iOS**, **Android** Simultaneously with **React Native** & **Supabase!**
+Launch on **Web**, **iOS**, **Android** Simultaneously with **Typescript**, **React Native**, **Expo** & **Supabase!**
 
 ## Core Frameworks and Libraries
 
 | Library                                               | Category              | Version | Description                                                                                     |
 | ----------------------------------------------------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------- |
-| [React Native](https://reactnative.dev/)              | Framework             | Latest  | A popular framework for building cross-platform mobile applications for iOS and Android.        |
 | [TypeScript](https://www.typescriptlang.org/)         | Language              | Latest  | A statically typed superset of JavaScript that enhances development efficiency and code quality. |
+| [React Native](https://reactnative.dev/)              | Framework             | Latest  | A popular framework for building cross-platform mobile applications for iOS and Android.        |
 | [Expo](https://expo.dev/)                             | Development Platform  | Latest  | A platform that simplifies the development and deployment of React Native apps across platforms. |
+| [Supabase](https://supabase.com/)                     | Backend-as-a-Service  | Latest  | An open-source Firebase alternative providing authentication, databases, and storage.           |
 | [Zustand](https://zustand-demo.pmnd.rs/)              | State Management      | Latest  | A small, fast, and flexible state management library for React applications.                    |
 | [React Query](https://react-query.tanstack.com/)      | Data Management       | Latest  | A powerful tool for data fetching, caching, and synchronization in React applications.          |
-| [Supabase](https://supabase.com/)                     | Backend-as-a-Service  | Latest  | An open-source Firebase alternative providing authentication, databases, and storage.           |
 | [Jest](https://jestjs.io/)                            | Testing Framework     | Latest  | A comprehensive testing framework for JavaScript, with a focus on simplicity and support for unit tests. |
+
 
 
 ## Development Tools

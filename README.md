@@ -1,17 +1,10 @@
-<p align="center">
-  <img src="https://utfs.io/f/4303f89d-69c1-4d9f-a4b4-64ea767ee7cc-w7f70.png" width="500" height="auto">
-</p>
-<p align="center">
-  <img src="https://www.alexjamayo.com/images/Zero-To-App---web-mobile.gif" width="500" height="auto">
-</p>
+Build cross-platform apps for **Web**, **iOS** and **Android** 
 
-**Zero To App** is a customizable boilerplate built with **React Native**, **TypeScript**, and **Expo**, designed to work seamlessly on **web**,**ios** & **android**. It integrates **Supabase** for **authentication** and **database management**. **Zustand** is included for predictable client-side state management, making it perfect for quickly setting up and launching scalable apps.  
+ with **React Native**, **TypeScript**, **Expo**, and **Supabase**. 
 
-Zero To App comes pre-configured with essential **development tools** to streamline your workflow. It includes **ESLint and Prettier** configurations with common linting rules to ensure code quality and consistency, helping you maintain clean and readable code. Additionally, it features **unit** and **integration tests** set up with **Jest and **React Native Testing Library**, allowing you to easily verify your application's functionality and reliability.
+It’s designed for seamless deployment on web, iOS, and Android.
 
-## Try A Live Demo on the Web!
-
-### <a href="https://d57xfeu0gmhs7.cloudfront.net" target="_blank">🚀 Try Zero To App Now! 🚀</a>
+It includes built-in authentication and database management via Supabase.
 
 ## Core Frameworks and Libraries
 
@@ -25,18 +18,18 @@ Zero To App comes pre-configured with essential **development tools** to streaml
 | [Zustand](https://zustand-demo.pmnd.rs/)              | State Management | Latest  | A minimalistic, scalable state management library for React.                                   |
 | [Jest](https://jestjs.io/)                            | Testing          | Latest  | A comprehensive JavaScript testing framework for unit tests.                                   |
 
+## Development Tools
+- [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
+- [Prettier](https://prettier.io/): An opinionated code formatter.
 
 ## Animations
 - [React Native Lottie](https://github.com/lottie-react-native/lottie-react-native): A library for rendering Adobe After Effects animations natively on mobile.
 
+## Navigation
 - [Expo Router](https://expo.github.io/router/docs/): A file-based routing library for Expo and React Native.
 - [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps. (Utilized for Top Tabs on web with context from Expo-Router)
 
-## Development Tools
 
-- [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
-- [Prettier](https://prettier.io/): An opinionated code formatter.
-- [TypeScript ESLint](https://typescript-eslint.io/): Monorepo for all the tooling which enables ESLint to support TypeScript.
 
 ## Getting Started
 

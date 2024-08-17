@@ -1,36 +1,31 @@
-<p align="center">
-  <img src="https://utfs.io/f/4303f89d-69c1-4d9f-a4b4-64ea767ee7cc-w7f70.png" width="500" height="auto">
-</p>
-<p align="center">
-  <img src="https://www.alexjamayo.com/images/Zero-To-App---web-mobile.gif" width="500" height="auto">
-</p>
-
-**Zero To App** is a customizable boilerplate built with **React Native**, **TypeScript**, and **Expo**, designed to work seamlessly on **web**,**ios** & **android**. It integrates **Supabase** for **authentication** and **database management**. **Zustand** is included for predictable client-side state management, making it perfect for quickly setting up and launching scalable apps.  
-
-Zero To App comes pre-configured with essential **development tools** to streamline your workflow. It includes **ESLint and Prettier** configurations with common linting rules to ensure code quality and consistency, helping you maintain clean and readable code. Additionally, it features **unit** and **integration tests** set up with **Jest and **React Native Testing Library**, allowing you to easily verify your application's functionality and reliability.
-
-## Try A Live Demo on the Web!
-
-### <a href="https://d57xfeu0gmhs7.cloudfront.net" target="_blank">🚀 Try Zero To App Now! 🚀</a>
+Launch on **Web**, **iOS**, **Android** Simultaneously with **Typescript**, **React Native**, **Expo** & **Supabase!**
 
 ## Core Frameworks and Libraries
-- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
-- [Expo](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React Native and React Native Web.
-- [Supabase](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
-- [Zustand](https://expo.dev/): An open-source platform for making universal native apps for Android, iOS, and the web with JavaScript and React.
 
+| Library                                               | Category              | Version | Description                                                                                     |
+| ----------------------------------------------------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| [TypeScript](https://www.typescriptlang.org/)         | Language              | Latest  | A statically typed superset of JavaScript that enhances development efficiency and code quality. |
+| [React Native](https://reactnative.dev/)              | Framework             | Latest  | A popular framework for building cross-platform mobile applications for iOS and Android.        |
+| [Expo](https://expo.dev/)                             | Development Platform  | Latest  | A platform that simplifies the development and deployment of React Native apps across platforms. |
+| [Supabase](https://supabase.com/)                     | Backend-as-a-Service  | Latest  | An open-source Firebase alternative providing authentication, databases, and storage.           |
+| [Zustand](https://zustand-demo.pmnd.rs/)              | State Management      | Latest  | A small, fast, and flexible state management library for React applications.                    |
+| [React Query](https://react-query.tanstack.com/)      | Data Management       | Latest  | A powerful tool for data fetching, caching, and synchronization in React applications.          |
+| [Jest](https://jestjs.io/)                            | Testing Framework     | Latest  | A comprehensive testing framework for JavaScript, with a focus on simplicity and support for unit tests. |
+
+
+
+## Development Tools
+- [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
+- [Prettier](https://prettier.io/): An opinionated code formatter.
 
 ## Animations
 - [React Native Lottie](https://github.com/lottie-react-native/lottie-react-native): A library for rendering Adobe After Effects animations natively on mobile.
 
+## Navigation
 - [Expo Router](https://expo.github.io/router/docs/): A file-based routing library for Expo and React Native.
 - [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps. (Utilized for Top Tabs on web with context from Expo-Router)
 
-## Development Tools
 
-- [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
-- [Prettier](https://prettier.io/): An opinionated code formatter.
-- [TypeScript ESLint](https://typescript-eslint.io/): Monorepo for all the tooling which enables ESLint to support TypeScript.
 
 ## Getting Started
 

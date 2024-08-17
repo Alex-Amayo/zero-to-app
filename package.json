@@ -27,12 +27,15 @@
     "testTimeout": 30000
   },
   "dependencies": {
+    "@babel/preset-env": "^7.1.6",
+    "@babel/runtime": "^7.20.6",
     "@dotlottie/react-player": "^1.6.19",
     "@expo/html-elements": "^0.10.1",
     "@expo/metro-runtime": "~3.2.1",
     "@lottiefiles/react-lottie-player": "^3.5.4",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/material-top-tabs": "^6.6.13",
+    "@react-navigation/native": "^6.0.0",
     "@supabase/supabase-js": "^2.45.0",
     "@tanstack/react-query": "^5.51.21",
     "@testing-library/react-hooks": "^8.0.1",
@@ -40,6 +43,7 @@
     "expo": "^51.0.26",
     "expo-constants": "~16.0.2",
     "expo-linking": "~6.3.1",
+    "expo-modules-autolinking": "~1.11.0",
     "expo-router": "~3.5.21",
     "expo-status-bar": "~1.12.1",
     "lottie-react-native": "6.7.0",

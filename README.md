@@ -1,4 +1,4 @@
-Launch on **Web**, **iOS**, **Android** Simultaneously with **Typescript**, **React Native**, **Expo** & **Supabase!**
+Launch on **Web**, **iOS** & **Android** Simultaneously with **React Native** & **Supabase!**
 
 ## Core Frameworks and Libraries
 

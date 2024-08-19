@@ -1,4 +1,4 @@
-## Why Zero To App
+## Zero To App
 Zero to App helps build scalable cross-platform apps with React Native and Supabase. React Native helps reach users seamlessly across Web, iPhone, and Android platforms. Supabase provides seamless authentication and a PostgreSQL backend. 
 
 ## Stack

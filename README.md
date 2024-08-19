@@ -1,6 +1,7 @@
-Launch on **Web**, **iOS** & **Android** Simultaneously with **React Native** & **Supabase!**
+## Why Zero To App
+Zero to App helps build scalable cross-platform apps with React Native and Supabase. React Native helps reach users seamlessly across Web, iPhone, and Android platforms. Supabase provides seamless authentication and a PostgreSQL backend. 
 
-## Core Frameworks and Libraries
+## Stack
 
 | Library                                               | Category              | Version | Description                                                                                     |
 | ----------------------------------------------------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------- |
@@ -34,20 +35,13 @@ Launch on **Web**, **iOS** & **Android** Simultaneously with **React Native** & 
 First, clone the repository:
 
 ```bash
-git clone https://github.com/alex-amayo/zerotoapp.git
-cd zerotoapp
-```
-
-Install dependencies using npm:
-
-```bash
-npm install
+npx zero-to-app my-app
 ```
 
 Start the app:
 
 ```bash
-npx expo start
+yarn start
 ```
 
 

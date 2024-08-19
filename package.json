@@ -86,6 +86,5 @@
     "typescript": "~5.3.3",
     "typescript-eslint": "^7.16.0"
   },
-  "private": true,
-  "license": "MIT"
+  "license":"MIT"
 }

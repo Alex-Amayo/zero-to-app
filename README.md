@@ -6,25 +6,19 @@ Zero to App helps build scalable cross-platform apps with React Native and Supab
 | Library                                               | Category              | Version | Description                                                                                     |
 | ----------------------------------------------------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------- |
 | [TypeScript](https://www.typescriptlang.org/)         | Language              | Latest  | A statically typed superset of JavaScript that enhances development efficiency and code quality. |
-| [React Native](https://reactnative.dev/)              | Framework             | Latest  | A popular framework for building cross-platform mobile applications for iOS and Android.        |
-| [Expo](https://expo.dev/)                             | Development Platform  | Latest  | A platform that simplifies the development and deployment of React Native apps across platforms. |
-| [Supabase](https://supabase.com/)                     | Backend-as-a-Service  | Latest  | An open-source Firebase alternative providing authentication, databases, and storage.           |
-| [Zustand](https://zustand-demo.pmnd.rs/)              | State Management      | Latest  | A small, fast, and flexible state management library for React applications.                    |
-| [React Query](https://react-query.tanstack.com/)      | Data Management       | Latest  | A powerful tool for data fetching, caching, and synchronization in React applications.          |
-| [Jest](https://jestjs.io/)                            | Testing Framework     | Latest  | A comprehensive testing framework for JavaScript, with a focus on simplicity and support for unit tests. |
-
+| [React Native](https://reactnative.dev/)              | Framework             | 0.74.5  | A popular framework for building cross-platform mobile applications for iOS and Android.        |
+| [Expo](https://expo.dev/)                             | SDK  | 51.0.26 | A platform that simplifies the development and deployment of React Native apps across platforms. |
+| [Expo Router](https://expo.dev/router)                | Routing Library       | 3.5.21  | A routing library for managing navigation in Expo applications.                                |
+| [Supabase](https://supabase.com/)                     | Backend-as-a-Service  | 2.45.0  | An open-source Firebase alternative providing authentication, databases, and storage.           |
+| [React Query](https://react-query.tanstack.com/)      | Data Management       | 5.51.21 | A powerful tool for data fetching, caching, and synchronization in React applications.          |
+| [Zustand](https://zustand-demo.pmnd.rs/)              | State Management      | 4.5.4   | A small, fast, and flexible state management library for React applications.                    |
+| [Lottie React Native](https://airbnb.io/lottie/#/react-native) | Animation Library     | 6.7.0   | A library for rendering Adobe After Effects animations in React Native applications.           |
+| [Jest](https://jestjs.io/)                            | Testing Framework     | 29.7.0  | A comprehensive testing framework for JavaScript, with a focus on simplicity and support for unit tests. |
 
 
 ## Development Tools
 - [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 - [Prettier](https://prettier.io/): An opinionated code formatter.
-
-## Animations
-- [React Native Lottie](https://github.com/lottie-react-native/lottie-react-native): A library for rendering Adobe After Effects animations natively on mobile.
-
-## Navigation
-- [Expo Router](https://expo.github.io/router/docs/): A file-based routing library for Expo and React Native.
-- [React Navigation](https://reactnavigation.org/): Routing and navigation for your React Native apps. (Utilized for Top Tabs on web with context from Expo-Router)
 
 
 

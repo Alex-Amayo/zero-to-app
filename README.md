@@ -39,10 +39,6 @@ yarn start
 ```
 
 
-# Customization
-
-Replace the assets in '/assets with yor logo, icon and splash screen images. 
-
 ## Brand Configuration
 
 The `brandConfig.ts` file defines the basic styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.

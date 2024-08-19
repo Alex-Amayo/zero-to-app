@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "test": "jest --detectOpenHandles --forceExit"
+    "test": "jest"
   },
   "jest": {
     "preset": "jest-expo",

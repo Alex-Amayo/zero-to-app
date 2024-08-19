@@ -19,6 +19,5 @@ module.exports = {
     curly: ['error', 'all'],
     'no-var': 'error',
     'prefer-const': 'error',
-    'linebreak-style': ['error', 'unix'],
   },
 };

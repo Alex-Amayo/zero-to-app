@@ -111,6 +111,8 @@ export const darkTheme: ThemeValuesType = {
 - **Login**
 - **Signup**
 - **Account Recovery**
+- **Home**
+- **Explore**
 - **Settings**
 
 # Components

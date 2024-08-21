@@ -7,6 +7,7 @@ Zero to App helps build scalable cross-platform apps with React Native and Supab
 | ----------------------------------------------------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------- |
 | [TypeScript](https://www.typescriptlang.org/)         | Language              | Latest  | A statically typed superset of JavaScript that enhances development efficiency and code quality. |
 | [React Native](https://reactnative.dev/)              | Framework             | 0.74.5  | A popular framework for building cross-platform mobile applications for iOS and Android.        |
+| [React](https://react.dev/)                           | Library               | 18.2.0  | A JavaScript library for building user interfaces, primarily for web applications.              |
 | [Expo](https://expo.dev/)                             | SDK  | 51.0.26 | A platform that simplifies the development and deployment of React Native apps across platforms. |
 | [Expo Router](https://expo.dev/router)                | Routing Library       | 3.5.21  | A routing library for managing navigation in Expo applications.                                |
 | [Supabase](https://supabase.com/)                     | Backend-as-a-Service  | 2.45.0  | An open-source Firebase alternative providing authentication, databases, and storage.           |

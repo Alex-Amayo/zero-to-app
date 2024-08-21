@@ -4,10 +4,7 @@
     "strict": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,18 +12,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": [
-      "node",
-      "react",
-      "react-native",
-      "jest"
-    ]
+    "types": ["node", "react", "react-native", "jest"]
   },
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
-  ],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
   "extends": "expo/tsconfig.base"
 }

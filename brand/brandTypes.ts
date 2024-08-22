@@ -15,3 +15,8 @@ export interface FontSizes {
   large: number;
   xlarge: number;
 }
+
+export interface Logo {
+  light: string;
+  dark: string;
+}

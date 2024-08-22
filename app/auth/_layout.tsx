@@ -5,6 +5,7 @@ import { Slot } from 'expo-router';
 import ToggleIconButton from '../../components/ToggleIconButton';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import brand from '../../brand/brandConfig';
 
 export default function LoginPage() {
   // Initializing theme context
@@ -24,9 +25,7 @@ export default function LoginPage() {
             </View>
             <Image
               source={{
-                uri: theme.values.isDark
-                  ? 'https://utfs.io/f/0f641941-fe3a-447e-bff3-a9ea1201006c-qkt02w.png'
-                  : 'https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png',
+                uri: theme.values.isDark ? brand.logo.dark : brand.logo.light,
               }}
               style={styles.logo}
             />

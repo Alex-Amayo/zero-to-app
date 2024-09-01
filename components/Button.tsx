@@ -1,10 +1,11 @@
+import React from 'react';
 import {
   View,
   Text,
   Pressable,
   StyleSheet,
-  GestureResponderEvent,
   ActivityIndicator,
+  GestureResponderEvent,
 } from 'react-native';
 import brand from '../brand/brandConfig';
 
@@ -12,7 +13,7 @@ type ButtonProps = {
   title: string;
   secondary?: boolean;
   loading?: boolean;
-  onPress: (event: GestureResponderEvent) => void | Promise<void>;
+  onPress: (event: GestureResponderEvent) => void;
 };
 
 const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {

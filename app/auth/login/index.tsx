@@ -1,71 +1,67 @@
-import React, { useCallback } from 'react';
-import { Text, StyleSheet } from 'react-native';
-import FormSeparator from '../../../components/FormSeparator';
-import TextLink from '../../../components/TextLink';
-import Button from '../../../components/Button';
-import { router } from 'expo-router';
+import React from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import brand from '../../../brand/brandConfig';
+import FormInput from '../../../components/FormInput';
+import Button from '../../../components/Button';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
-import FormInput from '../../../components/FormInput';
-import { useContext, useState } from 'react';
-import { ThemeContext } from '../../../theme/theme';
-import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../theme/theme';
+import { useRouter } from 'expo-router';
+import useAuthStore from '../../../stores/authStore/authStore';
+import { useForm } from 'react-hook-form';
 
-export default function LoginPage() {
-  //Retrieving logIn, loading and error from useAuthStore
+const loginSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+export default function LoginForm() {
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: zodResolver(loginSchema),
+  });
   const { logInWithEmail, loading, error } = useAuthStore();
-
-  //Initializing theme context and toggleTheme function
   const theme = useContext(ThemeContext);
+  const router = useRouter();
 
-  //Initializing email and password state
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  //Function to handle form submission
-  const handleEmailLoginSubmit = useCallback(async () => {
-    await logInWithEmail(email, password);
+  const handleEmailLoginSubmit = async (data: LoginFormValues) => {
+    await logInWithEmail(data.email, data.password);
     router.push('/home');
-  }, [email, password, logInWithEmail]);
-
-  const handleAccountRecoveryPush = () => {
-    router.push('/auth/recover');
   };
-
-  const handleSignUpPush = () => {
-    router.push('/auth/signup');
-  };
-
-  const handleEmailChange = useCallback((email: string) => {
-    setEmail(email);
-  }, []);
-
-  const handlePasswordChange = useCallback((password: string) => {
-    setPassword(password);
-  }, []);
 
   return (
     <Card>
       <List>
-        {/* Email, password and login button */}
         <Text style={{ ...styles.title, color: theme.values.color }}>Log Into {brand.name}</Text>
-        <FormInput placeholder="Email" onChangeText={handleEmailChange} />
-        <FormInput placeholder="Password" secure onChangeText={handlePasswordChange} />
-        <Button title="Login" onPress={handleEmailLoginSubmit} loading={loading} />
-
-        {/* Error message */}
+        <FormInput
+          name="email"
+          placeholder="Email"
+          rules={{ required: 'Email is required' }}
+          control={control}
+        />
+        <FormInput
+          name="password"
+          placeholder="Password"
+          secure
+          rules={{ required: 'Password is required' }}
+          control={control}
+        />
+        <Button title="Login" onPress={handleSubmit(handleEmailLoginSubmit)} loading={loading} />
         <FormErrors error={error} />
-
-        {/* Forgot password button, create new account button */}
-        <TextLink text="Forgot password?" onPress={handleAccountRecoveryPush} />
-        <FormSeparator text="or" />
-        <Button title="Create New Account" onPress={handleSignUpPush} secondary />
       </List>
     </Card>
   );
 }
+
 const styles = StyleSheet.create({
   title: {
     fontSize: brand.fontSizes.large,

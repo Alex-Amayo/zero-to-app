@@ -1,37 +1,63 @@
 import React, { useContext } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { Text, TextInput, StyleSheet } from 'react-native';
+import { Controller, Control, FieldError, Path, FieldValues } from 'react-hook-form';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
 
-// FormInput component: A customizable text input field with optional secure entry and half-width styling
-
-type FormInputProps = {
-  // Placeholder text for the input field
-  placeholder: string;
-  // If true, sets the input field to 50% of the container's width
+type FormInputProps<T extends FieldValues> = {
   half?: boolean;
-  // If true, enables secure text entry (e.g., for passwords)
   secure?: boolean;
-  // Callback function to handle text input change
-  onChangeText: (text: string) => void;
+  placeholder: string;
+  rules: object;
+  control: Control<T>;
+  name: Path<T>;
 };
 
-const FormInput = ({ placeholder, half, secure, onChangeText }: FormInputProps) => {
+/**
+ * FormInput component for rendering a controlled input field with validation
+ * and theming support in a React Native application. Integrates with React Hook
+ * Form for form state management and uses the current theme for styling.
+ *
+ * @param {FormInputProps<T>} props - Props for configuring the FormInput component
+ * @returns {JSX.Element} The rendered FormInput component
+ */
+
+const FormInput = <T extends FieldValues>({
+  placeholder,
+  half,
+  secure,
+  rules,
+  control,
+  name,
+}: FormInputProps<T>) => {
+  // Initialize theme
   const theme = useContext(ThemeContext);
+
   return (
-    <TextInput
-      placeholder={placeholder}
-      secureTextEntry={secure}
-      placeholderTextColor={theme.values.color}
-      onChangeText={onChangeText}
-      style={{
-        //Inline styles used for theme access in state
-        color: theme.values.color,
-        //Border color is overridden with theme text color
-        borderColor: theme.values.dividerColor,
-        //Conditionally applying styles based on half prop
-        ...(half ? styles.halfSizeTextInput : styles.textInput),
-      }}
+    <Controller
+      name={name}
+      control={control}
+      rules={rules}
+      render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+        <>
+          <TextInput
+            placeholder={placeholder}
+            secureTextEntry={secure}
+            placeholderTextColor={theme.values.color}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            style={[
+              {
+                color: theme.values.color,
+                borderColor: error ? 'red' : theme.values.dividerColor,
+              },
+              half ? styles.halfSizeTextInput : styles.textInput,
+            ]}
+          />
+          {error && <Text style={styles.errorText}>{(error as FieldError).message}</Text>}
+        </>
+      )}
     />
   );
 };
@@ -49,5 +75,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: brand.borderRadius,
     width: '48%',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
   },
 });

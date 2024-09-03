@@ -11,6 +11,9 @@ type AppbarProps = {
   tabs?: JSX.Element | JSX.Element[];
 };
 
+/**
+ * Non-responsive appbar  that displays on the top  of the screen for mobile devices.
+ */
 const Appbar = ({ title, tabs }: AppbarProps) => {
   // Initialize the theme
   const theme = useContext(ThemeContext);

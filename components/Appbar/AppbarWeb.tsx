@@ -1,3 +1,4 @@
+import React from 'react';
 import { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
@@ -11,6 +12,11 @@ type AppbarProps = {
   title?: string;
   tabs?: JSX.Element | JSX.Element[];
 };
+
+/**
+ * A responsive appbar that displays at the top of the page.
+ * Dynamically adapts its styling when the viewprt is less than medium
+ */
 
 const AppbarWeb = ({ title, tabs }: AppbarProps) => {
   //Initialize theme

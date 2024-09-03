@@ -10,47 +10,46 @@ import useAuthStore from '../../../stores/authStore/authStore';
 import FormInput from '../../../components/FormInput';
 import FormErrors from '../../../components/FormErrors';
 import TextLink from '../../../components/TextLink';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  changePasswordSchema,
+  changePasswordSchemaValues,
+} from '../../../schemas/changePasswordSchema';
 
 export default function ChangePasswordPage() {
-  // Initializing theme context
-  const theme = useContext(ThemeContext);
-
   // Retrieving changePassword, loading, error, setAuthError from useAuthStore
   const { changePassword, loading, error, setAuthError, isAuthenticated } = useAuthStore();
 
-  // Initializing state variables
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  // Initializing theme context
+  const theme = useContext(ThemeContext);
+
+  //Initialize form with react-hook-form
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      newPassword: '',
+      newPasswordConfirmation: '',
+    },
+    resolver: zodResolver(changePasswordSchema),
+  });
+
+  //Initialize success state for tracking succesful password change
   const [success, setSuccess] = useState(false);
 
   // Function to handle password change form submission
-  const handleChangePassword = async () => {
-    // Check if any field is empty
-    if (!password || !confirmPassword) {
-      setAuthError('Please fill in all fields');
-      return;
-    }
-
-    // Check if new password and confirm password match
-    if (password !== confirmPassword) {
-      setAuthError('New password and confirm password do not match');
-      return;
-    }
-
+  const handleChangePassword = async (data: changePasswordSchemaValues) => {
     // Change password
     try {
-      await changePassword(password);
+      await changePassword(data.newPassword);
       setSuccess(true);
     } catch (error) {
       setAuthError(error as string);
     }
   };
-
   // Redirect to login page if user is not authenticated
   if (!isAuthenticated()) {
     return <Redirect href="/auth/login" />;
   }
-
   return (
     <Card>
       <List>
@@ -68,13 +67,18 @@ export default function ChangePasswordPage() {
             // Display change password form
             <>
               <Text style={{ ...styles.title, color: theme.values.color }}>Change Password</Text>
-              <FormInput placeholder="New Password" onChangeText={setPassword} secure />
+              <FormInput name="newPassword" placeholder="New Password" control={control} secure />
               <FormInput
+                name="newPasswordConfirmation"
                 placeholder="Confirm New Password"
-                onChangeText={setConfirmPassword}
+                control={control}
                 secure
               />
-              <Button title="Change Password" onPress={handleChangePassword} loading={loading} />
+              <Button
+                title="Change Password"
+                onPress={handleSubmit(handleChangePassword)}
+                loading={loading}
+              />
               <FormErrors error={error} />
             </>
           )

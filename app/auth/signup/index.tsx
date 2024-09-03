@@ -12,6 +12,9 @@ import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
 import { useCreateUserProfile } from '../../../hooks/useCreateUserProfile';
+import { useForm, useWatch } from 'react-hook-form';
+import { signUpSchema, SignUpFormValues } from '../../../schemas/signUpSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function SignupPage() {
   //Initialize the theme
@@ -20,36 +23,38 @@ export default function SignupPage() {
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
   const { signUpWithEmail, loading, error, setAuthError, logInWithEmail } = useAuthStore();
 
-  //Initialize first name, last name, email, and password state
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  //Initialize form with react hook form
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      userID: '',
+    },
+    resolver: zodResolver(signUpSchema),
+  });
+
+  // Iniialize userID state as empty
   const [userId, setUserId] = useState('');
+  //Retrieve first and last name from form values
+  const firstName = useWatch({ control, name: 'firstName' });
+  const lastName = useWatch({ control, name: 'lastName' });
 
   //Create user user profile user id is createdz
   const { mutateAsync: createUserProfile } = useCreateUserProfile(userId, firstName, lastName);
 
   //Function to handle email signup
-  const handleEmailSignup = async (): Promise<void> => {
-    if (password !== passwordConfirmation) {
-      setAuthError('Passwords do not match');
-      return;
-    }
-    // Check that all fields are filled out
-    if (!firstName || !lastName || !email || !password || !passwordConfirmation) {
-      setAuthError('Please fill out all fields');
-      return;
-    }
+  const handleEmailSignUp = async (data: SignUpFormValues) => {
     try {
       // Call the signUpWithEmail function from useAuthStore
-      const result = await signUpWithEmail(email, password);
+      const result = await signUpWithEmail(data.email, data.password);
       const uuid = result?.user?.id ?? '';
       // Set the userId state to the user id
       setUserId(uuid);
       // Call the logInWithEmail function from useAuthStore
-      await logInWithEmail(email, password);
+      await logInWithEmail(data.email, data.password);
     } catch (error) {
       setAuthError('Signup failed');
       console.error(error);
@@ -67,7 +72,7 @@ export default function SignupPage() {
         }
       };
       createUserProfileAsync();
-      router.push('/home');
+      router.replace('/home');
     }
   }, [createUserProfile, userId]);
 
@@ -88,36 +93,25 @@ export default function SignupPage() {
 
         {/* Input for Names half property added to display in rows*/}
         <View style={styles.nameContainer}>
-          <FormInput
-            half
-            placeholder="First Name"
-            onChangeText={(firstName) => setFirstName(firstName)}
-          />
-          <FormInput
-            half
-            placeholder="Last Name"
-            onChangeText={(lastName) => setLastName(lastName)}
-          />
+          <FormInput name="firstName" control={control} half placeholder="First Name" />
+          <FormInput name="lastName" control={control} half placeholder="Last Name" />
         </View>
 
         {/* Input for Email */}
-        <FormInput placeholder="Email" onChangeText={(email) => setEmail(email)} />
+        <FormInput name="email" control={control} placeholder="Email" />
 
         {/* Input for password */}
-        <FormInput
-          placeholder="Password"
-          secure
-          onChangeText={(password) => setPassword(password)}
-        />
+        <FormInput name="password" control={control} placeholder="Password" secure />
 
         {/* Input for password confirmation */}
         <FormInput
-          placeholder="Confirm your password"
-          onChangeText={(passwordConfirmation) => setPasswordConfirmation(passwordConfirmation)}
+          name="passwordConfirmation"
+          control={control}
+          placeholder="Password Confirmation"
           secure
         />
         {/* Sign up button */}
-        <Button title="Sign Up" onPress={handleEmailSignup} loading={loading} />
+        <Button title="Sign Up" onPress={handleSubmit(handleEmailSignUp)} loading={loading} />
 
         {/* Error message */}
         <FormErrors error={error} />

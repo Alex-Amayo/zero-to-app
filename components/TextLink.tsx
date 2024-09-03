@@ -7,6 +7,16 @@ type TextLinkprops = {
   onPress?: () => void;
   href?: string;
 };
+
+/**
+ * Returns a pressable tetx component
+ *
+ * @param {string} props.text - Text to be displayed.
+ * @param {()=>void} props.onPress - Optional function to be excecuted when pressed.
+ * @param {string} props.href - optional url to navigate to when pressed.
+ *
+ * @returns {JSX.Element} - Returns rendered text link component.
+ */
 const TextLink = ({ text, onPress, href }: TextLinkprops) => {
   const handlePress = () => {
     if (href) {

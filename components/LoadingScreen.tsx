@@ -3,6 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { ThemeContext } from '../theme/theme';
 
+/**
+ * Loading Screen
+ *
+ * @returns - loading animation specified in assets/loading.json
+ */
 const LoadingScreen = () => {
   // Initialize theme
   const theme = useContext(ThemeContext);

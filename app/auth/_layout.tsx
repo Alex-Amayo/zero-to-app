@@ -30,7 +30,7 @@ export default function LoginPage() {
               style={styles.logo}
             />
             {/* Change width depending on platform */}
-            <View style={{ width: Platform.OS === 'web' ? '25%' : '90%' }}>
+            <View style={Platform.OS === 'web' ? styles.formLayoutWeb : styles.formLayoutMobile}>
               <Slot />
             </View>
           </View>
@@ -68,4 +68,6 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 10,
   },
+  formLayoutWeb: { width: 400 },
+  formLayoutMobile: { width: '90%' },
 });

@@ -11,12 +11,25 @@ import brand from '../brand/brandConfig';
 
 type ButtonProps = {
   title: string;
+  onPress: (event: GestureResponderEvent) => void;
   secondary?: boolean;
   loading?: boolean;
-  onPress: (event: GestureResponderEvent) => void;
 };
 
-const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
+/**
+ * A reusable button component that can be customized with different styles,
+ * loading states, and behavior based on props.
+ *
+ * @param {Object} props - The component's props.
+ * @param {string} props.title - The text to display on the button.
+ * @param {function} props.onPress - Function to call when the button is pressed.
+ * @param {boolean} [props.secondary] - If true, applies the secondary style to the button.
+ * @param {boolean} [props.loading] - If true, shows a loading spinner instead of the button text.
+ *
+ * @returns { JSX.Element } - Returns rendered Button Component
+ */
+
+const Button = ({ title, secondary, loading, onPress }: ButtonProps): JSX.Element => {
   return loading ? (
     <View>
       <ActivityIndicator

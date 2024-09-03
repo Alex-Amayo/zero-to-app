@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import brand from '../brand/brandConfig';
 
-//FormErrors component to display error messages
-
 type FormErrorsProps = {
   error: string | null;
 };
+
+/**
+ * FormErrors component to display error messages temporarily.
+ * The error message will be visible for 3 seconds before automatically disappearing.
+ */
 
 export default function FormErrors({ error }: FormErrorsProps) {
   const [visible, setVisible] = useState(true);

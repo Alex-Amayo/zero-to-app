@@ -5,7 +5,17 @@ type ListProps = {
   children: JSX.Element | JSX.Element[];
 };
 
-const List = ({ children }: ListProps) => {
+/**
+ *
+ * A list component that wraps th echildren in a container with consistent padding and gap values.
+ *
+ * @param {Object} props - The component's props.
+ * @param {JSX.Element | JSX.Element[]} props.children - Elements to be wrapped inside the list component.
+ *
+ * @returns {JSX.Element} - Returns rendered list component.
+ */
+
+const List = ({ children }: ListProps): JSX.Element => {
   return <View style={styles.list}>{children}</View>;
 };
 

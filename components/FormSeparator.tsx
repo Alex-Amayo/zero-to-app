@@ -4,10 +4,19 @@ import { View, Text, StyleSheet } from 'react-native';
 import { ThemeContext } from '../theme/theme';
 
 type FormSeparatorProps = {
-  text: string;
+  text?: string;
 };
 
-const FormSeparator = ({ text }: FormSeparatorProps) => {
+/**
+ * Form separator component that displays a horizontal line separatig two components wih optional text in the center
+ *
+ * @param {Object} props - The component's props.
+ * @param {string} props.text - optional text to be displayed in the center of the separator
+ *
+ * @returns {JSX.Element} FormSeparator component
+ */
+
+const FormSeparator = ({ text }: FormSeparatorProps): JSX.Element => {
   // Initialize theme
   const theme = useContext(ThemeContext);
   return (

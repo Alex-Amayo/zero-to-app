@@ -2,6 +2,12 @@ import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ThemeContext } from '../theme/theme';
 
+/**
+ * Returns a line that extends the full width of the container
+ * Derives color from theme
+ *
+ * @returns the renderedcomponent
+ */
 const ListDivider = () => {
   const theme = useContext(ThemeContext);
   return (

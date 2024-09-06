@@ -19,7 +19,8 @@ import {
 
 export default function ChangePasswordPage() {
   // Retrieving changePassword, loading, error, setAuthError from useAuthStore
-  const { changePassword, loading, error, setAuthError, isAuthenticated } = useAuthStore();
+  const { changePassword, loading, error, setAuthError, isAuthenticated, clearErrorState } =
+    useAuthStore();
 
   // Initializing theme context
   const theme = useContext(ThemeContext);
@@ -79,7 +80,7 @@ export default function ChangePasswordPage() {
                 onPress={handleSubmit(handleChangePassword)}
                 loading={loading}
               />
-              <FormErrors error={error} />
+              <FormErrors error={error} clearError={clearErrorState} />
             </>
           )
         }

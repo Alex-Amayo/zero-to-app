@@ -21,7 +21,8 @@ export default function SignupPage() {
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { signUpWithEmail, loading, error, setAuthError, logInWithEmail } = useAuthStore();
+  const { signUpWithEmail, loading, error, setAuthError, logInWithEmail, clearErrorState } =
+    useAuthStore();
 
   //Initialize form with react hook form
   const { control, handleSubmit } = useForm({
@@ -114,7 +115,7 @@ export default function SignupPage() {
         <Button title="Sign Up" onPress={handleSubmit(handleEmailSignUp)} loading={loading} />
 
         {/* Error message */}
-        <FormErrors error={error} />
+        <FormErrors error={error} clearError={clearErrorState} />
 
         {/* Navigate back to login */}
         <TextLink text="Already have an account?" onPress={() => router.push('/auth/login')} />

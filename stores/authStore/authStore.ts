@@ -35,13 +35,8 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
     return useAuthStore.getState().session !== null;
   },
 
-  clearAuthState: () => {
-    set({
-      user: null,
-      session: null,
-      loading: false,
-      error: null,
-    });
+  clearErrorState: () => {
+    set({ error: null });
   },
 
   setAuthError: (errorMessage: string) => {
@@ -68,9 +63,7 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
-    // Handle the error without a timer
     if (error) {
-      // Handle the error immediately or with another approach if needed
       set({ error: error.message });
     }
     return {
@@ -89,9 +82,7 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       loading: false,
       error: error?.message || null,
     });
-    // Handle the error without a timer
     if (error) {
-      // Handle the error immediately or with another approach if needed
       set({ error: error.message });
     }
   },
@@ -113,9 +104,7 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       redirectTo: 'https://example.com',
     });
     set({ loading: false, error: error?.message || null });
-    // Handle the error without a timer
     if (error) {
-      // Handle the error immediately or with another approach if needed
       set({ error: error.message });
     }
   },
@@ -126,9 +115,7 @@ const useAuthStore = create<AuthState & AuthActions>((set) => ({
       password: newPassword,
     });
     set({ loading: false, error: error?.message || null });
-    // Handle the error without a timer
     if (error) {
-      // Handle the error immediately or with another approach if needed
       set({ error: error.message });
     }
   },

@@ -4,22 +4,34 @@ import brand from '../brand/brandConfig';
 
 type FormErrorsProps = {
   error: string | null;
+  clearError?: () => void;
 };
 
 /**
- * FormErrors component to display error messages temporarily.
- * The error message will be visible for 3 seconds before automatically disappearing.
+ * FormErrors component to display error messages in forms.
+ * The error message will be visible for 1 second before being hidden.
+ * Returns the form error element if the error prop is not null and visible is true.
+ * @param {object} props - props for the component.
+ * @param {string | null} props.error - error message to be displayed
+ * @param {() => void} [props.clearError] - optional function to clear the error in state/store
+ * @returns {JSX.Element} - returns FormError if error is not null and visible is true
  */
+export default function FormErrors({ error, clearError }: FormErrorsProps): JSX.Element {
+  const [visible, setVisible] = useState(false);
 
-export default function FormErrors({ error }: FormErrorsProps) {
-  const [visible, setVisible] = useState(true);
-  // Hide error after
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, 3000); // 3 seconds
-    return () => clearTimeout(timer);
-  }, []);
+    if (error) {
+      setVisible(true);
+      const timer = setTimeout(() => {
+        setVisible(false);
+        if (clearError) {
+          clearError();
+        }
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [error, clearError]);
 
   return error && visible ? <Text style={styles.error}>{error}</Text> : <></>;
 }

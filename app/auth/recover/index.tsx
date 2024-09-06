@@ -26,7 +26,7 @@ export default function RecoverPage() {
   const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
-  const { resetPasswordWithEmail, loading, error, setAuthError } = useAuthStore();
+  const { resetPasswordWithEmail, loading, error, setAuthError, clearErrorState } = useAuthStore();
 
   // Initialize success state
   const [success, setSuccess] = useState(false);
@@ -72,7 +72,7 @@ export default function RecoverPage() {
           />
 
           {/* Display errors */}
-          <FormErrors error={error} />
+          <FormErrors error={error} clearError={clearErrorState} />
 
           {/* Text Link to go back to login */}
           <TextLink text="Go back to login" onPress={() => router.push('/auth/login')} />

@@ -12,7 +12,7 @@ export interface AuthActions {
   initialize: () => Promise<void>;
   isAuthenticated: () => boolean;
   getUserId: () => string | null;
-  clearAuthState: () => void;
+  clearErrorState: () => void;
   setAuthError: (errorMessage: string) => void;
   signUpWithEmail: (
     email: string,

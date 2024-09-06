@@ -16,7 +16,7 @@ type ListButtonProps = {
  * @param {Object} props - The component's props.
  * @param {string} props.text - Text to be displayed in the component.
  * @param {keyof typeof Feather.glyphMap}  props.icon - icon name from https://icons.expo.fyi/Index
- * @param {() => void} props.onPress - Function to be executed by the component.
+ * @param {() => void} [props.onPress] - Function to be executed by the component.
  *
  * @returns {JSX.Element} - Returns the rendered component.
  */

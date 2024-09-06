@@ -27,7 +27,7 @@ export default function LoginForm() {
   });
 
   // Initialize authentication methods from store
-  const { logInWithEmail, loading, error } = useAuthStore();
+  const { logInWithEmail, loading, error, clearErrorState } = useAuthStore();
   const theme = useContext(ThemeContext);
   const router = useRouter();
 
@@ -44,7 +44,7 @@ export default function LoginForm() {
         <FormInput name="email" placeholder="Email" control={control} />
         <FormInput name="password" placeholder="Password" secure control={control} />
         <Button title="Login" onPress={handleSubmit(handleEmailLoginSubmit)} loading={loading} />
-        <FormErrors error={error} />
+        <FormErrors error={error} clearError={clearErrorState} />
         <TextLink text="Forgot password?" onPress={() => router.replace('auth/recover')} />
         <FormSeparator text="or" />
         <TextLink text="Create a new account" onPress={() => router.replace('auth/signup')} />

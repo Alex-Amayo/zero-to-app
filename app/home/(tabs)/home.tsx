@@ -8,6 +8,7 @@ import List from '../../../components/List';
 import TextLink from '../../../components/TextLink';
 import useAuthStore from '../../../stores/authStore/authStore';
 import LoadingIndicator from '../../../components/LoadingIndicator';
+import ListDivider from '../../../components/ListDivider';
 
 const HomePage = () => {
   // Initialize theme
@@ -34,6 +35,7 @@ const HomePage = () => {
                 {'Lets start building ' + data?.first_name + '!'}
               </Text>
             )}
+            <ListDivider />
             <TextLink text="Zero To App Documentation" href="https://google.com" />
           </List>
         </Card>

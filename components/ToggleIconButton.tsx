@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { ThemeContext } from '../theme/theme';
+import brand from '../brand/brandConfig';
 
 type IconButtonProps = {
   iconName: keyof typeof Feather.glyphMap;
@@ -58,5 +59,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 25,
+    shadowOffset: brand.shadows ? { width: -2, height: 2 } : undefined,
+    shadowOpacity: brand.shadows ? 0.4 : undefined,
+    shadowRadius: brand.shadows ? 5 : undefined,
+    elevation: brand.shadows ? 20 : undefined,
   },
 });

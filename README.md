@@ -45,8 +45,9 @@ The `brandConfig.ts` file defines the basic styling for the application. It uses
 ```typescript
 const brand: Brand = {
   name: 'Zero To App',
+  backgroundColor: '#f0f2f5',
   borderRadius: 5,
-  shadow: true,
+  shadows: true,
   colors: {
     primary: '#1a4c9d',
     secondary: '#db4691',
@@ -56,6 +57,10 @@ const brand: Brand = {
     medium: 16,
     large: 20,
     xlarge: 24,
+  },
+  logo: {
+    light: 'https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png',
+    dark: 'https://utfs.io/f/0f641941-fe3a-447e-bff3-a9ea1201006c-qkt02w.png',
   },
 };
 
@@ -70,33 +75,33 @@ theme.
 ```typescript
 //Defining light theme
 export const lightTheme: ThemeValuesType = {
-  color: '#000000',
-  backgroundColor: '#ECF3FF',
-  cardBackgroundColor: '#FFFFFF',
-  highlightColor: brand.colors.primary,
-  appbarColor: '#FFFFFF',
-  borderColor: '#F2F2F7FF',
-  shadowColor: '#000000',
-  inactiveIconColor: '#65676b',
-  dividerColor: '#DDDDDD',
-  iconButtonBackgroundColor: '#E4E6EB',
-  iconButtonIconColor: '#000000',
+  color: '#050505', // Text color
+  backgroundColor: brand.backgroundColor, // Background color of light theme derived from brandConfig
+  cardBackgroundColor: '#ffffff', // Background color of cards
+  highlightColor: brand.colors.primary, //Primary color of the brand derived from brandConfig
+  appbarColor: '#ffffff', // App bar color
+  borderColor: '#ced0d4', // Border color
+  shadowColor: '#000000', // Shadow color
+  inactiveIconColor: '#606770', // Inactive icon color
+  dividerColor: '#dddfe2', // Divider color
+  iconButtonBackgroundColor: '#e4e6eb', // Background color of icon buttons
+  iconButtonIconColor: '#050505', // Icon color for icon buttons
   isDark: false,
 };
 
 //Defining dark theme
 export const darkTheme: ThemeValuesType = {
-  color: '#FFFFFF',
-  backgroundColor: '#242526',
-  cardBackgroundColor: '#18191a',
-  highlightColor: brand.colors.secondary,
-  appbarColor: '#18191a',
-  borderColor: '#1C1C1EFF',
-  shadowColor: '',
-  inactiveIconColor: '#808080',
-  dividerColor: '#808080',
-  iconButtonBackgroundColor: '#3a3b3c',
-  iconButtonIconColor: '#FFFFFF',
+  color: '#e4e6eb', // Text color
+  backgroundColor: '#18191a', // Background color of the entire app
+  cardBackgroundColor: '#242526', // Background color of cards
+  highlightColor: brand.colors.secondary, //Primary color of the brand derived from brandConfig
+  appbarColor: '#242526', // App bar color
+  borderColor: '#3e4042', // Border color
+  shadowColor: '#000000', // Shadow color
+  inactiveIconColor: '#b0b3b8', // Inactive icon color
+  dividerColor: '#3e4042', // Divider color
+  iconButtonBackgroundColor: '#3a3b3c', // Background color of icon buttons
+  iconButtonIconColor: '#e4e6eb', // Icon color for icon buttons
   isDark: true,
 };
 ```

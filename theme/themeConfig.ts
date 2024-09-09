@@ -19,7 +19,7 @@ export interface ThemeValuesType {
 //Defining light theme
 export const lightTheme: ThemeValuesType = {
   color: '#050505', // Text color
-  backgroundColor: '#f0f2f5', // Background color of the entire app
+  backgroundColor: brand.backgroundColor, // Background color of light theme derived from brandConfig
   cardBackgroundColor: '#ffffff', // Background color of cards
   highlightColor: brand.colors.primary, //Primary color of the brand derived from brandConfig
   appbarColor: '#ffffff', // App bar color

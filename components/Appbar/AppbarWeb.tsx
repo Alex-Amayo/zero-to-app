@@ -34,12 +34,12 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
       ...{
         //Appbar card styling
         //Shadow color from theme
-        shadowColor: brand.shadow ? theme.values.shadowColor : undefined,
+        shadowColor: brand.shadows ? theme.values.shadowColor : undefined,
         //Verticle shadow offset for Appbar
-        shadowOffset: brand.shadow ? { width: -2, height: 2 } : undefined,
-        shadowOpacity: brand.shadow ? 0.4 : undefined,
-        shadowRadius: brand.shadow ? 3 : undefined,
-        elevation: brand.shadow ? 20 : undefined,
+        shadowOffset: brand.shadows ? { width: -2, height: 2 } : undefined,
+        shadowOpacity: brand.shadows ? 0.4 : undefined,
+        shadowRadius: brand.shadows ? 3 : undefined,
+        elevation: brand.shadows ? 20 : undefined,
       },
     };
   }

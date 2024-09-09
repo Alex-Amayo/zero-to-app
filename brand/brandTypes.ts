@@ -2,7 +2,8 @@
 
 export type Name = string;
 export type BorderRadius = number;
-export type Shadow = boolean;
+export type Shadows = boolean;
+export type BackgroundColor = string;
 
 export interface Colors {
   primary: string;

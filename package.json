@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "test": "jest"
+    "test": "jest",
+    "export:web": "npx expo export -p web"
   },
   "jest": {
     "preset": "jest-expo",

@@ -8,6 +8,7 @@ type IconButtonProps = {
   iconName: keyof typeof Feather.glyphMap;
   alternateIconName: keyof typeof Feather.glyphMap;
   onPress?: () => void;
+  raised?: boolean;
 };
 
 /**
@@ -16,14 +17,15 @@ type IconButtonProps = {
  * The button also toggles its background color based on the theme context.
  *
  * @param {Object} props - The component's props.
- * @param {keyof typeof Feather.glyphMap} props.iconName - The icon name to display initially.
- * @param {keyof typeof Feather.glyphMap} props.alternateIconName - The icon name to display when toggled.
+ * @param {keyof typeof Feather.glyphMap} props.iconName - The icon name to display initially https://icons.expo.fyi/Index.
+ * @param {keyof typeof Feather.glyphMap} props.alternateIconName - The icon name to display when toggled https://icons.expo.fyi/Index.
+ * @param {boolean} props.raised - conditional option to enable shadows if shadows are set to true in brandConfig
  * @param {() => void} [props.onPress] - Optional callback function executed when the button is pressed.
  *
  * @returns {JSX.Element} The rendered icon button component.
  */
 
-const ToggleIconButton = ({ iconName, alternateIconName, onPress }: IconButtonProps) => {
+const ToggleIconButton = ({ iconName, alternateIconName, onPress, raised }: IconButtonProps) => {
   const [isToggled, setIsToggled] = useState(false);
   const theme = useContext(ThemeContext);
 
@@ -40,6 +42,10 @@ const ToggleIconButton = ({ iconName, alternateIconName, onPress }: IconButtonPr
       style={{
         ...styles.container,
         backgroundColor: theme.values.iconButtonBackgroundColor,
+        shadowOffset: raised && brand.shadows ? { width: -2, height: 2 } : undefined,
+        shadowOpacity: raised && brand.shadows ? 0.4 : undefined,
+        shadowRadius: raised && brand.shadows ? 5 : undefined,
+        elevation: raised && brand.shadows ? 20 : undefined,
       }}>
       <Feather
         name={isToggled ? alternateIconName : iconName}
@@ -58,10 +64,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 40,
     height: 40,
-    borderRadius: 25,
-    shadowOffset: brand.shadows ? { width: -2, height: 2 } : undefined,
-    shadowOpacity: brand.shadows ? 0.4 : undefined,
-    shadowRadius: brand.shadows ? 5 : undefined,
-    elevation: brand.shadows ? 20 : undefined,
+    borderRadius: 25
   },
 });

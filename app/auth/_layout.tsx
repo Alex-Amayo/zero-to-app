@@ -21,7 +21,7 @@ export default function LoginPage() {
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.container}>
             <View style={styles.toggleThemeButton}>
-              <ToggleIconButton iconName="moon" alternateIconName="sun" onPress={toggleTheme} />
+              <ToggleIconButton iconName="moon" alternateIconName="sun" onPress={toggleTheme} raised/>
             </View>
             <Image
               source={{

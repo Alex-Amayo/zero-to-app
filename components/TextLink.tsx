@@ -3,22 +3,22 @@ import { Text, StyleSheet, Pressable, Linking } from 'react-native';
 import brand from '../brand/brandConfig';
 import { StyledText } from './StyledText';
 
-type TextLinkprops = {
+type TextLinkProps = {
   text: string;
   onPress?: () => void;
   href?: string;
 };
 
 /**
- * Returns a pressable tetx component
+ * Returns a pressable text component
  *
  * @param {string} props.text - Text to be displayed.
- * @param {()=>void} [props.onPress] - Optional function to be excecuted when pressed.
+ * @param {()=>void} [props.onPress] - Optional function to be executed when pressed.
  * @param {string} [props.href] - optional url to navigate to when pressed.
  *
  * @returns {JSX.Element} - Returns rendered text link component.
  */
-const TextLink = ({ text, onPress, href }: TextLinkprops) => {
+const TextLink = ({ text, onPress, href }: TextLinkProps) => {
   const handlePress = () => {
     if (href) {
       Linking.openURL(href);

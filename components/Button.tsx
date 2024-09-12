@@ -53,14 +53,14 @@ const styles = StyleSheet.create({
   primary: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
+    padding: 15,
     borderRadius: brand.borderRadius,
     backgroundColor: brand.colors.primary,
   },
   secondary: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
+    padding: 15,
     borderRadius: brand.borderRadius,
     backgroundColor: brand.colors.secondary,
   },

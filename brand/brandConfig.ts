@@ -13,7 +13,7 @@ interface Brand {
 const brand: Brand = {
   name: 'Zero To App',
   backgroundColor: '#ec6140',
-  borderRadius: 5,
+  borderRadius: 10,
   shadows: true,
   colors: {
     primary: '#1a4c9d',

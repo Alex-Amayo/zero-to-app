@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: brand.borderRadius,
     borderWidth: 1,
     shadowOffset: brand.shadows ? { width: -2, height: 2 } : undefined,
-    shadowOpacity: brand.shadows ? 0.4 : undefined,
+    shadowOpacity: brand.shadows ? 0.3 : undefined,
     shadowRadius: brand.shadows ? 5 : undefined,
     elevation: brand.shadows ? 20 : undefined,
   },

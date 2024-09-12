@@ -9,6 +9,7 @@ import TextLink from '../../../components/TextLink';
 import useAuthStore from '../../../stores/authStore/authStore';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import ListDivider from '../../../components/ListDivider';
+import { StyledText } from '../../../components/StyledText';
 
 const HomePage = () => {
   // Initialize theme
@@ -31,9 +32,9 @@ const HomePage = () => {
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              <Text style={{ ...styles.title, color: theme.values.color }}>
+              <StyledText md center>
                 {'Lets start building ' + data?.first_name + '!'}
-              </Text>
+              </StyledText>
             )}
             <ListDivider />
             <TextLink text="Zero To App Documentation" href="https://google.com" />

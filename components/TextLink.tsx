@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, Pressable, Linking } from 'react-native';
 import brand from '../brand/brandConfig';
+import { StyledText } from './StyledText';
 
 type TextLinkprops = {
   text: string;
@@ -28,7 +29,7 @@ const TextLink = ({ text, onPress, href }: TextLinkprops) => {
 
   return (
     <Pressable style={styles.container} onPress={handlePress}>
-      <Text style={styles.text}>{text}</Text>
+      <StyledText color="#1877f2">{text}</StyledText>
     </Pressable>
   );
 };

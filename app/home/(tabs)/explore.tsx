@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ThemeContext } from '../../../theme/theme';
+import { StyledText } from '../../../components/StyledText';
 
 const ExplorePage = () => {
-  //Initialze theme
+  //Initialize theme
   const theme = useContext(ThemeContext);
   return (
     <View
       style={{
         ...styles.container,
-        //Confingure background color with theme
+        //Configure background color with theme
         backgroundColor: theme.values.backgroundColor,
       }}>
-      <Text style={{ color: theme.values.color }}>Explore Page</Text>
+      <StyledText>Explore Page</StyledText>
     </View>
   );
 };

@@ -13,6 +13,7 @@ import FormErrors from '../../../components/FormErrors';
 import { useForm } from 'react-hook-form';
 import { recoverSchema, recoverSchemaValues } from '../../../schemas/recoverSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { StyledText } from '../../../components/StyledText';
 
 export default function RecoverPage() {
   // Initialize form with react-hook-form
@@ -46,23 +47,14 @@ export default function RecoverPage() {
       {success ? (
         //Display success message
         <List>
-          <Text style={{ ...styles.title, color: theme.values.color }}>
-            Password reset email sent
-          </Text>
+          <StyledText lg center>Password reset email sent!</StyledText>
           {/* Text Link to go back to login */}
           <TextLink text="Go back to login" onPress={() => router.push('/auth/login')} />
         </List>
       ) : (
         //Display password recovery form
         <List>
-          <Text
-            style={{
-              ...styles.title,
-              //Text color is set using theme values
-              color: theme.values.color,
-            }}>
-            Recover Your {brand.name} Password
-          </Text>
+          <StyledText lg center>Recover Your {brand.name} Password </StyledText>
           {/* Input for email and Reset Password Button */}
           <FormInput name="email" placeholder="Enter email" control={control} />
           <Button
@@ -81,15 +73,3 @@ export default function RecoverPage() {
     </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: brand.fontSizes.large,
-    textAlign: 'center',
-  },
-  textInput: {
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: brand.borderRadius,
-  },
-});

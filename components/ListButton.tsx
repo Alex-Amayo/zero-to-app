@@ -3,6 +3,7 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
+import { StyledText } from './StyledText';
 
 type ListButtonProps = {
   text: string;
@@ -25,14 +26,9 @@ const ListButton = ({ onPress, text, icon }: ListButtonProps): JSX.Element => {
   const theme = useContext(ThemeContext);
   return (
     <TouchableOpacity style={styles.listButton} onPress={onPress}>
-      <Text
-        style={{
-          ...styles.text,
-          //Text color is set with theme color
-          color: theme.values.color,
-        }}>
+      <StyledText bold>
         {text}
-      </Text>
+      </StyledText>
       <Feather name={icon} size={25} color={theme.values.color} />
     </TouchableOpacity>
   );

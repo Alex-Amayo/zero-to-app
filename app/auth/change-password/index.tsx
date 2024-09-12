@@ -16,6 +16,7 @@ import {
   changePasswordSchema,
   changePasswordSchemaValues,
 } from '../../../schemas/changePasswordSchema';
+import { StyledText } from '../../../components/StyledText';
 
 export default function ChangePasswordPage() {
   // Retrieving changePassword, loading, error, setAuthError from useAuthStore
@@ -34,7 +35,7 @@ export default function ChangePasswordPage() {
     resolver: zodResolver(changePasswordSchema),
   });
 
-  //Initialize success state for tracking succesful password change
+  //Initialize success state for tracking successful password change
   const [success, setSuccess] = useState(false);
 
   // Function to handle password change form submission
@@ -55,19 +56,17 @@ export default function ChangePasswordPage() {
     <Card>
       <List>
         {
-          // Display success message if password changed successfullyaA
+          // Display success message if password changed successfully
           success ? (
             <>
-              <Text style={{ ...styles.title, color: theme.values.color }}>
-                Password changed successfully
-              </Text>
+              <StyledText lg center>Password Changed Successfully</StyledText>
               {/* Navigate back to login */}
               <TextLink text="Take me back to the app" onPress={() => router.push('/core')} />
             </>
           ) : (
             // Display change password form
             <>
-              <Text style={{ ...styles.title, color: theme.values.color }}>Change Password</Text>
+              <StyledText lg center>Change Password</StyledText>
               <FormInput name="newPassword" placeholder="New Password" control={control} secure />
               <FormInput
                 name="newPasswordConfirmation"
@@ -88,10 +87,3 @@ export default function ChangePasswordPage() {
     </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: brand.fontSizes.large,
-    textAlign: 'center',
-  },
-});

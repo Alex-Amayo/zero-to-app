@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderRadius: brand.borderRadius,
+    fontSize: brand.fontSizes.medium
   },
   errorText: {
     color: 'red',

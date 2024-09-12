@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   View,
-  Text,
   Pressable,
   StyleSheet,
   ActivityIndicator,
   GestureResponderEvent,
 } from 'react-native';
 import brand from '../brand/brandConfig';
+import { StyledText } from './StyledText';
 
 type ButtonProps = {
   title: string;
@@ -20,11 +20,10 @@ type ButtonProps = {
  * A reusable button component that can be customized with different styles,
  * loading states, and behavior based on props.
  *
- * @param {Object} props - The component's props.
- * @param {string} props.title - The text to display on the button.
- * @param {function} props.onPress - Function to call when the button is pressed.
- * @param {boolean} [props.secondary] - If true, applies the secondary style to the button.
- * @param {boolean} [props.loading] - If true, shows a loading spinner instead of the button text.
+ * @param {string} title - The text to display on the button.
+ * @param {function} onPress - Function to call when the button is pressed.
+ * @param {boolean} [secondary] - If true, applies the secondary style to the button.
+ * @param {boolean} [loading] - If true, shows a loading spinner instead of the button text.
  *
  * @returns { JSX.Element } - Returns rendered Button Component
  */
@@ -40,12 +39,9 @@ const Button = ({ title, secondary, loading, onPress }: ButtonProps): JSX.Elemen
   ) : (
     <Pressable onPress={onPress} style={secondary ? styles.secondary : styles.primary}>
       <View>
-        <Text
-          style={{
-            ...styles.text,
-          }}>
+        <StyledText md color="white">
           {title}
-        </Text>
+        </StyledText>
       </View>
     </Pressable>
   );

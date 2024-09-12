@@ -15,6 +15,7 @@ import { useCreateUserProfile } from '../../../hooks/useCreateUserProfile';
 import { useForm, useWatch } from 'react-hook-form';
 import { signUpSchema, SignUpFormValues } from '../../../schemas/signUpSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { StyledText } from '../../../components/StyledText';
 
 export default function SignupPage() {
   //Initialize the theme
@@ -37,16 +38,16 @@ export default function SignupPage() {
     resolver: zodResolver(signUpSchema),
   });
 
-  // Iniialize userID state as empty
+  // Initialize userID state as empty
   const [userId, setUserId] = useState('');
   //Retrieve first and last name from form values
   const firstName = useWatch({ control, name: 'firstName' });
   const lastName = useWatch({ control, name: 'lastName' });
 
-  //Create user user profile user id is createdz
+  //Create user user profile user id is created
   const { mutateAsync: createUserProfile } = useCreateUserProfile(userId, firstName, lastName);
 
-  //Function to handle email signup
+  //Function to handle email sign up
   const handleEmailSignUp = async (data: SignUpFormValues) => {
     try {
       // Call the signUpWithEmail function from useAuthStore
@@ -57,7 +58,7 @@ export default function SignupPage() {
       // Call the logInWithEmail function from useAuthStore
       await logInWithEmail(data.email, data.password);
     } catch (error) {
-      setAuthError('Signup failed');
+      setAuthError('Sign up failed');
       console.error(error);
     }
   };
@@ -80,16 +81,9 @@ export default function SignupPage() {
   return (
     <Card>
       <List>
-        {/* Title for the signup form */}
-        <Text
-          style={{
-            //Use the theme to set the font color
-            color: theme.values.color,
-            ...styles.title,
-          }}>
-          Create A New Account
-        </Text>
-        <Text style={{ ...styles.subTitle, color: theme.values.color }}>It's quick and easy.</Text>
+        {/* Title for the sign up form */}
+        <StyledText lg center>Create A New Account</StyledText>
+        <StyledText md center>It's quick and easy</StyledText>
         <ListDivider />
 
         {/* Input for Names half property added to display in rows*/}

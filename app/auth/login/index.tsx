@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form';
 import FormSeparator from '../../../components/FormSeparator';
 import TextLink from '../../../components/TextLink';
 import { loginSchema, LoginFormValues } from '../../../schemas/loginSchema';
+import { StyledText } from '../../../components/StyledText';
 
 export default function LoginForm() {
   // Initialize form with react hook form
@@ -40,7 +41,7 @@ export default function LoginForm() {
   return (
     <Card>
       <List>
-        <Text style={{ ...styles.title, color: theme.values.color }}>Log Into {brand.name}</Text>
+        <StyledText lg center>Log Into {brand.name}</StyledText>
         <FormInput name="email" placeholder="Email" control={control} />
         <FormInput name="password" placeholder="Password" secure control={control} />
         <Button title="Login" onPress={handleSubmit(handleEmailLoginSubmit)} loading={loading} />
@@ -53,10 +54,3 @@ export default function LoginForm() {
     </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: brand.fontSizes.large,
-    textAlign: 'center',
-  },
-});

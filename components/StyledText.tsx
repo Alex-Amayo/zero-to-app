@@ -86,7 +86,8 @@ export const StyledText = ({ children, sm, md, lg, xl, left, center, right, colo
 
 const styles = StyleSheet.create({
   base: {
-    fontFamily: 'Arial', 
+    fontFamily: 'Arial',
+    fontSize: brand.fontSizes.medium 
   },
   sm: { fontSize: brand.fontSizes.small },
   md: { fontSize: brand.fontSizes.medium },

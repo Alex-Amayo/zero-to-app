@@ -15,7 +15,8 @@ export default function LoginPage() {
   return (
     <KeyboardAvoidingView
       style={{ ...styles.safeArea, backgroundColor: theme.values.backgroundColor }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
       <StatusBar style={theme.values.isDark ? 'light' : 'dark'} />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>

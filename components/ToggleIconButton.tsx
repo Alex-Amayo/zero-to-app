@@ -43,7 +43,7 @@ const ToggleIconButton = ({ iconName, alternateIconName, onPress, raised }: Icon
         ...styles.container,
         backgroundColor: theme.values.iconButtonBackgroundColor,
         shadowOffset: raised && brand.shadows ? { width: -2, height: 2 } : undefined,
-        shadowOpacity: raised && brand.shadows ? 0.4 : undefined,
+        shadowOpacity: raised && brand.shadows ? 0.2 : undefined,
         shadowRadius: raised && brand.shadows ? 5 : undefined,
         elevation: raised && brand.shadows ? 20 : undefined,
       }}>

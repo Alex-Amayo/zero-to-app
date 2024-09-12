@@ -38,13 +38,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    //text color for the link
-    color: '#1877f2',
-    fontSize: brand.fontSizes.medium,
-    textAlign: 'center',
-  },
+  }
 });
 
 export default TextLink;

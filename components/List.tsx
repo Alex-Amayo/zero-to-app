@@ -9,8 +9,7 @@ type ListProps = {
  *
  * A list component that wraps th echildren in a container with consistent padding and gap values.
  *
- * @param {Object} props - The component's props.
- * @param {JSX.Element | JSX.Element[]} props.children - Elements to be wrapped inside the list component.
+ * @param {JSX.Element | JSX.Element[]} children - Elements to be wrapped inside the list component.
  *
  * @returns {JSX.Element} - Returns rendered list component.
  */

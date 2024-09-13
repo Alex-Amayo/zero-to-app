@@ -12,12 +12,11 @@ type ListButtonProps = {
 };
 
 /**
- * List Button componet that displays a list button with an icon and text
+ * List Button component that displays a list button with an icon and text
  *
- * @param {Object} props - The component's props.
- * @param {string} props.text - Text to be displayed in the component.
- * @param {keyof typeof Feather.glyphMap}  props.icon - icon name from https://icons.expo.fyi/Index
- * @param {() => void} [props.onPress] - Function to be executed by the component.
+ * @param {string} text - Text to be displayed in the component.
+ * @param {keyof typeof Feather.glyphMap}  icon - icon name from https://icons.expo.fyi/Index
+ * @param {() => void} [onPress] - Function to be executed by the component.
  *
  * @returns {JSX.Element} - Returns the rendered component.
  */

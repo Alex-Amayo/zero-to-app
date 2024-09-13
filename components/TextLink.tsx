@@ -12,9 +12,9 @@ type TextLinkProps = {
 /**
  * Returns a pressable text component
  *
- * @param {string} props.text - Text to be displayed.
- * @param {()=>void} [props.onPress] - Optional function to be executed when pressed.
- * @param {string} [props.href] - optional url to navigate to when pressed.
+ * @param {string} text - Text to be displayed
+ * @param {()=>void} [onPress] - Optional function to be executed when pressed.
+ * @param {string} [href] - optional url to navigate to when pressed.
  *
  * @returns {JSX.Element} - Returns rendered text link component.
  */

@@ -16,11 +16,10 @@ type IconButtonProps = {
  * Alternates between the primary icon and an alternate icon when clicked.
  * The button also toggles its background color based on the theme context.
  *
- * @param {Object} props - The component's props.
- * @param {keyof typeof Feather.glyphMap} props.iconName - The icon name to display initially https://icons.expo.fyi/Index.
- * @param {keyof typeof Feather.glyphMap} props.alternateIconName - The icon name to display when toggled https://icons.expo.fyi/Index.
- * @param {boolean} props.raised - conditional option to enable shadows if shadows are set to true in brandConfig
- * @param {() => void} [props.onPress] - Optional callback function executed when the button is pressed.
+ * @param {keyof typeof Feather.glyphMap} iconName - The icon name to display initially https://icons.expo.fyi/Index.
+ * @param {keyof typeof Feather.glyphMap} alternateIconName - The icon name to display when toggled https://icons.expo.fyi/Index.
+ * @param {boolean} raised - conditional option to enable shadows if shadows are set to true in brandConfig
+ * @param {() => void} [onPress] - Optional callback function executed when the button is pressed.
  *
  * @returns {JSX.Element} The rendered icon button component.
  */

@@ -6,7 +6,7 @@ import { ThemeContext } from '../theme/theme';
  * Returns a line that extends the full width of the container
  * Derives color from theme
  *
- * @returns the renderedcomponent
+ * @returns the rendered ListDivider component
  */
 const ListDivider = () => {
   const theme = useContext(ThemeContext);

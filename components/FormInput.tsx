@@ -17,12 +17,11 @@ type FormInputProps<T extends FieldValues> = {
  * and theming support in a React Native application. Integrates with React Hook
  * Form for form state management and uses the current theme for styling.
  *
- * @param {Object} props - The component's props.
- * @param {Control<T>} props.control - React Hook Form control object for managing form state
- * @param {string} props.placeholder - Placeholder text for the input field
- * @param {Path<T>} props.name - Name of the field in the form
- * @param {boolean} [props.half] - Optional prop to set the input field to half-width
- * @param {boolean} [props.secure] - Optional prop to enable secure text entry
+ * @param {Control<T>} control - React Hook Form control object for managing form state
+ * @param {string} placeholder - Placeholder text for the input field
+ * @param {Path<T>} name - Name of the field in the form
+ * @param {boolean} [half] - Optional prop to set the input field to half-width
+ * @param {boolean} [secure] - Optional prop to enable secure text entry
  *
  * @returns { JSX.Element } - Rendered FormInput Component
  */

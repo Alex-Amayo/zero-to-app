@@ -13,10 +13,9 @@ type IconButtonProps = {
 /**
  * Renders rounded icon button with icon from expo-vector icons.
  *
- * @param {Object} props - The component's props.
- * @param { keyof typeof Feather.glyphMap } props.iconName - Icon name from https://icons.expo.fyi/Index
- * @param {boolean} [props.raised] - conditional option to enable shadows if shadows are set to true in brandConfig
- * @param {(event: GestureResponderEvent) => void} props.onPress - Function executed when icon button is pressed.
+ * @param { keyof typeof Feather.glyphMap } iconName - Icon name from https://icons.expo.fyi/Index
+ * @param {boolean} [raised] - conditional option to enable shadows if shadows are set to true in brandConfig
+ * @param {(event: GestureResponderEvent) => void} onPress - Function executed when icon button is pressed.
  *
  * @returns { JSX.Element } - Returns rendered IconButton with specified icon inside.
  */

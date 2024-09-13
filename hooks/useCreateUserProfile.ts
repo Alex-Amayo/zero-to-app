@@ -1,3 +1,6 @@
+import { useMutation } from '@tanstack/react-query';
+import { createUserProfile } from '../api/mutations/createUserProfile';
+
 /**
  * Create a user profile in the db
  * @param user_id The user ID
@@ -5,8 +8,6 @@
  * @param last_name The user's last name
  */
 
-import { useMutation } from '@tanstack/react-query';
-import { createUserProfile } from '../api/mutations/createUserProfile';
 
 export const useCreateUserProfile = (user_id: string, first_name: string, last_name: string) => {
   return useMutation<void, Error>({

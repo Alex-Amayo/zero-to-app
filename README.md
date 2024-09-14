@@ -38,6 +38,20 @@ Start the app:
 yarn start
 ```
 
+## Setting Up Supabase
+
+1. Visit the [Supabase Dashboard](https://app.supabase.com/). Create a new project by following the prompts.
+
+2. Go to **Connect your project**, select Mobile Frameworks and Expo React Native. Copy the API Keys provided. 
+3. In your Expo React Native project, create a `.env` file in the root and paste the API Keys. 
+
+    ```bash
+    EXPO_PUBLIC_SUPABASE_URL=<your-supabase-url>
+    EXPO_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
+    ```
+    
+That's it! Your app is now connected to Supabase!
+
 ## Brand Configuration
 
 The `brandConfig.ts` file defines the basic styling for the application. It uses a `Brand` object to set various typesafe style properties that you can pass down in your app.

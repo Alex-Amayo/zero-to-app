@@ -7,6 +7,7 @@ import IconButton from '../IconButton';
 import brand from '../../brand/brandConfig';
 import { ThemeContext } from '../../theme/theme';
 import ToggleIconButton from '../ToggleIconButton';
+import IconButtonDrawer from './IconButtonDrawer';
 
 type AppbarProps = {
   title?: string;
@@ -72,11 +73,7 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
             </Text>
           </Link>
           {windowWidth >= breakpoints.medium ? tabs : null}
-          <View style={styles.iconContainer}>
-            <IconButton iconName="search" onPress={() => {}} />
-            <IconButton iconName="plus" onPress={() => {}} />
-            <ToggleIconButton iconName="sun" alternateIconName="moon" onPress={toggleTheme} />
-          </View>
+          <IconButtonDrawer />
         </View>
         {windowWidth < breakpoints.medium ? (
           <View

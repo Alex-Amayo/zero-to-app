@@ -35,7 +35,7 @@ export default function LoginForm() {
   //Login Function
   const handleEmailLoginSubmit = async (data: LoginFormValues) => {
     await logInWithEmail(data.email, data.password);
-    router.push('/home');
+    router.replace('/tabs');
   };
 
   return (
@@ -49,7 +49,6 @@ export default function LoginForm() {
         <TextLink text="Forgot password?" onPress={() => router.replace('auth/recover')} />
         <FormSeparator text="or" />
         <TextLink text="Create a new account" onPress={() => router.replace('auth/signup')} />
-        <></>
       </List>
     </Card>
   );

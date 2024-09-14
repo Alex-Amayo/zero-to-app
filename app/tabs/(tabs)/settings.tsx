@@ -35,13 +35,25 @@ const SettingsPage = () => {
       <View style={styles.container}>
         <Card>
           <List>
-            { !isAuthenticated() ? <ListButton text="Log in" icon="log-out" onPress={handleLogIn}/> : null }
-            <ListDivider />
+            <ListDivider/>
+            { !isAuthenticated() ? 
+              <>
+                <ListButton text="Log in" icon="log-out" onPress={handleLogIn}/> 
+                <ListDivider />
+              </>
+              : null }
+            
             <ListButton text="Billing & Payments" icon="credit-card" />
             <ListDivider />
             <ListButton text="More Options" icon="more-horizontal" />
             <ListDivider />
-            { isAuthenticated()? <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut}/> : null }
+            { isAuthenticated()? 
+            <>
+            <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut}/> 
+            <ListDivider />
+            </>
+            : null }
+            
           </List>
         </Card>
       </View>

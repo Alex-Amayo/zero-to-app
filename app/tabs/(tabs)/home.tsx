@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { ThemeContext } from '../../../theme/theme';
 import { useFetchUserProfile } from '../../../hooks/useFetchUserProfile';
 import brand from '../../../brand/brandConfig';
@@ -15,7 +15,7 @@ import { router } from 'expo-router';
 const HomePage = () => {
   // Initialize theme
   const theme = useContext(ThemeContext);
-  
+
   // Retrieve user ID from auth store (or null/undefined if not authenticated)
   const { getUserId } = useAuthStore();
   const userId = getUserId();
@@ -32,25 +32,28 @@ const HomePage = () => {
       <View style={styles.container}>
         <Card>
           <List>
-            {/* Show loading indicator if fetching user data */}
-            {isLoading ? (
-              <LoadingIndicator />
-            ) : userId ? (
+            {userId ?
               // Display personalized message for authenticated users
               <StyledText lg center>
                 {'Let\'s start building ' + (data?.first_name) + '!'}
               </StyledText>
-            ) : (
+              :
               // Display message for non-authenticated users
               <StyledText lg center>
                 {'Build launch and iterate!'}
               </StyledText>
-            )}
-            <ListDivider />
+            }
+            < ListDivider />
             <TextLink text="Zero To App Documentation" href="https://google.com" />
-            <ListDivider />
-            { !userId ? <TextLink text="Try the account authentication experience" onPress={() => router.push('auth/login')} /> : null }
-            
+
+            {!userId ?
+              <>
+                <ListDivider />
+                <TextLink text="Try the account authentication experience" onPress={() => router.push('auth/login')} />
+              </>
+
+              : null}
+
 
           </List>
         </Card>

@@ -13,7 +13,7 @@ const ExplorePage = () => {
         //Configure background color with theme
         backgroundColor: theme.values.backgroundColor,
       }}>
-      <StyledText>Explore Page</StyledText>
+      <StyledText bold>Explore Page</StyledText>
     </View>
   );
 };

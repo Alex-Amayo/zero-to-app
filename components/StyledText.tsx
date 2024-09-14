@@ -95,5 +95,5 @@ const styles = StyleSheet.create({
   left: { textAlign: 'left' },
   center: { textAlign: 'center' },
   right: { textAlign: 'right' },
-  bold: { fontWeight: '700' },
+  bold: { fontWeight: '500' },
 });

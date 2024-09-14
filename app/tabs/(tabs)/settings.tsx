@@ -13,12 +13,17 @@ const SettingsPage = () => {
   const theme = React.useContext(ThemeContext);
 
   // Retrieve logOut from auth store
-  const { logOut } = useAuthStore();
+  const { logOut, isAuthenticated } = useAuthStore();
 
   const handleLogOut = () => {
     logOut();
     router.push('/auth/login');
   };
+  const handleLogIn = () => {
+    logOut();
+    router.push('/auth/login');
+  };
+  
 
   return (
     <View
@@ -30,11 +35,13 @@ const SettingsPage = () => {
       <View style={styles.container}>
         <Card>
           <List>
+            { !isAuthenticated() ? <ListButton text="Log in" icon="log-out" onPress={handleLogIn}/> : null }
+            <ListDivider />
             <ListButton text="Billing & Payments" icon="credit-card" />
             <ListDivider />
             <ListButton text="More Options" icon="more-horizontal" />
             <ListDivider />
-            <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut} />
+            { isAuthenticated()? <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut}/> : null }
           </List>
         </Card>
       </View>

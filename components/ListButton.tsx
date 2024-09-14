@@ -41,9 +41,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-  },
-  text: {
-    fontSize: brand.fontSizes.medium,
-    fontWeight: '500',
-  },
+  }
 });

@@ -1,4 +1,4 @@
-import { BorderRadius, Colors, FontSizes, Name, Shadows, Logo, BackgroundColor } from './brandTypes';
+import { BorderRadius, Colors, FontSizes, Name, Shadows, Logo } from './brandTypes';
 
 interface Brand {
   colors: Colors;
@@ -7,18 +7,18 @@ interface Brand {
   name: Name;
   logo: Logo;
   shadows: Shadows;
-  backgroundColor: BackgroundColor;
 }
 
 const brand: Brand = {
   name: 'Zero To App',
-  backgroundColor: '#ec6140',
-  borderRadius: 10,
-  shadows: true,
   colors: {
     primary: '#1a4c9d',
     secondary: '#db4691',
+    appbarColor: '#ffffff',
+    backgroundColor: '#f0f2f5',
   },
+  borderRadius: 10,
+  shadows: true,
   fontSizes: {
     small: 12,
     medium: 16,

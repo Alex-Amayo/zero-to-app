@@ -3,11 +3,12 @@
 export type Name = string;
 export type BorderRadius = number;
 export type Shadows = boolean;
-export type BackgroundColor = string;
 
 export interface Colors {
   primary: string;
   secondary: string;
+  appbarColor: string;
+  backgroundColor: string;
 }
 
 export interface FontSizes {

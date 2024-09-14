@@ -19,13 +19,13 @@ export interface ThemeValuesType {
 //Defining light theme
 export const lightTheme: ThemeValuesType = {
   color: '#050505', // Text color
-  backgroundColor: '#f0f2f5', // Background color of the entire app
+  backgroundColor: brand.colors.backgroundColor, // Background color of the entire app
   cardBackgroundColor: '#ffffff', // Background color of cards
   highlightColor: brand.colors.primary, //Primary color of the brand derived from brandConfig
-  appbarColor: '#ffffff', // App bar color
+  appbarColor: brand.colors.appbarColor, // App bar color
   borderColor: '#ced0d4', // Border color
-  shadowColor: '#000000', // Shadow color
-  inactiveIconColor: '#606770', // Inactive icon color
+  shadowColor: '#000000', // Shadow colors 
+  inactiveIconColor: '#606770', // Affects icons displayed in navigation bar
   dividerColor: '#dddfe2', // Divider color
   iconButtonBackgroundColor: '#e4e6eb', // Background color of icon buttons
   iconButtonIconColor: '#050505', // Icon color for icon buttons
@@ -41,7 +41,7 @@ export const darkTheme: ThemeValuesType = {
   appbarColor: '#242526', // App bar color
   borderColor: '#3e4042', // Border color
   shadowColor: '#000000', // Shadow color
-  inactiveIconColor: '#b0b3b8', // Inactive icon color
+  inactiveIconColor: '#b0b3b8', // Affects icons displayed in navigation bar
   dividerColor: '#3e4042', // Divider color
   iconButtonBackgroundColor: '#3a3b3c', // Background color of icon buttons
   iconButtonIconColor: '#e4e6eb', // Icon color for icon buttons

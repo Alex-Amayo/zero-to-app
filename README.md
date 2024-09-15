@@ -5,7 +5,7 @@
 Save time asetting up. Build an app for web, IOS and Android app simultaneously!
 
 - [Creating an App](#creating-an-app) – How to create a new app.
-- [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create React App.
+- [Folder Structure](#folder-structure) – How to develop apps bootstrapped with Create React App.
 
 Zero To App works on macOS, Windows, and Linux.
 If something doesn’t work, please [file an issue](https://github.com/Alex-Amayo/zero-to-app/issues/new).<br>

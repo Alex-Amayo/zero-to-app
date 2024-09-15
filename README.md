@@ -1,6 +1,32 @@
+# Zero To App [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/Alex-Amayo/zero-to-app/pulls)
+
+<img alt="Logo" align="right" src="https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png" width="20%" />
+
+Save time asetting up. Build an app for web, IOS and Android app simultaneously!
+
+- [Creating an App](#creating-an-app) – How to create a new app.
+- [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create React App.
+
+Zero To App works on macOS, Windows, and Linux.
+If something doesn’t work, please [file an issue](https://github.com/Alex-Amayo/zero-to-app/issues/new).<br>
+If you have questions or need help, please ask in [GitHub Discussions](https://github.com/Alex-Amayo/zero-to-app/discussions).
+
+## Quick Overview
+
+```sh
+npx zero-to-app my-app
+
+yarn start
+```
+
 ## Zero To App
 
-Zero to App helps build scalable cross-platform apps with React Native and Supabase. React Native helps reach users seamlessly across Web, iPhone, and Android platforms. Supabase provides seamless authentication and a PostgreSQL backend.
+Zero to App helps build scalable cross-platform apps with React Native and Supabase. React Native helps reach users seamlessly across Web, iPhone, and Android platforms. Supabase provides seamless authentication and a PostgreSQL backend. 
+React Native and Expo help build 
+
+<p align='center'>
+<img src='https://utfs.io/f/YPschnd1m5QkzcHfhm0QvoV5RxD3dwEKZ6ULgknrBOsWfY9F' width='600' alt='npm start'>
+</p>
 
 ## Stack
 
@@ -22,7 +48,7 @@ Zero to App helps build scalable cross-platform apps with React Native and Supab
 - [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 - [Prettier](https://prettier.io/): An opinionated code formatter.
 
-## Getting Started
+## Creating an app
 
 ### Installation
 

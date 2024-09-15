@@ -48,6 +48,7 @@ React Native and Expo help build
 - [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 - [Prettier](https://prettier.io/): An opinionated code formatter.
 
+
 ## Creating an app
 
 ### Installation
@@ -145,24 +146,91 @@ export const darkTheme: ThemeValuesType = {
   isDark: true,
 };
 ```
+```
+# Folder Structure
 
-# Screens / Pages
-
-- **Login**
-- **Signup**
-- **Account Recovery**
-- **Home**
-- **Explore**
-- **Settings**
-
-# Components
-
-- **Appbar**
-- **Button**
-- **Card**
-- **Icon Button**
-- **Form Separator**
-- **List**
-- **ListButton**
-- **ListDivider**
-- **Text Link**
+├── api
+|  ├── mutations
+|  |  └── createUserProfile.ts
+|  └── queries
+|     └── fetchUserProfile.ts
+├── app
+|  ├── auth
+|  |  ├── change-password
+|  |  ├── login
+|  |  ├── recover
+|  |  ├── signup
+|  |  └── _layout.tsx
+|  ├── index.tsx
+|  ├── tabs
+|  |  ├── (tabs)
+|  |  └── _layout.tsx
+|  └── _layout.tsx
+├── app.json
+├── assets
+|  ├── adaptive-icon.png
+|  ├── favicon.png
+|  ├── icon.png
+|  ├── loading.json
+|  ├── logo-dark.png
+|  ├── logo.png
+|  └── splash.png
+├── babel.config.js
+├── brand
+|  ├── brandConfig.ts
+|  └── brandTypes.ts
+├── components
+|  ├── Appbar
+|  |  ├── AppbarMobile.tsx
+|  |  ├── AppbarWeb.tsx
+|  |  └── IconButtonDrawer.tsx
+|  ├── Button.tsx
+|  ├── Card.tsx
+|  ├── FormErrors.tsx
+|  ├── FormInput.tsx
+|  ├── FormSeparator.tsx
+|  ├── IconButton.tsx
+|  ├── List.tsx
+|  ├── ListButton.tsx
+|  ├── ListDivider.tsx
+|  ├── LoadingIndicator.tsx
+|  ├── LoadingScreen.tsx
+|  ├── StyledText.tsx
+|  ├── TextLink.tsx
+|  └── ToggleIconButton.tsx
+├── docs
+|  ├── assets
+|  └── functions
+├── hooks
+|  ├── useCreateUserProfile.ts
+|  ├── useFetchUserProfile.ts
+|  ├── useWindowHeight.ts
+|  ├── useWindowWidth.ts
+|  └── __tests__
+|     ├── shouldCreateAndFetchUserProfile.test.tsx
+|     └── testUtils.tsx
+├── jestSetup.js
+├── package.json
+├── README.md
+├── schemas
+|  ├── changePasswordSchema.ts
+|  ├── loginSchema.ts
+|  ├── recoverSchema.ts
+|  └── signUpSchema.ts
+├── stores
+|  └── authStore
+|     ├── authStore.ts
+|     ├── authTypes.ts
+|     └── tapStore.ts
+├── supabase
+|  └── supabase.ts
+├── theme
+|  ├── theme.test.tsx
+|  ├── theme.tsx
+|  └── themeConfig.ts
+├── tsconfig.json
+├── yarn.lock
+└── __mocks__
+   ├── @react-native-async-storage
+   └── async-storage.js
+```

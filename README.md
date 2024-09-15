@@ -4,8 +4,11 @@
 
 Save time asetting up. Build an app for web, IOS and Android app simultaneously!
 
-- [Creating an App](#creating-an-app) – How to create a new app.
-- [Folder Structure](#folder-structure) – How to develop apps bootstrapped with Create React App.
+- [Creating an app](#creating-an-app) – How to create a new app.
+- [Setting up Supabase](#setting-up-supabse) – How to connect your app to supabase.
+
+
+
 
 Zero To App works on macOS, Windows, and Linux.
 If something doesn’t work, please [file an issue](https://github.com/Alex-Amayo/zero-to-app/issues/new).<br>
@@ -65,7 +68,7 @@ Start the app:
 yarn start
 ```
 
-## Setting Up Supabase
+##  Setting up Supabse
 
 1. Visit the [Supabase Dashboard](https://app.supabase.com/). Create a new project by following the prompts.
 
@@ -146,9 +149,9 @@ export const darkTheme: ThemeValuesType = {
   isDark: true,
 };
 ```
-```
 # Folder Structure
 
+```
 ├── api
 |  ├── mutations
 |  |  └── createUserProfile.ts

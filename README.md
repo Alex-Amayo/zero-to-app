@@ -52,7 +52,7 @@ React Native and Expo help build
 
 ### Installation
 
-First, clone the repository:
+To get everything set up with a single command, make sure you have [npm](https://www.npmjs.com/) and [Node.js](https://nodejs.org/) installed on your machine.
 
 ```bash
 npx zero-to-app my-app

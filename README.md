@@ -21,7 +21,7 @@ npx zero-to-app my-app
 
 yarn start
 ```
-<p align='center'>
+<p align='left'>
 <img src='https://utfs.io/f/YPschnd1m5QkXsVftAhQsYtRB13qKP4huawAcMpdSJZkxfEi' width='600' alt='npm start'>
 </p>
 

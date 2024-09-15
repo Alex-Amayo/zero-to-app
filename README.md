@@ -43,7 +43,7 @@ Runs a Jest test with the specified filename.
 
 Lints your code, checks for coding style and potential errors.
 
-### `yarn export web`
+### `yarn export:web`
 
 Creates a static bundle that you can host on the web.
 

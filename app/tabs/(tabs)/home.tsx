@@ -44,7 +44,7 @@ const HomePage = () => {
               </StyledText>
             }
             < ListDivider />
-            <TextLink text="Zero To App Documentation" href="https://google.com" />
+            <TextLink text="Zero To App Documentation" href="https://github.com/Alex-Amayo/zero-to-app?tab=readme-ov-file#creating-an-app" />
 
             {!userId ?
               <>

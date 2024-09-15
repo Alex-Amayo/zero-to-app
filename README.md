@@ -27,6 +27,26 @@ yarn start
 <img src='https://utfs.io/f/YPschnd1m5QkXsVftAhQsYtRB13qKP4huawAcMpdSJZkxfEi' width='600' alt='npm start'>
 </p>
 
+## Available Scripts
+
+In the project directory, you can run the following commands:
+
+### `yarn start`
+
+Starts the development server.
+
+### `yarn test <filename>`
+
+Runs a Jest test with the specified filename.
+
+### `yarn lint`
+
+Lints your code, checks for coding style and potential errors.
+
+### `yarn export web`
+
+Creates a static bundle that you can host on the web.
+
 ## Stack
 
 | Library                                                        | Category             | Version | Description                                                                                              |

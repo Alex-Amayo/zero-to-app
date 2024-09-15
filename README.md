@@ -5,7 +5,8 @@
 Save time asetting up. Build an app for web, IOS and Android app simultaneously!
 
 - [Creating an app](#creating-an-app) – How to create a new app.
-- [Setting up Supabase](#setting-up-supabse) – How to connect your app to supabase.
+- [Setting up Supabase](#setting-up-supabse) – How to connect your app to supaba
+- [Hosting to Vercel](#deploying-to-vercel) – How to deploy and host your app on the web with Vercel.
 
 
 
@@ -165,6 +166,14 @@ export const darkTheme: ThemeValuesType = {
   isDark: true,
 };
 ```
+
+# Deploying to Vercel
+
+1. Log in to [Vercel](https://vercel.com/), import your GitHub repository and follow the prompts.
+2. Set the **Build Command** to `yarn export:web` and the **Output Directory** to `dist`.
+3. Click "Deploy" to start the process. Once complete, your project will be built and deployed to a unique URL.
+
+
 # Folder Structure
 
 ```
@@ -253,3 +262,6 @@ export const darkTheme: ThemeValuesType = {
    ├── @react-native-async-storage
    └── async-storage.js
 ```
+
+
+

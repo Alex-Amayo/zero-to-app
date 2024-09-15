@@ -10,7 +10,7 @@ Save time asetting up. Build an app for web, IOS and Android app simultaneously!
 
 
 
-Zero To App works on macOS, Windows, and Linux.
+Zero To App works on macOS, Windows, and Linux.<br>
 If something doesn’t work, please [file an issue](https://github.com/Alex-Amayo/zero-to-app/issues/new).<br>
 If you have questions or need help, please ask in [GitHub Discussions](https://github.com/Alex-Amayo/zero-to-app/discussions).
 

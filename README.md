@@ -25,7 +25,7 @@ Zero to App helps build scalable cross-platform apps with React Native and Supab
 React Native and Expo help build 
 
 <p align='center'>
-<img src='https://utfs.io/f/YPschnd1m5Qk2ow9GdWVQu1Y4oWX2qU6nrCakxwsBdZeMET9' width='600' alt='npm start'>
+<img src='https://utfs.io/f/YPschnd1m5QkXsVftAhQsYtRB13qKP4huawAcMpdSJZkxfEi' width='600' alt='npm start'>
 </p>
 
 ## Stack

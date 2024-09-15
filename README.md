@@ -171,7 +171,7 @@ export const darkTheme: ThemeValuesType = {
 
 1. Log in to [Vercel](https://vercel.com/), import your GitHub repository and follow the prompts.
 2. Set the **Build Command** to `yarn export:web` and the **Output Directory** to `dist`.
-3. Click "Deploy" to start the process. Once complete, your project will be built and deployed to a unique URL.
+3. Click "Deploy" to start the process.
 
 
 # Folder Structure

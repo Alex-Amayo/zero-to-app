@@ -16,6 +16,8 @@ If you have questions or need help, please ask in [GitHub Discussions](https://g
 
 ## Quick Overview
 
+Install Zero To App, connect your app to supabase and your ready to get started working on your app.
+
 ```sh
 npx zero-to-app my-app
 

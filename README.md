@@ -2,7 +2,7 @@
 
 <img alt="Logo" align="right" src="https://utfs.io/f/6f54a643-3891-4def-9ee0-75165f57ffc2-1zbfv.png" width="20%" />
 
-Save time asetting up. Build an app for web, IOS and Android app simultaneously!
+Save time asetting up. Build an app for web, IOS and Android app simultaneously! [Try a live demo on web!](https://zero-to-app.vercel.app/)
 
 - [Creating an app](#creating-an-app) – How to create a new app.
 - [Setting up Supabase](#setting-up-supabse) – How to connect your app to supaba

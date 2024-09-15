@@ -31,7 +31,7 @@ export default function LoginPage() {
               style={styles.logo}
             />
             {/* Change form width depending on platform */}
-            <View style={Platform.OS === 'web' ? styles.formLayoutWeb : styles.formLayoutMobile}>
+            <View style={{maxWidth: '90%'}}>
               <Slot />
             </View>
           </View>
@@ -69,6 +69,4 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 10,
   },
-  formLayoutWeb: { minWidth: 300 },
-  formLayoutMobile: { width: '90%' },
 });

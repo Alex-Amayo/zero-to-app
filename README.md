@@ -21,12 +21,6 @@ npx zero-to-app my-app
 
 yarn start
 ```
-
-## Zero To App
-
-Zero to App helps build scalable cross-platform apps with React Native and Supabase. React Native helps reach users seamlessly across Web, iPhone, and Android platforms. Supabase provides seamless authentication and a PostgreSQL backend. 
-React Native and Expo help build 
-
 <p align='center'>
 <img src='https://utfs.io/f/YPschnd1m5QkXsVftAhQsYtRB13qKP4huawAcMpdSJZkxfEi' width='600' alt='npm start'>
 </p>

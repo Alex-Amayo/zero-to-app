@@ -6,7 +6,7 @@ Save time asetting up. Build an app for web, IOS and Android app simultaneously!
 
 - [Creating an app](#creating-an-app) – How to create a new app.
 - [Setting up Supabase](#setting-up-supabse) – How to connect your app to supaba
-- [Hosting to Vercel](#deploying-to-vercel) – How to deploy and host your app on the web with Vercel.
+- [Deploying to Vercel](#deploying-to-vercel) – How to deploy and host your app on the web with Vercel.
 
 
 

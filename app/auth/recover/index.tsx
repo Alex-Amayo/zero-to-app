@@ -47,14 +47,14 @@ export default function RecoverPage() {
       {success ? (
         //Display success message
         <List>
-          <StyledText lg center>Password reset email sent!</StyledText>
+          <StyledText fontSize={'lg'} align={'center'}>Password reset email sent!</StyledText>
           {/* Text Link to go back to login */}
           <TextLink text="Go back to login" onPress={() => router.push('/auth/login')} />
         </List>
       ) : (
         //Display password recovery form
         <List>
-          <StyledText lg center>Recover Your {brand.name} Password </StyledText>
+          <StyledText fontSize={'lg'} align={'center'}>Recover Your {brand.name} Password </StyledText>
           {/* Input for email and Reset Password Button */}
           <FormInput name="email" placeholder="Enter email" control={control} />
           <Button

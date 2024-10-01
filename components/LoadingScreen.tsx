@@ -4,10 +4,10 @@ import LottieView from 'lottie-react-native';
 import { ThemeContext } from '../theme/theme';
 
 /**
- * Loading Screen
- *
- * @returns - loading animation specified in assets/loading.json
+ * Loading Screen component.
+ * Can be displayed conditionally when a page is loading
  */
+
 const LoadingScreen = () => {
   // Initialize theme
   const theme = useContext(ThemeContext);

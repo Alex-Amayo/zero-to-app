@@ -82,8 +82,8 @@ export default function SignupPage() {
     <Card>
       <List>
         {/* Title for the sign up form */}
-        <StyledText lg center>Create A New Account</StyledText>
-        <StyledText md center>It's quick and easy</StyledText>
+        <StyledText fontSize={'lg'} align={'center'}>Create A New Account</StyledText>
+        <StyledText fontSize={'md'} align={'center'}>It's quick and easy</StyledText>
         <ListDivider />
 
         {/* Input for Names half property added to display in rows*/}

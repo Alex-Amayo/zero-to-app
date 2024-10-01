@@ -1,11 +1,8 @@
-import React, { useContext, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import Button from '../../../components/Button';
 import { Redirect, router } from 'expo-router';
-import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
-import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../stores/authStore/authStore';
 import FormInput from '../../../components/FormInput';
 import FormErrors from '../../../components/FormErrors';
@@ -22,9 +19,6 @@ export default function ChangePasswordPage() {
   // Retrieving changePassword, loading, error, setAuthError from useAuthStore
   const { changePassword, loading, error, setAuthError, isAuthenticated, clearErrorState } =
     useAuthStore();
-
-  // Initializing theme context
-  const theme = useContext(ThemeContext);
 
   //Initialize form with react-hook-form
   const { control, handleSubmit } = useForm({
@@ -59,14 +53,14 @@ export default function ChangePasswordPage() {
           // Display success message if password changed successfully
           success ? (
             <>
-              <StyledText lg center>Password Changed Successfully</StyledText>
-              {/* Navigate back to login */}
+              <StyledText fontSize={'lg'} align={'center'}>Password Changed Successfully</StyledText>
+              {/* Navigate back to log in */}
               <TextLink text="Take me back to the app" onPress={() => router.push('/core')} />
             </>
           ) : (
             // Display change password form
             <>
-              <StyledText lg center>Change Password</StyledText>
+              <StyledText fontSize={'lg'} align={'center'}>Change Password</StyledText>
               <FormInput name="newPassword" placeholder="New Password" control={control} secure />
               <FormInput
                 name="newPasswordConfirmation"

@@ -12,14 +12,9 @@ type IconButtonProps = {
 
 /**
  * Renders rounded icon button with icon from expo-vector icons.
- *
- * @param { keyof typeof Feather.glyphMap } iconName - Icon name from https://icons.expo.fyi/Index
- * @param {boolean} [raised] - conditional option to enable shadows if shadows are set to true in brandConfig
- * @param {(event: GestureResponderEvent) => void} onPress - Function executed when icon button is pressed.
- *
- * @returns { JSX.Element } - Returns rendered IconButton with specified icon inside.
  */
-const IconButton = ({ iconName, onPress, raised }: IconButtonProps): JSX.Element => {
+
+const IconButton = ({ iconName, onPress, raised }: IconButtonProps) => {
   //Initialize theme
   const theme = useContext(ThemeContext);
   return (

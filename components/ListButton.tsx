@@ -13,14 +13,9 @@ type ListButtonProps = {
 
 /**
  * List Button component that displays a list button with an icon and text
- *
- * @param {string} text - Text to be displayed in the component.
- * @param {keyof typeof Feather.glyphMap}  icon - icon name from https://icons.expo.fyi/Index
- * @param {() => void} [onPress] - Function to be executed by the component.
- *
- * @returns {JSX.Element} - Returns the rendered component.
  */
-const ListButton = ({ onPress, text, icon }: ListButtonProps): JSX.Element => {
+
+const ListButton = ({ onPress, text, icon }: ListButtonProps) => {
   // Initialize theme
   const theme = useContext(ThemeContext);
   return (

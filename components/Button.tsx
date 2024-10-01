@@ -19,16 +19,9 @@ type ButtonProps = {
 /**
  * A reusable button component that can be customized with different styles,
  * loading states, and behavior based on props.
- *
- * @param {string} title - The text to display on the button.
- * @param {function} onPress - Function to call when the button is pressed.
- * @param {boolean} [secondary] - If true, applies the secondary style to the button.
- * @param {boolean} [loading] - If true, shows a loading spinner instead of the button text.
- *
- * @returns { JSX.Element } - Returns rendered Button Component
  */
 
-const Button = ({ title, secondary, loading, onPress }: ButtonProps): JSX.Element => {
+const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
   return loading ? (
     <View>
       <ActivityIndicator
@@ -39,7 +32,7 @@ const Button = ({ title, secondary, loading, onPress }: ButtonProps): JSX.Elemen
   ) : (
     <Pressable onPress={onPress} style={secondary ? styles.secondary : styles.primary}>
       <View>
-        <StyledText md color="white">
+        <StyledText fontSize={'md'} color="white">
           {title}
         </StyledText>
       </View>

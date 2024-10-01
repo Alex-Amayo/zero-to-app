@@ -30,8 +30,7 @@ export default function LoginPage() {
               }}
               style={styles.logo}
             />
-            {/* Change form width depending on platform */}
-            <View style={{maxWidth: '90%'}}>
+            <View style={styles.formStyles}>
               <Slot />
             </View>
           </View>
@@ -69,4 +68,7 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 10,
   },
+  formStyles: {
+    width: 300,
+  }
 });

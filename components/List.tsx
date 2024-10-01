@@ -6,15 +6,10 @@ type ListProps = {
 };
 
 /**
- *
- * A list component that wraps th echildren in a container with consistent padding and gap values.
- *
- * @param {JSX.Element | JSX.Element[]} children - Elements to be wrapped inside the list component.
- *
- * @returns {JSX.Element} - Returns rendered list component.
+ * A list component that wraps th each child in a container with consistent padding and gap values.
  */
 
-const List = ({ children }: ListProps): JSX.Element => {
+const List = ({ children }: ListProps) => {
   return <View style={styles.list}>{children}</View>;
 };
 

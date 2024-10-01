@@ -41,7 +41,7 @@ export default function LoginForm() {
   return (
     <Card>
       <List>
-        <StyledText lg center>Log Into {brand.name}</StyledText>
+        <StyledText fontSize={'lg'} align={'center'}>Log Into {brand.name}</StyledText>
         <FormInput name="email" placeholder="Email" control={control} />
         <FormInput name="password" placeholder="Password" secure control={control} />
         <Button title="Login" onPress={handleSubmit(handleEmailLoginSubmit)} loading={loading} />

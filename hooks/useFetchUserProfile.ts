@@ -9,8 +9,8 @@ type UserProfile = {
 
 /**
  * This hook is used to fetch user profile data.
- * @param {string} user_id The user ID
- * @returns {object} The user profile data
+ * @param user_id The user ID
+ * @returns The user profile data
  */
 
 export const useFetchUserProfile = (user_id: string) => {

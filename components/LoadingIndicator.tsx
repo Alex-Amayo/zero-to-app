@@ -6,9 +6,8 @@ import { ThemeContext } from '../theme/theme';
 
 /**
  * Loading indicator
- *
- * @returns {JSX.Element} - Returns an activity indicator that derives its color from the theme.
  */
+
 const LoadingIndicator = () => {
   // Initialize theme
   const theme = useContext(ThemeContext);

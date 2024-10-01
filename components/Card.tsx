@@ -10,14 +10,9 @@ type CardProps = {
 /**
  * Card component for displaying content within a styled container.
  * It utilizes theming for dynamic styling based on the current theme context.
- *
- * @param {Object} props - The component's props.
- * @param {React.ReactNode | React.ReactElement[]} [props.children] - Items to be displayed withing the card.
- *
- * @returns {JSX.Element} - Returns rendered Card component.
  */
 
-const Card = ({ children }: CardProps): JSX.Element => {
+const Card = ({ children }: CardProps): React.JSX.Element => {
   // Initialize theme
   const theme = useContext(ThemeContext);
   return (

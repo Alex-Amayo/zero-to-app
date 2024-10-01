@@ -8,14 +8,10 @@ type FormSeparatorProps = {
 };
 
 /**
- * Form separator component that displays a horizontal line separatig two components wih optional text in the center
- *
- * @param {string} [text ] - optional text to be displayed in the center of the separator
- *
- * @returns {JSX.Element} FormSeparator component
+ * Form separator component that displays a full width horizontal line separating two components
  */
 
-const FormSeparator = ({ text }: FormSeparatorProps): JSX.Element => {
+const FormSeparator = ({ text }: FormSeparatorProps) => {
   // Initialize theme
   const theme = useContext(ThemeContext);
   return (

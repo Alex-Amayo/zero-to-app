@@ -11,13 +11,9 @@ type FormErrorsProps = {
  * FormErrors component to display error messages in forms.
  * The error message will be visible for 1 second before being hidden.
  * Returns the form error element if the error prop is not null and visible is true.
- * 
- * @param {string | null} error - error message to be displayed
- * @param {() => void} [clearError] - optional function to clear the error in state/store
- * 
- * @returns {JSX.Element} - returns FormError if error is not null and visible is true
  */
-export default function FormErrors({ error, clearError }: FormErrorsProps): JSX.Element {
+
+export default function FormErrors({ error, clearError }: FormErrorsProps): React.JSX.Element {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

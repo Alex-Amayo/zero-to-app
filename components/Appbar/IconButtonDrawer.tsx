@@ -1,24 +1,21 @@
-import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
-import { useTheme } from '@react-navigation/native';
-import IconButton from "../IconButton";
-import ToggleIconButton from "../ToggleIconButton";
+import React, { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import IconButton from '../IconButton';
+import ToggleIconButton from '../ToggleIconButton';
 import { router } from 'expo-router';
-import { ThemeContext } from "../../theme/theme";
+import { ThemeContext } from '../../theme/theme';
 import useAuthStore from '../../stores/authStore/authStore';
-
 
 /**
  * Icons to be rendered inside appbar on both web and mobile
  * @returns Rendered IconButtonDrawer
  */
 const IconButtonDrawer = () => {
-  const theme = useTheme();
   //Initialize theme toggle
   const { toggleTheme } = useContext(ThemeContext);
   // Retrieve logOut from auth store
   const { logOut, isAuthenticated } = useAuthStore();
-  
+
   const handleLogOut = () => {
     logOut();
     router.push('/auth/login');
@@ -27,13 +24,18 @@ const IconButtonDrawer = () => {
   return (
     <View style={styles.appbar}>
       <View style={styles.iconContainer}>
-        <IconButton iconName="search" onPress={() => { }} />
+        <IconButton iconName="search" onPress={() => {}} />
         <ToggleIconButton iconName="sun" alternateIconName="moon" onPress={toggleTheme} />
-        { !isAuthenticated() ? 
-              <IconButton iconName="user" onPress={() => { router.push('auth/login') }} />
-              : 
-              <IconButton iconName="log-out" onPress={handleLogOut} />
-              }
+        {!isAuthenticated() ? (
+          <IconButton
+            iconName="user"
+            onPress={() => {
+              router.push('auth/login');
+            }}
+          />
+        ) : (
+          <IconButton iconName="log-out" onPress={handleLogOut} />
+        )}
       </View>
     </View>
   );

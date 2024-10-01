@@ -24,7 +24,7 @@ export const lightTheme: ThemeValuesType = {
   highlightColor: brand.colors.primary, //Primary color of the brand derived from brandConfig
   appbarColor: brand.colors.appbarColor, // App bar color
   borderColor: '#ced0d4', // Border color
-  shadowColor: '#000000', // Shadow colors 
+  shadowColor: '#000000', // Shadow colors
   inactiveIconColor: '#606770', // Affects icons displayed in navigation bar
   dividerColor: '#dddfe2', // Divider color
   iconButtonBackgroundColor: '#e4e6eb', // Background color of icon buttons

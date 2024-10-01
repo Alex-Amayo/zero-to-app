@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 import brand from '../../../brand/brandConfig';
 import FormInput from '../../../components/FormInput';
@@ -7,14 +6,12 @@ import Button from '../../../components/Button';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
 import FormErrors from '../../../components/FormErrors';
-import { useContext } from 'react';
-import { ThemeContext } from '../../../theme/theme';
 import { useRouter } from 'expo-router';
 import useAuthStore from '../../../stores/authStore/authStore';
 import { useForm } from 'react-hook-form';
 import FormSeparator from '../../../components/FormSeparator';
 import TextLink from '../../../components/TextLink';
-import { loginSchema, LoginFormValues } from '../../../schemas/loginSchema';
+import { LoginFormValues, loginSchema } from '../../../schemas/loginSchema';
 import { StyledText } from '../../../components/StyledText';
 
 export default function LoginForm() {
@@ -29,7 +26,6 @@ export default function LoginForm() {
 
   // Initialize authentication methods from store
   const { logInWithEmail, loading, error, clearErrorState } = useAuthStore();
-  const theme = useContext(ThemeContext);
   const router = useRouter();
 
   //Login Function
@@ -41,7 +37,9 @@ export default function LoginForm() {
   return (
     <Card>
       <List>
-        <StyledText fontSize={'lg'} align={'center'}>Log Into {brand.name}</StyledText>
+        <StyledText fontSize={'lg'} align={'center'}>
+          Log Into {brand.name}
+        </StyledText>
         <FormInput name="email" placeholder="Email" control={control} />
         <FormInput name="password" placeholder="Password" secure control={control} />
         <Button title="Login" onPress={handleSubmit(handleEmailLoginSubmit)} loading={loading} />

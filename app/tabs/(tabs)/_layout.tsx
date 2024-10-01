@@ -1,5 +1,4 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Tabs } from 'expo-router';
 import brand from '../../../brand/brandConfig';
 import Feather from '@expo/vector-icons/Feather';

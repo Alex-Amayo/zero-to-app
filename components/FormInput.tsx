@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { Controller, Control, FieldError, Path, FieldValues } from 'react-hook-form';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Control, Controller, FieldError, FieldValues, Path } from 'react-hook-form';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
 
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderRadius: brand.borderRadius,
-    fontSize: brand.fontSizes.medium
+    fontSize: brand.fontSizes.medium,
   },
   errorText: {
     color: 'red',

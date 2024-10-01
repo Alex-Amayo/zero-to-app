@@ -1,5 +1,5 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import { wrapper, setupTests, createTestUser } from './testUtils';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { createTestUser, setupTests, wrapper } from './testUtils';
 import { useCreateUserProfile } from '../useCreateUserProfile';
 import { useFetchUserProfile } from '../useFetchUserProfile';
 

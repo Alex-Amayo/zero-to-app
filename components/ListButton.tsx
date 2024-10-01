@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
 import { StyledText } from './StyledText';
 
@@ -20,9 +19,7 @@ const ListButton = ({ onPress, text, icon }: ListButtonProps) => {
   const theme = useContext(ThemeContext);
   return (
     <TouchableOpacity style={styles.listButton} onPress={onPress}>
-      <StyledText bold>
-        {text}
-      </StyledText>
+      <StyledText bold>{text}</StyledText>
       <Feather name={icon} size={25} color={theme.values.color} />
     </TouchableOpacity>
   );
@@ -36,5 +33,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-  }
+  },
 });

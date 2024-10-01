@@ -53,14 +53,18 @@ export default function ChangePasswordPage() {
           // Display success message if password changed successfully
           success ? (
             <>
-              <StyledText fontSize={'lg'} align={'center'}>Password Changed Successfully</StyledText>
+              <StyledText fontSize={'lg'} align={'center'}>
+                Password Changed Successfully
+              </StyledText>
               {/* Navigate back to log in */}
               <TextLink text="Take me back to the app" onPress={() => router.push('/core')} />
             </>
           ) : (
             // Display change password form
             <>
-              <StyledText fontSize={'lg'} align={'center'}>Change Password</StyledText>
+              <StyledText fontSize={'lg'} align={'center'}>
+                Change Password
+              </StyledText>
               <FormInput name="newPassword" placeholder="New Password" control={control} secure />
               <FormInput
                 name="newPasswordConfirmation"

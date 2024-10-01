@@ -1,6 +1,5 @@
-import React from 'react';
-import { useContext, useEffect, useState } from 'react'; // Import useEffect
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react'; // Import useEffect
+import { StyleSheet, View } from 'react-native';
 import TextLink from '../../../components/TextLink';
 import Button from '../../../components/Button';
 import Card from '../../../components/Card';
@@ -8,19 +7,15 @@ import List from '../../../components/List';
 import ListDivider from '../../../components/ListDivider';
 import { router } from 'expo-router';
 import FormInput from '../../../components/FormInput';
-import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../stores/authStore/authStore';
 import FormErrors from '../../../components/FormErrors';
 import { useCreateUserProfile } from '../../../hooks/useCreateUserProfile';
 import { useForm, useWatch } from 'react-hook-form';
-import { signUpSchema, SignUpFormValues } from '../../../schemas/signUpSchema';
+import { SignUpFormValues, signUpSchema } from '../../../schemas/signUpSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { StyledText } from '../../../components/StyledText';
 
 export default function SignupPage() {
-  //Initialize the theme
-  const theme = useContext(ThemeContext);
-
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
   const { signUpWithEmail, loading, error, setAuthError, logInWithEmail, clearErrorState } =
     useAuthStore();
@@ -82,8 +77,12 @@ export default function SignupPage() {
     <Card>
       <List>
         {/* Title for the sign up form */}
-        <StyledText fontSize={'lg'} align={'center'}>Create A New Account</StyledText>
-        <StyledText fontSize={'md'} align={'center'}>It's quick and easy</StyledText>
+        <StyledText fontSize={'lg'} align={'center'}>
+          Create A New Account
+        </StyledText>
+        <StyledText fontSize={'md'} align={'center'}>
+          It's quick and easy
+        </StyledText>
         <ListDivider />
 
         {/* Input for Names half property added to display in rows*/}

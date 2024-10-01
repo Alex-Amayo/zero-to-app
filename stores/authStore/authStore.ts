@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { supabase } from '../../supabase/supabase';
-import { AuthState, AuthActions } from './authTypes';
-import { Session as SupabaseSession, AuthChangeEvent } from '@supabase/supabase-js';
+import { AuthActions, AuthState } from './authTypes';
+import { AuthChangeEvent, Session as SupabaseSession } from '@supabase/supabase-js';
 import { router } from 'expo-router';
 
 // Authentication store with Zustand and supabase

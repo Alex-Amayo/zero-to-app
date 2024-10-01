@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { lightTheme, darkTheme, ThemeValuesType } from './themeConfig';
+import { darkTheme, lightTheme, ThemeValuesType } from './themeConfig';
 
 //Defining theme type
 export type ThemeType = 'light' | 'dark';

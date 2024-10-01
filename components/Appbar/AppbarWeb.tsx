@@ -1,12 +1,9 @@
-import React from 'react';
-import { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import { useWindowWidth, breakpoints } from '../../hooks/useWindowWidth';
-import IconButton from '../IconButton';
+import { breakpoints, useWindowWidth } from '../../hooks/useWindowWidth';
 import brand from '../../brand/brandConfig';
 import { ThemeContext } from '../../theme/theme';
-import ToggleIconButton from '../ToggleIconButton';
 import IconButtonDrawer from './IconButtonDrawer';
 
 type AppbarProps = {
@@ -23,10 +20,7 @@ const AppbarWeb = ({ title, tabs }: AppbarProps) => {
   //Initialize theme
   const theme = useContext(ThemeContext);
 
-  //Initialize theme toggle
-  const { toggleTheme } = useContext(ThemeContext);
-
-  //Iniitialize window width
+  //Initialize window width
   const windowWidth = useWindowWidth();
 
   //If window width is greater than medium breakpoint, apply card styles to appbar

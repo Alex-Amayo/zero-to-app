@@ -2,17 +2,15 @@ import React, { useContext } from 'react';
 import brand from '../../../brand/brandConfig';
 import Feather from '@expo/vector-icons/Feather';
 import AppbarWeb from '../../../components/Appbar/AppbarWeb';
-import { View, TouchableOpacity } from 'react-native';
-import { useWindowWidth, breakpoints } from '../../../hooks/useWindowWidth';
+import { Animated, TouchableOpacity, View } from 'react-native';
+import { breakpoints, useWindowWidth } from '../../../hooks/useWindowWidth';
 import {
   createMaterialTopTabNavigator,
-  MaterialTopTabNavigationOptions,
   MaterialTopTabNavigationEventMap,
+  MaterialTopTabNavigationOptions,
 } from '@react-navigation/material-top-tabs';
-import { ParamListBase, TabNavigationState } from '@react-navigation/native';
+import { NavigationHelpers, ParamListBase, TabNavigationState } from '@react-navigation/native';
 import { withLayoutContext } from 'expo-router';
-import { Animated } from 'react-native';
-import { NavigationHelpers } from '@react-navigation/native';
 import { ThemeContext } from '../../../theme/theme';
 
 //Initialize Material Top Navigator

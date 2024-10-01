@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import Button from '../../../components/Button';
 import { router } from 'expo-router';
 import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
 import TextLink from '../../../components/TextLink';
-import { ThemeContext } from '../../../theme/theme';
 import useAuthStore from '../../../stores/authStore/authStore';
 import FormInput from '../../../components/FormInput';
 import FormErrors from '../../../components/FormErrors';
@@ -23,8 +21,6 @@ export default function RecoverPage() {
       resolver: zodResolver(recoverSchema),
     },
   });
-  //Initializing theme context
-  const theme = useContext(ThemeContext);
 
   //Retrieving logIn, loading and error, setAuthError from useAuthStore
   const { resetPasswordWithEmail, loading, error, setAuthError, clearErrorState } = useAuthStore();
@@ -47,14 +43,18 @@ export default function RecoverPage() {
       {success ? (
         //Display success message
         <List>
-          <StyledText fontSize={'lg'} align={'center'}>Password reset email sent!</StyledText>
-          {/* Text Link to go back to login */}
+          <StyledText fontSize={'lg'} align={'center'}>
+            Password reset email sent!
+          </StyledText>
+          {/* Text Link to go back to log in */}
           <TextLink text="Go back to login" onPress={() => router.push('/auth/login')} />
         </List>
       ) : (
         //Display password recovery form
         <List>
-          <StyledText fontSize={'lg'} align={'center'}>Recover Your {brand.name} Password </StyledText>
+          <StyledText fontSize={'lg'} align={'center'}>
+            Recover Your {brand.name} Password{' '}
+          </StyledText>
           {/* Input for email and Reset Password Button */}
           <FormInput name="email" placeholder="Enter email" control={control} />
           <Button
@@ -66,7 +66,7 @@ export default function RecoverPage() {
           {/* Display errors */}
           <FormErrors error={error} clearError={clearErrorState} />
 
-          {/* Text Link to go back to login */}
+          {/* Text Link to go back to log in */}
           <TextLink text="Go back to login" onPress={() => router.push('/auth/login')} />
         </List>
       )}

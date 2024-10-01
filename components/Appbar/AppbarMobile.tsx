@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import IconButton from '../IconButton';
-import { Link, router } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
+import { Link } from 'expo-router';
 import brand from '../../brand/brandConfig';
 import { ThemeContext } from '../../theme/theme';
 import IconButtonDrawer from './IconButtonDrawer';

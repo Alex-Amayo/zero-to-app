@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { ThemeContext } from '../theme/theme';
 import brand from '../brand/brandConfig';
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 40,
     height: 40,
-    borderRadius: 25
+    borderRadius: 25,
   },
 });

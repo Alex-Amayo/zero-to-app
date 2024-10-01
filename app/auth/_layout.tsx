@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ScrollView, StyleSheet, Image, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { ThemeContext } from '../../theme/theme';
 import { Slot } from 'expo-router';
 import ToggleIconButton from '../../components/ToggleIconButton';
@@ -15,14 +15,18 @@ export default function LoginPage() {
   return (
     <KeyboardAvoidingView
       style={{ ...styles.safeArea, backgroundColor: theme.values.backgroundColor }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <StatusBar style={theme.values.isDark ? 'light' : 'dark'} />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.container}>
             <View style={styles.toggleThemeButton}>
-              <ToggleIconButton iconName="moon" alternateIconName="sun" onPress={toggleTheme} raised/>
+              <ToggleIconButton
+                iconName="moon"
+                alternateIconName="sun"
+                onPress={toggleTheme}
+                raised
+              />
             </View>
             <Image
               source={{
@@ -70,5 +74,5 @@ const styles = StyleSheet.create({
   },
   formStyles: {
     width: 300,
-  }
+  },
 });

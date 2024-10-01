@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  View,
-  Pressable,
-  StyleSheet,
   ActivityIndicator,
   GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  View,
 } from 'react-native';
 import brand from '../brand/brandConfig';
 import { StyledText } from './StyledText';

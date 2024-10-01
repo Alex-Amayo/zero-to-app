@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import { ThemeProvider, ThemeContext } from './theme';
+import { fireEvent, render } from '@testing-library/react-native';
+import { ThemeContext, ThemeProvider } from './theme';
 import { Text } from 'react-native';
 import brand from '../brand/brandConfig';
 

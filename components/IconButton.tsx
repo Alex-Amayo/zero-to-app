@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TouchableOpacity, StyleSheet, GestureResponderEvent } from 'react-native';
+import { GestureResponderEvent, StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { ThemeContext } from '../theme/theme';
 import brand from '../brand/brandConfig';

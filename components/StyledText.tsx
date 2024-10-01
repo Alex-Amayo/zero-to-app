@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Text, StyleSheet, TextStyle } from 'react-native';
+import { StyleSheet, Text, TextStyle } from 'react-native';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
 
@@ -15,12 +15,12 @@ type StyledTextProps = {
  * A component to display customizable text with adjustable size, alignment, color, and boldness.
  */
 export const StyledText = ({
-                             children,
-                             fontSize = 'md', // Default font size
-                             align = 'left', // Default alignment
-                             color,
-                             bold = false,
-                           }: StyledTextProps): JSX.Element => {
+  children,
+  fontSize = 'md', // Default font size
+  align = 'left', // Default alignment
+  color,
+  bold = false,
+}: StyledTextProps): JSX.Element => {
   // Get theme context for default color
   const theme = useContext(ThemeContext);
 

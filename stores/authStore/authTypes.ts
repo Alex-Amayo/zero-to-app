@@ -1,5 +1,8 @@
-import { Session as SupabaseSession, User as SupabaseUser } from '@supabase/supabase-js';
-import { AuthChangeEvent } from '@supabase/supabase-js';
+import {
+  AuthChangeEvent,
+  Session as SupabaseSession,
+  User as SupabaseUser,
+} from '@supabase/supabase-js';
 
 export interface AuthState {
   user: SupabaseUser | null;

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import brand from '../brand/brandConfig';
 import { ThemeContext } from '../theme/theme';
 

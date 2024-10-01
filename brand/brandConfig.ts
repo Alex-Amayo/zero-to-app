@@ -1,4 +1,4 @@
-import { BorderRadius, Colors, FontSizes, Name, Shadows, Logo } from './brandTypes';
+import { BorderRadius, Colors, FontSizes, Logo, Name, Shadows } from './brandTypes';
 
 interface Brand {
   colors: Colors;

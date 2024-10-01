@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Linking } from 'react-native';
+import { Linking, Pressable } from 'react-native';
 import { StyledText } from './StyledText';
 
 type TextLinkProps = {

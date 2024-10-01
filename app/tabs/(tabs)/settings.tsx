@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
@@ -23,7 +23,6 @@ const SettingsPage = () => {
     logOut();
     router.push('/auth/login');
   };
-  
 
   return (
     <View
@@ -35,24 +34,22 @@ const SettingsPage = () => {
       <View style={styles.container}>
         <Card>
           <List>
-
-            { !isAuthenticated() ? 
+            {!isAuthenticated() ? (
               <>
-                <ListButton text="Log in" icon="log-out" onPress={handleLogIn}/> 
+                <ListButton text="Log in" icon="log-out" onPress={handleLogIn} />
                 <ListDivider />
               </>
-              : null }
-            
+            ) : null}
+
             <ListButton text="Billing & Payments" icon="credit-card" />
             <ListDivider />
             <ListButton text="More Options" icon="more-horizontal" />
-            { isAuthenticated()? 
-            <>
-              <ListDivider/>
-              <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut}/> 
-            </>
-            : null }
-            
+            {isAuthenticated() ? (
+              <>
+                <ListDivider />
+                <ListButton text="Sign Out" icon="log-out" onPress={handleLogOut} />
+              </>
+            ) : null}
           </List>
         </Card>
       </View>

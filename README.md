@@ -8,9 +8,6 @@ Save time asetting up. Build an app for web, IOS and Android app simultaneously!
 - [Setting up Supabase](#setting-up-supabse) – How to connect your app to supaba
 - [Deploying to Vercel](#deploying-to-vercel) – How to deploy and host your app on the web with Vercel.
 
-
-
-
 Zero To App works on macOS, Windows, and Linux.<br>
 If something doesn’t work, please [file an issue](https://github.com/Alex-Amayo/zero-to-app/issues/new).<br>
 If you have questions or need help, please ask in [GitHub Discussions](https://github.com/Alex-Amayo/zero-to-app/discussions).
@@ -24,6 +21,7 @@ npx zero-to-app my-app
 
 yarn start
 ```
+
 <p align='left'>
 <img src='https://utfs.io/f/YPschnd1m5QkXsVftAhQsYtRB13qKP4huawAcMpdSJZkxfEi' width='600' alt='npm start'>
 </p>
@@ -68,7 +66,6 @@ Creates a static bundle that you can host on the web.
 - [ESLint](https://eslint.org/): A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 - [Prettier](https://prettier.io/): An opinionated code formatter.
 
-
 ## Creating an app
 
 ### Installation
@@ -85,23 +82,24 @@ Start the app:
 yarn start
 ```
 
-##  Setting up Supabse
+## Setting up Supabse
 
 1. Visit the [Supabase Dashboard](https://app.supabase.com/). Create a new project by following the prompts.
 
-2. Go to **Connect your project**, select Mobile Frameworks and Expo React Native. Copy the API Keys provided. 
-3. In your Expo React Native project, create a `.env` file in the root and paste the API Keys. 
+2. Go to **Connect your project**, select Mobile Frameworks and Expo React Native. Copy the API Keys provided.
+3. In your Expo React Native project, create a `.env` file in the root and paste the API Keys.
 
-    ```bash
-    EXPO_PUBLIC_SUPABASE_URL=<your-supabase-url>
-    EXPO_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
-    ```
-    
+   ```bash
+   EXPO_PUBLIC_SUPABASE_URL=<your-supabase-url>
+   EXPO_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
+   ```
+
 That's it! Your app is now connected to Supabase!
 
 ## Brand Configuration
 
 The `brandConfig.ts` file defines let's you quickly style the app template to fit your brand.
+
 ```typescript
 const brand: Brand = {
   name: 'Zero To App',
@@ -172,7 +170,6 @@ export const darkTheme: ThemeValuesType = {
 1. Log in to [Vercel](https://vercel.com/), import your GitHub repository and follow the prompts.
 2. Set the **Build Command** to `yarn export:web` and the **Output Directory** to `dist`.
 3. Click "Deploy" to start the process.
-
 
 # Folder Structure
 
@@ -262,6 +259,3 @@ export const darkTheme: ThemeValuesType = {
    ├── @react-native-async-storage
    └── async-storage.js
 ```
-
-
-

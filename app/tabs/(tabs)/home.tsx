@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ThemeContext } from '../../../theme/theme';
 import { useFetchUserProfile } from '../../../hooks/useFetchUserProfile';
-import brand from '../../../brand/brandConfig';
 import Card from '../../../components/Card';
 import List from '../../../components/List';
 import TextLink from '../../../components/TextLink';
@@ -34,7 +33,7 @@ const HomePage = () => {
       // Show personalized message if user is authenticated
       return (
         <StyledText fontSize={'lg'} align={'center'}>
-          {"Let's start building, " + (data?.first_name ?? 'User') + '!' }
+          {`Let's start building, ${data?.first_name ?? 'User'}!`}
         </StyledText>
       );
     }
@@ -42,7 +41,7 @@ const HomePage = () => {
     // Show default message for non-authenticated users
     return (
       <StyledText fontSize={'lg'} align={'center'}>
-        {'Build, launch, and iterate!' }
+        {'Build, launch, and iterate!'}
       </StyledText>
     );
   };
@@ -52,8 +51,7 @@ const HomePage = () => {
       style={{
         ...styles.screen,
         backgroundColor: theme.values.backgroundColor,
-      }}
-    >
+      }}>
       <View style={styles.container}>
         <Card>
           <List>
@@ -63,13 +61,19 @@ const HomePage = () => {
             <ListDivider />
 
             {/* Documentation link */}
-            <TextLink text="Zero To App Documentation" href="https://github.com/Alex-Amayo/zero-to-app?tab=readme-ov-file#creating-an-app" />
+            <TextLink
+              text="Zero To App Documentation"
+              href="https://github.com/Alex-Amayo/zero-to-app?tab=readme-ov-file#creating-an-app"
+            />
 
             {/* Show login link if user is not authenticated */}
             {!userId ? (
               <>
                 <ListDivider />
-                <TextLink text="Try the account authentication experience" onPress={() => router.push('/auth/login')} />
+                <TextLink
+                  text="Try the account authentication experience"
+                  onPress={() => router.push('/auth/login')}
+                />
               </>
             ) : null}
           </List>

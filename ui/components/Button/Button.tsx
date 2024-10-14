@@ -4,10 +4,10 @@ import {
   GestureResponderEvent,
   Pressable,
   StyleSheet,
-  View,
+  View
 } from 'react-native';
-import brand from '../brand/brandConfig';
-import { StyledText } from './StyledText';
+import brand from '../../brand/brandConfig';
+import { StyledText } from '.././StyledText';
 
 type ButtonProps = {
   title: string;
@@ -48,19 +48,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 15,
     borderRadius: brand.borderRadius,
-    backgroundColor: brand.colors.primary,
+    backgroundColor: brand.colors.primary
   },
   secondary: {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 15,
     borderRadius: brand.borderRadius,
-    backgroundColor: brand.colors.secondary,
+    backgroundColor: brand.colors.secondary
   },
   text: {
     fontSize: brand.fontSizes.medium,
     textAlign: 'center',
     fontWeight: '500',
-    color: '#FFFFFF',
-  },
+    color: '#FFFFFF'
+  }
 });

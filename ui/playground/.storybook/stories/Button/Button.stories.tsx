@@ -1,33 +1,37 @@
-import { View } from 'react-native';
-import type { Meta, StoryObj } from '@storybook/react';
-import { MyButton } from './Button';
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react-native';
+import { Button } from "@zero-to-app/components";
 
-const meta = {
-  title: 'MyButton',
-  component: MyButton,
+export default {
+  title: 'Components/Button',
+  component: Button,
   argTypes: {
-    onPress: { action: 'pressed the button' },
-  },
-  args: {
-    text: 'Hello world',
-  },
-  decorators: [
-    (Story) => (
-      <View style={{ padding: 16, alignItems: 'flex-start' }}>
-        <Story />
-      </View>
-    ),
-  ],
-} satisfies Meta<typeof MyButton>;
+    title: { control: 'text' },
+    secondary: { control: 'boolean' },
+    loading: { control: 'boolean' }
+  }
+} as ComponentMeta<typeof Button>;
 
-export default meta;
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-type Story = StoryObj<typeof meta>;
+export const Primary = Template.bind({});
+Primary.args = {
+  title: 'Primary Button',
+  secondary: false,
+  loading: false,
+  onPress: () => alert('Primary Button Pressed')
+};
 
-export const Basic: Story = {};
+export const Secondary = Template.bind({});
+Secondary.args = {
+  title: 'Secondary Button',
+  secondary: true,
+  loading: false,
+  onPress: () => alert('Secondary Button Pressed')
+};
 
-export const AnotherExample: Story = {
-  args: {
-    text: 'Another example',
-  },
+export const Loading = Template.bind({});
+Loading.args = {
+  title: 'Loading Button',
+  loading: true
 };

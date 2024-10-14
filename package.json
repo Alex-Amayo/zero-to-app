@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "workspaces": [
+    "template",
+    "ui/playground",
+    "ui/components"
+  ]
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["_type","require"],"sources":["../../../src/user-event/type/index.ts"],"sourcesContent":["export { type, TypeOptions } from './type';\n"],"mappings":";;;;;;;;;;;;;;;;;AAAA,IAAAA,KAAA,GAAAC,OAAA","ignoreList":[]}

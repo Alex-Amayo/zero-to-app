@@ -1,0 +1,43 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* auto-generated file using command `npx ts-node scripts/generateImEnums.ts` */
+var IMEvaluate;
+(function (IMEvaluate) {
+    IMEvaluate["Abs"] = "Abs";
+    IMEvaluate["Add"] = "Add";
+    IMEvaluate["AddModulus"] = "AddModulus";
+    IMEvaluate["And"] = "And";
+    IMEvaluate["Cos"] = "Cos";
+    IMEvaluate["Cosine"] = "Cosine";
+    IMEvaluate["Divide"] = "Divide";
+    IMEvaluate["Exp"] = "Exp";
+    IMEvaluate["Exponential"] = "Exponential";
+    IMEvaluate["GaussianNoise"] = "GaussianNoise";
+    IMEvaluate["ImpulseNoise"] = "ImpulseNoise";
+    IMEvaluate["LaplacianNoise"] = "LaplacianNoise";
+    IMEvaluate["LeftShift"] = "LeftShift";
+    IMEvaluate["Log"] = "Log";
+    IMEvaluate["Max"] = "Max";
+    IMEvaluate["Mean"] = "Mean";
+    IMEvaluate["Median"] = "Median";
+    IMEvaluate["Min"] = "Min";
+    IMEvaluate["MultiplicativeNoise"] = "MultiplicativeNoise";
+    IMEvaluate["Multiply"] = "Multiply";
+    IMEvaluate["Or"] = "Or";
+    IMEvaluate["PoissonNoise"] = "PoissonNoise";
+    IMEvaluate["Pow"] = "Pow";
+    IMEvaluate["RightShift"] = "RightShift";
+    IMEvaluate["RMS"] = "RMS";
+    IMEvaluate["RootMeanSquare"] = "RootMeanSquare";
+    IMEvaluate["Set"] = "Set";
+    IMEvaluate["Sin"] = "Sin";
+    IMEvaluate["Sine"] = "Sine";
+    IMEvaluate["Subtract"] = "Subtract";
+    IMEvaluate["Sum"] = "Sum";
+    IMEvaluate["Threshold"] = "Threshold";
+    IMEvaluate["ThresholdBlack"] = "ThresholdBlack";
+    IMEvaluate["ThresholdWhite"] = "ThresholdWhite";
+    IMEvaluate["UniformNoise"] = "UniformNoise";
+    IMEvaluate["Xor"] = "Xor";
+})(IMEvaluate = exports.IMEvaluate || (exports.IMEvaluate = {}));
+//# sourceMappingURL=IMEvaluate.js.map

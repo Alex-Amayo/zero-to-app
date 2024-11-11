@@ -1,0 +1,25 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = debugShallow;
+var _shallow = require("../shallow");
+var _format = _interopRequireDefault(require("./format"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Log pretty-printed shallow test component instance
+ */
+function debugShallow(instance, message) {
+  const {
+    output
+  } = (0, _shallow.shallowInternal)(instance);
+  if (message) {
+    // eslint-disable-next-line no-console
+    console.log(`${message}\n\n`, (0, _format.default)(output));
+  } else {
+    // eslint-disable-next-line no-console
+    console.log((0, _format.default)(output));
+  }
+}
+//# sourceMappingURL=debug-shallow.js.map

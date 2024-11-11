@@ -1,0 +1,54 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow strict
+ * @format
+ */
+
+export interface EventSubscription {
+  remove(): void
+}
+export interface IEventEmitter<TEventToArgsMap: {...}> {
+  addListener<TEvent: $Keys<TEventToArgsMap>>(eventType: TEvent, listener: (...args: $ElementType<TEventToArgsMap, TEvent>) => mixed, context?: mixed): EventSubscription,
+  emit<TEvent: $Keys<TEventToArgsMap>>(eventType: TEvent, ...args: $ElementType<TEventToArgsMap, TEvent>): void,
+  removeAllListeners<TEvent: $Keys<TEventToArgsMap>>(eventType?: ?TEvent): void,
+  listenerCount<TEvent: $Keys<TEventToArgsMap>>(eventType: TEvent): number,
+}
+interface Registration<TArgs> {
+  +context: mixed,
+  +listener: (...args: TArgs) => mixed,
+  +remove: () => void,
+}
+type Registry<TEventToArgsMap: {...}> = $ObjMap<TEventToArgsMap, <TArgs>(TArgs) => Set<Registration<TArgs>>>;
+
+/**
+ * EventEmitter manages listeners and publishes events to them.
+ *
+ * EventEmitter accepts a single type parameter that defines the valid events
+ * and associated listener argument(s).
+ *
+ * @example
+ *
+ *   const emitter = new EventEmitter<{
+ *     success: [number, string],
+ *     error: [Error],
+ *   }>();
+ *
+ *   emitter.on('success', (statusCode, responseText) => {...});
+ *   emitter.emit('success', 200, '...');
+ *
+ *   emitter.on('error', error => {...});
+ *   emitter.emit('error', new Error('Resource not found'));
+ *
+ */
+declare export default class EventEmitter<TEventToArgsMap: {...}> implements IEventEmitter<TEventToArgsMap> {
+  _registry: Registry<TEventToArgsMap>,
+  addListener<TEvent: $Keys<TEventToArgsMap>>(eventType: TEvent, listener: (...args: $ElementType<TEventToArgsMap, TEvent>) => mixed, context: mixed): EventSubscription,
+  emit<TEvent: $Keys<TEventToArgsMap>>(eventType: TEvent, ...args: $ElementType<TEventToArgsMap, TEvent>): void,
+  removeAllListeners<TEvent: $Keys<TEventToArgsMap>>(eventType?: ?TEvent): void,
+  listenerCount<TEvent: $Keys<TEventToArgsMap>>(eventType: TEvent): number,
+}
+declare function allocate<TEventToArgsMap: {...}, TEvent: $Keys<TEventToArgsMap>, TEventArgs: $ElementType<TEventToArgsMap, TEvent>>(registry: Registry<TEventToArgsMap>, eventType: TEvent): Set<Registration<TEventArgs>>;

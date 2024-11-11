@@ -1,0 +1,12 @@
+{
+    "name": "@types/react-native",
+    "version": "0.73.0",
+    "description": "Stub TypeScript definitions entry for react-native, which provides its own types definitions",
+    "main": "",
+    "scripts": {},
+    "license": "MIT",
+    "dependencies": {
+        "react-native": "*"
+    },
+    "deprecated": "This is a stub types definition. react-native provides its own type definitions, so you do not need this installed."
+}

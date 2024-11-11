@@ -1,0 +1,61 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow strict-local
+ * @format
+ */
+
+import typeof VirtualizedList from '../VirtualizedList';
+import * as React from 'react';
+import { useContext, useMemo } from 'react';
+const __DEV__ = process.env.NODE_ENV !== 'production';
+type Context = $ReadOnly<{
+  cellKey: ?string,
+  getScrollMetrics: () => {
+    contentLength: number,
+    dOffset: number,
+    dt: number,
+    offset: number,
+    timestamp: number,
+    velocity: number,
+    visibleLength: number,
+    zoomScale: number,
+  },
+  horizontal: ?boolean,
+  getOutermostParentListRef: () => React.ElementRef<VirtualizedList>,
+  registerAsNestedChild: ({
+    cellKey: string,
+    ref: React.ElementRef<VirtualizedList>,
+  }) => void,
+  unregisterAsNestedChild: ({
+    ref: React.ElementRef<VirtualizedList>
+  }) => void,
+}>;
+export const VirtualizedListContext: React.Context<?Context> = React.createContext(null);
+if (__DEV__) {
+  VirtualizedListContext.displayName = 'VirtualizedListContext';
+}
+
+/**
+ * Resets the context. Intended for use by portal-like components (e.g. Modal).
+ */
+declare export function VirtualizedListContextResetter(arg0: {
+  children: React.Node
+}): React.Node;
+/**
+ * Sets the context with memoization. Intended to be used by `VirtualizedList`.
+ */
+declare export function VirtualizedListContextProvider(arg0: {
+  children: React.Node,
+  value: Context,
+}): React.Node;
+/**
+ * Sets the `cellKey`. Intended to be used by `VirtualizedList` for each cell.
+ */
+declare export function VirtualizedListCellContextProvider(arg0: {
+  cellKey: string,
+  children: React.Node,
+}): React.Node;

@@ -1,0 +1,1 @@
+{"version":3,"file":"text-range.js","names":[],"sources":["../../../src/user-event/utils/text-range.ts"],"sourcesContent":["export interface TextRange {\n  start: number;\n  end: number;\n}\n"],"mappings":"","ignoreList":[]}

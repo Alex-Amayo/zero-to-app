@@ -1,0 +1,1 @@
+{"version":3,"file":"window.d.ts","sourceRoot":"","sources":["../../../../src/__mocks__/window.tsx"],"names":[],"mappings":"AAiEA,QAAA,MAAM,MAAM;;;;;;;yBApDO,GAAG,KAAK,MAAM,QAAQ,MAAM;4BASzB,GAAG,KAAK,MAAM,QAAQ,MAAM;cAO1C,MAAM;;;;6BAwBkB,UAAU,YAAY,MAAM,IAAI;gCAM7B,UAAU,YAAY,MAAM,IAAI;;CAiBlE,CAAC;AAEF,eAAe,MAAM,CAAC"}

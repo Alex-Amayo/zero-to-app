@@ -1,0 +1,329 @@
+version: 2.1
+
+aliases:
+  - &xcode-version 14.3.1
+  - &node-version '18.16'
+  - &yarn-version '1.22.19'
+
+orbs:
+  node: circleci/node@5.1.0
+  browser-tools: circleci/browser-tools@1.4.1
+
+executors:
+  default:
+    docker:
+      - image: cimg/node:18.16
+    working_directory: ~/react-native-url-polyfill
+    environment:
+      NODE_OPTIONS: '--openssl-legacy-provider'
+  node-browsers:
+    docker:
+      - image: cimg/node:18.16-browsers
+    environment:
+      NODE_OPTIONS: '--openssl-legacy-provider'
+  xcode-11:
+    macos:
+      xcode: 11.7.0
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      XCODE_VERSION: 11.7.0
+      NODE_OPTIONS: '--openssl-legacy-provider'
+  xcode:
+    macos:
+      xcode: *xcode-version
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      XCODE_VERSION: *xcode-version
+      NODE_OPTIONS: '--openssl-legacy-provider'
+  android:
+    docker:
+      - image: cimg/android:2023.06.1
+    resource_class: large
+    environment:
+      JAVA_TOOL_OPTIONS: '-Xmx1536m'
+      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2'
+      NODE_OPTIONS: '--openssl-legacy-provider'
+
+commands:
+  save-cache-yarn:
+    steps:
+      - save_cache:
+          key: yarn-packages-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+  restore-cache-yarn:
+    steps:
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+  save-cache-detox-env:
+    steps:
+      - save_cache:
+          key: detox-env-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ checksum "/usr/bin/xcodebuild" }}-{{ .Environment.CIRCLE_WORKING_DIRECTORY }}
+          paths:
+            - /usr/local/Homebrew
+            - ~/Library/Caches/Homebrew
+  restore-cache-detox-env:
+    steps:
+      - restore_cache:
+          name: Restoring Detox Env Cache
+          keys:
+            - detox-env-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ checksum "/usr/bin/xcodebuild" }}-{{ .Environment.CIRCLE_WORKING_DIRECTORY }}
+  save-cache-detox-app:
+    steps:
+      - save_cache:
+          key: detox-app-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock"}}
+          paths:
+            - node_modules
+            - ios/Pods
+  restore-cache-detox-app:
+    steps:
+      - restore_cache:
+          name: Restoring Detox App Cache
+          keys:
+            - detox-app-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock"}}
+  save-cache-expo-app:
+    steps:
+      - save_cache:
+          key: expo-app-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock"}}
+          paths:
+            - node_modules
+  restore-cache-expo-app:
+    steps:
+      - restore_cache:
+          name: Restoring Detox App Cache
+          keys:
+            - expo-app-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock"}}
+  save-android-build-cache:
+    steps:
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+            - ~/.android/build-cache
+          key: gradle-build-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "yarn.lock" }}
+          when: always # Ensures build assets are cached even on failed builds
+  restore-android-build-cache:
+    steps:
+      - restore_cache:
+          name: Restoring Android & Gradle cache
+          keys:
+            - gradle-build-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}-{{ checksum "yarn.lock" }}
+  attach-workspace:
+    steps:
+      - attach_workspace:
+          at: ~/react-native-url-polyfill
+  install-yarn-dependencies:
+    steps:
+      - run:
+          name: Yarn version
+          command: yarn -v
+      - run:
+          name: Yarn Install
+          command: |
+            yarn install --frozen-lockfile --no-progress --non-interactive --cache-folder ~/.cache/yarn
+  install-detox:
+    steps:
+      - restore-cache-detox-env
+      - run:
+          name: Install Detox
+          command: |
+            brew tap wix/brew
+            brew install applesimutils
+            yarn global add detox-cli
+      - run:
+          name: Clean Detox
+          command: |
+            detox clean-framework-cache && detox build-framework-cache
+      - save-cache-detox-env
+
+  install-node:
+    parameters:
+      install-yarn:
+        type: boolean
+        default: true
+    steps:
+      - node/install:
+          node-version: *node-version
+          install-yarn: << parameters.install-yarn >>
+          yarn-version: *yarn-version
+
+jobs:
+  checkout:
+    executor: default
+    steps:
+      - checkout
+      - restore-cache-yarn
+      - run:
+          name: Yarn version
+          command: yarn -v
+      - run:
+          name: Yarn Install
+          command: |
+            yarn install --frozen-lockfile --no-progress --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache-yarn
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  lint:
+    executor: default
+    steps:
+      - attach-workspace
+      - run:
+          name: Lint
+          command: yarn lint
+  test-js:
+    parameters:
+      react-native-version:
+        type: string
+        default: ''
+    executor: default
+    steps:
+      - attach-workspace
+      - when:
+          condition: << parameters.react-native-version >>
+          steps:
+            - run:
+                name: Overriding react-native version
+                command: yarn add --dev react-native@<< parameters.react-native-version >>
+      - run:
+          name: Run Jest
+          command: yarn test
+  test-ios:
+    parameters:
+      executor:
+        default: xcode
+        type: executor
+      react-native-version:
+        type: string
+      install-yarn:
+        type: boolean
+        default: true
+    executor: << parameters.executor >>
+    working_directory: ~/react-native-url-polyfill/platforms/react-native/<< parameters.react-native-version >>
+    steps:
+      - attach-workspace
+      - restore-cache-detox-app
+      - install-node:
+          install-yarn: << parameters.install-yarn >>
+      - install-yarn-dependencies
+      - install-detox
+      - run:
+          name: Install Pods
+          command: cd ios && pod install --repo-update
+      - run:
+          name: Run Detox on iOS
+          command: yarn e2e:ios
+      - save-cache-detox-app
+  test-hermes-android:
+    parameters:
+      react-native-version:
+        type: string
+    executor: android
+    working_directory: ~/react-native-url-polyfill/platforms/react-native/<< parameters.react-native-version >>
+    steps:
+      - attach-workspace
+      - run:
+          name: Enable Hermes
+          command: sed -i "s/enableHermes:\sfalse/enableHermes:\ true/g" android/app/build.gradle
+      - restore-android-build-cache
+      - install-node
+      - install-yarn-dependencies
+      - run:
+          name: Build APK
+          command: cd android && ./gradlew assembleRelease
+      - save-android-build-cache
+  test-hermes-ios:
+    parameters:
+      executor:
+        default: xcode
+        type: executor
+      react-native-version:
+        type: string
+    executor: << parameters.executor >>
+    working_directory: ~/react-native-url-polyfill/platforms/react-native/<< parameters.react-native-version >>
+    steps:
+      - attach-workspace
+      - restore-cache-detox-app
+      - run:
+          name: Enable Hermes
+          command: npx shx sed -i "s/:hermes_enabled\s=>\sfalse/:hermes_enabled => true/g" ios/Podfile
+      - install-node
+      - install-yarn-dependencies
+      - install-detox
+      - run:
+          name: Install Pods
+          command: |
+            cd ios && pod install
+      - run:
+          name: Run Detox on iOS
+          command: yarn e2e:ios
+  test-expo-web:
+    parameters:
+      expo-version:
+        type: string
+    executor: node-browsers
+    working_directory: ~/react-native-url-polyfill/platforms/expo/<< parameters.expo-version >>
+    steps:
+      - attach-workspace
+      - browser-tools/install-chrome
+      - run: google-chrome --version
+      - run:
+          name: Install certutil
+          command: |
+            sudo apt update
+            sudo apt install libnss3-tools
+      - restore-cache-expo-app
+      - install-node
+      - install-yarn-dependencies
+      - run: yarn global add expo-cli
+      - run: yarn test:web --runInBand
+      - save-cache-expo-app
+
+workflows:
+  tests:
+    jobs:
+      - checkout
+      - lint:
+          requires:
+            - checkout
+      - test-js:
+          requires:
+            - checkout
+      - test-ios:
+          name: test-ios-0.60
+          executor: xcode-11
+          react-native-version: '0.60'
+          install-yarn: false
+          requires:
+            - lint
+            - test-js
+      - test-ios:
+          matrix:
+            parameters:
+              react-native-version: ['0.68', '0.72']
+          requires:
+            - lint
+            - test-js
+      - test-hermes-ios:
+          matrix:
+            parameters:
+              react-native-version: ['0.68']
+          requires:
+            - test-ios-<< matrix.react-native-version >>
+      - test-hermes-android:
+          matrix:
+            parameters:
+              react-native-version: ['0.68']
+          requires:
+            - lint
+            - test-js
+      # - test-expo-web:
+      #     matrix:
+      #       parameters:
+      #         expo-version: ['43', '44']
+      #     requires:
+      #       - lint
+      #       - test-js

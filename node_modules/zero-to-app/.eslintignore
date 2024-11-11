@@ -1,0 +1,6 @@
+.expo
+node_modules
+build
+expo
+dist
+assets

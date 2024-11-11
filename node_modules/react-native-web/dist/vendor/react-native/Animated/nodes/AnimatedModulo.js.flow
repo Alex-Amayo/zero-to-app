@@ -1,0 +1,29 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ * @format
+ */
+
+'use strict';
+
+import type AnimatedNode from './AnimatedNode';
+import AnimatedInterpolation from './AnimatedInterpolation';
+import AnimatedWithChildren from './AnimatedWithChildren';
+import type { InterpolationConfigType } from './AnimatedInterpolation';
+import type { PlatformConfig } from '../AnimatedPlatformConfig';
+declare class AnimatedModulo extends AnimatedWithChildren {
+  _a: AnimatedNode,
+  _modulus: number,
+  constructor(a: AnimatedNode, modulus: number): any,
+  __makeNative(platformConfig: ?PlatformConfig): any,
+  __getValue(): number,
+  interpolate<OutputT: number | string>(config: InterpolationConfigType<OutputT>): AnimatedInterpolation<OutputT>,
+  __attach(): void,
+  __detach(): void,
+  __getNativeConfig(): any,
+}
+export default AnimatedModulo;

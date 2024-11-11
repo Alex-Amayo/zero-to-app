@@ -1,0 +1,27 @@
+import type { ReactTestInstance } from 'react-test-renderer';
+import { TextMatch, TextMatchOptions } from '../matches';
+import type { FindAllByQuery, FindByQuery, GetAllByQuery, GetByQuery, QueryAllByQuery, QueryByQuery } from './make-queries';
+import { CommonQueryOptions } from './options';
+type ByHintTextOptions = CommonQueryOptions & TextMatchOptions;
+export type ByHintTextQueries = {
+    getByHintText: GetByQuery<TextMatch, ByHintTextOptions>;
+    getAllByHintText: GetAllByQuery<TextMatch, ByHintTextOptions>;
+    queryByHintText: QueryByQuery<TextMatch, ByHintTextOptions>;
+    queryAllByHintText: QueryAllByQuery<TextMatch, ByHintTextOptions>;
+    findByHintText: FindByQuery<TextMatch, ByHintTextOptions>;
+    findAllByHintText: FindAllByQuery<TextMatch, ByHintTextOptions>;
+    getByA11yHint: GetByQuery<TextMatch, ByHintTextOptions>;
+    getAllByA11yHint: GetAllByQuery<TextMatch, ByHintTextOptions>;
+    queryByA11yHint: QueryByQuery<TextMatch, ByHintTextOptions>;
+    queryAllByA11yHint: QueryAllByQuery<TextMatch, ByHintTextOptions>;
+    findByA11yHint: FindByQuery<TextMatch, ByHintTextOptions>;
+    findAllByA11yHint: FindAllByQuery<TextMatch, ByHintTextOptions>;
+    getByAccessibilityHint: GetByQuery<TextMatch, ByHintTextOptions>;
+    getAllByAccessibilityHint: GetAllByQuery<TextMatch, ByHintTextOptions>;
+    queryByAccessibilityHint: QueryByQuery<TextMatch, ByHintTextOptions>;
+    queryAllByAccessibilityHint: QueryAllByQuery<TextMatch, ByHintTextOptions>;
+    findByAccessibilityHint: FindByQuery<TextMatch, ByHintTextOptions>;
+    findAllByAccessibilityHint: FindAllByQuery<TextMatch, ByHintTextOptions>;
+};
+export declare const bindByHintTextQueries: (instance: ReactTestInstance) => ByHintTextQueries;
+export {};

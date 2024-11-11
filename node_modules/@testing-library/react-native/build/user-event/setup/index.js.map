@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["_setup","require"],"sources":["../../../src/user-event/setup/index.ts"],"sourcesContent":["export type { UserEventConfig, UserEventInstance } from './setup';\nexport { setup } from './setup';\n"],"mappings":";;;;;;;;;;;AACA,IAAAA,MAAA,GAAAC,OAAA","ignoreList":[]}

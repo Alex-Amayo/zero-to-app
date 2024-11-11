@@ -1,0 +1,1 @@
+{"version":3,"names":["NavigationBuilderContext","React","createContext","onDispatchAction","undefined","onOptionsChange"],"sourceRoot":"../../src","sources":["NavigationBuilderContext.tsx"],"mappings":";;;;;;AAKA;AAA+B;AAAA;AA6C/B;AACA;AACA;AACA,MAAMA,wBAAwB,gBAAGC,KAAK,CAACC,aAAa,CAWjD;EACDC,gBAAgB,EAAE,MAAMC,SAAS;EACjCC,eAAe,EAAE,MAAMD;AACzB,CAAC,CAAC;AAAC,eAEYJ,wBAAwB;AAAA"}

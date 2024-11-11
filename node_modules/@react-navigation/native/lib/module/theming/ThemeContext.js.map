@@ -1,0 +1,1 @@
+{"version":3,"names":["React","DefaultTheme","ThemeContext","createContext","displayName"],"sourceRoot":"../../../src","sources":["theming/ThemeContext.tsx"],"mappings":"AAAA,OAAO,KAAKA,KAAK,MAAM,OAAO;AAG9B,OAAOC,YAAY,MAAM,gBAAgB;AAEzC,MAAMC,YAAY,gBAAGF,KAAK,CAACG,aAAa,CAAQF,YAAY,CAAC;AAE7DC,YAAY,CAACE,WAAW,GAAG,cAAc;AAEzC,eAAeF,YAAY"}

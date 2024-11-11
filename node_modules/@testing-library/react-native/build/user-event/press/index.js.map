@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["_press","require"],"sources":["../../../src/user-event/press/index.ts"],"sourcesContent":["export { PressOptions, press, longPress } from './press';\n"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;AAAA,IAAAA,MAAA,GAAAC,OAAA","ignoreList":[]}

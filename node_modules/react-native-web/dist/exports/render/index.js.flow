@@ -1,0 +1,19 @@
+/**
+ * Copyright (c) Nicolas Gallagher.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noflow
+ */
+
+'use client';
+
+import { hydrate as domLegacyHydrate, render as domLegacyRender } from 'react-dom';
+import { createRoot as domCreateRoot, hydrateRoot as domHydrateRoot } from 'react-dom/client';
+import unmountComponentAtNode from '../unmountComponentAtNode';
+import { createSheet } from '../StyleSheet/dom';
+declare export function hydrate(element: any, root: any): any;
+declare export function render(element: any, root: any): any;
+declare export function hydrateLegacy(element: any, root: any, callback: any): any;
+declare export default function renderLegacy(element: any, root: any, callback: any): any;

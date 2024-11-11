@@ -1,0 +1,87 @@
+{
+  "name": "expo",
+  "version": "51.0.38",
+  "description": "The Expo SDK",
+  "main": "build/Expo.js",
+  "module": "build/Expo.js",
+  "types": "build/Expo.d.ts",
+  "sideEffects": [
+    "*.fx.js",
+    "*.fx.web.js",
+    "./build/winter/*.js"
+  ],
+  "bin": "bin/cli",
+  "files": [
+    "android",
+    "bin",
+    "build",
+    "ios",
+    "scripts",
+    "AppEntry.js",
+    "Expo.podspec",
+    "bundledNativeModules.json",
+    "expo-module.config.json",
+    "metro-config.js",
+    "metro-config.d.ts",
+    "config.js",
+    "config.d.ts",
+    "config-plugins.js",
+    "config-plugins.d.ts",
+    "devtools.js",
+    "devtools.d.ts",
+    "react-native.config.js",
+    "requiresExtraSetup.json",
+    "tsconfig.base.json"
+  ],
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module"
+  },
+  "jest": {
+    "preset": "expo-module-scripts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/expo/expo.git",
+    "directory": "packages/expo"
+  },
+  "keywords": [
+    "expo"
+  ],
+  "author": "Expo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/expo/expo/issues"
+  },
+  "homepage": "https://github.com/expo/expo/tree/main/packages/expo",
+  "dependencies": {
+    "@babel/runtime": "^7.20.0",
+    "@expo/cli": "0.18.30",
+    "@expo/config": "9.0.4",
+    "@expo/config-plugins": "8.0.10",
+    "@expo/metro-config": "0.18.11",
+    "@expo/vector-icons": "^14.0.3",
+    "babel-preset-expo": "~11.0.15",
+    "expo-asset": "~10.0.10",
+    "expo-file-system": "~17.0.1",
+    "expo-font": "~12.0.10",
+    "expo-keep-awake": "~13.0.2",
+    "expo-modules-autolinking": "1.11.3",
+    "expo-modules-core": "1.12.26",
+    "fbemitter": "^3.0.0",
+    "whatwg-url-without-unicode": "8.0.0-3"
+  },
+  "devDependencies": {
+    "@types/react": "~18.0.14",
+    "@types/react-test-renderer": "^18.0.0",
+    "expo-module-scripts": "^3.5.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.74.5"
+  },
+  "gitHead": "d2e197a5f6ef614d601f6ae34c08e97b8a85c345"
+}

@@ -1,0 +1,102 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const misc_1 = require("./misc");
+// TODO: store variables from text file output and reuse them. example:
+// `
+// color=$(convert filename.png -format "%[pixel:p{0,0}]" info:foo.txt)
+// convert filename.png -alpha off -bordercolor $color -border 1 \
+//     \( +clone -fuzz 30% -fill none -floodfill +0+0 $color \
+//        -alpha extract -geometry 200% -blur 0x0.5 \
+//        -morphology erode square:1 -geometry 50% \) \
+//     -compose CopyOpacity -composite -shave 1 outputfilename.png
+// `
+/**
+ * Generates a valid command line command from given `string[]` command. Works with a single command.
+ */
+function arrayToCliOne(command) {
+    return command
+        .map(c => c + '')
+        // if it contain spaces
+        .map(c => (c.trim().match(/\s/)) ? `'${c}'` : c)
+        // escape parenthesis
+        .map(c => c.trim() === '(' ? '\\(' : c.trim() === ')' ? '\\)' : c)
+        .join(' ');
+}
+/**
+ * Generates a valid command line string from given `string[]` that is compatible with  {@link call}. Works with multiple
+ * commands by separating  them with new lines and support comand splitting in new lines using `\`.
+ * See {@link ExecuteCommand} for more information.
+ */
+function arrayToCli(command) {
+    const cmd = typeof command[0] === 'string' ? [command] : command;
+    return cmd.map(arrayToCliOne).join('\n');
+}
+exports.arrayToCli = arrayToCli;
+/**
+ * Generates a command in the form of array of strings, compatible with {@link call} from given command line string . The string must contain only one command (no newlines).
+ */
+function cliToArrayOne(cliCommand) {
+    let inString = false;
+    const spaceIndexes = [0];
+    for (let index = 0; index < cliCommand.length; index++) {
+        const c = cliCommand[index];
+        if (c.match(/[\s]/im) && !inString) {
+            spaceIndexes.push(index);
+        }
+        if (c === `'`) {
+            inString = !inString;
+        }
+    }
+    spaceIndexes.push(cliCommand.length);
+    const command = spaceIndexes
+        .map((spaceIndex, i) => cliCommand.substring(i === 0 ? 0 : spaceIndexes[i - 1], spaceIndexes[i]).trim())
+        .filter(s => !!s)
+        // remove quotes
+        .map(s => s.startsWith(`'`) ? s.substring(1, s.length) : s)
+        .map(s => s.endsWith(`'`) ? s.substring(0, s.length - 1) : s)
+        //  unescape parenthesis
+        .map(s => s === `\\(` ? `(` : s === `\\)` ? `)` : s);
+    return command;
+}
+/**
+ * Generates a command in the form of `string[][]` that is compatible with {@link call} from given command line string.
+ * This works for strings containing multiple commands in different lines. and also respect `\` character for continue the same
+ * command in a new line. See {@link ExecuteCommand} for more information.
+ */
+function cliToArray(cliCommand) {
+    const lines = cliCommand.split('\n')
+        .map(s => s.trim()).map(cliToArrayOne)
+        .filter(a => a && a.length);
+    const result = [];
+    let currentCommand = [];
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line[line.length - 1] !== '\\') {
+            currentCommand = currentCommand.concat(line);
+            result.push(currentCommand);
+            currentCommand = [];
+        }
+        else {
+            currentCommand = currentCommand.concat(line.slice(0, line.length - 1));
+        }
+    }
+    return result;
+}
+exports.cliToArray = cliToArray;
+/**
+ * Makes sure that given {@link ExecuteCommand}, in whatever syntax, is transformed to the form `string[][]` that is compatible with {@link call}
+ */
+function asCommand(c) {
+    if (typeof c === 'string') {
+        return asCommand([c]);
+    }
+    if (!c[0]) {
+        return [];
+    }
+    if (typeof c[0] === 'string') {
+        return misc_1.flat(c.map((subCommand) => cliToArray(subCommand)));
+    }
+    return c;
+}
+exports.asCommand = asCommand;
+//# sourceMappingURL=cli.js.map

@@ -1,0 +1,83 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ * @format
+ */
+
+'use strict';
+
+import AnimatedValue from './AnimatedValue';
+import AnimatedWithChildren from './AnimatedWithChildren';
+import normalizeColor from '@react-native/normalize-colors';
+import NativeAnimatedHelper from '../NativeAnimatedHelper';
+import type { PlatformConfig } from '../AnimatedPlatformConfig';
+type ColorValue = any;
+type NativeColorValue = any;
+type ProcessedColorValue = any;
+export type AnimatedColorConfig = $ReadOnly<{
+  useNativeDriver: boolean
+}>;
+type ColorListenerCallback = (value: ColorValue) => mixed;
+export type RgbaValue = {
+  +r: number,
+  +g: number,
+  +b: number,
+  +a: number,
+  ...
+};
+type RgbaAnimatedValue = {
+  +r: AnimatedValue,
+  +g: AnimatedValue,
+  +b: AnimatedValue,
+  +a: AnimatedValue,
+  ...
+};
+const NativeAnimatedAPI = NativeAnimatedHelper.API;
+const defaultColor: RgbaValue = {
+  r: 0,
+  g: 0,
+  b: 0,
+  a: 1.0
+};
+let _uniqueId = 1;
+declare var processColorObject: (color: NativeColorValue) => ?NativeColorValue;
+/* eslint no-bitwise: 0 */
+declare function processColor(color?: ?(ColorValue | RgbaValue)): ?(RgbaValue | NativeColorValue);
+declare function isRgbaValue(value: any): boolean;
+declare function isRgbaAnimatedValue(value: any): boolean;
+declare export default class AnimatedColor extends AnimatedWithChildren {
+  r: AnimatedValue,
+  g: AnimatedValue,
+  b: AnimatedValue,
+  a: AnimatedValue,
+  nativeColor: ?NativeColorValue,
+  _listeners: {
+    [key: string]: {
+      r: string,
+      g: string,
+      b: string,
+      a: string,
+      ...
+    },
+    ...
+  },
+  constructor(valueIn?: ?(RgbaValue | RgbaAnimatedValue | ColorValue), config?: ?AnimatedColorConfig): any,
+  setValue(value: RgbaValue | ColorValue): void,
+  setOffset(offset: RgbaValue): void,
+  flattenOffset(): void,
+  extractOffset(): void,
+  addListener(callback: ColorListenerCallback): string,
+  removeListener(id: string): void,
+  removeAllListeners(): void,
+  stopAnimation(callback?: ColorListenerCallback): void,
+  resetAnimation(callback?: ColorListenerCallback): void,
+  __getValue(): ColorValue,
+  __attach(): void,
+  __detach(): void,
+  __makeNative(platformConfig: ?PlatformConfig): any,
+  __getNativeConfig(): {...},
+}

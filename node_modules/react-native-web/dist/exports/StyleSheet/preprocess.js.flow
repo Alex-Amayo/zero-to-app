@@ -1,0 +1,69 @@
+/**
+ * Copyright (c) Nicolas Gallagher.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ */
+
+import normalizeColor from './compiler/normalizeColor';
+import normalizeValueWithProperty from './compiler/normalizeValueWithProperty';
+import { warnOnce } from '../../modules/warnOnce';
+const emptyObject = {};
+
+/**
+ * Shadows
+ */
+
+const defaultOffset = {
+  height: 0,
+  width: 0
+};
+declare export var createBoxShadowValue: (style: Object) => void | string;
+declare export var createTextShadowValue: (style: Object) => void | string; // { scale: 2 } => 'scale(2)'
+// { translateX: 20 } => 'translateX(20px)'
+// { matrix: [1,2,3,4,5,6] } => 'matrix(1,2,3,4,5,6)'
+declare var mapTransform: (transform: Object) => string;
+declare export var createTransformValue: (value: Array<Object>) => string;
+const PROPERTIES_STANDARD: {
+  [key: string]: string
+} = {
+  borderBottomEndRadius: 'borderEndEndRadius',
+  borderBottomStartRadius: 'borderEndStartRadius',
+  borderTopEndRadius: 'borderStartEndRadius',
+  borderTopStartRadius: 'borderStartStartRadius',
+  borderEndColor: 'borderInlineEndColor',
+  borderEndStyle: 'borderInlineEndStyle',
+  borderEndWidth: 'borderInlineEndWidth',
+  borderStartColor: 'borderInlineStartColor',
+  borderStartStyle: 'borderInlineStartStyle',
+  borderStartWidth: 'borderInlineStartWidth',
+  end: 'insetInlineEnd',
+  marginEnd: 'marginInlineEnd',
+  marginHorizontal: 'marginInline',
+  marginStart: 'marginInlineStart',
+  marginVertical: 'marginBlock',
+  paddingEnd: 'paddingInlineEnd',
+  paddingHorizontal: 'paddingInline',
+  paddingStart: 'paddingInlineStart',
+  paddingVertical: 'paddingBlock',
+  start: 'insetInlineStart'
+};
+const ignoredProps = {
+  elevation: true,
+  overlayColor: true,
+  resizeMode: true,
+  tintColor: true
+};
+
+/**
+ * Preprocess styles
+ */
+declare export var preprocess: <T: {|
+  [key: string]: any
+|}>(originalStyle: T, options?: {
+  shadow?: boolean,
+  textShadow?: boolean,
+}) => T;
+export default preprocess;

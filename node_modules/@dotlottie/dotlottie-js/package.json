@@ -1,0 +1,83 @@
+{
+  "name": "@dotlottie/dotlottie-js",
+  "version": "0.7.2",
+  "type": "module",
+  "description": "This library helps in creating and modifying .lottie files.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dotlottie/dotlottie-js.git",
+    "directory": "packages/dotlottie-js"
+  },
+  "homepage": "https://github.com/dotlottie/dotlottie-js#readme",
+  "bugs": "https://github.com/dotlottie/dotlottie-js/issues",
+  "author": "dotLottie",
+  "contributors": [
+    "Karam Ali <karam@lottiefiles.com>",
+    "Sam Osborne <sam@lottiefiles.com>",
+    "Jawish Hameed <jawish@lottiefiles.com>",
+    "Abdelrahman Ashraf <a.theashraf@gmail.com>"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./node": "./dist/node/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "node": [
+        "./dist/node"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "browser-image-hash": "^0.0.5",
+    "fflate": "^0.8.1",
+    "sharp": "^0.33.2",
+    "sharp-phash": "^2.1.0",
+    "valibot": "^0.13.1"
+  },
+  "devDependencies": {
+    "@lottiefiles/lottie-types": "^1.2.1",
+    "@types/jasmine": "4.3.5",
+    "@types/node": "18.0.6",
+    "@types/sharp": "0.31.1",
+    "cross-env": "7.0.3",
+    "esbuild": "0.14.49",
+    "jasmine": "5.1.0",
+    "jasmine-browser-runner": "2.2.0",
+    "jasmine-core": "5.1.1",
+    "js-base64": "3.7.5",
+    "nodemon": "2.0.20",
+    "tsup": "6.1.3",
+    "typescript": "4.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@7.1.6",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "docs": "typedoc src",
+    "lint": "eslint --fix .",
+    "stats:eslint": "cross-env TIMING=1 eslint .",
+    "stats:ts": "tsc -p tsconfig.build.json --extendedDiagnostics",
+    "test": "pnpm test:browser && pnpm test:node",
+    "test:browser": "pnpm test:build:browser && jasmine-browser-runner runSpecs --config=./jasmine/jasmine-browser.json --port=4444",
+    "test:browser:watch": "nodemon -e ts --watch src/tests --exec 'pnpm test:browser'",
+    "test:build:browser": "tsup --platform='browser' --config ./jasmine/tsup.config.js",
+    "test:build:node": "tsup --platform='node' --config ./jasmine/tsup.config.js",
+    "test:build:watch": "pnpm test:build --watch",
+    "test:node": "pnpm test:build:node && jasmine --config=./jasmine/jasmine.json --parallel=auto",
+    "test:node:watch": "nodemon -e ts --watch src/tests --exec 'pnpm test:node'",
+    "type-check": "tsc --noEmit"
+  }
+}

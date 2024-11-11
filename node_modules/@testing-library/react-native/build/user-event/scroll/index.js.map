@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["_scrollTo","require"],"sources":["../../../src/user-event/scroll/index.ts"],"sourcesContent":["export { ScrollToOptions, scrollTo } from './scroll-to';\n"],"mappings":";;;;;;;;;;;;;;;;;AAAA,IAAAA,SAAA,GAAAC,OAAA","ignoreList":[]}

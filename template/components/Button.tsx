@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  GestureResponderEvent,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
-import brand from '../brand/brandConfig';
+import { ActivityIndicator, Pressable, View, StyleSheet } from 'react-native';
 import { StyledText } from './StyledText';
+import brand from '../brand/brandConfig';
 
 type ButtonProps = {
   title: string;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: () => void;
   secondary?: boolean;
   loading?: boolean;
 };
@@ -20,7 +14,6 @@ type ButtonProps = {
  * A reusable button component that can be customized with different styles,
  * loading states, and behavior based on props.
  */
-
 const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
   return loading ? (
     <View>
@@ -40,27 +33,17 @@ const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
   );
 };
 
-export default Button;
+export { Button };
 
 const styles = StyleSheet.create({
   primary: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 15,
-    borderRadius: brand.borderRadius,
     backgroundColor: brand.colors.primary,
+    padding: 10,
+    borderRadius: 5,
   },
   secondary: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 15,
-    borderRadius: brand.borderRadius,
     backgroundColor: brand.colors.secondary,
-  },
-  text: {
-    fontSize: brand.fontSizes.medium,
-    textAlign: 'center',
-    fontWeight: '500',
-    color: '#FFFFFF',
+    padding: 10,
+    borderRadius: 5,
   },
 });

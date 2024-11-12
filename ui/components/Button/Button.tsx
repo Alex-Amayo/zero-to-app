@@ -21,7 +21,7 @@ type ButtonProps = {
  * loading states, and behavior based on props.
  */
 
-const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
+export const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
   return loading ? (
     <View>
       <ActivityIndicator
@@ -40,7 +40,6 @@ const Button = ({ title, secondary, loading, onPress }: ButtonProps) => {
   );
 };
 
-export default Button;
 
 const styles = StyleSheet.create({
   primary: {

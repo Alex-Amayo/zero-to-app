@@ -3,21 +3,23 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 import { View } from "react-native";
 import { MyButton } from "./Button";
+import { Button } from "@zero-to-app/ui";
 
 const meta = {
   title: "MyButton",
-  component: MyButton,
+  component: Button,
   args: {
-    text: "Hello world",
+    title: "Hello world",
+    onPress: action("onPress"),
   },
   decorators: [
     (Story) => (
-      <View style={{ padding: 16 }}>
-        <Story />
-      </View>
+        <View style={{ padding: 16 }}>
+          <Story />
+        </View>
     ),
   ],
-} satisfies Meta<typeof MyButton>;
+} satisfies Meta<typeof Button>;
 
 export default meta;
 

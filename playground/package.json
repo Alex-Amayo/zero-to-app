@@ -16,6 +16,7 @@
     "storybook:android": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start --android"
   },
   "dependencies": {
+    "@zero-to-app/ui": "file:../ui",
     "@gorhom/bottom-sheet": "^5.0.5",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "8.0.1",

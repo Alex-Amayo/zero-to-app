@@ -277,3 +277,148 @@ export function getAvailableComponents(registry: ComponentRegistry): string[] {
   return Object.keys(registry.components).sort();
 }
 
+/**
+ * Extract external dependencies from a file's import statements
+ * Returns a Set of package names (e.g., 'react', 'react-native', '@expo/vector-icons')
+ */
+function extractDependenciesFromContent(content: string): Set<string> {
+  const dependencies = new Set<string>();
+  
+  // Match import statements: import ... from 'package' or import ... from "package"
+  // Also match: import 'package' or import "package"
+  const importRegex = /import\s+.*?\s+from\s+['"]([^'"]+)['"]|import\s+['"]([^'"]+)['"]/g;
+  
+  let match;
+  while ((match = importRegex.exec(content)) !== null) {
+    const packageName = match[1] || match[2];
+    
+    // Skip relative imports (starting with . or ..)
+    if (packageName.startsWith('.')) {
+      continue;
+    }
+    
+    // Extract the root package name (e.g., '@expo/vector-icons/Feather' -> '@expo/vector-icons')
+    // or 'react-native' -> 'react-native'
+    const rootPackage = packageName.split('/')[0];
+    
+    // Skip if it's a scoped package without the scope part
+    if (packageName.startsWith('@') && packageName.split('/').length > 1) {
+      const scopedPackage = packageName.split('/').slice(0, 2).join('/');
+      dependencies.add(scopedPackage);
+    } else {
+      dependencies.add(rootPackage);
+    }
+  }
+  
+  return dependencies;
+}
+
+/**
+ * Known external dependencies that should be tracked as peer dependencies
+ * These are the packages that components might use
+ */
+const KNOWN_PEER_DEPENDENCIES = [
+  'react',
+  'react-native',
+  '@expo/vector-icons',
+  'react-hook-form',
+  'expo-blur',
+  'expo-router',
+  'react-native-reanimated',
+  'react-native-reanimated-carousel',
+  'expo-glass-effect',
+  'zod',
+  '@hookform/resolvers',
+];
+
+/**
+ * Default versions for peer dependencies
+ * These should match the versions in package.json peerDependencies
+ */
+const DEFAULT_VERSIONS: Record<string, string> = {
+  react: '>=18.0.0',
+  'react-native': '>=0.70.0',
+  '@expo/vector-icons': '^14.0.0',
+  'react-hook-form': '^7.0.0',
+  'expo-blur': '~13.0.0',
+  'expo-router': '*',
+  'react-native-reanimated': '*',
+  'react-native-reanimated-carousel': '*',
+  'expo-glass-effect': '*',
+  zod: '*',
+  '@hookform/resolvers': '*',
+};
+
+/**
+ * Update dependencies by scanning all component files in the registry
+ * This function can work with local files or fetch from GitHub
+ * 
+ * @param registry - The component registry
+ * @param baseDir - Optional base directory for local files. If not provided, will fetch from GitHub
+ * @returns Updated dependencies object with all found dependencies
+ */
+export async function updateDependencies(
+  registry: ComponentRegistry,
+  baseDir?: string
+): Promise<Record<string, string>> {
+  const foundDependencies = new Set<string>();
+  
+  // Collect all unique files from all components
+  const allFiles = new Set<string>();
+  for (const component of Object.values(registry.components)) {
+    for (const file of component.files) {
+      allFiles.add(file);
+    }
+  }
+  
+  // Scan each file for dependencies
+  for (const file of allFiles) {
+    let content: string;
+    
+    if (baseDir) {
+      // Read from local filesystem
+      const filePath = path.join(baseDir, file);
+      if (fs.existsSync(filePath)) {
+        content = fs.readFileSync(filePath, 'utf-8');
+      } else {
+        // Skip if file doesn't exist locally
+        continue;
+      }
+    } else {
+      // Fetch from GitHub
+      try {
+        content = await fetchComponentFile(file);
+      } catch (error) {
+        // Skip files that can't be fetched
+        console.warn(`Warning: Could not fetch ${file}, skipping...`);
+        continue;
+      }
+    }
+    
+    // Extract dependencies from file content
+    const deps = extractDependenciesFromContent(content);
+    deps.forEach((dep) => foundDependencies.add(dep));
+  }
+  
+  // Build the dependencies object with versions
+  const updatedDependencies: Record<string, string> = {};
+  
+  for (const dep of foundDependencies) {
+    // Only include known peer dependencies
+    if (KNOWN_PEER_DEPENDENCIES.includes(dep)) {
+      updatedDependencies[dep] = DEFAULT_VERSIONS[dep] || '*';
+    }
+  }
+  
+  // Always include core dependencies even if not found in files
+  // (they might be used indirectly)
+  if (!updatedDependencies.react) {
+    updatedDependencies.react = DEFAULT_VERSIONS.react;
+  }
+  if (!updatedDependencies['react-native']) {
+    updatedDependencies['react-native'] = DEFAULT_VERSIONS['react-native'];
+  }
+  
+  return updatedDependencies;
+}
+

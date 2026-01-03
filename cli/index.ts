@@ -7,14 +7,31 @@ import {
   checkPeerDependencies,
   detectPackageManager,
   getAvailableComponents,
+  updateDependencies,
 } from './utils';
 
+/**
+ * Peer dependencies required by components.
+ * 
+ * To update this list automatically, use:
+ *   const registry = await loadRegistry();
+ *   const updatedDeps = await updateDependencies(registry);
+ * 
+ * Or with local files:
+ *   const updatedDeps = await updateDependencies(registry, process.cwd());
+ */
 const PEER_DEPENDENCIES = {
   react: '>=18.0.0',
   'react-native': '>=0.70.0',
   '@expo/vector-icons': '^14.0.0',
   'react-hook-form': '^7.0.0',
   'expo-blur': '~13.0.0',
+  'expo-router': '*',
+  'react-native-reanimated': '*',
+  'react-native-reanimated-carousel': '*',
+  'expo-glass-effect': '*',
+  zod: '*',
+  '@hookform/resolvers': '*',
 };
 
 async function main() {

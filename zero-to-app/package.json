@@ -1,0 +1,83 @@
+{
+  "name": "zero-to-app",
+  "version": "1.0.0",
+  "description": "React Native design system with theme-aware UI primitives, responsive utilities, and brand configuration",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "react-native",
+    "design-system",
+    "components",
+    "ui",
+    "theme",
+    "expo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alex-Amayo/zero-to-app.git"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0",
+    "@expo/vector-icons": "^14.0.0",
+    "react-hook-form": "^7.0.0",
+    "expo-blur": "~13.0.0",
+    "expo-router": "*",
+    "react-native-reanimated": "*",
+    "expo-glass-effect": "*",
+    "zod": "*",
+    "@hookform/resolvers": "*"
+  },
+  "peerDependenciesMeta": {
+    "expo-router": {
+      "optional": true
+    },
+    "react-native-reanimated": {
+      "optional": true
+    },
+    "expo-glass-effect": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    },
+    "@hookform/resolvers": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.72.0",
+    "typescript": "^5.0.0",
+    "tsup": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

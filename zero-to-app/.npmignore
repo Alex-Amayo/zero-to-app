@@ -1,0 +1,35 @@
+# Source files
+*.ts
+*.tsx
+!*.d.ts
+
+# Build configuration
+tsconfig.json
+tsup.config.ts
+.cursorrules
+
+# Development files
+.vscode
+.idea
+*.log
+*.cache
+
+# Git
+.git
+.gitignore
+.github
+
+# Testing
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Documentation (keep README.md)
+CHANGELOG.md
+
+# Dependencies
+node_modules
+
+# Note: dist folder is included via "files" in package.json
+

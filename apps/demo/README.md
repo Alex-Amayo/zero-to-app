@@ -10,7 +10,29 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Install zero-to-app components (optional)
+
+   To use components from the zero-to-app design system, install them using the CLI:
+
+   ```bash
+   npx zero-to-app install button
+   npx zero-to-app install theme
+   npx zero-to-app install brand
+   ```
+
+   Components will be copied to `components/zero-to-app/` in your project. You can then import them like:
+
+   ```typescript
+   import { Button } from '../components/zero-to-app/ui/button';
+   import { ZeroToApp } from '../components/zero-to-app/theme';
+   ```
+
+   See available components:
+   ```bash
+   npx zero-to-app install
+   ```
+
+3. Start the app
 
    ```bash
    npx expo start

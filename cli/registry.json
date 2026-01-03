@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "components": {
+    "button": {
+      "files": [
+        "ui/button/Button.tsx",
+        "ui/button/IconButton.tsx",
+        "ui/button/ToggleIconButton.tsx",
+        "ui/button/BlurButton.tsx",
+        "ui/button/ArrowButton.tsx",
+        "ui/button/index.ts"
+      ],
+      "dependencies": ["text", "brand", "theme"]
+    },
+    "card": {
+      "files": [
+        "ui/container/Card.tsx"
+      ],
+      "dependencies": ["brand", "theme"]
+    },
+    "list": {
+      "files": [
+        "ui/container/List.tsx",
+        "ui/container/ListButton.tsx",
+        "ui/container/ListDivider.tsx",
+        "ui/container/Tile.tsx",
+        "ui/container/index.ts"
+      ],
+      "dependencies": ["brand", "theme"]
+    },
+    "text": {
+      "files": [
+        "ui/text/StyledText.tsx",
+        "ui/text/TextLink.tsx",
+        "ui/text/index.ts"
+      ],
+      "dependencies": ["brand", "theme"]
+    },
+    "input": {
+      "files": [
+        "ui/input/StyledTextInput.tsx",
+        "ui/input/index.ts"
+      ],
+      "dependencies": ["brand", "theme"]
+    },
+    "form": {
+      "files": [
+        "ui/form/FormInput.tsx",
+        "ui/form/FormErrors.tsx",
+        "ui/form/FormSeparator.tsx",
+        "ui/form/index.ts"
+      ],
+      "dependencies": ["input", "brand", "theme"]
+    },
+    "feedback": {
+      "files": [
+        "ui/feedback/ErrorBoundary.tsx",
+        "ui/feedback/LoadingIndicator.tsx",
+        "ui/feedback/NotificationBadge.tsx",
+        "ui/feedback/SkeletonCard.tsx",
+        "ui/feedback/index.ts"
+      ],
+      "dependencies": ["brand", "theme"]
+    },
+    "theme": {
+      "files": [
+        "theme/theme.tsx",
+        "theme/themeConfig.ts",
+        "theme/index.ts"
+      ],
+      "dependencies": []
+    },
+    "brand": {
+      "files": [
+        "brand/brandConfig.ts",
+        "brand/brandContext.tsx",
+        "brand/brandTypes.ts",
+        "brand/index.ts"
+      ],
+      "dependencies": []
+    }
+  }
+}
+

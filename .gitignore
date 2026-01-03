@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+apps/*/node_modules/
 
 # Build outputs
 dist/
@@ -26,4 +27,8 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+
+# Testing
+coverage/
+*.lcov
 

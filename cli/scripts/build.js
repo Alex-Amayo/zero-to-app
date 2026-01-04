@@ -5,7 +5,11 @@ const path = require('path');
 
 /**
  * Build script to bundle package files into the CLI package
- * This allows the CLI to work when published to npm
+ * This allows the CLI to work when published to npm without requiring
+ * GitHub access or a monorepo structure.
+ * 
+ * The bundled files are used as the primary source, with GitHub download
+ * as a fallback if bundled files are not available.
  */
 
 const cliRoot = path.resolve(__dirname, '..');

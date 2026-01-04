@@ -54,10 +54,18 @@ npx zero-to-app --package-manager yarn
 
 ## What it does
 
-1. Copies all files from the zero-to-app package to `./zero-to-app` in your current directory
-2. Checks your project's `package.json` for required dependencies
-3. Installs only missing dependencies in your project root (not in zero-to-app/)
-4. Uses `npx expo install` for Expo packages and npm/yarn/pnpm for regular packages
+1. Downloads the `package/` directory from [https://github.com/Alex-Amayo/zero-to-app](https://github.com/Alex-Amayo/zero-to-app) (master branch)
+2. Copies all files from the downloaded package to `./zero-to-app` in your current directory
+3. Checks your project's `package.json` for required dependencies
+4. Installs only missing dependencies in your project root (not in zero-to-app/)
+5. Uses `npx expo install` for Expo packages and npm/yarn/pnpm for regular packages
+
+### How it gets the package files
+
+The CLI always downloads from GitHub:
+- **GitHub source**: Always fetches from the official repository at `Alex-Amayo/zero-to-app` on the `master` branch
+- **Caching**: Downloads are cached locally for faster subsequent runs
+- **Requirements**: Requires git and internet connection
 
 ### Required Dependencies
 
@@ -87,15 +95,6 @@ npm test
 npm link
 ```
 
-### Building
-
-Before publishing or testing locally, run the build script to bundle the package files:
-
-```bash
-npm run build
-```
-
-This copies the package files from `../package` into `package-files/` directory, which gets included when the CLI is published to npm.
 
 ## Testing
 
@@ -105,5 +104,12 @@ npm test
 
 ## Publishing
 
-Before publishing, ensure the package files are included. The CLI expects the package directory to be available at `../package` relative to the CLI package root.
+The CLI automatically downloads package files from GitHub when used. No build step is required before publishing.
+
+Simply publish to npm:
+```bash
+npm publish
+```
+
+The CLI will fetch the latest package files from GitHub when users run it.
 

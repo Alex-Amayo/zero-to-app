@@ -7,8 +7,6 @@
     "zero-to-app": "./bin/zero-to-app"
   },
   "scripts": {
-    "build": "node scripts/build.js",
-    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -34,7 +32,6 @@
   "files": [
     "bin",
     "src",
-    "package-files",
     "package.json",
     "README.md"
   ]

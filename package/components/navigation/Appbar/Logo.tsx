@@ -51,7 +51,7 @@ const Logo = ({ logoUri }: AppBarBrandingProps) => {
   }
 
   return (
-    <Link href="/(clubs)/home">
+    <Link href="/">
       <View
         style={{
           ...styles.container,

@@ -1,15 +1,17 @@
 import { Platform, StyleSheet, View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StyledText, Button, Card } from 'zero-to-app';
+import React, { useContext } from 'react';
+import { StyledText, Button, Card, ThemeContext } from 'zero-to-app';
 import { HelloWave } from '../../components/hello-wave';
 
 export default function HomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const theme = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
+    <View style={[styles.container, { backgroundColor: theme.values.backgroundColor }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>

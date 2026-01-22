@@ -40,7 +40,7 @@ type ZeroToAppProps = {
 const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
   const lightTheme = useMemo(() => createLightTheme(brand), [brand]);
   const darkTheme = useMemo(() => createDarkTheme(brand), [brand]);
-  const [values, setTheme] = useState<ThemeValuesType>(darkTheme);
+  const [values, setTheme] = useState<ThemeValuesType>(lightTheme);
   const toggleTheme = () => {
     setTheme(values === lightTheme ? darkTheme : lightTheme);
   };

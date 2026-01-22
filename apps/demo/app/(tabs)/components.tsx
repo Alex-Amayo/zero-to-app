@@ -1,11 +1,13 @@
 import { StyleSheet, View, Platform, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StyledText } from 'zero-to-app';
+import React, { useContext } from 'react';
+import { StyledText, ThemeContext } from 'zero-to-app';
 import { ComponentPreviewCard } from '../../components/showcase/ComponentPreviewCard';
 import { componentData } from '../../components/showcase/componentData';
 
 export default function ComponentsScreen() {
   const insets = useSafeAreaInsets();
+  const theme = useContext(ThemeContext);
   
   // Group components by category
   const componentsByCategory = componentData.reduce(
@@ -20,7 +22,7 @@ export default function ComponentsScreen() {
   );
 
   return (
-    <View style={[styles.container, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
+    <View style={[styles.container, { backgroundColor: theme.values.backgroundColor }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
@@ -41,8 +43,8 @@ export default function ComponentsScreen() {
               <StyledText fontSize="lg" bold>
                 {category}
               </StyledText>
-              <View style={styles.categoryBadge}>
-                <StyledText fontSize="xs" color="#0a7ea4">
+              <View style={[styles.categoryBadge, { backgroundColor: theme.values.isDark ? theme.values.borderColor : theme.values.highlightColor + '20' }]}>
+                <StyledText fontSize="xs" color={theme.values.highlightColor}>
                   {components.length} {components.length === 1 ? 'component' : 'components'}
                 </StyledText>
               </View>
@@ -92,7 +94,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   categoryBadge: {
-    backgroundColor: '#e3f2fd',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 4,

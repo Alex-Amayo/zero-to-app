@@ -1,0 +1,18 @@
+{
+  "name": "zero-to-app-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "package",
+    "apps/*",
+    "cli"
+  ],
+  "scripts": {
+    "dev": "cd apps/demo && pnpm start",
+    "build:cli": "cd cli && pnpm run build",
+    "test": "pnpm -r test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

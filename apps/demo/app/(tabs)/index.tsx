@@ -1,10 +1,9 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import { HelloWave } from '../../components/hello-wave';
 import ParallaxScrollView from '../../components/parallax-scroll-view';
-import { ThemedText } from '../../components/themed-text';
-import { ThemedView } from '../../components/themed-view';
+import { StyledText } from 'zero-to-app';
 import { Link } from 'expo-router';
 
 export default function HomeScreen() {
@@ -17,29 +16,29 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+      <View style={styles.titleContainer}>
+        <StyledText fontSize="xl" bold>Welcome!</StyledText>
         <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
+      </View>
+      <View style={styles.stepContainer}>
+        <StyledText fontSize="lg" bold>Step 1: Try it</StyledText>
+        <StyledText>
+          Edit <StyledText bold>app/(tabs)/index.tsx</StyledText> to see changes.
           Press{' '}
-          <ThemedText type="defaultSemiBold">
+          <StyledText bold>
             {Platform.select({
               ios: 'cmd + d',
               android: 'cmd + m',
               web: 'F12',
             })}
-          </ThemedText>{' '}
+          </StyledText>{' '}
           to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+        </StyledText>
+      </View>
+      <View style={styles.stepContainer}>
         <Link href="/modal">
           <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+            <StyledText fontSize="lg" bold>Step 2: Explore</StyledText>
           </Link.Trigger>
           <Link.Preview />
           <Link.Menu>
@@ -60,20 +59,20 @@ export default function HomeScreen() {
           </Link.Menu>
         </Link>
 
-        <ThemedText>
+        <StyledText>
           {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
+        </StyledText>
+      </View>
+      <View style={styles.stepContainer}>
+        <StyledText fontSize="lg" bold>Step 3: Get a fresh start</StyledText>
+        <StyledText>
           {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+          <StyledText bold>npm run reset-project</StyledText> to get a fresh{' '}
+          <StyledText bold>app</StyledText> directory. This will move the current{' '}
+          <StyledText bold>app</StyledText> to{' '}
+          <StyledText bold>app-example</StyledText>.
+        </StyledText>
+      </View>
     </ParallaxScrollView>
   );
 }

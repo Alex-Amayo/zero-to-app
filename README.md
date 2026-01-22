@@ -24,7 +24,7 @@ See [`cli/README.md`](cli/README.md) for CLI usage and options.
 
 ### 🎨 `apps/demo/`
 
-A demo Expo application showcasing the design system components. This serves as both a development environment and a component showcase.
+A demo Expo application showcasing the design system components. This serves as both a development environment and a component showcase for now.
 
 See [`apps/demo/README.md`](apps/demo/README.md) for demo app details.
 

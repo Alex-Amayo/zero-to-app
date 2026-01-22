@@ -173,7 +173,7 @@ const install = async (options) => {
     
     // Copy files
     console.log(chalk.blue('Copying files...'));
-    const excludes = ['node_modules', '.git', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
+    const excludes = ['node_modules', '.git', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'package.json'];
     await copyDirectory(sourcePath, targetDir, excludes);
     console.log(chalk.green('✓ Files copied'));
     

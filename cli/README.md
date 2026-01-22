@@ -74,6 +74,8 @@ The CLI checks for and installs these dependencies if missing:
 - `@hookform/resolvers` - Form validation resolvers
 - `zod` - Schema validation
 - `react-native-reanimated-carousel` - Carousel component
+- `@shopify/flash-list` - High-performance list component
+- `lottie-react-native` - Lottie animations
 - `expo-blur` - Blur effects
 - `expo-glass-effect` - Glass effect
 

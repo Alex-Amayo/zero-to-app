@@ -51,7 +51,7 @@ describe('zero-to-app CLI', () => {
         'react': '^19.1.0',
         'react-native': '^0.81.5',
         'react-hook-form': '^7.53.0',
-        // Missing: @hookform/resolvers, zod, react-native-reanimated-carousel
+        // Missing: @hookform/resolvers, zod, react-native-reanimated-carousel, @shopify/flash-list, lottie-react-native
         // Missing: expo-blur, expo-glass-effect
       },
     };
@@ -66,7 +66,14 @@ describe('zero-to-app CLI', () => {
       ...(packageJson.devDependencies || {}),
     };
     
-    const requiredRegular = ['react-hook-form', '@hookform/resolvers', 'zod', 'react-native-reanimated-carousel'];
+    const requiredRegular = [
+      'react-hook-form',
+      '@hookform/resolvers',
+      'zod',
+      'react-native-reanimated-carousel',
+      '@shopify/flash-list',
+      'lottie-react-native',
+    ];
     const requiredExpo = ['expo-blur', 'expo-glass-effect'];
     
     const missingRegular = requiredRegular.filter(dep => !allDeps[dep]);
@@ -75,6 +82,8 @@ describe('zero-to-app CLI', () => {
     expect(missingRegular).toContain('@hookform/resolvers');
     expect(missingRegular).toContain('zod');
     expect(missingRegular).toContain('react-native-reanimated-carousel');
+    expect(missingRegular).toContain('@shopify/flash-list');
+    expect(missingRegular).toContain('lottie-react-native');
     expect(missingRegular).not.toContain('react-hook-form');
     expect(missingExpo).toContain('expo-blur');
     expect(missingExpo).toContain('expo-glass-effect');
@@ -90,6 +99,8 @@ describe('zero-to-app CLI', () => {
         '@hookform/resolvers': '^3.9.0',
         'zod': '^3.23.8',
         'react-native-reanimated-carousel': '^3.6.1',
+        '@shopify/flash-list': '^1.7.0',
+        'lottie-react-native': '^6.7.0',
         'expo-blur': '~14.0.1',
         'expo-glass-effect': '^1.0.0',
       },
@@ -100,7 +111,14 @@ describe('zero-to-app CLI', () => {
       ...(packageJson.devDependencies || {}),
     };
     
-    const requiredRegular = ['react-hook-form', '@hookform/resolvers', 'zod', 'react-native-reanimated-carousel'];
+    const requiredRegular = [
+      'react-hook-form',
+      '@hookform/resolvers',
+      'zod',
+      'react-native-reanimated-carousel',
+      '@shopify/flash-list',
+      'lottie-react-native',
+    ];
     const requiredExpo = ['expo-blur', 'expo-glass-effect'];
     
     const missingRegular = requiredRegular.filter(dep => !allDeps[dep]);
@@ -129,11 +147,20 @@ describe('zero-to-app CLI', () => {
       ...(packageJson.devDependencies || {}),
     };
     
-    const requiredRegular = ['react-hook-form', '@hookform/resolvers', 'zod', 'react-native-reanimated-carousel'];
+    const requiredRegular = [
+      'react-hook-form',
+      '@hookform/resolvers',
+      'zod',
+      'react-native-reanimated-carousel',
+      '@shopify/flash-list',
+      'lottie-react-native',
+    ];
     const missingRegular = requiredRegular.filter(dep => !allDeps[dep]);
     
-    // Should only be missing react-native-reanimated-carousel
-    expect(missingRegular).toEqual(['react-native-reanimated-carousel']);
+    // Should be missing react-native-reanimated-carousel, @shopify/flash-list, lottie-react-native
+    expect(missingRegular).toContain('react-native-reanimated-carousel');
+    expect(missingRegular).toContain('@shopify/flash-list');
+    expect(missingRegular).toContain('lottie-react-native');
     expect(missingRegular).not.toContain('react-hook-form');
     expect(missingRegular).not.toContain('@hookform/resolvers');
     expect(missingRegular).not.toContain('zod');
@@ -147,7 +174,14 @@ describe('zero-to-app CLI', () => {
     expect(exists).toBe(false);
     
     // If package.json doesn't exist, all dependencies should be considered missing
-    const requiredRegular = ['react-hook-form', '@hookform/resolvers', 'zod', 'react-native-reanimated-carousel'];
+    const requiredRegular = [
+      'react-hook-form',
+      '@hookform/resolvers',
+      'zod',
+      'react-native-reanimated-carousel',
+      '@shopify/flash-list',
+      'lottie-react-native',
+    ];
     const requiredExpo = ['expo-blur', 'expo-glass-effect'];
     
     // This simulates what checkDependencies would return
@@ -156,7 +190,7 @@ describe('zero-to-app CLI', () => {
       expo: requiredExpo,
     };
     
-    expect(allMissing.regular.length).toBe(4);
+    expect(allMissing.regular.length).toBe(6);
     expect(allMissing.expo.length).toBe(2);
   });
   
@@ -169,7 +203,8 @@ describe('zero-to-app CLI', () => {
     }
     
     // Copy files (simulating what the CLI does)
-    const excludes = ['node_modules', '.git', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'];
+    // Note: package.json should be excluded from the copied directory
+    const excludes = ['node_modules', '.git', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'package.json'];
     const items = await fs.readdir(sourcePath);
     for (const item of items) {
       if (excludes.includes(item)) continue;

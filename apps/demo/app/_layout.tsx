@@ -12,8 +12,8 @@ export const unstable_settings = {
 const brand = createBrand({
   name: 'Demo App',
   colors: {
-    primary: '#0a7ea4',
-    secondary: '#0a7ea4',
+    primary: '#ff5757',
+    secondary: '#ff5757',
     backgroundColor: '#fff',
   },
   fontSizes: {
@@ -32,6 +32,10 @@ const brand = createBrand({
     xxxl: 40,
   },
   borderRadius: 8,
+  logo: {
+    light: require('../assets/images/logo.png'),
+    dark: require('../assets/images/logo.png'),
+  },
 });
 
 export default function RootLayout() {

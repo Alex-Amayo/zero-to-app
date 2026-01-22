@@ -32,7 +32,7 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
             {component.name}
           </StyledText>
           <View style={styles.badge}>
-            <StyledText fontSize="xs" color="#0a7ea4">
+            <StyledText fontSize="xs" color="#ff5757">
               {component.category}
             </StyledText>
           </View>
@@ -51,7 +51,7 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
             <StyledText
               fontSize="sm"
               bold={activeTab === tab.id}
-              color={activeTab === tab.id ? '#0a7ea4' : undefined}>
+              color={activeTab === tab.id ? '#ff5757' : undefined}>
               {tab.label}
             </StyledText>
           </Pressable>
@@ -73,7 +73,7 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
                     ]}>
                     <StyledText
                       fontSize="xs"
-                      color={selectedExampleIndex === index ? '#fff' : '#0a7ea4'}>
+                      color={selectedExampleIndex === index ? '#fff' : '#ff5757'}>
                       {example.title}
                     </StyledText>
                   </Pressable>
@@ -103,7 +103,7 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
                     ]}>
                     <StyledText
                       fontSize="xs"
-                      color={selectedExampleIndex === index ? '#fff' : '#0a7ea4'}>
+                      color={selectedExampleIndex === index ? '#fff' : '#ff5757'}>
                       {example.title}
                     </StyledText>
                   </Pressable>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   activeTab: {
-    borderBottomColor: '#0a7ea4',
+    borderBottomColor: '#ff5757',
   },
   content: {
     minHeight: 150,
@@ -180,11 +180,11 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#0a7ea4',
+    borderColor: '#ff5757',
     backgroundColor: 'transparent',
   },
   activeExampleButton: {
-    backgroundColor: '#0a7ea4',
+    backgroundColor: '#ff5757',
   },
   exampleDescription: {
     marginTop: 8,

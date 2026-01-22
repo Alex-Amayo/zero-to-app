@@ -41,7 +41,7 @@ export const CodeExample: React.FC<CodeExampleProps> = ({ code }) => {
         </StyledText>
       </View>
       <Pressable onPress={handleCopy} style={styles.copyButton}>
-        <StyledText fontSize="sm" color="#0a7ea4">
+        <StyledText fontSize="sm" color="#ff5757">
           {copied ? 'Copied!' : 'Copy Code'}
         </StyledText>
       </Pressable>

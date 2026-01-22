@@ -1,15 +1,13 @@
 import { Tabs, useRouter, usePathname } from 'expo-router';
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AppbarWeb, Button } from 'zero-to-app';
+import { AppbarWeb, Button, ThemeContext } from 'zero-to-app';
 
 import { HapticTab } from '../../components/haptic-tab';
 import { IconSymbol } from '../../components/ui/icon-symbol';
-import { Colors } from '../../constants/theme';
-import { useColorScheme } from '../../hooks/use-color-scheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const theme = useContext(ThemeContext);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -35,7 +33,13 @@ export default function TabLayout() {
       <AppbarWeb title="Zero to App" tabs={tabs} />
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          tabBarActiveTintColor: theme.values.highlightColor,
+          tabBarInactiveTintColor: theme.values.inactiveIconColor,
+          tabBarStyle: {
+            backgroundColor: theme.values.appbarBackgroundColor,
+            borderTopColor: theme.values.borderColor,
+            borderTopWidth: theme.values.isDark ? 0 : 1,
+          },
           headerShown: false,
           tabBarButton: HapticTab,
         }}>

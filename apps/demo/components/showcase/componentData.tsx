@@ -173,12 +173,12 @@ export const componentData: ComponentData[] = [
       {
         title: 'Colors & Alignment',
         description: 'Custom colors and text alignment',
-        code: `<StyledText color="#0a7ea4">Colored Text</StyledText>
+        code: `<StyledText color="#ff5757">Colored Text</StyledText>
 <StyledText align="center">Centered</StyledText>
 <StyledText muted>Muted Text</StyledText>`,
         preview: () => (
           <View style={styles.textVariantsContainer}>
-            <StyledText color="#0a7ea4">Colored Text</StyledText>
+            <StyledText color="#ff5757">Colored Text</StyledText>
             <StyledText align="center">Centered</StyledText>
             <StyledText muted>Muted Text</StyledText>
           </View>

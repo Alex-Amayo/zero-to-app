@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontFamily: 'monospace',
   },
   requiredBadge: {
-    backgroundColor: '#0a7ea4',
+    backgroundColor: '#ff5757',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,

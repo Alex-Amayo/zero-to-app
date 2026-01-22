@@ -1,14 +1,15 @@
-import { Platform, StyleSheet, View, ScrollView } from 'react-native';
+import { Platform, StyleSheet, View, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import React, { useContext } from 'react';
-import { StyledText, Button, Card, ThemeContext } from 'zero-to-app';
+import { StyledText, Button, Card, ThemeContext, useBrand } from 'zero-to-app';
 import { HelloWave } from '../../components/hello-wave';
 
 export default function HomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const theme = useContext(ThemeContext);
+  const brand = useBrand();
 
   return (
     <View style={[styles.container, { backgroundColor: theme.values.backgroundColor }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
@@ -17,6 +18,13 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={styles.heroSection}>
+            {brand.logo.light && (
+              <Image
+                source={brand.logo.light}
+                style={styles.logo}
+                resizeMode="contain"
+              />
+            )}
             <View style={styles.titleContainer}>
               <StyledText fontSize="xl" bold>
                 Welcome to Zero to App!
@@ -124,6 +132,11 @@ const styles = StyleSheet.create({
     gap: 16,
     alignItems: 'center',
     paddingVertical: 32,
+  },
+  logo: {
+    width: 500,
+    height: 80,
+    marginBottom: 16,
   },
   titleContainer: {
     flexDirection: 'row',

@@ -1,10 +1,12 @@
 import { StyleSheet, View, Platform, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StyledText } from 'zero-to-app';
 import { ComponentPreviewCard } from '../../components/showcase/ComponentPreviewCard';
 import { componentData } from '../../components/showcase/componentData';
 
 export default function ComponentsScreen() {
+  const insets = useSafeAreaInsets();
+  
   // Group components by category
   const componentsByCategory = componentData.reduce(
     (acc, component) => {
@@ -18,7 +20,7 @@ export default function ComponentsScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={Platform.OS === 'web' ? [] : ['top', 'bottom']}>
+    <View style={[styles.container, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
@@ -56,7 +58,7 @@ export default function ComponentsScreen() {
         ))}
       </View>
     </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

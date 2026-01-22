@@ -2,65 +2,141 @@
 
 A React Native design system with a CLI tool to install and use components in your projects.
 
-## Repository Structure
+🌐 **Components Demos:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
 
-This is a monorepo managed with pnpm workspaces, containing three main parts:
+## Installation
 
-### 📦 `package/`
-
-The core design system package - React Native components, theme system, and utilities. This is the package that gets installed into projects via the CLI.
-
-See [`package/README.md`](package/README.md) for complete documentation.
-
-### 🛠️ `cli/`
-
-The CLI tool that downloads and installs the design system into your project.
+Install zero-to-app into your React Native or Expo project:
 
 ```bash
 npx zero-to-app
 ```
 
-See [`cli/README.md`](cli/README.md) for CLI usage and options.
+This command will:
+1. Download the latest design system package from GitHub
+2. Copy it to `./zero-to-app/` in your project directory
+3. Automatically install any missing dependencies
 
-### 🎨 `apps/demo/`
+### Installation Options
 
-A demo Expo application showcasing the design system components. This serves as both a development environment and a component showcase.
+```bash
+# Force overwrite existing directory
+npx zero-to-app --force
 
-See [`apps/demo/README.md`](apps/demo/README.md) for demo app details.
+# Skip dependency installation
+npx zero-to-app --skip-install
+
+# Use specific package manager
+npx zero-to-app --package-manager yarn
+```
+
+## Quick Start
+
+### 1. Wrap Your App with ZeroToApp Provider
+
+In your root layout file (e.g., `app/_layout.tsx` or `App.tsx`):
+
+```typescript
+import { ZeroToApp, createBrand } from './zero-to-app';
+
+export default function Root() {
+  const brand = createBrand({
+    name: 'My App',
+    colors: {
+      primary: '#cc3366',
+      secondary: '#cc3366',
+      backgroundColor: '#fafafc',
+    },
+    fontSizes: {
+      small: 14,
+      medium: 16,
+      large: 20,
+      xlarge: 25,
+    },
+    spacing: {
+      xs: 4,
+      sm: 8,
+      md: 12,
+      lg: 16,
+      xl: 20,
+      xxl: 24,
+      xxxl: 40,
+    },
+    borderRadius: 5,
+  });
+
+  return (
+    <ZeroToApp brand={brand}>
+      {/* Your app components */}
+    </ZeroToApp>
+  );
+}
+```
+
+### 2. Use Components in Your App
+
+```typescript
+import { StyledText, Button, Card, useDimensions } from './zero-to-app';
+
+function MyComponent() {
+  const dimensions = useDimensions();
+  
+  return (
+    <Card>
+      <StyledText fontSize="lg" bold>Welcome</StyledText>
+      <Button title="Get Started" onPress={() => {}} />
+    </Card>
+  );
+}
+```
+
+## What's Included
+
+- **30+ UI Components**: Buttons, inputs, cards, forms, navigation, media components, and more
+- **Theme System**: Built-in light and dark mode support
+- **Brand Configuration**: Fully customizable colors, fonts, spacing, and branding
+- **Responsive Utilities**: Hooks and utilities for responsive design
+- **Cross-Platform**: Works on iOS, Android, and Web
+
+## Documentation
+
+- **Component Documentation**: See [`package/README.md`](package/README.md) for complete component reference
+- **CLI Documentation**: See [`cli/README.md`](cli/README.md) for CLI options and details
+
+## Requirements
+
+The CLI will automatically install these dependencies if they're missing:
+- `react-hook-form` - Form validation
+- `@hookform/resolvers` - Form validation resolvers
+- `zod` - Schema validation
+- `react-native-reanimated-carousel` - Carousel component
+- `@shopify/flash-list` - High-performance list component
+- `lottie-react-native` - Lottie animations
+- `expo-blur` - Blur effects
+- `expo-glass-effect` - Glass effect
+
+## Repository Structure
+
+This is a monorepo containing:
+
+- **`package/`** - The core design system package (installed into your project)
+- **`cli/`** - The CLI installation tool
+- **`apps/demo/`** - Demo Expo app showcasing components
 
 ## Development
 
-### Setup
+For contributors working on this repository:
 
 ```bash
 # Install dependencies
 pnpm install
-```
 
-### Run Demo App
-
-```bash
-# Start the demo app
+# Run demo app
 pnpm dev
-# or
-cd apps/demo && pnpm start
-```
 
-### Build CLI
-
-```bash
+# Build CLI
 pnpm build:cli
 ```
-
-## Quick Start (For Users)
-
-Install the design system into your project:
-
-```bash
-npx zero-to-app
-```
-
-This downloads the latest `package/` directory from this repository and installs it into `./zero-to-app/` in your project.
 
 ## License
 

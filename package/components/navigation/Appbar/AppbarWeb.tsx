@@ -14,6 +14,7 @@ type AppbarProps = {
   tabs?: JSX.Element | JSX.Element[];
   currentRoute?: string;
   onNavigate?: (route: string) => void;
+  hideTabs?: boolean;
 };
 
 /**
@@ -23,7 +24,7 @@ type AppbarProps = {
  * On desktop/tablet: Logo + Top tabs + Theme toggle
  */
 
-const AppbarWeb = ({ title, logoUri, tabs, currentRoute, onNavigate }: AppbarProps) => {
+const AppbarWeb = ({ title, logoUri, tabs, currentRoute, onNavigate, hideTabs = false }: AppbarProps) => {
   //Initialize theme
   const theme = useContext(ThemeContext);
   //Use dimensions hook
@@ -83,11 +84,13 @@ const AppbarWeb = ({ title, logoUri, tabs, currentRoute, onNavigate }: AppbarPro
             height: Platform.OS === 'web' && dimensions.breakpoint === 'small' ? 60 : 80,
           }}>
           <AppbarBranding logoUri={logoUri} />
-          {!(Platform.OS === 'web' && dimensions.breakpoint === 'small') ? tabs : null}
           {Platform.OS === 'web' && dimensions.breakpoint === 'small' ? (
             <MobileMenuDrawer currentRoute={currentRoute} onNavigate={onNavigate} logoUri={logoUri} />
           ) : (
-            <IconButtonGroup />
+            <>
+              {!hideTabs && tabs}
+              <IconButtonGroup />
+            </>
           )}
         </View>
       </View>

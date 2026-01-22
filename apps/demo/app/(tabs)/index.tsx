@@ -27,12 +27,11 @@ export default function HomeScreen() {
             )}
             <View style={styles.titleContainer}>
               <StyledText fontSize="xl" bold>
-                Welcome to Zero to App!
+              Build native apps for iOS, Android and Web simultaneously with a shared codebase!
               </StyledText>
-              <HelloWave />
             </View>
-            <StyledText fontSize="md" muted style={styles.subtitle}>
-              A modern design system and component library for React Native and Expo
+            <StyledText fontSize="md" style={styles.subtitle}>
+              Build native apps for iOS, Android and Web simultaneously with a single codebase.!
             </StyledText>
             <View style={styles.buttonContainer}>
               <Button
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   heroSection: {
-    gap: 16,
+    gap: 20,
     alignItems: 'center',
     paddingVertical: 32,
   },

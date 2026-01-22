@@ -30,7 +30,7 @@ export default function TabLayout() {
 
   return (
     <View style={styles.container}>
-      <AppbarWeb title="Zero to App" tabs={tabs} />
+      <AppbarWeb title="Zero to App" tabs={tabs} hideTabs={true} />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: theme.values.highlightColor,

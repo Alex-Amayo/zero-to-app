@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
 
 import { ZeroToApp, createBrand } from 'zero-to-app';
@@ -35,12 +36,14 @@ const brand = createBrand({
 
 export default function RootLayout() {
   return (
-    <ZeroToApp brand={brand}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ZeroToApp>
+    <SafeAreaProvider>
+      <ZeroToApp brand={brand}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        </Stack>
+        <StatusBar style="auto" />
+      </ZeroToApp>
+    </SafeAreaProvider>
   );
 }

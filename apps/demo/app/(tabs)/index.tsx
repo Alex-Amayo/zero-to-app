@@ -1,109 +1,179 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, View } from 'react-native';
-
+import { Platform, StyleSheet, View, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyledText, Button, Card } from 'zero-to-app';
 import { HelloWave } from '../../components/hello-wave';
-import ParallaxScrollView from '../../components/parallax-scroll-view';
-import { StyledText, Button } from 'zero-to-app';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('../../assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <View style={styles.titleContainer}>
-        <StyledText fontSize="xl" bold>Welcome!</StyledText>
-        <HelloWave />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Get Started"
-          onPress={() => alert('Button pressed!')}
-          icon={{ library: 'Feather', name: 'arrow-right', size: 20 }}
-          iconPosition="right"
-        />
-      </View>
-      <View style={styles.stepContainer}>
-        <StyledText fontSize="lg" bold>Step 1: Try it</StyledText>
-        <StyledText>
-          Edit <StyledText bold>app/(tabs)/index.tsx</StyledText> to see changes.
-          Press{' '}
-          <StyledText bold>
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </StyledText>{' '}
-          to open developer tools.
-        </StyledText>
-      </View>
-      <View style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <StyledText fontSize="lg" bold>Step 2: Explore</StyledText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const router = useRouter();
 
-        <StyledText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </StyledText>
-      </View>
-      <View style={styles.stepContainer}>
-        <StyledText fontSize="lg" bold>Step 3: Get a fresh start</StyledText>
-        <StyledText>
-          {`When you're ready, run `}
-          <StyledText bold>npm run reset-project</StyledText> to get a fresh{' '}
-          <StyledText bold>app</StyledText> directory. This will move the current{' '}
-          <StyledText bold>app</StyledText> to{' '}
-          <StyledText bold>app-example</StyledText>.
-        </StyledText>
-      </View>
-    </ParallaxScrollView>
+  return (
+    <SafeAreaView style={styles.container} edges={Platform.OS === 'web' ? [] : ['top', 'bottom']}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          <View style={styles.heroSection}>
+            <View style={styles.titleContainer}>
+              <StyledText fontSize="xl" bold>
+                Welcome to Zero to App!
+              </StyledText>
+              <HelloWave />
+            </View>
+            <StyledText fontSize="md" muted style={styles.subtitle}>
+              A modern design system and component library for React Native and Expo
+            </StyledText>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Explore Components"
+                onPress={() => router.push('/(tabs)/components')}
+                icon={{ library: 'Feather', name: 'arrow-right', size: 20 }}
+                iconPosition="right"
+              />
+            </View>
+          </View>
+
+          <View style={styles.featuresSection}>
+            <StyledText fontSize="lg" bold style={styles.sectionTitle}>
+              Features
+            </StyledText>
+            <View style={styles.featuresGrid}>
+              <Card style={styles.featureCard}>
+                <StyledText fontSize="md" bold style={styles.featureTitle}>
+                  Component Showcase
+                </StyledText>
+                <StyledText fontSize="sm" muted>
+                  Browse and interact with all available components in our showcase
+                </StyledText>
+              </Card>
+              <Card style={styles.featureCard}>
+                <StyledText fontSize="md" bold style={styles.featureTitle}>
+                  Theme Support
+                </StyledText>
+                <StyledText fontSize="sm" muted>
+                  Built-in light and dark mode support with customizable branding
+                </StyledText>
+              </Card>
+              <Card style={styles.featureCard}>
+                <StyledText fontSize="md" bold style={styles.featureTitle}>
+                  Cross-Platform
+                </StyledText>
+                <StyledText fontSize="sm" muted>
+                  Works seamlessly on iOS, Android, and Web
+                </StyledText>
+              </Card>
+            </View>
+          </View>
+
+          <View style={styles.quickStartSection}>
+            <StyledText fontSize="lg" bold style={styles.sectionTitle}>
+              Quick Start
+            </StyledText>
+            <View style={styles.stepContainer}>
+              <StyledText fontSize="md" bold>
+                1. Explore Components
+              </StyledText>
+              <StyledText fontSize="sm" muted>
+                Check out the Components tab to see all available components with live previews and code
+                examples.
+              </StyledText>
+            </View>
+            <View style={styles.stepContainer}>
+              <StyledText fontSize="md" bold>
+                2. Customize Your Brand
+              </StyledText>
+              <StyledText fontSize="sm" muted>
+                Modify the brand configuration in <StyledText bold>app/_layout.tsx</StyledText> to
+                match your design.
+              </StyledText>
+            </View>
+            <View style={styles.stepContainer}>
+              <StyledText fontSize="md" bold>
+                3. Build Your App
+              </StyledText>
+              <StyledText fontSize="sm" muted>
+                Use the components from <StyledText bold>zero-to-app</StyledText> to build your
+                application.
+              </StyledText>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  content: {
+    padding: 24,
+    gap: 32,
+    maxWidth: 1200,
+    alignSelf: 'center',
+    width: '100%',
+  },
+  heroSection: {
+    gap: 16,
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
   },
+  subtitle: {
+    textAlign: 'center',
+    maxWidth: 600,
+  },
   buttonContainer: {
-    marginBottom: 16,
     marginTop: 8,
+    width: '100%',
+    maxWidth: 300,
+  },
+  featuresSection: {
+    gap: 16,
+  },
+  sectionTitle: {
+    marginBottom: 8,
+  },
+  featuresGrid: {
+    gap: 16,
+    ...Platform.select({
+      web: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      },
+      default: {
+        flexDirection: 'column',
+      },
+    }),
+  },
+  featureCard: {
+    flex: 1,
+    minWidth: 250,
+    ...Platform.select({
+      web: {
+        maxWidth: 'calc(33.333% - 11px)',
+      },
+      default: {
+        width: '100%',
+      },
+    }),
+  },
+  featureTitle: {
+    marginBottom: 8,
+  },
+  quickStartSection: {
+    gap: 16,
   },
   stepContainer: {
     gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+    paddingVertical: 12,
   },
 });

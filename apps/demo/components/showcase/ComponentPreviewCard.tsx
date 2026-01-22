@@ -1,0 +1,205 @@
+import React, { useState } from 'react';
+import { View, StyleSheet, Pressable } from 'react-native';
+import { Card, StyledText } from 'zero-to-app';
+import { ComponentData } from './componentData';
+import { CodeExample } from './CodeExample';
+import { PropsTable } from './PropsTable';
+import { PreviewContainer } from './PreviewContainer';
+
+interface ComponentPreviewCardProps {
+  component: ComponentData;
+}
+
+type TabType = 'preview' | 'code' | 'props';
+
+export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ component }) => {
+  const [activeTab, setActiveTab] = useState<TabType>('preview');
+  const [selectedExampleIndex, setSelectedExampleIndex] = useState(0);
+
+  const tabs: { id: TabType; label: string }[] = [
+    { id: 'preview', label: 'Preview' },
+    { id: 'code', label: 'Code' },
+    { id: 'props', label: 'Props' },
+  ];
+
+  const currentExample = component.examples[selectedExampleIndex];
+
+  return (
+    <Card>
+      <View style={styles.header}>
+        <View style={styles.titleContainer}>
+          <StyledText fontSize="lg" bold>
+            {component.name}
+          </StyledText>
+          <View style={styles.badge}>
+            <StyledText fontSize="xs" color="#0a7ea4">
+              {component.category}
+            </StyledText>
+          </View>
+        </View>
+        <StyledText fontSize="sm" muted style={styles.description}>
+          {component.description}
+        </StyledText>
+      </View>
+
+      <View style={styles.tabs}>
+        {tabs.map((tab) => (
+          <Pressable
+            key={tab.id}
+            onPress={() => setActiveTab(tab.id)}
+            style={[styles.tab, activeTab === tab.id && styles.activeTab]}>
+            <StyledText
+              fontSize="sm"
+              bold={activeTab === tab.id}
+              color={activeTab === tab.id ? '#0a7ea4' : undefined}>
+              {tab.label}
+            </StyledText>
+          </Pressable>
+        ))}
+      </View>
+
+      <View style={styles.content}>
+        {activeTab === 'preview' && (
+          <>
+            {component.examples.length > 1 && (
+              <View style={styles.exampleSelector}>
+                {component.examples.map((example, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => setSelectedExampleIndex(index)}
+                    style={[
+                      styles.exampleButton,
+                      selectedExampleIndex === index && styles.activeExampleButton,
+                    ]}>
+                    <StyledText
+                      fontSize="xs"
+                      color={selectedExampleIndex === index ? '#fff' : '#0a7ea4'}>
+                      {example.title}
+                    </StyledText>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+            <PreviewContainer>{currentExample?.preview()}</PreviewContainer>
+            {currentExample?.description && (
+              <StyledText fontSize="sm" muted style={styles.exampleDescription}>
+                {currentExample.description}
+              </StyledText>
+            )}
+          </>
+        )}
+
+        {activeTab === 'code' && (
+          <>
+            {component.examples.length > 1 && (
+              <View style={styles.exampleSelector}>
+                {component.examples.map((example, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => setSelectedExampleIndex(index)}
+                    style={[
+                      styles.exampleButton,
+                      selectedExampleIndex === index && styles.activeExampleButton,
+                    ]}>
+                    <StyledText
+                      fontSize="xs"
+                      color={selectedExampleIndex === index ? '#fff' : '#0a7ea4'}>
+                      {example.title}
+                    </StyledText>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+            <View style={styles.importSection}>
+              <StyledText fontSize="sm" bold style={styles.importLabel}>
+                Import:
+              </StyledText>
+              <CodeExample code={component.import} />
+            </View>
+            <View style={styles.codeSection}>
+              <StyledText fontSize="sm" bold style={styles.codeLabel}>
+                Example:
+              </StyledText>
+              <CodeExample code={currentExample?.code || ''} />
+            </View>
+          </>
+        )}
+
+        {activeTab === 'props' && <PropsTable props={component.props} />}
+      </View>
+    </Card>
+  );
+};
+
+const styles = StyleSheet.create({
+  header: {
+    marginBottom: 16,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
+  badge: {
+    backgroundColor: '#e3f2fd',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  description: {
+    marginTop: 4,
+  },
+  tabs: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    marginBottom: 16,
+  },
+  tab: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
+    marginRight: 8,
+  },
+  activeTab: {
+    borderBottomColor: '#0a7ea4',
+  },
+  content: {
+    minHeight: 150,
+  },
+  exampleSelector: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 12,
+  },
+  exampleButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#0a7ea4',
+    backgroundColor: 'transparent',
+  },
+  activeExampleButton: {
+    backgroundColor: '#0a7ea4',
+  },
+  exampleDescription: {
+    marginTop: 8,
+    fontStyle: 'italic',
+  },
+  importSection: {
+    marginBottom: 16,
+  },
+  importLabel: {
+    marginBottom: 8,
+  },
+  codeSection: {
+    marginTop: 8,
+  },
+  codeLabel: {
+    marginBottom: 8,
+  },
+});

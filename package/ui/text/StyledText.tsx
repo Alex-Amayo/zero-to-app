@@ -39,7 +39,10 @@ export const StyledText = ({
   }), [brand]);
 
   const textStyle: TextStyle = {
-    fontSize: typeof fontSize === 'number' ? fontSize : styles[fontSize].fontSize,
+    fontSize:
+      typeof fontSize === 'number'
+        ? fontSize
+        : styles[fontSize]?.fontSize || brand.fontSizes.medium,
     textAlign: align,
     color: muted ? 'gray' : color || theme.values.color,
     fontWeight: fontWeight ? (fontWeight as TextStyle['fontWeight']) : bold ? '700' : 'normal',

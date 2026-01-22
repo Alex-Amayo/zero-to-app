@@ -3,7 +3,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 
 import { HelloWave } from '../../components/hello-wave';
 import ParallaxScrollView from '../../components/parallax-scroll-view';
-import { StyledText } from 'zero-to-app';
+import { StyledText, Button } from 'zero-to-app';
 import { Link } from 'expo-router';
 
 export default function HomeScreen() {
@@ -19,6 +19,14 @@ export default function HomeScreen() {
       <View style={styles.titleContainer}>
         <StyledText fontSize="xl" bold>Welcome!</StyledText>
         <HelloWave />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Get Started"
+          onPress={() => alert('Button pressed!')}
+          icon={{ library: 'Feather', name: 'arrow-right', size: 20 }}
+          iconPosition="right"
+        />
       </View>
       <View style={styles.stepContainer}>
         <StyledText fontSize="lg" bold>Step 1: Try it</StyledText>
@@ -82,6 +90,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  buttonContainer: {
+    marginBottom: 16,
+    marginTop: 8,
   },
   stepContainer: {
     gap: 8,

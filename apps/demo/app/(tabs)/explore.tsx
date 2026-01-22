@@ -1,99 +1,65 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, View } from 'react-native';
-
-import { Collapsible } from '../../components/ui/collapsible';
-import { ExternalLink } from '../../components/external-link';
+import { StyleSheet, View, Platform } from 'react-native';
 import ParallaxScrollView from '../../components/parallax-scroll-view';
 import { StyledText } from 'zero-to-app';
 import { IconSymbol } from '../../components/ui/icon-symbol';
-import { Fonts } from '../../constants/theme';
+import { ComponentPreviewCard } from '../../components/showcase/ComponentPreviewCard';
+import { componentData } from '../../components/showcase/componentData';
 
 export default function TabTwoScreen() {
+  // Group components by category
+  const componentsByCategory = componentData.reduce(
+    (acc, component) => {
+      if (!acc[component.category]) {
+        acc[component.category] = [];
+      }
+      acc[component.category].push(component);
+      return acc;
+    },
+    {} as Record<string, typeof componentData>,
+  );
+
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <IconSymbol
           size={310}
           color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
+          name="square.grid.2x2"
           style={styles.headerImage}
         />
       }>
       <View style={styles.titleContainer}>
-        <StyledText
-          fontSize="xl"
-          bold
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
+        <StyledText fontSize="xl" bold>
+          Component Showcase
         </StyledText>
       </View>
-      <StyledText>This app includes example code to help you get started.</StyledText>
-      <Collapsible title="File-based routing">
-        <StyledText>
-          This app has two screens:{' '}
-          <StyledText bold>app/(tabs)/index.tsx</StyledText> and{' '}
-          <StyledText bold>app/(tabs)/explore.tsx</StyledText>
-        </StyledText>
-        <StyledText>
-          The layout file in <StyledText bold>app/(tabs)/_layout.tsx</StyledText>{' '}
-          sets up the tab navigator.
-        </StyledText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <StyledText>Learn more</StyledText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <StyledText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <StyledText bold>w</StyledText> in the terminal running this project.
-        </StyledText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <StyledText>
-          For static images, you can use the <StyledText bold>@2x</StyledText> and{' '}
-          <StyledText bold>@3x</StyledText> suffixes to provide files for
-          different screen densities
-        </StyledText>
-        <Image
-          source={require('../../assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <StyledText>Learn more</StyledText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <StyledText>
-          This template has light and dark mode support. The{' '}
-          <StyledText bold>useColorScheme()</StyledText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </StyledText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <StyledText>Learn more</StyledText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <StyledText>
-          This template includes an example of an animated component. The{' '}
-          <StyledText bold>components/HelloWave.tsx</StyledText> component uses
-          the powerful{' '}
-          <StyledText bold style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </StyledText>{' '}
-          library to create a waving hand animation.
-        </StyledText>
-        {Platform.select({
-          ios: (
-            <StyledText>
-              The <StyledText bold>components/ParallaxScrollView.tsx</StyledText>{' '}
-              component provides a parallax effect for the header image.
+      <StyledText fontSize="md" muted style={styles.subtitle}>
+        Explore the zero-to-app design system components with live previews, code examples, and
+        documentation.
+      </StyledText>
+
+      {Object.entries(componentsByCategory).map(([category, components]) => (
+        <View key={category} style={styles.categorySection}>
+          <View style={styles.categoryHeader}>
+            <StyledText fontSize="lg" bold>
+              {category}
             </StyledText>
-          ),
-        })}
-      </Collapsible>
+            <View style={styles.categoryBadge}>
+              <StyledText fontSize="xs" color="#0a7ea4">
+                {components.length} {components.length === 1 ? 'component' : 'components'}
+              </StyledText>
+            </View>
+          </View>
+          <View style={styles.componentsGrid}>
+            {components.map((component) => (
+              <View key={component.name} style={styles.cardWrapper}>
+                <ComponentPreviewCard component={component} />
+              </View>
+            ))}
+          </View>
+        </View>
+      ))}
     </ParallaxScrollView>
   );
 }
@@ -106,7 +72,50 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   titleContainer: {
+    marginBottom: 8,
+  },
+  subtitle: {
+    marginBottom: 24,
+  },
+  categorySection: {
+    marginBottom: 32,
+  },
+  categoryHeader: {
     flexDirection: 'row',
-    gap: 8,
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 16,
+  },
+  categoryBadge: {
+    backgroundColor: '#e3f2fd',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  componentsGrid: {
+    gap: 16,
+    flexDirection: 'column',
+    ...Platform.select({
+      web: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      },
+      default: {
+        // Mobile: single column (column is default)
+      },
+    }),
+  },
+  cardWrapper: {
+    width: '100%',
+    ...Platform.select({
+      web: {
+        width: 'calc(50% - 8px)',
+        minWidth: 400,
+        maxWidth: 600,
+      },
+      default: {
+        width: '100%',
+      },
+    }),
   },
 });

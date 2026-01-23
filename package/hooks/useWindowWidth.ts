@@ -5,21 +5,10 @@
  */
 
 import { useWindowDimensions } from 'react-native';
+import { breakpoints } from './useDimensions';
 
 export const useWindowWidth = () => {
   return useWindowDimensions().width;
-};
-
-/**
- * Breakpoints for responsive design
- * @returns {object} The breakpoints for responsive design
- */
-
-export const breakpoints = {
-  small: 480,
-  medium: 768,
-  large: 1024,
-  xlarge: 1280,
 };
 
 /**

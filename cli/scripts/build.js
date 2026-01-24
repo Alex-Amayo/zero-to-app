@@ -13,7 +13,7 @@ const path = require('path');
  */
 
 const cliRoot = path.resolve(__dirname, '..');
-const packageSource = path.resolve(cliRoot, '../../package');
+const packageSource = path.resolve(cliRoot, '../package');
 const packageDest = path.join(cliRoot, 'package-files');
 
 async function build() {

@@ -8,9 +8,23 @@
     "cli"
   ],
   "scripts": {
-    "dev": "cd apps/demo && pnpm start",
-    "build:cli": "cd cli && pnpm run build",
-    "test": "pnpm -r test"
+    "preinstall": "npx -y only-allow pnpm",
+    "dev": "pnpm --filter zero-to-app-showcase start",
+    "dev:storybook": "pnpm --filter zero-to-app-storybook storybook",
+    "dev:storybook:web": "pnpm --filter zero-to-app-storybook storybook:web",
+    "demo": "pnpm dev",
+    "demo:ios": "pnpm --filter zero-to-app-showcase ios",
+    "demo:android": "pnpm --filter zero-to-app-showcase android",
+    "demo:web": "pnpm --filter zero-to-app-showcase web",
+    "storybook": "pnpm dev:storybook",
+    "storybook:web": "pnpm dev:storybook:web",
+    "storybook:build": "pnpm --filter zero-to-app-storybook build-storybook",
+    "build": "pnpm build:cli",
+    "build:cli": "pnpm --filter zero-to-app-cli run build",
+    "test": "pnpm --filter zero-to-app-cli test",
+    "test:watch": "pnpm --filter zero-to-app-cli test:watch",
+    "lint": "pnpm --filter zero-to-app-showcase lint",
+    "lint:fix": "pnpm --filter zero-to-app-showcase lint -- --fix"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -45,10 +45,10 @@ export function renderIcon(
   if (!IconComponent) {
     console.warn(`Icon library "${library}" not found. Falling back to Feather.`);
     const FeatherIcon = Icons.Feather;
-    return React.createElement(FeatherIcon, { name, size, color });
+    return React.createElement(FeatherIcon, { name, size, color } as React.ComponentProps<typeof FeatherIcon>);
   }
 
-  return React.createElement(IconComponent, { name, size, color });
+  return React.createElement(IconComponent, { name, size, color } as React.ComponentProps<typeof IconComponent>);
 }
 
 /**

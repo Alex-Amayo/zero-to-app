@@ -44,7 +44,13 @@ const ChatMessages = ({
 
       {isLoading && (
         <View style={{ width: 100, height: isWeb ? 50 : 100 }}>
-          {loadingAnimation ? (
+          {loadingAnimation &&
+          typeof loadingAnimation !== 'number' &&
+          (typeof loadingAnimation === 'string' ||
+            (typeof loadingAnimation === 'object' &&
+              loadingAnimation != null &&
+              'uri' in loadingAnimation &&
+              typeof (loadingAnimation as { uri?: string }).uri === 'string')) ? (
             <ErrorBoundary
               fallback={
                 <View style={{ width: 100, height: 100, justifyContent: 'center', alignItems: 'center' }}>
@@ -54,7 +60,11 @@ const ChatMessages = ({
               onError={(error: Error) => console.error('Lottie animation error:', error)}
             >
               <LottieView
-                source={loadingAnimation}
+                source={
+                  typeof loadingAnimation === 'string'
+                    ? loadingAnimation
+                    : { uri: (loadingAnimation as { uri: string }).uri }
+                }
                 autoPlay
                 loop
                 style={{ width: 100, height: 100 }}

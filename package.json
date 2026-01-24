@@ -4,8 +4,7 @@
   "private": true,
   "workspaces": [
     "package",
-    "apps/*",
-    "cli"
+    "apps/*"
   ],
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
@@ -19,14 +18,17 @@
     "storybook": "pnpm dev:storybook",
     "storybook:web": "pnpm dev:storybook:web",
     "storybook:build": "pnpm --filter zero-to-app-storybook build-storybook",
-    "build": "pnpm build:cli",
-    "build:cli": "pnpm --filter zero-to-app-cli run build",
-    "test": "pnpm --filter zero-to-app-cli test",
-    "test:watch": "pnpm --filter zero-to-app-cli test:watch",
+    "build": "pnpm --filter zero-to-app run build",
+    "publish": "pnpm run build && pnpm --filter zero-to-app publish --access public --no-git-checks",
     "lint": "pnpm --filter zero-to-app-showcase lint",
     "lint:fix": "pnpm --filter zero-to-app-showcase lint -- --fix"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-docgen-typescript": "2.2.2"
+    }
   }
 }

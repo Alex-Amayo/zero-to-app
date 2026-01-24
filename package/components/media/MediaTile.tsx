@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Image, Pressable, StyleSheet, ImageSourcePropType, ViewStyle } from 'react-native';
+import { View, Image, Pressable, StyleSheet, ImageSourcePropType, ViewStyle, ImageStyle } from 'react-native';
 import { StyledText } from '../../ui/text/StyledText';
 import { useBrand } from '../../brand';
 import { useBreakpoints } from '../../hooks/useWindowWidth';
@@ -23,7 +23,7 @@ export interface MediaTileProps {
   height?: number | { mobile: number; desktop: number };
   
   // Styling
-  imageStyle?: ViewStyle;
+  imageStyle?: ImageStyle;
   contentStyle?: ViewStyle;
 }
 

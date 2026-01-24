@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, type DimensionValue } from 'react-native';
 import { ThemeContext } from '../../theme';
 import { useBrand } from '../../brand';
 import { useBreakpoints } from '../../hooks/useWindowWidth';
@@ -77,7 +77,7 @@ export const SkeletonMediaTile = ({
           style={[
             styles.skeletonText,
             {
-              width: skeletonWidths[0] || '70%',
+              width: (skeletonWidths[0] || '70%') as DimensionValue,
               backgroundColor: skeletonColor,
             },
           ]}
@@ -88,7 +88,7 @@ export const SkeletonMediaTile = ({
             style={[
               styles.skeletonText,
               {
-                width: skeletonWidths[index + 1] || '40%',
+                width: (skeletonWidths[index + 1] || '40%') as DimensionValue,
                 backgroundColor: skeletonColor,
               },
             ]}

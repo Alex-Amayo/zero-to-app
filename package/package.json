@@ -1,11 +1,18 @@
 {
   "name": "zero-to-app",
   "version": "1.0.0",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    ".": "./index.ts",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./package.json": "./package.json"
+  },
+  "files": ["dist", "package.json", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -34,7 +41,8 @@
     "lottie-react-native": "^6.7.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-native": "^0.70.0"
+    "@types/react": "~19.1.0",
+    "@types/react-native": "^0.73.0",
+    "typescript": "~5.9.2"
   }
 }

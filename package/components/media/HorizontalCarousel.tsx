@@ -27,7 +27,7 @@ function HorizontalCarousel<T>({
   renderItem,
   keyExtractor,
   headerWidth,
-}: CarouselProps<T>) {
+}: HorizontalCarouselProps<T>) {
   const flatListRef = useRef<FlatList<T>>(null);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [contentWidth, setContentWidth] = useState(0);

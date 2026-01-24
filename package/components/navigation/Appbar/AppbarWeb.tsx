@@ -11,7 +11,7 @@ import MobileMenuDrawer from './MobileMenuDrawer';
 type AppbarProps = {
   title?: string;
   logoUri?: string;
-  tabs?: JSX.Element | JSX.Element[];
+  tabs?: React.ReactElement | React.ReactElement[];
   currentRoute?: string;
   onNavigate?: (route: string) => void;
   hideTabs?: boolean;

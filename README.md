@@ -1,6 +1,6 @@
 # zero-to-app
 
-A React Native design system with a CLI tool to install and use components in your projects.
+A React Native design system you install as an npm package.
 
 🌐 **Components Demos:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
 
@@ -9,25 +9,13 @@ A React Native design system with a CLI tool to install and use components in yo
 Install zero-to-app into your React Native or Expo project:
 
 ```bash
-npx zero-to-app
+pnpm add zero-to-app
 ```
 
-This command will:
-1. Download the latest design system package from GitHub
-2. Copy it to `./zero-to-app/` in your project directory
-3. Automatically install any missing dependencies
-
-### Installation Options
+Or with npm:
 
 ```bash
-# Force overwrite existing directory
-npx zero-to-app --force
-
-# Skip dependency installation
-npx zero-to-app --skip-install
-
-# Use specific package manager
-npx zero-to-app --package-manager yarn
+npm install zero-to-app
 ```
 
 ## Quick Start
@@ -37,7 +25,7 @@ npx zero-to-app --package-manager yarn
 In your root layout file (e.g., `app/_layout.tsx` or `App.tsx`):
 
 ```typescript
-import { ZeroToApp, createBrand } from './zero-to-app';
+import { ZeroToApp, createBrand } from 'zero-to-app';
 
 export default function Root() {
   const brand = createBrand({
@@ -76,7 +64,7 @@ export default function Root() {
 ### 2. Use Components in Your App
 
 ```typescript
-import { StyledText, Button, Card, useDimensions } from './zero-to-app';
+import { StyledText, Button, Card, useDimensions } from 'zero-to-app';
 
 function MyComponent() {
   const dimensions = useDimensions();

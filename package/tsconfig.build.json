@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "module": "commonjs",
+    "module": "esnext",
     "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,

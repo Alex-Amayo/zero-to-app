@@ -63,5 +63,16 @@
     "typescript": "~5.9.2",
     "vite": "^7.1.12"
   },
+  "resolutions": {
+    "react-docgen-typescript": "2.2.2"
+  },
+  "overrides": {
+    "react-docgen-typescript": "2.2.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-docgen-typescript": "2.2.2"
+    }
+  },
   "private": true
 }

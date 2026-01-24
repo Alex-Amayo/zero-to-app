@@ -19,7 +19,7 @@
     "storybook:web": "pnpm dev:storybook:web",
     "storybook:build": "pnpm --filter zero-to-app-storybook build-storybook",
     "build": "pnpm --filter zero-to-app run build",
-    "publish": "pnpm run build && pnpm --filter zero-to-app publish --access public --no-git-checks",
+    "release": "pnpm run build && pnpm --filter zero-to-app publish --access public --no-git-checks",
     "lint": "pnpm --filter zero-to-app-showcase lint",
     "lint:fix": "pnpm --filter zero-to-app-showcase lint -- --fix"
   },

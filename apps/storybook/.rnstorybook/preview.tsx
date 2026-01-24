@@ -1,6 +1,9 @@
+import React from "react";
 import { withBackgrounds } from "@storybook/addon-ondevice-backgrounds";
 import type { Preview } from "@storybook/react-native";
 import { Platform } from "react-native";
+import { ZeroToApp } from "zero-to-app";
+import { storybookBrand } from "../.storybook/brandConfig";
 
 // fix for actions on web
 if (Platform.OS === "web") {
@@ -10,8 +13,14 @@ if (Platform.OS === "web") {
   global.UpdatePropsManager = {};
 }
 
+const withZeroToApp = (Story: React.ComponentType) => (
+  <ZeroToApp brand={storybookBrand}>
+    <Story />
+  </ZeroToApp>
+);
+
 const preview: Preview = {
-  decorators: [withBackgrounds],
+  decorators: [withZeroToApp, withBackgrounds],
 
   parameters: {
     backgrounds: {

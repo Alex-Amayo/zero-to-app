@@ -1,6 +1,6 @@
 # zero-to-app monorepo
 
-Monorepo for the `zero-to-app` React Native design system package. The publishable package lives in `package/`.
+Monorepo for the `zero-to-app` React Native design system package. The publishable package lives in `zero-to-app/`.
 
 🌐 **Components Demos:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
 
@@ -88,7 +88,7 @@ function MyComponent() {
 
 ## Documentation
 
-- **Component Documentation**: See [`package/README.md`](package/README.md) for complete component reference
+- **Component Documentation**: See [`zero-to-app/README.md`](zero-to-app/README.md) for complete component reference
 
 ## Requirements
 
@@ -106,7 +106,7 @@ The design system depends on these packages:
 
 This is a monorepo containing:
 
-- **`package/`** - The core design system package (published as `zero-to-app`)
+- **`zero-to-app/`** - The core design system package (published as `zero-to-app`)
 - **`apps/storybook/`** - Storybook (web + Expo) for component development
 - **`apps/demo/`** - Demo Expo app showcasing components
 
@@ -119,10 +119,10 @@ For contributors working on this repository:
 pnpm install
 
 # Run demo app
-pnpm dev
+pnpm demo
 
-# Build CLI
-pnpm build:cli
+# Build package
+pnpm build
 ```
 
 ## License

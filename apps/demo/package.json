@@ -44,7 +44,7 @@
     "react-native-screens": "~4.16.0",
     "react-native-web": "~0.21.0",
     "react-native-worklets": "0.5.1",
-    "zero-to-app": "^1.0.0",
+    "zero-to-app": "workspace:*",
     "zod": "^3.22.0"
   },
   "devDependencies": {

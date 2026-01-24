@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  react-docgen-typescript: 2.2.2
+
 importers:
 
   .: {}
@@ -111,7 +114,7 @@ importers:
         version: 0.5.1(@babel/core@7.28.6)(react-native@0.81.5(@babel/core@7.28.6)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       zero-to-app:
         specifier: workspace:*
-        version: link:../../package
+        version: link:../../zero-to-app
       zod:
         specifier: ^3.22.0
         version: 3.25.76
@@ -202,7 +205,7 @@ importers:
         version: 0.5.1(@babel/core@7.28.6)(react-native@0.81.5(@babel/core@7.28.6)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       zero-to-app:
         specifier: workspace:*
-        version: link:../../package
+        version: link:../../zero-to-app
     devDependencies:
       '@babel/core':
         specifier: ^7.24.0
@@ -265,7 +268,7 @@ importers:
         specifier: ^7.1.12
         version: 7.3.1(@types/node@20.19.30)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2)
 
-  package:
+  zero-to-app:
     dependencies:
       '@expo/vector-icons':
         specifier: '*'
@@ -4827,13 +4830,8 @@ packages:
   react-devtools-core@6.1.5:
     resolution: {integrity: sha512-ePrwPfxAnB+7hgnEr8vpKxL9cmnp7F322t8oqcPshbIQQhDKgFDW4tjhF2wjVbdXF9O/nyuy3sQWd9JGpiLPvA==}
 
-  react-docgen-typescript@1.22.0:
-    resolution: {integrity: sha512-MPLbF8vzRwAG3GcjdL+OHQlhgtWsLTXs+7uJiHfEeT3Ur7IsZaNYqRTLQ9sj2nB6M6jylcPCeCmH7qbszJmecg==}
-    peerDependencies:
-      typescript: '>= 3.x'
-
-  react-docgen-typescript@2.4.0:
-    resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
+  react-docgen-typescript@2.2.2:
+    resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
     peerDependencies:
       typescript: '>= 4.3.x'
 
@@ -7461,7 +7459,7 @@ snapshots:
   '@joshwooding/vite-plugin-react-docgen-typescript@0.6.3(typescript@5.9.3)(vite@7.3.1(@types/node@20.19.30)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))':
     dependencies:
       glob: 11.1.0
-      react-docgen-typescript: 2.4.0(typescript@5.9.3)
+      react-docgen-typescript: 2.2.2(typescript@5.9.3)
       vite: 7.3.1(@types/node@20.19.30)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2)
     optionalDependencies:
       typescript: 5.9.3
@@ -8801,7 +8799,7 @@ snapshots:
   babel-plugin-react-docgen-typescript@1.5.1(@babel/core@7.28.6)(typescript@5.9.3):
     dependencies:
       '@babel/core': 7.28.6
-      react-docgen-typescript: 1.22.0(typescript@5.9.3)
+      react-docgen-typescript: 2.2.2(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
@@ -11123,11 +11121,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  react-docgen-typescript@1.22.0(typescript@5.9.3):
-    dependencies:
-      typescript: 5.9.3
-
-  react-docgen-typescript@2.4.0(typescript@5.9.3):
+  react-docgen-typescript@2.2.2(typescript@5.9.3):
     dependencies:
       typescript: 5.9.3
 

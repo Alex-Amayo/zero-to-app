@@ -1,3 +1,3 @@
 packages:
-  - 'package'
+  - 'zero-to-app'
   - 'apps/*'

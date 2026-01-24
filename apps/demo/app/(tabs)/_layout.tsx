@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React, { useContext } from 'react';
 
 import { HapticTab } from '../../components/haptic-tab';
-import { IconSymbol } from '../../components/ui/icon-symbol';
+import { IconSymbol } from '../../components/icon-symbol';
 import { ThemeContext } from 'zero-to-app';
 
 export default function TabLayout() {

@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { AppbarWeb, Button, ThemeContext } from 'zero-to-app';
 
 import { HapticTab } from '../../components/haptic-tab';
-import { IconSymbol } from '../../components/ui/icon-symbol';
+import { IconSymbol } from '../../components/icon-symbol';
 
 export default function TabLayout() {
   const theme = useContext(ThemeContext);

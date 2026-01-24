@@ -3,18 +3,15 @@ import {
   View,
   Pressable,
   StyleSheet,
-  FlatList,
-  ListRenderItem,
   LayoutRectangle,
-  ListRenderItemInfo,
 } from 'react-native';
-import { StyledText } from '../../ui/text/StyledText';
+import { StyledText } from '../ui';
 import { useBrand } from '../../brand';
 import Feather from '@expo/vector-icons/Feather';
 import { ThemeContext } from '../../theme';
-import { Card } from '../../ui/container/Card';
-import { ListButton } from '../../ui/container/ListButton';
-import { ListDivider } from '../../ui/container/ListDivider';
+import { Card } from '../Card';
+import { ListButton } from '../List';
+import { ListDivider } from '../List';
 import { FlashList } from '@shopify/flash-list';
 
 interface Option {
@@ -22,13 +19,13 @@ interface Option {
   value: string;
 }
 
-interface DropdownSelectProps {
+interface DropDownSelectProps {
   options: Option[]; // Options passed as prop
   initialValue: string;
   onSelect: (value: string) => void; // Callback to notify parent of the selected value
 }
 
-const DropdownSelect = ({ options, onSelect, initialValue }: DropdownSelectProps) => {
+const DropDownSelect = ({ options, onSelect, initialValue }: DropDownSelectProps) => {
   const [selectedValue, setSelectedValue] = useState<string>(initialValue);
   const [isDropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const [buttonLayout, setButtonLayout] = useState<LayoutRectangle | null>(null);
@@ -121,4 +118,4 @@ const DropdownSelect = ({ options, onSelect, initialValue }: DropdownSelectProps
   );
 };
 
-export default DropdownSelect;
+export default DropDownSelect;

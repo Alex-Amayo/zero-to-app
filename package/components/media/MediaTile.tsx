@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, Image, Pressable, StyleSheet, ImageSourcePropType, ViewStyle, ImageStyle } from 'react-native';
-import { StyledText } from '../../ui/text/StyledText';
+import { StyledText } from '../ui';
 import { useBrand } from '../../brand';
 import { useBreakpoints } from '../../hooks/useWindowWidth';
 

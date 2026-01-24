@@ -2,7 +2,7 @@ import React, { useContext, PropsWithChildren, ReactElement, useMemo } from 'rea
 import { ScrollView, StyleSheet, View, Platform } from 'react-native';
 import { ThemeContext } from '../../theme';
 import { useDimensions } from '../../hooks';
-import { Footer } from './footer';
+import Footer from './Footer';
 import { useWindowDimensions } from 'react-native';
 import { useBrand } from '../../brand';
 

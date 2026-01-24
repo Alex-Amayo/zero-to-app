@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, Pressable, View } from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import { ThemeContext } from '../../theme';
-import { StyledText } from '../../ui/text/StyledText';
+import { StyledText } from '../ui';
 
 type IconLibrary = keyof typeof Icons;
 

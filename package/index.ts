@@ -2,7 +2,6 @@
 // Re-export everything from submodules
 export * from './brand';
 export * from './theme';
-export * from './ui';
 export * from './components';
 // Chat components are now exported via components
 export * from './hooks';

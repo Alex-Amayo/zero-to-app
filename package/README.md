@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-React Native design system with theme-aware UI primitives, responsive utilities, and brand configuration. Exports 30+ components (buttons, inputs, cards, forms, feedback) plus theme context, hooks, and brand tokens. Cross-platform (iOS, Android, Web). Wrap app root with `<ZeroToApp brand={createBrand({...})}>` to enable theming and brand context. All brand values must be provided at app level - no defaults are included. Use `useBrand()` hook to access brand values in components. All exports from `'zero-to-app'`.
+React Native design system with theme-aware UI components, responsive utilities, and brand configuration. Exports 30+ components (buttons, inputs, cards, forms, feedback) plus theme context, hooks, and brand tokens. Cross-platform (iOS, Android, Web). Wrap app root with `<ZeroToApp brand={createBrand({...})}>` to enable theming and brand context. All brand values must be provided at app level - no defaults are included. Use `useBrand()` hook to access brand values in components. All exports from `'zero-to-app'`.
 
 ---
 
@@ -125,16 +125,40 @@ This change makes the design system fully reusable - no embedded brand assumptio
 |-----------|---------|
 | `brand/` | Brand configuration (colors, fonts, spacing, logos, navigation, footer links) |
 | `theme/` | Theme system (light/dark themes, `ZeroToApp` provider) |
-| `ui/` | UI primitives (text, button, input, container, form, feedback) |
-| `components/` | Higher-level composite components (layout, navigation, media, chat) |
+| `components/` | All components (composite + UI entrypoints) |
+| `components/ui/` | UI components (Text, Button, Input, Feedback) |
 | `hooks/` | Custom hooks (`useDimensions`, `useWindowWidth`, `useWindowHeight`) |
-| `spacing/` | Spacing utilities |
+| `context/` | Scroll context utilities |
 
 ---
 
+## Structure and Exports
+
+### Module Map
+
+- **UI:** `ui` (Button, StyledText, StyledTextInput, ErrorBoundary, etc.)
+- **Composite:** `components/action`, `components/chat`, `components/form`, `components/layout`, `components/media`, `components/navigation`, `components/List`, `components/Card`, `components/Tile`
+- **Utilities:** `brand`, `theme`, `hooks`, `context`
+
+### Import Examples
+
+```typescript
+import { Button, StyledText } from 'zero-to-app';
+```
+
+```typescript
+import { Button } from 'zero-to-app/ui/Button';
+import { List, ListButton } from 'zero-to-app/components/List';
+```
+
+```typescript
+import { FeatureCard } from 'zero-to-app/components/media';
+import { AppbarWeb } from 'zero-to-app/components/navigation';
+```
+
 ## Component Index
 
-### UI Primitives
+### UI Components
 
 | Component | Import | Key Props |
 |-----------|--------|-----------|
@@ -146,14 +170,6 @@ This change makes the design system fully reusable - no embedded brand assumptio
 | `BlurButton` | Default | `onPress`, `children`, `intensity`, `tint` |
 | `ArrowButton` | Default | `direction`, `onPress`, `hidden` |
 | `StyledTextInput` | Default | `value`, `onChangeText`, `inputHeight`, `onKeyDown` |
-| `Card` | Default | `children` |
-| `List` | Default | `children` |
-| `ListButton` | Default | `text`, `icon`, `onPress`, `uppercase` |
-| `ListDivider` | Default | - |
-| `Tile` | Default | `imageUrl`, `title`, `subtitle`, `onPress`, `width`, `imageHeight` |
-| `FormInput` | Default | `control`, `name`, `placeholder`, `error`, `secureTextEntry`, `keyboardType` |
-| `FormErrors` | Default | `error`, `clearError` |
-| `FormSeparator` | Default | `text` |
 | `LoadingIndicator` | Default | - |
 | `NotificationBadge` | Named | `count`, `maxCount` |
 | `ErrorBoundary` | Default | Standard ErrorBoundary props |
@@ -166,7 +182,12 @@ This change makes the design system fully reusable - no embedded brand assumptio
 | `WebPageLayout` | Default | Layout |
 | `ParallaxScrollView` | Default | Layout |
 | `Footer`, `MinimalFooter`, `MobileFooterBar` | Named | Layout |
-| `ScreenHeader` | Default | Navigation |
+| `Card` | Default | Container |
+| `Tile` | Default | Container |
+| `List` | Default | Container |
+| `ListButton` | Default | Container |
+| `ListDivider` | Default | Container |
+| `ScreenHeader` | Named | Navigation |
 | `AppbarWeb` | Default | Navigation |
 | `IconButtonGroup` | Default | Navigation |
 | `Logo` | Default | Navigation |
@@ -178,6 +199,9 @@ This change makes the design system fully reusable - no embedded brand assumptio
 | `SkeletonMediaTile` | Named | Media |
 | `DropDownSelect` | Default | Form |
 | `EmailSubscriptionForm` | Default | Form |
+| `FormInput` | Default | Form |
+| `FormErrors` | Default | Form |
+| `FormSeparator` | Default | Form |
 | `ActionRow` | Named | Action |
 | `ChatContainer` | Default | Chat |
 | `ChatMessages` | Default | Chat |
@@ -832,7 +856,7 @@ Edit `theme/themeConfig.ts` to customize:
 
 ### Component Customization
 
-- **UI Primitives:** Edit files in `ui/{category}/` (e.g., `ui/button/Button.tsx`)
+- **UI Components:** Edit files in `components/ui/` (e.g., `components/ui/Button.tsx`)
 - **Composite Components:** Edit files in `components/{category}/` (e.g., `components/layout/WebPageLayout.tsx`)
 
 ---

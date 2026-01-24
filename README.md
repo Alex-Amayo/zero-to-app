@@ -1,6 +1,6 @@
-# zero-to-app
+# zero-to-app monorepo
 
-A React Native design system you install as an npm package.
+Monorepo for the `zero-to-app` React Native design system package. The publishable package lives in `package/`.
 
 🌐 **Components Demos:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
 
@@ -89,11 +89,10 @@ function MyComponent() {
 ## Documentation
 
 - **Component Documentation**: See [`package/README.md`](package/README.md) for complete component reference
-- **CLI Documentation**: See [`cli/README.md`](cli/README.md) for CLI options and details
 
 ## Requirements
 
-The CLI will automatically install these dependencies if they're missing:
+The design system depends on these packages:
 - `react-hook-form` - Form validation
 - `@hookform/resolvers` - Form validation resolvers
 - `zod` - Schema validation
@@ -107,8 +106,8 @@ The CLI will automatically install these dependencies if they're missing:
 
 This is a monorepo containing:
 
-- **`package/`** - The core design system package (installed into your project)
-- **`cli/`** - The CLI installation tool
+- **`package/`** - The core design system package (published as `zero-to-app`)
+- **`apps/storybook/`** - Storybook (web + Expo) for component development
 - **`apps/demo/`** - Demo Expo app showcasing components
 
 ## Development

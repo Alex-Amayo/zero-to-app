@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ThemeContext } from '../../theme';
 import { useBrand } from '../../brand';
-import { StyledText } from '../../ui/text/StyledText';
+import { StyledText } from '../ui';
 
 interface MessageProps {
   text: string;

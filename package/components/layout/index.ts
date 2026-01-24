@@ -5,5 +5,7 @@ export { default as ParallaxScrollView, HEADER_HEIGHT } from './ParallaxScrollVi
 export { default as WebPageLayout } from './WebPageLayout';
 
 // Footer components
-export * from './footer';
+export { default as Footer } from './Footer';
+export { default as MinimalFooter } from './MinimalFooter';
+export { default as MobileFooterBar } from './MobileFooterBar';
 

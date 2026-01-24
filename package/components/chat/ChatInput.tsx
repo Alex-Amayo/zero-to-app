@@ -9,7 +9,7 @@ import {
   TextInputContentSizeChangeEventData,
   ActivityIndicator,
 } from 'react-native';
-import { IconButton } from '../../ui';
+import { IconButton } from '../ui';
 import { useBrand } from '../../brand';
 import { ThemeContext } from '../../theme';
 

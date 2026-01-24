@@ -2,7 +2,7 @@
 
 When working with UI components, theming, or layout in this React Native project:
 - Read zero-to-app/README.md for the complete component API
-- All UI primitives are exported from 'zero-to-app'
+- All UI components are exported from 'zero-to-app'
 - Wrap app root with <ZeroToApp brand={createBrand({...})}> for theme and brand context
 - Brand configuration is REQUIRED - all values (name, colors, fontSizes, spacing, borderRadius) must be provided when calling createBrand()
 - Optional brand config: logo, footerLinks, navigation - if not provided, those components won't show links/items

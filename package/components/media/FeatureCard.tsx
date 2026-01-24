@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import { Image } from 'expo-image';
-import { StyledText } from '../../ui/text';
-import { BlurButton } from '../../ui/button';
+import { StyledText, BlurButton } from '../ui';
 import { useBrand } from '../../brand';
 import { ThemeContext } from '../../theme';
 

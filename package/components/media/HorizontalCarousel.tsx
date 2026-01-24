@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import { ArrowButton } from '../../ui/button';
+import { ArrowButton } from '../ui';
 import { useDimensions, breakpoints } from '../../hooks';
 
 interface HorizontalCarouselProps<T> {

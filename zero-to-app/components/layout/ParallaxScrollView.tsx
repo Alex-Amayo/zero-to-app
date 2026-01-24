@@ -11,7 +11,7 @@ import Animated, {
   type SharedValue,
 } from "react-native-reanimated";
 
-import { useScrollContext } from "../../context/scroll-context";
+import { useScrollContext } from "../../context/scrollContext";
 import { ThemeContext } from "../../theme";
 
 export const HEADER_HEIGHT = 250;

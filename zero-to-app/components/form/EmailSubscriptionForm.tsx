@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { ThemeContext } from '../../theme';
 import { StyledText, Button } from '../ui';
-import { Card } from '../Card';
+import { Card } from '../card';
 import { useBrand } from '../../brand';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';

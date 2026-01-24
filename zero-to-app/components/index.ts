@@ -6,7 +6,7 @@ export * from './media';
 export * from './form';
 export * from './action';
 export * from './chat';
-export * from './Card';
-export * from './List';
-export * from './Tile';
+export * from './card';
+export * from './list';
+export * from './tile';
 

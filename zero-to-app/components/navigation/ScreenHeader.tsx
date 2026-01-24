@@ -7,7 +7,7 @@ import Animated, {
 	Extrapolation,
 	type SharedValue,
 } from "react-native-reanimated";
-import { useScrollContext } from "../../context/scroll-context";
+import { useScrollContext } from "../../context/scrollContext";
 import { BlurView } from "expo-blur";
 import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { useCallback, useContext } from "react";

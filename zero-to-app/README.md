@@ -137,7 +137,7 @@ This change makes the design system fully reusable - no embedded brand assumptio
 ### Module Map
 
 - **UI:** `ui` (Button, StyledText, StyledTextInput, ErrorBoundary, etc.)
-- **Composite:** `components/action`, `components/chat`, `components/form`, `components/layout`, `components/media`, `components/navigation`, `components/List`, `components/Card`, `components/Tile`
+- **Composite:** `components/action`, `components/chat`, `components/form`, `components/layout`, `components/media`, `components/navigation`, `components/list`, `components/card`, `components/tile`
 - **Utilities:** `brand`, `theme`, `hooks`, `context`
 
 ### Import Examples
@@ -148,7 +148,7 @@ import { Button, StyledText } from 'zero-to-app';
 
 ```typescript
 import { Button } from 'zero-to-app/ui/Button';
-import { List, ListButton } from 'zero-to-app/components/List';
+import { List, ListButton } from 'zero-to-app/components/list';
 ```
 
 ```typescript

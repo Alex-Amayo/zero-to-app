@@ -9,9 +9,9 @@ import { StyledText } from '../ui';
 import { useBrand } from '../../brand';
 import Feather from '@expo/vector-icons/Feather';
 import { ThemeContext } from '../../theme';
-import { Card } from '../Card';
-import { ListButton } from '../List';
-import { ListDivider } from '../List';
+import { Card } from '../card';
+import { ListButton } from '../list';
+import { ListDivider } from '../list';
 import { FlashList } from '@shopify/flash-list';
 
 interface Option {

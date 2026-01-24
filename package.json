@@ -9,10 +9,10 @@
   ],
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
-    "dev": "pnpm --filter zero-to-app-showcase start",
-    "dev:storybook": "pnpm --filter zero-to-app-storybook storybook",
+    "dev": "pnpm --filter zero-to-app-storybook storybook",
+    "dev:storybook": "pnpm dev",
     "dev:storybook:web": "pnpm --filter zero-to-app-storybook storybook:web",
-    "demo": "pnpm dev",
+    "demo": "pnpm --filter zero-to-app-showcase start",
     "demo:ios": "pnpm --filter zero-to-app-showcase ios",
     "demo:android": "pnpm --filter zero-to-app-showcase android",
     "demo:web": "pnpm --filter zero-to-app-showcase web",

@@ -7,14 +7,14 @@ import { createBrand } from './brandConfig';
 export const defaultBrand = createBrand({
   name: 'Zero to App',
   colors: {
-    primary: '#000000',
-    secondary: '#666666',
+    primary: '#2563EB',
+    secondary: '#6B7280',
     backgroundColor: '#fff',
     buttonText: '#FFFFFF',
   },
   logo: {
-    light: require('../assets/images/logo.png'),
-    dark: require('../assets/images/logo.png'),
+    light: '../assets/images/logo.png',
+    dark: '../assets/images/logo.png',
   },
   fontSizes: {
     small: 14,

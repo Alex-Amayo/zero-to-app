@@ -1,16 +1,60 @@
 import { createBrand } from './brandConfig';
 
 /**
- * Default brand configuration for zero-to-app.
- * This can be used as-is for demos, storybook, or as a starting point for custom brands.
+ * Default brand configuration using Material Design 3 reference colors.
+ * Uses Material Design 3 standard purple (#6750A4 light, #D0BCFF dark).
+ * Can be used as-is for demos, storybook, or as a starting point for custom brands.
+ * Reference: https://m3.material.io/styles/color/the-color-system/color-roles
  */
 export const defaultBrand = createBrand({
   name: 'Zero to App',
   colors: {
-    primary: '#2563EB',
-    secondary: '#6B7280',
-    backgroundColor: '#fff',
-    buttonText: '#FFFFFF',
+    // Primary colors - Material Design 3 purple reference
+    primary: '#6750A4',
+    onPrimary: '#FFFFFF',
+    primaryContainer: '#EADDFF',
+    onPrimaryContainer: '#21005E',
+
+    // Secondary colors - Material Design 3 purple
+    secondary: '#625B71',
+    onSecondary: '#FFFFFF',
+    secondaryContainer: '#E8DEF8',
+    onSecondaryContainer: '#1D192B',
+
+    // Tertiary colors - Material Design 3 teal
+    tertiary: '#7D5260',
+    onTertiary: '#FFFFFF',
+    tertiaryContainer: '#FFD8E4',
+    onTertiaryContainer: '#31111D',
+
+    // Error colors
+    error: '#B3261E',
+    onError: '#FFFFFF',
+    errorContainer: '#F9DEDC',
+    onErrorContainer: '#410E0B',
+
+    // Surface colors
+    surface: '#FFFBFE',
+    onSurface: '#1C1B1F',
+    onSurfaceVariant: '#49454E',
+    surfaceContainerLowest: '#FFFFFF',
+    surfaceContainerLow: '#F7F2FA',
+    surfaceContainer: '#F3EEF5',
+    surfaceContainerHigh: '#ECE6F0',
+    surfaceContainerHighest: '#E6E1E5',
+
+    // Outline colors
+    outline: '#79747E',
+    outlineVariant: '#CAC7D0',
+
+    // Inverse colors
+    inverseSurface: '#313033',
+    inverseOnSurface: '#F5EFF7',
+    inversePrimary: '#D0BCFF',
+
+    // Semantic tokens
+    scrim: '#000000',
+    shadow: '#000000',
   },
   logo: {
     light: '../assets/images/logo.png',

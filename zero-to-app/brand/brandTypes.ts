@@ -4,11 +4,58 @@ import { ImageSourcePropType } from 'react-native';
 export type Name = string;
 export type BorderRadius = number;
 
+/**
+ * Material Design 3 color tokens - 26 core tokens
+ * All colors should be accessible with minimum 3:1 contrast for text on colors
+ * Reference: https://m3.material.io/styles/color/the-color-system/color-roles
+ */
 export interface Colors {
+  // Primary accent colors (4 tokens)
   primary: string;
+  onPrimary: string;
+  primaryContainer: string;
+  onPrimaryContainer: string;
+
+  // Secondary accent colors (4 tokens)
   secondary: string;
-  backgroundColor: string;
-  buttonText?: string;
+  onSecondary: string;
+  secondaryContainer: string;
+  onSecondaryContainer: string;
+
+  // Tertiary accent colors (4 tokens)
+  tertiary: string;
+  onTertiary: string;
+  tertiaryContainer: string;
+  onTertiaryContainer: string;
+
+  // Error colors (4 tokens)
+  error: string;
+  onError: string;
+  errorContainer: string;
+  onErrorContainer: string;
+
+  // Surface colors with hierarchy (8 tokens)
+  surface: string;
+  onSurface: string;
+  onSurfaceVariant: string;
+  surfaceContainerLowest: string;
+  surfaceContainerLow: string;
+  surfaceContainer: string;
+  surfaceContainerHigh: string;
+  surfaceContainerHighest: string;
+
+  // Outline colors (2 tokens)
+  outline: string;
+  outlineVariant: string;
+
+  // Inverse colors (3 tokens)
+  inverseSurface: string;
+  inverseOnSurface: string;
+  inversePrimary: string;
+
+  // Semantic tokens (2 tokens)
+  scrim: string;
+  shadow: string;
 }
 
 export interface FontSizes {

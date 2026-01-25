@@ -3,45 +3,16 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
 
-import { ZeroToApp, createBrand } from 'zero-to-app';
+import { ZeroToApp, defaultBrand } from 'zero-to-app';
 
 export const unstable_settings = {
   anchor: '(tabs)',
 };
 
-const brand = createBrand({
-  name: 'Demo App',
-  colors: {
-    primary: '#ff5757',
-    secondary: '#ff5757',
-    backgroundColor: '#fff',
-  },
-  fontSizes: {
-    small: 14,
-    medium: 16,
-    large: 20,
-    xlarge: 25,
-  },
-  spacing: {
-    xs: 4,
-    sm: 8,
-    md: 12,
-    lg: 16,
-    xl: 20,
-    xxl: 24,
-    xxxl: 40,
-  },
-  borderRadius: 8,
-  logo: {
-    light: require('../assets/images/logo.png'),
-    dark: require('../assets/images/logo.png'),
-  },
-});
-
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <ZeroToApp brand={brand}>
+      <ZeroToApp brand={defaultBrand}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />

@@ -8,6 +8,7 @@ export interface Colors {
   primary: string;
   secondary: string;
   backgroundColor: string;
+  buttonText?: string;
 }
 
 export interface FontSizes {

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react-native";
 import { View, StyleSheet } from "react-native";
 import { Button } from "zero-to-app";
 
-// Mock function for onPress handler
 const mockOnPress = () => {
   console.log("Button pressed");
 };
@@ -19,18 +18,22 @@ const meta = {
       control: "text",
       description: "Button text label",
     },
-    secondary: {
-      control: "boolean",
-      description: "Use secondary (outlined) style",
+    variant: {
+      control: "select",
+      options: ["default", "secondary", "outline", "destructive"],
+      description: "Button variant style",
     },
     loading: {
       control: "boolean",
       description: "Show loading spinner",
     },
-    iconPosition: {
-      control: "select",
-      options: ["left", "right"],
-      description: "Position of the icon relative to text",
+    disabled: {
+      control: "boolean",
+      description: "Disable button interactions",
+    },
+    raised: {
+      control: "boolean",
+      description: "Add shadow/elevation to button",
     },
     onPress: {
       action: "pressed",
@@ -50,23 +53,40 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+// Variants
+export const Default: Story = {
   args: {
-    title: "Primary Button",
-    secondary: false,
+    title: "Default Button",
+    variant: "default",
   },
 };
 
 export const Secondary: Story = {
   args: {
     title: "Secondary Button",
-    secondary: true,
+    variant: "secondary",
   },
 };
 
-export const WithIcon: Story = {
+export const Outline: Story = {
   args: {
-    title: "Button with Icon",
+    title: "Outline Button",
+    variant: "outline",
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    title: "Delete",
+    variant: "destructive",
+  },
+};
+
+// With Icons
+export const WithIconRight: Story = {
+  args: {
+    title: "Next",
+    variant: "default",
     icon: {
       library: "Feather",
       name: "arrow-right",
@@ -78,7 +98,8 @@ export const WithIcon: Story = {
 
 export const WithIconLeft: Story = {
   args: {
-    title: "Button with Icon",
+    title: "Back",
+    variant: "outline",
     icon: {
       library: "Feather",
       name: "arrow-left",
@@ -88,18 +109,28 @@ export const WithIconLeft: Story = {
   },
 };
 
+// States
 export const Loading: Story = {
   args: {
-    title: "Loading Button",
+    title: "Loading...",
+    variant: "default",
     loading: true,
   },
 };
 
-export const SecondaryLoading: Story = {
+export const Disabled: Story = {
   args: {
-    title: "Loading Secondary",
-    secondary: true,
-    loading: true,
+    title: "Disabled",
+    variant: "default",
+    disabled: true,
+  },
+};
+
+export const Raised: Story = {
+  args: {
+    title: "Raised Button",
+    variant: "default",
+    raised: true,
   },
 };
 

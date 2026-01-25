@@ -1,5 +1,7 @@
 # zero-to-app monorepo
 
+[![CI](https://github.com/Alex-Amayo/zero-to-app/actions/workflows/ci.yml/badge.svg)](https://github.com/Alex-Amayo/zero-to-app/actions/workflows/ci.yml)
+
 Monorepo for the `zero-to-app` React Native design system package. The publishable package lives in `zero-to-app/`.
 
 🌐 **Components Demos:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
@@ -174,6 +176,33 @@ pnpm lint:fix               # Lint and fix issues
 pnpm typecheck              # Run TypeScript checks
 pnpm clean                  # Remove build artifacts
 ```
+
+## CI/CD
+
+This repository uses GitHub Actions for continuous integration and deployment.
+
+### Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| **CI** | Push to `main`, PRs | Lint, typecheck, build |
+| **Preview** | PRs | Deploy demo to preview channel |
+| **Release** | Tag `v*` or manual | Publish to npm + deploy production |
+
+### Required Secrets
+
+To enable automated deployments, add these secrets to your GitHub repository:
+
+| Secret | Purpose | How to get |
+|--------|---------|------------|
+| `EXPO_TOKEN` | EAS deployments | [Expo Access Tokens](https://expo.dev/accounts/[account]/settings/access-tokens) |
+| `NPM_TOKEN` | npm publishing | [npm Access Tokens](https://www.npmjs.com/settings/[username]/tokens) |
+
+### Pre-commit Hooks
+
+This project uses Husky for pre-commit hooks. On each commit:
+- ESLint runs on staged files
+- TypeScript checks run
 
 ## License
 

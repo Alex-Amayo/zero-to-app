@@ -1,6 +1,26 @@
 {
   "name": "zero-to-app",
-  "version": "1.0.1",
+  "version": "2.0.0",
+  "description": "30+ reusable React Native components for iOS, Android, and Web",
+  "license": "MIT",
+  "author": "Alex Amayo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alex-Amayo/zero-to-app.git"
+  },
+  "homepage": "https://zero-to-app.expo.app",
+  "keywords": [
+    "react-native",
+    "expo",
+    "ui-components",
+    "design-system",
+    "cross-platform",
+    "ios",
+    "android",
+    "web",
+    "theming",
+    "components"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {

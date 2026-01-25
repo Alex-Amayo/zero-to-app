@@ -23,7 +23,8 @@
     "lint:fix": "pnpm --filter zero-to-app-showcase lint -- --fix",
     "typecheck": "pnpm -r exec tsc --noEmit",
     "clean": "rm -rf zero-to-app/dist apps/*/dist apps/*/.expo",
-    "help": "node -e \"console.log('\\n📦 Available Scripts\\n\\n🔧 Development:\\n  pnpm dev:storybook          Start Storybook (native Expo)\\n  pnpm dev:storybook:web       Start Storybook web dev server\\n  pnpm dev:demo               Start demo app\\n  pnpm dev:demo:ios            Start demo on iOS\\n  pnpm dev:demo:android        Start demo on Android\\n  pnpm dev:demo:web            Start demo on web\\n\\n🏗️  Build:\\n  pnpm build                   Build zero-to-app package\\n  pnpm build:demo              Build demo web export\\n\\n🚀 Deploy:\\n  pnpm deploy:demo             Publish demo OTA update (production)\\n  pnpm deploy:demo:preview     Publish demo OTA update (preview)\\n\\n📦 Release:\\n  pnpm release                 Publish zero-to-app package to npm\\n\\n✨ Quality:\\n  pnpm lint                    Lint code\\n  pnpm lint:fix                Lint and fix issues\\n  pnpm typecheck               Run TypeScript checks\\n  pnpm clean                   Remove build artifacts\\n\\n')\""
+    "help": "node -e \"console.log('\\n📦 Available Scripts\\n\\n🔧 Development:\\n  pnpm dev:storybook          Start Storybook (native Expo)\\n  pnpm dev:storybook:web       Start Storybook web dev server\\n  pnpm dev:demo               Start demo app\\n  pnpm dev:demo:ios            Start demo on iOS\\n  pnpm dev:demo:android        Start demo on Android\\n  pnpm dev:demo:web            Start demo on web\\n\\n🏗️  Build:\\n  pnpm build                   Build zero-to-app package\\n  pnpm build:demo              Build demo web export\\n\\n🚀 Deploy:\\n  pnpm deploy:demo             Publish demo OTA update (production)\\n  pnpm deploy:demo:preview     Publish demo OTA update (preview)\\n\\n📦 Release:\\n  pnpm release                 Publish zero-to-app package to npm\\n\\n✨ Quality:\\n  pnpm lint                    Lint code\\n  pnpm lint:fix                Lint and fix issues\\n  pnpm typecheck               Run TypeScript checks\\n  pnpm clean                   Remove build artifacts\\n\\n')\"",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -32,5 +33,17 @@
     "overrides": {
       "react-docgen-typescript": "2.2.2"
     }
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  },
+  "lint-staged": {
+    "apps/demo/**/*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{ts,tsx}": [
+      "bash -c 'pnpm typecheck'"
+    ]
   }
 }

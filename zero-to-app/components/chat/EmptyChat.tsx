@@ -10,11 +10,11 @@ import Animated, {
 import { StyledText } from '../ui';
 import { ThemeContext } from '../../theme';
 import { useDimensions } from '../../hooks';
-import ChatInput from './ChatInput';
+import { ChatInput } from './ChatInput';
 
 interface EmptyChatProps {
   isLoading: boolean;
-  sendMessage: (message: string) => void;
+  onSendMessage: (message: string) => void;
   /**
    * Mascot image. Can be an ImageSourcePropType (require) or string URI.
    */
@@ -26,7 +26,7 @@ interface EmptyChatProps {
  * Displays mascot, welcome text, and chat input
  * Layout-agnostic: parent handles WebPageLayout, background, etc.
  */
-const EmptyChat = ({ isLoading, sendMessage, mascotImage }: EmptyChatProps): React.JSX.Element => {
+const EmptyChat = ({ isLoading, onSendMessage, mascotImage }: EmptyChatProps): React.JSX.Element => {
   const theme = useContext(ThemeContext);
   const dimensions = useDimensions();
   
@@ -84,7 +84,7 @@ const EmptyChat = ({ isLoading, sendMessage, mascotImage }: EmptyChatProps): Rea
       <StyledText fontSize={isWeb ? 'lg' : 'md'} align="center" color={theme.values.color}>
         Get personalized recommendations and answers to your nightlife questions.
       </StyledText>
-      <ChatInput isLoading={isLoading} sendMessage={sendMessage} />
+      <ChatInput loading={isLoading} onSendMessage={onSendMessage} />
     </View>
   );
 };

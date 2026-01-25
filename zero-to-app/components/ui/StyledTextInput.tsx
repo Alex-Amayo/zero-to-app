@@ -1,28 +1,52 @@
-import React, { useContext, useMemo } from 'react';
+// 1. IMPORTS
+import React, { forwardRef, useContext, useMemo } from 'react';
 import {
   StyleSheet,
   View,
   TextInput as RNTextInput,
   TextInputProps,
   Platform,
+  type StyleProp,
+  type ViewStyle,
+  type TextStyle,
 } from 'react-native';
 import { useBrand } from '../../brand';
 import { ThemeContext } from '../../theme';
+import type { BaseComponentProps } from '../shared/types';
 
-// Define props for the StyledTextInput component
-interface CustomTextInputProps extends TextInputProps {
-  value: string;
-  inputHeight?: number; // Dynamic height for the input
-  onKeyDown?: (e: any) => void; // Web-specific key handler
+// 2. TYPES
+const MIN_HEIGHT = 40;
+const MAX_HEIGHT = 120;
+
+// Web-specific style properties
+interface WebInputStyle {
+  outlineStyle?: 'none';
+  WebkitAppearance?: 'none';
+  MozAppearance?: 'none';
+  appearance?: 'none';
 }
 
-const StyledTextInput = (props: CustomTextInputProps): React.JSX.Element => {
-  const { value, inputHeight, ...textInputProps } = props;
+export interface StyledTextInputProps extends BaseComponentProps, Omit<TextInputProps, 'style'> {
+  value: string;
+  inputHeight?: number;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  textStyle?: StyleProp<TextStyle>;
+}
+
+// 3. COMPONENT
+const StyledTextInput = forwardRef<RNTextInput, StyledTextInputProps>(({
+  value,
+  inputHeight,
+  style,
+  textStyle,
+  testID,
+  ...textInputProps
+}, ref) => {
   const theme = useContext(ThemeContext);
   const brand = useBrand();
   const currentHeight = inputHeight || MIN_HEIGHT;
   const isSingleLine = currentHeight <= MIN_HEIGHT;
-  
+
   const styles = useMemo(() => StyleSheet.create({
     container: {
       width: '100%',
@@ -34,22 +58,23 @@ const StyledTextInput = (props: CustomTextInputProps): React.JSX.Element => {
     textInput: {
       width: '100%',
       fontSize: brand.fontSizes.medium,
-      borderWidth: 0, // Remove any internal border from the StyledTextInput
+      borderWidth: 0,
       paddingHorizontal: 10,
       paddingVertical: 10,
       minHeight: MIN_HEIGHT,
     },
-    webInput: {
-      // @ts-ignore - Web-specific styles
-      outlineStyle: 'none',
-      WebkitAppearance: 'none',
-      MozAppearance: 'none',
-      appearance: 'none',
-    },
   }), [brand]);
-  
+
+  const webInputStyle: WebInputStyle = Platform.OS === 'web' ? {
+    outlineStyle: 'none',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    appearance: 'none',
+  } : {};
+
   return (
     <View
+      testID={testID}
       style={[
         styles.container,
         {
@@ -59,33 +84,36 @@ const StyledTextInput = (props: CustomTextInputProps): React.JSX.Element => {
             ? theme.values.borderColor
             : theme.values.backgroundColor,
         },
-      ]}>
+        style,
+      ]}
+    >
       <RNTextInput
+        ref={ref}
         {...textInputProps}
-        onKeyPress={props.onKeyPress} // Forward onKeyPress prop
-        onContentSizeChange={props.onContentSizeChange} // Forward onContentSizeChange prop
         value={value}
         multiline={true}
         style={[
           styles.textInput,
           {
             color: theme.values.color,
-            height: inputHeight ? currentHeight : undefined, // Only set height if provided
+            height: inputHeight ? currentHeight : undefined,
             minHeight: MIN_HEIGHT,
             maxHeight: MAX_HEIGHT,
             textAlignVertical: isSingleLine ? 'center' : 'top',
           },
-          Platform.OS === 'web' && styles.webInput,
+          webInputStyle as TextStyle,
+          textStyle,
         ]}
         placeholderTextColor={theme.values.color}
-        // @ts-ignore - onKeyDown is web-specific and not in React Native types
-        onKeyDown={props.onKeyDown}
+        {...(Platform.OS === 'web' && textInputProps.onKeyDown && {
+          onKeyDown: textInputProps.onKeyDown as unknown as undefined,
+        })}
       />
     </View>
   );
-};
+});
 
+StyledTextInput.displayName = 'StyledTextInput';
+
+// 4. EXPORTS
 export { StyledTextInput };
-
-const MIN_HEIGHT = 40;
-const MAX_HEIGHT = 120;

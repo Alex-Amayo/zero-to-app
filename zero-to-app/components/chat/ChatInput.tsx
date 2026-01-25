@@ -1,3 +1,4 @@
+// 1. IMPORTS
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import {
   View,
@@ -8,14 +9,55 @@ import {
   TextInputKeyPressEventData,
   TextInputContentSizeChangeEventData,
   ActivityIndicator,
+  type StyleProp,
+  type ViewStyle,
+  type TextStyle,
 } from 'react-native';
 import { IconButton } from '../ui';
 import { useBrand } from '../../brand';
 import { ThemeContext } from '../../theme';
+import type { BaseComponentProps, LoadableComponentProps } from '../shared/types';
 
-const PLACEHOLDER_COLOR = '#999999'; // Grey color for placeholder text
+// 2. TYPES
+const MIN_HEIGHT = 40;
+const DEFAULT_MAX_HEIGHT = 120;
+const PLACEHOLDER_COLOR = '#999999';
+
+interface WebTextareaStyleInput {
+  paddingHorizontal?: number;
+  paddingLeft?: number;
+  paddingVertical?: number;
+  paddingTop?: number;
+  fontFamily?: string;
+  fontSize?: number;
+  lineHeight?: number | string;
+  color?: string;
+}
+
+interface WebTextareaProps {
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder?: string;
+  placeholderTextColor: string;
+  style: StyleProp<TextStyle>;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  inputHeight: number;
+  setInputHeight: (height: number) => void;
+  isSingleLine: boolean;
+  maxHeight: number;
+  isTyping: boolean;
+  fontSize: number;
+}
+
+export interface ChatInputProps extends BaseComponentProps, LoadableComponentProps {
+  onSendMessage: (message: string) => void;
+  maxHeight?: number;
+}
+
+// 3. INTERNAL COMPONENTS
 
 // Web-specific textarea component for reliable auto-resize
+// Uses type assertions for DOM APIs since this code only runs on web platform
 const WebTextarea = ({
   value,
   onChangeText,
@@ -29,37 +71,23 @@ const WebTextarea = ({
   maxHeight,
   isTyping,
   fontSize,
-}: {
-  value: string;
-  onChangeText: (text: string) => void;
-  placeholder?: string;
-  placeholderTextColor: string;
-  style: any;
-  onKeyDown?: (e: any) => void;
-  inputHeight: number;
-  setInputHeight: (height: number) => void;
-  isSingleLine: boolean;
-  maxHeight: number;
-  isTyping: boolean;
-  fontSize: number;
-}) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+}: WebTextareaProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const textareaRef = useRef<any>(null);
 
   const adjustHeight = React.useCallback(() => {
-    if (textareaRef.current) {
-      // Reset height to auto to get accurate scrollHeight
-      textareaRef.current.style.height = 'auto';
-      const scrollHeight = textareaRef.current.scrollHeight;
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      const scrollHeight = textarea.scrollHeight as number;
       const clampedHeight = Math.max(MIN_HEIGHT, Math.min(scrollHeight, maxHeight));
       setInputHeight(clampedHeight);
-      textareaRef.current.style.height = `${clampedHeight}px`;
+      textarea.style.height = `${clampedHeight}px`;
     }
   }, [maxHeight, setInputHeight]);
 
-  // Only adjust height when user is typing (not in initial dummy state)
   useEffect(() => {
     if (isTyping) {
-      // Use requestAnimationFrame to ensure DOM is ready
       const rafId = requestAnimationFrame(() => {
         adjustHeight();
       });
@@ -67,11 +95,12 @@ const WebTextarea = ({
     }
   }, [value, adjustHeight, isTyping]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleInput = (e: any) => {
     onChangeText(e.target.value);
-    // Height adjustment happens in useEffect
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleKeyDown = (e: any) => {
     if (onKeyDown) {
       onKeyDown(e);
@@ -79,34 +108,36 @@ const WebTextarea = ({
   };
 
   // Flatten style array and extract values
-  const flattenedStyle = Array.isArray(style) 
+  const flattenedStyle: WebTextareaStyleInput = Array.isArray(style)
     ? Object.assign({}, ...style.filter(Boolean))
-    : style || {};
-  
-  // Extract padding values from flattened style
+    : (style as WebTextareaStyleInput) || {};
+
   const paddingHorizontal = flattenedStyle.paddingHorizontal || flattenedStyle.paddingLeft || 10;
   const paddingVertical = flattenedStyle.paddingVertical || flattenedStyle.paddingTop || 10;
-  
-  // Extract color explicitly - it's critical for web
   const textColor = flattenedStyle.color;
 
-  // Set placeholder color via CSS
+  // Set placeholder color via CSS (web-only)
   useEffect(() => {
-    if (textareaRef.current && placeholderTextColor) {
-      const textarea = textareaRef.current;
+    if (Platform.OS !== 'web') return;
+
+    const textarea = textareaRef.current;
+    if (textarea && placeholderTextColor) {
       const styleId = 'chat-input-placeholder-style';
-      let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const doc = (globalThis as any).document;
+      if (!doc) return;
+
+      let styleElement = doc.getElementById(styleId);
       if (!styleElement) {
-        styleElement = document.createElement('style');
+        styleElement = doc.createElement('style');
         styleElement.id = styleId;
-        document.head.appendChild(styleElement);
+        doc.head.appendChild(styleElement);
       }
-      // Use a data attribute to target this specific textarea
       textarea.setAttribute('data-placeholder-color', placeholderTextColor);
       styleElement.textContent = `textarea[data-placeholder-color="${placeholderTextColor}"]::placeholder { color: ${placeholderTextColor} !important; }`;
     }
   }, [placeholderTextColor]);
-  
+
   return React.createElement('textarea', {
     ref: textareaRef,
     value: value,
@@ -120,7 +151,7 @@ const WebTextarea = ({
       fontFamily: flattenedStyle.fontFamily || 'inherit',
       fontSize: flattenedStyle.fontSize || fontSize,
       lineHeight: flattenedStyle.lineHeight || 'inherit',
-      color: textColor || '#000000', // Explicitly set color, don't rely on inherit
+      color: textColor || '#000000',
       backgroundColor: 'transparent',
       border: 'none',
       outline: 'none',
@@ -132,21 +163,19 @@ const WebTextarea = ({
       display: 'inline-block',
       verticalAlign: isSingleLine ? 'middle' : 'top',
       width: '100%',
-      boxSizing: 'border-box',
+      boxSizing: 'border-box' as const,
     },
   });
 };
 
-interface ChatInputProps {
-  isLoading: boolean;
-  sendMessage: (message: string) => void;
-  maxHeight?: number;
-}
-
-const MIN_HEIGHT = 40; // One line height
-const DEFAULT_MAX_HEIGHT = 120; // Maximum height (4-5 lines)
-
-const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: ChatInputProps): React.JSX.Element => {
+// 4. MAIN COMPONENT
+const ChatInput = ({
+  loading = false,
+  onSendMessage,
+  maxHeight = DEFAULT_MAX_HEIGHT,
+  style,
+  testID,
+}: ChatInputProps): React.JSX.Element => {
   const theme = useContext(ThemeContext);
   const brand = useBrand();
   const [message, setMessage] = useState('');
@@ -161,10 +190,10 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
   };
 
   const handleSubmit = () => {
-    if (!isLoading && message.trim()) {
-      sendMessage(message);
+    if (!loading && message.trim()) {
+      onSendMessage(message);
       setMessage('');
-      setInputHeight(MIN_HEIGHT); // Reset height when message is sent
+      setInputHeight(MIN_HEIGHT);
     }
   };
 
@@ -176,7 +205,7 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
   };
 
   // Web: Enter sends message, Shift+Enter creates newline
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (Platform.OS === 'web' && e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
@@ -196,8 +225,27 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
     }
   }, [message]);
 
+  const containerStyle: StyleProp<ViewStyle> = [
+    styles.container,
+    {
+      backgroundColor: theme.values.cardBackgroundColor,
+      borderRadius,
+      ...(!theme.values.isDark && {
+        borderColor: theme.values.borderColor,
+        borderWidth: 1,
+      }),
+    },
+    Platform.OS === 'web' && { maxWidth: 1000 },
+    style,
+  ];
+
   return (
-    <View style={[styles.container, { backgroundColor: theme.values.cardBackgroundColor, borderRadius, ...(!theme.values.isDark && { borderColor: theme.values.borderColor, borderWidth: 1 }) }, Platform.OS === 'web' && { maxWidth: 1000 }]}>
+    <View
+      testID={testID}
+      style={containerStyle}
+      accessibilityRole="none"
+      accessibilityLabel="Chat input area"
+    >
       <View
         style={[
           styles.inputRow,
@@ -205,13 +253,15 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
             backgroundColor: theme.values.cardBackgroundColor,
             borderRadius,
           },
-        ]}>
+        ]}
+      >
         {/* State 1: Not typing - buttons on same row */}
         {!isTyping && (
           <View style={styles.leftActionButtons}>
             <IconButton
               onPress={() => {}}
-              iconName={'plus'}
+              iconName="plus"
+              accessibilityLabel="Add attachment"
             />
           </View>
         )}
@@ -253,6 +303,8 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
                 onKeyPress={handleKeyPress}
                 onContentSizeChange={handleContentSizeChange}
                 multiline={true}
+                accessibilityLabel="Message input"
+                accessibilityHint="Type your message here"
                 style={[
                   styles.textInput,
                   {
@@ -269,22 +321,21 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
         {/* State 1: Not typing - buttons on same row */}
         {!isTyping && (
           <View style={styles.rightActionButtons}>
-            {/* Microphone icon - always visible */}
             <IconButton
               onPress={() => {}}
-              iconName={'mic'}
+              iconName="mic"
+              accessibilityLabel="Voice input"
             />
-
-            {/* Send button */}
             <View style={styles.sendButtonWrapper}>
-              {isLoading ? (
+              {loading ? (
                 <ActivityIndicator size="small" color={brand.colors.primary} />
               ) : (
                 <IconButton
                   onPress={handleSubmit}
-                  iconName={'send'}
-                  color={'#FFFFFF'}
+                  iconName="send"
+                  color="#FFFFFF"
                   backgroundColor={brand.colors.primary}
+                  accessibilityLabel="Send message"
                 />
               )}
             </View>
@@ -298,27 +349,27 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
           <View style={styles.leftActionButtons}>
             <IconButton
               onPress={() => {}}
-              iconName={'plus'}
+              iconName="plus"
+              accessibilityLabel="Add attachment"
             />
           </View>
 
           <View style={styles.rightActionButtons}>
-            {/* Microphone icon */}
             <IconButton
               onPress={() => {}}
-              iconName={'mic'}
+              iconName="mic"
+              accessibilityLabel="Voice input"
             />
-
-            {/* Send button */}
             <View style={styles.sendButtonWrapper}>
-              {isLoading ? (
+              {loading ? (
                 <ActivityIndicator size="small" color={brand.colors.primary} />
               ) : (
                 <IconButton
                   onPress={handleSubmit}
-                  iconName={'send'}
-                  color={'#FFFFFF'}
+                  iconName="send"
+                  color="#FFFFFF"
                   backgroundColor={brand.colors.primary}
+                  accessibilityLabel="Send message"
                 />
               )}
             </View>
@@ -329,6 +380,7 @@ const ChatInput = ({ isLoading, sendMessage, maxHeight = DEFAULT_MAX_HEIGHT }: C
   );
 };
 
+// Static styles - layout structure doesn't depend on theme/brand
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -339,7 +391,7 @@ const styles = StyleSheet.create({
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10 ,
+    gap: 10,
   },
   actionButtonsRow: {
     flexDirection: 'row',
@@ -374,11 +426,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   webInput: {
-    // @ts-ignore - Web-specific styles
-    outlineStyle: 'none',
-    WebkitAppearance: 'none',
-    MozAppearance: 'none',
-    appearance: 'none',
+    // Web-specific styles handled inline in WebTextarea
   },
   sendButtonWrapper: {
     justifyContent: 'center',
@@ -386,4 +434,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatInput;
+// 5. EXPORTS
+export { ChatInput };

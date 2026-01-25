@@ -3,12 +3,12 @@ import { StyleSheet, View, ScrollView, Platform, ImageSourcePropType } from 'rea
 import { useDimensions } from '../../hooks';
 import ChatMessages from './ChatMessages';
 import EmptyChat from './EmptyChat';
-import ChatInput from './ChatInput';
+import { ChatInput } from './ChatInput';
 
 interface ChatContainerProps {
   messages: { text: string; isSent: boolean }[];
   isLoading: boolean;
-  sendMessage: (message: string) => void;
+  onSendMessage: (message: string) => void;
   /**
    * Mascot image for empty chat state. Can be an ImageSourcePropType (require) or string URI.
    */
@@ -28,7 +28,7 @@ interface ChatContainerProps {
 const ChatContainer = ({
   messages,
   isLoading,
-  sendMessage,
+  onSendMessage,
   mascotImage,
   loadingAnimation,
 }: ChatContainerProps): React.JSX.Element => {
@@ -44,7 +44,7 @@ const ChatContainer = ({
 
   // Empty state - show EmptyChat
   if (messages.length === 0) {
-    return <EmptyChat isLoading={isLoading} sendMessage={sendMessage} mascotImage={mascotImage} />;
+    return <EmptyChat isLoading={isLoading} onSendMessage={onSendMessage} mascotImage={mascotImage} />;
   }
 
   // Messages state - show ChatMessages and ChatInput
@@ -55,7 +55,7 @@ const ChatContainer = ({
         <ChatMessages messages={messages} scrollViewRef={scrollViewRef} isLoading={isLoading} loadingAnimation={loadingAnimation} />
       </View>
       <View style={[styles.inputContainer, Platform.OS === 'ios' && { paddingBottom: 100 }]}>
-        <ChatInput isLoading={isLoading} sendMessage={sendMessage} />
+        <ChatInput loading={isLoading} onSendMessage={onSendMessage} />
       </View>
     </View>
   );

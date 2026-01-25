@@ -1,37 +1,72 @@
-import React, { useContext } from 'react';
-import { StyleSheet, Pressable } from 'react-native';
+// 1. IMPORTS
+import React, { forwardRef, useContext } from 'react';
+import { StyleSheet, Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { ThemeContext } from '../../theme';
+import type { InteractiveComponentProps } from '../shared/types';
 
-type IconButtonProps = {
+// 2. TYPES
+export interface IconButtonProps extends InteractiveComponentProps {
   iconName: keyof typeof Feather.glyphMap;
-  onPress: () => void;
   color?: string;
   backgroundColor?: string;
-};
+  size?: number;
+}
 
+// 3. COMPONENT
 /**
  * Renders rounded icon button with icon from expo-vector icons.
  */
-
-const IconButton = ({ iconName, onPress, color, backgroundColor }: IconButtonProps) => {
-  //Initialize theme
+const IconButton = forwardRef<View, IconButtonProps>(({
+  iconName,
+  onPress,
+  color,
+  backgroundColor,
+  size = 20,
+  disabled = false,
+  style,
+  testID,
+  accessibilityLabel,
+  accessibilityHint,
+}, ref) => {
   const theme = useContext(ThemeContext);
-  
+
+  const containerStyle: StyleProp<ViewStyle> = [
+    styles.container,
+    {
+      backgroundColor: backgroundColor ?? 'transparent',
+      opacity: disabled ? 0.5 : 1,
+    },
+    style,
+  ];
+
   return (
     <Pressable
-      onPress={onPress}
-      style={{
-        ...styles.container,
-        backgroundColor: backgroundColor ?? 'transparent',
-      }}>
-      <Feather name={iconName} size={20} color={color ? theme.values.iconButtonIconColor : theme.values.color} />
+      ref={ref}
+      testID={testID}
+      onPress={disabled ? undefined : onPress}
+      disabled={disabled}
+      style={containerStyle}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? iconName}
+      accessibilityHint={accessibilityHint}
+      accessibilityState={{ disabled }}
+    >
+      <Feather
+        name={iconName}
+        size={size}
+        color={color ?? theme.values.color}
+      />
     </Pressable>
   );
-};
+});
 
+IconButton.displayName = 'IconButton';
+
+// 4. EXPORTS
 export { IconButton };
 
+// Static styles - no theme/brand dependency
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',

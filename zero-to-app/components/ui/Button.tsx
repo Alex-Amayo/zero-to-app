@@ -1,23 +1,29 @@
-import React, { useContext, useMemo } from 'react';
+// 1. IMPORTS
+import React, { forwardRef, useContext, useMemo } from 'react';
 import {
   ActivityIndicator,
   GestureResponderEvent,
   Pressable,
   StyleSheet,
   View,
+  type StyleProp,
+  type ViewStyle,
 } from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import { useBrand } from '../../brand';
 import { StyledText } from './StyledText';
 import { ThemeContext } from '../../theme';
+import type { InteractiveComponentProps, LoadableComponentProps } from '../shared/types';
 
+// 2. TYPES
 type IconLibrary = keyof typeof Icons;
 
-type ButtonProps = {
+export type ButtonVariant = 'primary' | 'secondary';
+
+export interface ButtonProps extends Omit<InteractiveComponentProps, 'onPress'>, LoadableComponentProps {
   title: string;
   onPress: (event: GestureResponderEvent) => void;
-  secondary?: boolean;
-  loading?: boolean;
+  variant?: ButtonVariant;
   icon?: {
     library: IconLibrary;
     name: string;
@@ -25,26 +31,31 @@ type ButtonProps = {
     color?: string;
   };
   iconPosition?: 'left' | 'right';
-  style?: any;
-};
+}
 
+// 3. COMPONENT
 /**
  * A reusable button component that can be customized with different styles,
  * loading states, and behavior based on props. It can also display an optional icon.
  */
-
-const Button = ({
+const Button = forwardRef<View, ButtonProps>(({
   title,
-  secondary,
-  loading,
+  variant = 'primary',
+  loading = false,
+  disabled = false,
   icon,
   onPress,
   iconPosition = 'right',
   style,
-}: ButtonProps) => {
+  testID,
+  accessibilityLabel,
+  accessibilityHint,
+}, ref) => {
   const theme = useContext(ThemeContext);
   const brand = useBrand();
-  
+
+  const isSecondary = variant === 'secondary';
+
   const styles = useMemo(() => StyleSheet.create({
     primary: {
       maxHeight: 100,
@@ -66,59 +77,94 @@ const Button = ({
       borderWidth: 2,
       borderColor: brand.colors.secondary,
     },
-    contentContainer: {
-      flexDirection: 'row', // Ensures icon and text are in a row
-      alignItems: 'center', // Vertically centers icon and text
-      justifyContent: 'center', // Horizontally centers icon and text
+    disabled: {
+      opacity: 0.5,
     },
-    icon: {
-      marginLeft: 8, // Adds spacing between icon and text
+    contentContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    iconLeft: {
+      marginRight: 8,
+    },
+    iconRight: {
+      marginLeft: 8,
     },
   }), [brand]);
-  
-  return loading ? (
-    <View>
-      <ActivityIndicator
-        size="small"
-        color={secondary ? brand.colors.secondary : brand.colors.primary}
-      />
-    </View>
-  ) : (
-    <Pressable onPress={onPress} style={[secondary ? styles.secondary : styles.primary, style]}>
+
+  const buttonStyle: StyleProp<ViewStyle> = [
+    isSecondary ? styles.secondary : styles.primary,
+    disabled && styles.disabled,
+    style,
+  ];
+
+  if (loading) {
+    return (
+      <View
+        ref={ref}
+        testID={testID}
+        style={buttonStyle}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel ?? title}
+        accessibilityHint={accessibilityHint}
+        accessibilityState={{ disabled: true, busy: true }}
+      >
+        <ActivityIndicator
+          size="small"
+          color={isSecondary ? brand.colors.secondary : '#FFFFFF'}
+        />
+      </View>
+    );
+  }
+
+  const renderIcon = (position: 'left' | 'right') => {
+    if (!icon || iconPosition !== position) return null;
+
+    const IconComponent = icon.library && Icons[icon.library];
+    if (!IconComponent) return null;
+
+    return (
+      <View style={position === 'left' ? styles.iconLeft : styles.iconRight}>
+        {React.createElement(IconComponent, {
+          name: icon.name,
+          size: icon.size || 20,
+          color: icon.color || (!isSecondary ? '#FFFFFF' : theme.values.color),
+        })}
+      </View>
+    );
+  };
+
+  return (
+    <Pressable
+      ref={ref}
+      testID={testID}
+      onPress={disabled ? undefined : onPress}
+      disabled={disabled}
+      style={buttonStyle}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? title}
+      accessibilityHint={accessibilityHint}
+      accessibilityState={{ disabled }}
+    >
       <View style={styles.contentContainer}>
-        {icon && iconPosition === 'left' && (
-          <View style={{ marginRight: 8 }}>
-            {icon.library && Icons[icon.library]
-              ? React.createElement(Icons[icon.library], {
-                  name: icon.name,
-                  size: icon.size || 20,
-                  color: icon.color || (!secondary ? '#fff' : theme.values.color),
-                })
-              : null}
-          </View>
-        )}
+        {renderIcon('left')}
         <StyledText
-          fontSize={'sm'}
-          color={!secondary ? '#FFFFFF' : theme.values.color}
+          fontSize="sm"
+          color={!isSecondary ? '#FFFFFF' : theme.values.color}
           fontWeight={500}
           numberOfLines={1}
-          align="center">
+          align="center"
+        >
           {title}
         </StyledText>
-        {icon && iconPosition === 'right' && (
-          <View style={{ marginLeft: 8 }}>
-            {icon.library && Icons[icon.library]
-              ? React.createElement(Icons[icon.library], {
-                  name: icon.name,
-                  size: icon.size || 20,
-                  color: icon.color || (!secondary ? '#fff' : theme.values.color),
-                })
-              : null}
-          </View>
-        )}
+        {renderIcon('right')}
       </View>
     </Pressable>
   );
-};
+});
 
+Button.displayName = 'Button';
+
+// 4. EXPORTS
 export { Button };

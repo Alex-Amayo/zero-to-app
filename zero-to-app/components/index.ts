@@ -10,3 +10,6 @@ export * from './card';
 export * from './list';
 export * from './tile';
 
+// Export shared types
+export * from './shared';
+

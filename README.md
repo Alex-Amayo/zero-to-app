@@ -118,11 +118,61 @@ For contributors working on this repository:
 # Install dependencies
 pnpm install
 
-# Run demo app
-pnpm demo
+# View all available scripts
+pnpm help
+```
 
-# Build package
-pnpm build
+### Development Scripts
+
+Start development servers for local development:
+
+```bash
+# Storybook
+pnpm dev:storybook          # Start Storybook (native Expo)
+pnpm dev:storybook:web      # Start Storybook web dev server
+
+# Demo App
+pnpm dev:demo               # Start demo app
+pnpm dev:demo:ios           # Start demo on iOS
+pnpm dev:demo:android       # Start demo on Android
+pnpm dev:demo:web           # Start demo on web
+```
+
+### Build Scripts
+
+Build production artifacts:
+
+```bash
+pnpm build                  # Build zero-to-app package
+pnpm build:storybook        # Build Storybook static files
+pnpm build:demo             # Build demo web export
+pnpm build:all               # Build everything (package + storybook + demo)
+```
+
+### Deploy Scripts
+
+Publish updates to demo app:
+
+```bash
+pnpm deploy:demo            # Publish demo OTA update (production)
+pnpm deploy:demo:preview    # Publish demo OTA update (preview)
+```
+
+### Release Scripts
+
+Publish the design system package:
+
+```bash
+pnpm release                # Publish zero-to-app package to npm
+```
+
+### Quality Scripts
+
+Code quality and linting:
+
+```bash
+pnpm lint                   # Lint code
+pnpm lint:fix               # Lint and fix issues
 ```
 
 ## License

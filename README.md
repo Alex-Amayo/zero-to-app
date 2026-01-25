@@ -144,9 +144,7 @@ Build production artifacts:
 
 ```bash
 pnpm build                  # Build zero-to-app package
-pnpm build:storybook        # Build Storybook static files
 pnpm build:demo             # Build demo web export
-pnpm build:all               # Build everything (package + storybook + demo)
 ```
 
 ### Deploy Scripts
@@ -173,6 +171,8 @@ Code quality and linting:
 ```bash
 pnpm lint                   # Lint code
 pnpm lint:fix               # Lint and fix issues
+pnpm typecheck              # Run TypeScript checks
+pnpm clean                  # Remove build artifacts
 ```
 
 ## License

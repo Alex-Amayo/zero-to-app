@@ -20,7 +20,6 @@ const main: StorybookConfig = {
 
   async viteFinal(config) {
     return mergeConfig(config, {
-      base: '/storybook/',
       resolve: {
         alias: {
           "react-native-reanimated": path.resolve(

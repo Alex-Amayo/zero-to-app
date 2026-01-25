@@ -8,7 +8,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "export:web": "expo export --platform web",
+    "publish": "eas update --branch production --message \"Update from publish script\"",
+    "publish:preview": "eas update --branch preview --message \"Update from publish script\""
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

@@ -2,7 +2,7 @@ import { PropsWithChildren, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { View } from 'react-native';
-import { StyledText } from 'zero-to-app';
+import { Typography } from 'zero-to-app';
 import { IconSymbol } from './icon-symbol';
 import { Colors } from '../../constants/theme';
 import { useColorScheme } from '../../hooks/use-color-scheme';
@@ -25,7 +25,7 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
           style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
         />
 
-        <StyledText bold>{title}</StyledText>
+        <Typography weight="bold">{title}</Typography>
       </TouchableOpacity>
       {isOpen && <View style={styles.content}>{children}</View>}
     </View>

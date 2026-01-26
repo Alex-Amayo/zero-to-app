@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, StyledText, Card } from 'zero-to-app';
+import { Button, Typography } from 'zero-to-app';
 
 export interface ComponentExample {
   title: string;
@@ -137,58 +137,58 @@ export const componentData: ComponentData[] = [
     ],
   },
   {
-    name: 'StyledText',
+    name: 'Typography',
     category: 'UI Primitive',
-    description: 'A customizable text component with support for sizes, colors, alignment, and typography variants.',
-    import: "import { StyledText } from 'zero-to-app';",
+    description: 'Material Design 3 typography component with full type scale support, font weights, and line heights.',
+    import: "import { Typography } from 'zero-to-app';",
     examples: [
       {
         title: 'Basic',
-        description: 'Default text styling',
-        code: '<StyledText>Hello World</StyledText>',
-        preview: () => <StyledText>Hello World</StyledText>,
+        description: 'Default body text',
+        code: '<Typography>Hello World</Typography>',
+        preview: () => <Typography>Hello World</Typography>,
       },
       {
         title: 'Bold',
         description: 'Bold text variant',
-        code: '<StyledText bold>Bold Text</StyledText>',
-        preview: () => <StyledText bold>Bold Text</StyledText>,
+        code: '<Typography weight="bold">Bold Text</Typography>',
+        preview: () => <Typography weight="bold">Bold Text</Typography>,
       },
       {
-        title: 'Sizes',
-        description: 'Different font sizes',
-        code: `<StyledText fontSize="sm">Small</StyledText>
-<StyledText fontSize="md">Medium</StyledText>
-<StyledText fontSize="lg">Large</StyledText>
-<StyledText fontSize="xl">Extra Large</StyledText>`,
+        title: 'Variants',
+        description: 'Material Design 3 type scale',
+        code: `<Typography variant="bodySmall">Small Body Text</Typography>
+<Typography variant="bodyMedium">Medium Body Text</Typography>
+<Typography variant="bodyLarge">Large Body Text</Typography>
+<Typography variant="displaySmall">Display Text</Typography>`,
         preview: () => (
           <View style={styles.textSizesContainer}>
-            <StyledText fontSize="sm">Small</StyledText>
-            <StyledText fontSize="md">Medium</StyledText>
-            <StyledText fontSize="lg">Large</StyledText>
-            <StyledText fontSize="xl">Extra Large</StyledText>
+            <Typography variant="bodySmall">Small Body Text</Typography>
+            <Typography variant="bodyMedium">Medium Body Text</Typography>
+            <Typography variant="bodyLarge">Large Body Text</Typography>
+            <Typography variant="displaySmall">Display Text</Typography>
           </View>
         ),
       },
       {
         title: 'Colors & Alignment',
         description: 'Custom colors and text alignment',
-        code: `<StyledText color="#ff5757">Colored Text</StyledText>
-<StyledText align="center">Centered</StyledText>
-<StyledText muted>Muted Text</StyledText>`,
+        code: `<Typography color="#ff5757">Colored Text</Typography>
+<Typography align="center">Centered</Typography>
+<Typography muted>Muted Text</Typography>`,
         preview: () => (
           <View style={styles.textVariantsContainer}>
-            <StyledText color="#ff5757">Colored Text</StyledText>
-            <StyledText align="center">Centered</StyledText>
-            <StyledText muted>Muted Text</StyledText>
+            <Typography color="#ff5757">Colored Text</Typography>
+            <Typography align="center">Centered</Typography>
+            <Typography muted>Muted Text</Typography>
           </View>
         ),
       },
       {
         title: 'Uppercase',
         description: 'Uppercase text transformation',
-        code: '<StyledText uppercase>Uppercase Text</StyledText>',
-        preview: () => <StyledText uppercase>Uppercase Text</StyledText>,
+        code: '<Typography uppercase>Uppercase Text</Typography>',
+        preview: () => <Typography uppercase>Uppercase Text</Typography>,
       },
     ],
     props: [
@@ -199,15 +199,22 @@ export const componentData: ComponentData[] = [
         description: 'Text content to display',
       },
       {
-        name: 'fontSize',
-        type: "'sm' | 'md' | 'lg' | 'xl' | number",
+        name: 'variant',
+        type: 'TypographyVariant',
         required: false,
-        default: "'md'",
-        description: 'Font size preset or custom number',
+        default: "'bodyMedium'",
+        description: 'M3 typography variant (displayLarge, headlineMedium, bodySmall, etc.)',
+      },
+      {
+        name: 'weight',
+        type: "'light' | 'regular' | 'medium' | 'bold' | number",
+        required: false,
+        default: "'regular'",
+        description: 'Font weight',
       },
       {
         name: 'align',
-        type: "'left' | 'center' | 'right'",
+        type: "'left' | 'center' | 'right' | 'justify'",
         required: false,
         default: "'left'",
         description: 'Text alignment',
@@ -217,13 +224,6 @@ export const componentData: ComponentData[] = [
         type: 'string',
         required: false,
         description: 'Custom text color',
-      },
-      {
-        name: 'bold',
-        type: 'boolean',
-        required: false,
-        default: 'false',
-        description: 'Apply bold font weight',
       },
       {
         name: 'uppercase',
@@ -243,13 +243,7 @@ export const componentData: ComponentData[] = [
         type: 'boolean',
         required: false,
         default: 'false',
-        description: 'Apply muted/gray color',
-      },
-      {
-        name: 'fontWeight',
-        type: 'number',
-        required: false,
-        description: 'Custom font weight value',
+        description: 'Use muted color from theme',
       },
       {
         name: 'style',
@@ -259,50 +253,7 @@ export const componentData: ComponentData[] = [
       },
     ],
   },
-  {
-    name: 'Card',
-    category: 'UI Primitive',
-    description: 'A container component for displaying content within a styled card with theme-aware background and borders.',
-    import: "import { Card } from 'zero-to-app';",
-    examples: [
-      {
-        title: 'Basic',
-        description: 'Simple card with text content',
-        code: `<Card>
-  <StyledText>Card content</StyledText>
-</Card>`,
-        preview: () => (
-          <Card>
-            <StyledText>Card content</StyledText>
-          </Card>
-        ),
-      },
-      {
-        title: 'With Multiple Elements',
-        description: 'Card containing multiple text elements',
-        code: `<Card>
-  <StyledText fontSize="lg" bold>Card Title</StyledText>
-  <StyledText>Card description goes here</StyledText>
-</Card>`,
-        preview: () => (
-          <Card>
-            <StyledText fontSize="lg" bold>
-              Card Title
-            </StyledText>
-            <StyledText>Card description goes here</StyledText>
-          </Card>
-        ),
-      },
-    ],
-    props: [
-      {
-        name: 'children',
-        type: 'ReactNode | ReactNode[]',
-        required: false,
-        description: 'Card content',
-      },
-    ],
-  },
+  // Card demos removed — demo uses simple Views instead of library Card component
 ];
 
 const styles = StyleSheet.create({

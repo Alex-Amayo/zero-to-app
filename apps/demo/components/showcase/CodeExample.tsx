@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Pressable, Platform } from 'react-native';
-import { StyledText } from 'zero-to-app';
+import { Typography } from 'zero-to-app';
 
 interface CodeExampleProps {
   code: string;
@@ -36,14 +36,14 @@ export const CodeExample: React.FC<CodeExampleProps> = ({ code }) => {
   return (
     <View style={styles.container}>
       <View style={styles.codeContainer}>
-        <StyledText style={styles.codeText} fontSize="sm">
+        <Typography style={styles.codeText} variant="bodySmall">
           {code}
-        </StyledText>
+        </Typography>
       </View>
       <Pressable onPress={handleCopy} style={styles.copyButton}>
-        <StyledText fontSize="sm" color="#ff5757">
+        <Typography variant="bodySmall" color="#ff5757">
           {copied ? 'Copied!' : 'Copy Code'}
-        </StyledText>
+        </Typography>
       </Pressable>
     </View>
   );

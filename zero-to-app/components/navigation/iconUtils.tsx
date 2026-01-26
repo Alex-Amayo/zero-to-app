@@ -34,7 +34,7 @@ export function renderIcon(
   icon: PlatformIcon | string | undefined,
   defaultLibrary: IconLibrary = 'Feather',
   size: number = 20,
-  color: string = '#000000'
+  color?: string
 ): React.ReactElement | null {
   const normalized = normalizeIcon(icon, defaultLibrary);
   if (!normalized) return null;

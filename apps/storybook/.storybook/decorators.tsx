@@ -37,7 +37,7 @@ const ThemeWrapper = ({
       <ThemeContext.Provider value={themeContextValue}>
         <View style={{ 
           flex: 1, 
-          backgroundColor: themeValues.backgroundColor,
+          backgroundColor: themeValues.surface,
           minHeight: '100vh',
         }}>
           <Story />

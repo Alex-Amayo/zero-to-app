@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { StyledText } from 'zero-to-app';
+import { Typography } from 'zero-to-app';
 import { PropDefinition } from './componentData';
 
 interface PropsTableProps {
@@ -13,51 +13,51 @@ export const PropsTable: React.FC<PropsTableProps> = ({ props }) => {
       <View style={styles.container}>
         <View style={styles.headerRow}>
           <View style={[styles.cell, styles.headerCell, styles.nameCell]}>
-            <StyledText fontSize="sm" bold>Name</StyledText>
+            <Typography variant="bodySmall" weight="bold">Name</Typography>
           </View>
           <View style={[styles.cell, styles.headerCell, styles.typeCell]}>
-            <StyledText fontSize="sm" bold>Type</StyledText>
+            <Typography variant="bodySmall" weight="bold">Type</Typography>
           </View>
           <View style={[styles.cell, styles.headerCell, styles.requiredCell]}>
-            <StyledText fontSize="sm" bold>Required</StyledText>
+            <Typography variant="bodySmall" weight="bold">Required</Typography>
           </View>
           <View style={[styles.cell, styles.headerCell, styles.defaultCell]}>
-            <StyledText fontSize="sm" bold>Default</StyledText>
+            <Typography variant="bodySmall" weight="bold">Default</Typography>
           </View>
           <View style={[styles.cell, styles.headerCell, styles.descriptionCell]}>
-            <StyledText fontSize="sm" bold>Description</StyledText>
+            <Typography variant="bodySmall" weight="bold">Description</Typography>
           </View>
         </View>
         {props.map((prop, index) => (
           <View key={index} style={styles.row}>
             <View style={[styles.cell, styles.nameCell]}>
-              <StyledText fontSize="sm">{prop.name}</StyledText>
+              <Typography variant="bodySmall">{prop.name}</Typography>
             </View>
             <View style={[styles.cell, styles.typeCell]}>
-              <StyledText fontSize="sm" style={styles.typeText}>
+              <Typography variant="bodySmall" style={styles.typeText}>
                 {prop.type}
-              </StyledText>
+              </Typography>
             </View>
             <View style={[styles.cell, styles.requiredCell]}>
               {prop.required ? (
                 <View style={styles.requiredBadge}>
-                  <StyledText fontSize="xs" color="#fff">
+                  <Typography variant="labelSmall" color="#fff">
                     Required
-                  </StyledText>
+                  </Typography>
                 </View>
               ) : (
-                <StyledText fontSize="sm" muted>
+                <Typography variant="bodySmall" muted>
                   Optional
-                </StyledText>
+                </Typography>
               )}
             </View>
             <View style={[styles.cell, styles.defaultCell]}>
-              <StyledText fontSize="sm" muted>
+              <Typography variant="bodySmall" muted>
                 {prop.default || '-'}
-              </StyledText>
+              </Typography>
             </View>
             <View style={[styles.cell, styles.descriptionCell]}>
-              <StyledText fontSize="sm">{prop.description}</StyledText>
+              <Typography variant="bodySmall">{prop.description}</Typography>
             </View>
           </View>
         ))}

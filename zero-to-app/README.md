@@ -9,58 +9,13 @@ React Native design system with theme-aware UI components, responsive utilities,
 ## Quick Start
 
 ```typescript
-import { ZeroToApp, createBrand } from 'zero-to-app';
+import { ZeroToApp, defaultBrand } from 'zero-to-app';
 
 export default function Root() {
-  // Create your brand configuration - all values are required
-  const brand = createBrand({
-    name: 'My App',
-    colors: {
-      primary: '#cc3366',
-      secondary: '#cc3366',
-      backgroundColor: '#fafafc',
-    },
-    fontSizes: {
-      small: 14,
-      medium: 16,
-      large: 20,
-      xlarge: 25,
-    },
-    spacing: {
-      xs: 4,
-      sm: 8,
-      md: 12,
-      lg: 16,
-      xl: 20,
-      xxl: 24,
-      xxxl: 40,
-    },
-    borderRadius: 5,
-    logo: {
-      light: require('./assets/logo-light.png'),
-      dark: require('./assets/logo-dark.png'),
-    },
-    footerLinks: {
-      links: [
-        { text: 'Home', route: '/(tabs)/home' },
-        { text: 'About', route: '/(tabs)/about' },
-      ],
-    },
-    navigation: {
-      items: [
-        { 
-          route: '/(tabs)/home', 
-          title: 'Home', 
-          icon: { web: 'home', mobile: 'house' } 
-        },
-        { 
-          route: '/(tabs)/about', 
-          title: 'About', 
-          icon: { web: 'info', mobile: 'person' } 
-        },
-      ],
-    },
-  });
+  // For quick starts use the provided `defaultBrand` which implements
+  // Material Design 3 color roles. For production, provide a full brand
+  // via `createBrand()` (all M3 color roles are required).
+  const brand = defaultBrand;
 
   return (
     <ZeroToApp brand={brand}>
@@ -77,7 +32,7 @@ function MyComponent() {
   const dimensions = useDimensions();
   return (
     <Card>
-      <StyledText fontSize="lg" bold>Welcome</StyledText>
+      <StyledText fontSize="title" bold>Welcome</StyledText>
       <Button title="Get Started" onPress={() => {}} />
     </Card>
   );
@@ -92,27 +47,22 @@ If you're upgrading from an older version that used static brand imports:
 
 **Old way (deprecated):**
 ```typescript
-import { brand } from 'zero-to-app';
-// Direct access: brand.colors.primary
+// Previously some apps imported a static brand; the library now expects
+// brand configuration to be passed into `ZeroToApp` so it's reusable.
 ```
 
-**New way (current):**
+**Current (recommended):**
 ```typescript
-import { createBrand, useBrand } from 'zero-to-app';
+import { createBrand, useBrand, defaultBrand } from 'zero-to-app';
 
-// In root component - all brand values must be provided
-const brand = createBrand({
-  name: 'My App',
-  colors: { primary: '#ff0000', secondary: '#00ff00', backgroundColor: '#ffffff' },
-  fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
-  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
-  borderRadius: 8,
-});
+// Use `defaultBrand` for quick demos, or `createBrand()` to provide a full
+// Material 3 color configuration for your app.
+const brand = defaultBrand; // or createBrand({...})
 <ZeroToApp brand={brand}>...</ZeroToApp>
 
 // In child components
 const brand = useBrand();
-// Access: brand.colors.primary
+// Access: brand.colors.primary, brand.colors.onSurface, etc.
 ```
 
 This change makes the design system fully reusable - no embedded brand assumptions. You must provide all brand values at the app level, enabling true white-labeling and multi-brand support.
@@ -232,38 +182,52 @@ import { AppbarWeb } from 'zero-to-app/components/navigation';
 
 ## Theme Quick Reference
 
-### Theme Values
+This design system follows Material Design 3 (M3) tokens. The primary
+palette is provided via `brand.colors` and the resolved theme values are
+available through `useTheme()` / `ThemeContext`.
 
-| Property | Light | Dark |
-|----------|-------|------|
-| `color` | `#000000` | `#FFFFFF` |
-| `backgroundColor` | `#FFFFFF` | `#212121` |
-| `cardBackgroundColor` | `#FFFFFF` | `#181818` |
-| `appbarBackgroundColor` | `#FFFFFF` | `#000000` |
-| `highlightColor` | Brand primary | Brand secondary |
-| `borderColor` | `#dddfe2` | `#424242` |
-| `inactiveIconColor` | `#606770` | `#b0b3b8` |
-| `dividerColor` | `#dddfe2` | `#3e4042` |
-| `iconButtonBackgroundColor` | `#999999` | `#3a3b3c` |
-| `iconButtonIconColor` | `#ffffff` | `#ffffff` |
-| `inputBackgroundColor` | `#ffffff` | `#3a3b3c` |
-| `linkColor` | `#666666` | `#999999` |
-| `isDark` | `false` | `true` |
+Core palette (selected tokens):
 
-### Usage
+| Token | Purpose |
+|-------|---------|
+| `primary` | Primary accent color |
+| `onPrimary` | Text/icon color displayed on `primary` |
+| `primaryContainer` | Container surface for primary uses |
+| `secondary` | Secondary accent color |
+| `tertiary` | Tertiary accent color |
+| `error` | Error color roles |
+| `surface` | Main app surface / background |
+| `onSurface` | Primary text color used on surfaces |
+| `onSurfaceVariant` | Muted text / placeholder color |
+| `outline` / `outlineVariant` | Border and divider colors |
+| `inverseSurface` / `inverseOnSurface` | Inverse surface roles |
+| `isDark` | Boolean indicating current mode |
+
+Semantic tokens (available on `theme.values.tokens`) — prefer these in components:
+
+- `tokens.button` (e.g. `primaryBg`, `primaryText`, `secondaryBg`, `outlineBorder`)
+- `tokens.input` (`background`, `text`, `border`, `placeholder`)
+- `tokens.card` (`background`, `text`)
+- `tokens.appbar` (`background`, `text`)
+- `tokens.link` (`text`, `hover`)
+- `tokens.badge` (`background`, `text`)
+- `tokens.typography` (`headline`, `title`, `body`, `label`, `caption`)
+
+Usage (recommended):
 
 ```typescript
-import { useContext } from 'react';
-import { ThemeContext } from 'zero-to-app';
+import { useTheme } from 'zero-to-app';
 
 function MyComponent() {
-  const theme = useContext(ThemeContext);
-  // theme.values.backgroundColor
-  // theme.toggleTheme()
+  const { values: themeValues, toggleTheme, mode } = useTheme();
+  // Examples:
+  // themeValues.tokens.button.primaryBg
+  // themeValues.tokens.input.placeholder
+  // themeValues.tokens.typography.title
 }
 ```
 
-**Default:** Dark mode. Use `theme.toggleTheme()` to switch.
+Default mode is `light`. Use `toggleTheme()` or `setMode('dark')` to switch.
 
 ---
 
@@ -683,12 +647,12 @@ function ThemedComponent() {
   
   return (
     <View style={{
-      backgroundColor: theme.values.cardBackgroundColor,
-      borderColor: theme.values.borderColor,
+      backgroundColor: theme.values.tokens.card.background,
+      borderColor: theme.values.outlineVariant ?? theme.values.outline,
       padding: brand.spacing.lg,
       borderRadius: brand.borderRadius
     }}>
-      <StyledText color={theme.values.highlightColor}>
+      <StyledText color={theme.values.tokens.link.text}>
         Themed Content
       </StyledText>
     </View>

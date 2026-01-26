@@ -1,13 +1,12 @@
 import { Tabs, useRouter, usePathname } from 'expo-router';
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AppbarWeb, Button, ThemeContext } from 'zero-to-app';
+import { Button, Typography, useTheme } from 'zero-to-app';
 
 import { HapticTab } from '../../components/haptic-tab';
 import { IconSymbol } from '../../components/icon-symbol';
 
 export default function TabLayout() {
-  const theme = useContext(ThemeContext);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -16,29 +15,32 @@ export default function TabLayout() {
       <Button
         title="Home"
         onPress={() => router.push('/(tabs)')}
-        secondary={pathname !== '/(tabs)'}
-        style={styles.tabButton}
+        variant='text'
       />
       <Button
         title="Components"
         onPress={() => router.push('/(tabs)/components')}
-        secondary={pathname !== '/(tabs)/components'}
-        style={styles.tabButton}
+        variant='text'
       />
     </View>
   );
 
+  const { values: theme } = useTheme();
+
   return (
-    <View style={styles.container}>
-      <AppbarWeb title="Zero to App" tabs={tabs} hideTabs={true} />
+    <View style={[styles.container, { backgroundColor: theme.surfaceContainerHighest }]}> 
+      <View style={[styles.appbar, { borderBottomColor: theme.outlineVariant ?? theme.outline, backgroundColor: theme.surfaceContainerHighest }]}>
+        <Typography variant="titleLarge" weight="medium">Zero to App</Typography>
+        <View style={styles.appbarTabs}>{tabs}</View>
+      </View>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: theme.values.highlightColor,
-          tabBarInactiveTintColor: theme.values.inactiveIconColor,
+          tabBarActiveTintColor: theme.primary,
+          tabBarInactiveTintColor: theme.onSurfaceVariant,
           tabBarStyle: {
-            backgroundColor: theme.values.appbarBackgroundColor,
-            borderTopColor: theme.values.borderColor,
-            borderTopWidth: theme.values.isDark ? 0 : 1,
+            backgroundColor: theme.surfaceContainerHighest,
+            borderTopColor: theme.outlineVariant ?? theme.outline,
+            borderTopWidth: theme.isDark ? 0 : 1,
           },
           headerShown: false,
           tabBarButton: HapticTab,
@@ -71,10 +73,18 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: 'center',
   },
-  tabButton: {
-    minWidth: 100,
-    maxHeight: 40,
-    paddingVertical: 8,
+  appbar: {
     paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  appbarTabs: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 });

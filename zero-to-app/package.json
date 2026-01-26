@@ -66,16 +66,20 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "package.json", "README.md"],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "build": "pnpm exec tsc -p tsconfig.build.json"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-native": ">=0.70.0",
     "@expo/vector-icons": "*",
     "expo-blur": "*",
-    "expo-glass-effect": "*"
+    "expo-glass-effect": "*",
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0"
   },
   "peerDependenciesMeta": {
     "@expo/vector-icons": {
@@ -89,12 +93,13 @@
     }
   },
   "dependencies": {
-    "react-hook-form": "^7.0.0",
     "@hookform/resolvers": "^3.0.0",
-    "zod": "^3.22.0",
-    "react-native-reanimated-carousel": "^3.5.0",
+    "@material/material-color-utilities": "^0.4.0",
     "@shopify/flash-list": "^1.7.0",
-    "lottie-react-native": "^6.7.0"
+    "lottie-react-native": "^6.7.0",
+    "react-hook-form": "^7.0.0",
+    "react-native-reanimated-carousel": "^3.5.0",
+    "zod": "^3.22.0"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

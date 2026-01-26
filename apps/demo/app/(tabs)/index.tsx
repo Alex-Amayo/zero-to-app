@@ -1,38 +1,31 @@
 import { Platform, StyleSheet, View, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useContext } from 'react';
-import { StyledText, Button, Card, ThemeContext, useBrand } from 'zero-to-app';
+import React from 'react';
+import { Typography, Button } from 'zero-to-app';
 import { HelloWave } from '../../components/hello-wave';
 
 export default function HomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const theme = useContext(ThemeContext);
-  const brand = useBrand();
+  const themeDefaults = { surface: '#ffffff' };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.values.backgroundColor }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
+    <View style={[styles.container, { backgroundColor: themeDefaults.surface }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={styles.heroSection}>
-            {brand.logo.light && (
-              <Image
-                source={brand.logo.light}
-                style={styles.logo}
-                resizeMode="contain"
-              />
-            )}
+              {/* Logo removed from simplified demo — keep title only */}
             <View style={styles.titleContainer}>
-              <StyledText fontSize="xl" bold>
-              Build native apps for iOS, Android and Web simultaneously with a shared codebase!
-              </StyledText>
+              <Typography variant="displaySmall" weight="bold">
+                Zero to App
+              </Typography>
             </View>
-            <StyledText fontSize="md" style={styles.subtitle}>
-              Build native apps for iOS, Android and Web simultaneously with a single codebase.!
-            </StyledText>
+            <Typography variant="bodyMedium" style={styles.subtitle}>
+             React Native UI Library for iOS, Android, and Web
+            </Typography>
             <View style={styles.buttonContainer}>
               <Button
                 title="Explore Components"
@@ -44,67 +37,67 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.featuresSection}>
-            <StyledText fontSize="lg" bold style={styles.sectionTitle}>
+            <Typography variant="bodyLarge" weight="bold" style={styles.sectionTitle}>
               Features
-            </StyledText>
+            </Typography>
             <View style={styles.featuresGrid}>
-              <Card style={styles.featureCard}>
-                <StyledText fontSize="md" bold style={styles.featureTitle}>
+              <View style={[styles.featureCard, styles.featureCardContainer]}>
+                <Typography variant="bodyMedium" weight="bold" style={styles.featureTitle}>
                   Component Showcase
-                </StyledText>
-                <StyledText fontSize="sm" muted>
-                  Browse and interact with all available components in our showcase
-                </StyledText>
-              </Card>
-              <Card style={styles.featureCard}>
-                <StyledText fontSize="md" bold style={styles.featureTitle}>
+                </Typography>
+                <Typography variant="bodySmall" muted>
+                  Browse and interact with available components in the showcase
+                </Typography>
+              </View>
+              <View style={[styles.featureCard, styles.featureCardContainer]}>
+                <Typography variant="bodyMedium" weight="bold" style={styles.featureTitle}>
                   Theme Support
-                </StyledText>
-                <StyledText fontSize="sm" muted>
-                  Built-in light and dark mode support with customizable branding
-                </StyledText>
-              </Card>
-              <Card style={styles.featureCard}>
-                <StyledText fontSize="md" bold style={styles.featureTitle}>
+                </Typography>
+                <Typography variant="bodySmall" muted>
+                  Light/dark themes configured by the design system
+                </Typography>
+              </View>
+              <View style={[styles.featureCard, styles.featureCardContainer]}>
+                <Typography variant="bodyMedium" weight="bold" style={styles.featureTitle}>
                   Cross-Platform
-                </StyledText>
-                <StyledText fontSize="sm" muted>
-                  Works seamlessly on iOS, Android, and Web
-                </StyledText>
-              </Card>
+                </Typography>
+                <Typography variant="bodySmall" muted>
+                  Works on iOS, Android, and Web
+                </Typography>
+              </View>
             </View>
           </View>
 
           <View style={styles.quickStartSection}>
-            <StyledText fontSize="lg" bold style={styles.sectionTitle}>
+            <Typography variant="bodyLarge" weight="bold" style={styles.sectionTitle}>
               Quick Start
-            </StyledText>
+            </Typography>
             <View style={styles.stepContainer}>
-              <StyledText fontSize="md" bold>
+              <Typography variant="bodyMedium" weight="bold">
                 1. Explore Components
-              </StyledText>
-              <StyledText fontSize="sm" muted>
+              </Typography>
+              <Typography variant="bodySmall" muted>
                 Check out the Components tab to see all available components with live previews and code
                 examples.
-              </StyledText>
+              </Typography>
             </View>
             <View style={styles.stepContainer}>
-              <StyledText fontSize="md" bold>
+              <Typography variant="bodyMedium" weight="bold">
                 2. Customize Your Brand
-              </StyledText>
-              <StyledText fontSize="sm" muted>
-                Modify the brand configuration in <StyledText bold>app/_layout.tsx</StyledText> to
+              </Typography>
+              <Typography variant="bodySmall" muted>
+                Modify the brand configuration in <Typography weight="bold">{'app/_layout.tsx'}</Typography> to
                 match your design.
-              </StyledText>
+              </Typography>
             </View>
             <View style={styles.stepContainer}>
-              <StyledText fontSize="md" bold>
+              <Typography variant="bodyMedium" weight="bold">
                 3. Build Your App
-              </StyledText>
-              <StyledText fontSize="sm" muted>
-                Use the components from <StyledText bold>zero-to-app</StyledText> to build your
+              </Typography>
+              <Typography variant="bodySmall" muted>
+                Use the components from <Typography weight="bold">{'zero-to-app'}</Typography> to build your
                 application.
-              </StyledText>
+              </Typography>
             </View>
           </View>
         </View>
@@ -183,6 +176,13 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     marginBottom: 8,
+  },
+  featureCardContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#ececec',
   },
   quickStartSection: {
     gap: 16,

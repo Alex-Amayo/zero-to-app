@@ -4,3 +4,12 @@ export * from './brandTypes';
 export { useBrand, BrandProvider } from './brandContext';
 export { defaultBrand } from './defaultBrand';
 
+// Material Color Utilities
+export {
+  generateLightColors,
+  generateDarkColors,
+  hasContrastRatio,
+  generateHighContrastColors,
+  type PaletteOptions,
+} from './paletteGenerator';
+

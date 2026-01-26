@@ -1,13 +1,13 @@
 import { StyleSheet, View, Platform, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useContext } from 'react';
-import { StyledText, ThemeContext } from 'zero-to-app';
+import React from 'react';
+import { Typography, useTheme } from 'zero-to-app';
 import { ComponentPreviewCard } from '../../components/showcase/ComponentPreviewCard';
 import { componentData } from '../../components/showcase/componentData';
 
 export default function ComponentsScreen() {
   const insets = useSafeAreaInsets();
-  const theme = useContext(ThemeContext);
+  const { values: theme } = useTheme();
   
   // Group components by category
   const componentsByCategory = componentData.reduce(
@@ -22,31 +22,31 @@ export default function ComponentsScreen() {
   );
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.values.backgroundColor }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
+    <View style={[styles.container, { backgroundColor: theme.surface }, Platform.OS !== 'web' && { paddingTop: insets.top }]}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
       <View style={styles.content}>
         <View style={styles.titleContainer}>
-          <StyledText fontSize="xl" bold>
+          <Typography variant="displaySmall" weight="bold">
             Component Showcase
-          </StyledText>
+          </Typography>
         </View>
-        <StyledText fontSize="md" muted style={styles.subtitle}>
+        <Typography variant="bodyMedium" muted style={styles.subtitle}>
           Explore the zero-to-app design system components with live previews, code examples, and
           documentation.
-        </StyledText>
+        </Typography>
 
         {Object.entries(componentsByCategory).map(([category, components]) => (
           <View key={category} style={styles.categorySection}>
             <View style={styles.categoryHeader}>
-              <StyledText fontSize="lg" bold>
+              <Typography variant="bodyLarge" weight="bold">
                 {category}
-              </StyledText>
-              <View style={[styles.categoryBadge, { backgroundColor: theme.values.isDark ? theme.values.borderColor : theme.values.highlightColor + '20' }]}>
-                <StyledText fontSize="xs" color={theme.values.highlightColor}>
+              </Typography>
+              <View style={[styles.categoryBadge, { backgroundColor: theme.isDark ? (theme.outlineVariant ?? theme.outline) : theme.primaryContainer }]}>
+                <Typography variant="labelSmall" color={theme.primary}>
                   {components.length} {components.length === 1 ? 'component' : 'components'}
-                </StyledText>
+                </Typography>
               </View>
             </View>
             <View style={styles.componentsGrid}>

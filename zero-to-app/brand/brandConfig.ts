@@ -1,7 +1,9 @@
-import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, LogoSource, Name, NavigationConfig, Spacing } from './brandTypes';
+import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, Name, NavigationConfig, Spacing } from './brandTypes';
+import { generateLightColors, generateDarkColors, type PaletteOptions } from './paletteGenerator';
 
 export interface Brand {
   colors: Colors;
+  darkColors?: Colors; // Optional dark theme colors
   fontSizes: FontSizes;
   spacing: Spacing;
   borderRadius: BorderRadius;
@@ -13,44 +15,81 @@ export interface Brand {
 
 /**
  * Configuration interface for creating a brand.
- * All properties except logo, footerLinks, and navigation are required - apps must provide complete brand configuration.
+ * Supports both manual color specification and seed-based palette generation.
  */
 export interface BrandConfig {
   name: string;
-  colors: Colors;
+  /**
+   * Colors for the brand. Can be:
+   * 1. Complete Colors object (manual specification)
+   * 2. Object with colorSeed for automatic M3 palette generation
+   */
+  colors: Colors | { colorSeed: PaletteOptions };
+  /** Optional dark theme colors (generated from seed if not provided) */
+  darkColors?: Colors | { colorSeed: PaletteOptions };
   fontSizes: FontSizes;
   spacing: Spacing;
   borderRadius: number;
   logo?: LogoConfig;
-  footerLinks?: FooterLinks; // Optional - if not provided, footer will not show navigation links
-  navigation?: NavigationConfig; // Optional - if not provided, navigation will not show menu items
+  footerLinks?: FooterLinks;
+  navigation?: NavigationConfig;
+}
+
+/**
+ * Type guard to check if colors config uses seed-based generation
+ */
+function isColorSeed(colors: Colors | { colorSeed: PaletteOptions }): colors is { colorSeed: PaletteOptions } {
+  return 'colorSeed' in colors && colors.colorSeed !== undefined;
 }
 
 /**
  * Creates a brand configuration from the provided config.
- * All brand values must be provided at the app level - no defaults are provided.
- * 
- * @param config Required configuration with all brand values
- * @returns Brand configuration object
- * 
+ * Supports both manual color specification and automatic M3 palette generation.
+ *
+ * @param config Configuration with brand values
+ * @returns Brand configuration object with generated or manual colors
+ *
  * @example
- * // Complete brand configuration required
- * const brand = createBrand({
+ * // Manual color specification
+ * const manualBrand = createBrand({
  *   name: 'My App',
- *   colors: { primary: '#ff0000', secondary: '#00ff00', backgroundColor: '#ffffff' },
+ *   colors: { primary: '#ff0000', secondary: '#00ff00', ... },
  *   fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
  *   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
  *   borderRadius: 8,
- *   logo: {
- *     light: require('./assets/logo-light.png'),
- *     dark: require('./assets/logo-dark.png'),
- *   },
+ * });
+ *
+ * @example
+ * // Seed-based palette generation (recommended for M3 compliance)
+ * const generatedBrand = createBrand({
+ *   name: 'My App',
+ *   colors: { colorSeed: { primary: '#6750A4' } },
+ *   fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
+ *   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
+ *   borderRadius: 8,
  * });
  */
 export const createBrand = (config: BrandConfig): Brand => {
+  // Resolve light theme colors
+  const lightColors: Colors = isColorSeed(config.colors)
+    ? generateLightColors(config.colors.colorSeed)
+    : config.colors;
+
+  // Resolve dark theme colors
+  let darkColors: Colors | undefined;
+  if (config.darkColors) {
+    darkColors = isColorSeed(config.darkColors)
+      ? generateDarkColors(config.darkColors.colorSeed)
+      : config.darkColors;
+  } else if (isColorSeed(config.colors)) {
+    // Auto-generate dark theme from the same seed
+    darkColors = generateDarkColors(config.colors.colorSeed);
+  }
+
   return {
     name: config.name,
-    colors: config.colors,
+    colors: lightColors,
+    darkColors,
     fontSizes: config.fontSizes,
     spacing: config.spacing,
     borderRadius: config.borderRadius,

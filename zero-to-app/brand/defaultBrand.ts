@@ -2,12 +2,50 @@ import { createBrand } from './brandConfig';
 
 /**
  * Default brand configuration using Material Design 3 reference colors.
- * Uses Material Design 3 standard purple (#6750A4 light, #D0BCFF dark).
- * Can be used as-is for demos, storybook, or as a starting point for custom brands.
+ * Uses seed-based palette generation for automatic light/dark theme creation.
+ *
+ * Seed color: #6750A4 (Material Design 3 reference purple)
+ * This generates a complete, accessible color palette following M3 guidelines.
+ *
  * Reference: https://m3.material.io/styles/color/the-color-system/color-roles
  */
 export const defaultBrand = createBrand({
   name: 'Zero to App',
+  // Use seed-based palette generation (recommended)
+  // This automatically generates all 26 M3 color tokens and matching dark theme
+  colors: {
+    colorSeed: {
+      primary: '#6750A4', // Material purple reference
+    },
+  },
+  logo: {
+    light: '../assets/images/logo.png',
+    dark: '../assets/images/logo.png',
+  },
+  fontSizes: {
+    small: 14,
+    medium: 16,
+    large: 20,
+    xlarge: 25,
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 20,
+    xxl: 24,
+    xxxl: 40,
+  },
+  borderRadius: 8,
+});
+
+/**
+ * Example: Manual color specification (legacy approach)
+ * Use this if you need full control over every color token
+ */
+export const manualBrandExample = createBrand({
+  name: 'Manual Colors Example',
   colors: {
     // Primary colors - Material Design 3 purple reference
     primary: '#6750A4',

@@ -1,18 +1,47 @@
-# zero-to-app Design System
+Cursor Rules — Theme & Brand Conventions
 
-When working with UI components, theming, or layout in this React Native project:
-- Read zero-to-app/README.md for the complete component API
-- All UI components are exported from 'zero-to-app'
-- Wrap app root with <ZeroToApp brand={createBrand({...})}> for theme and brand context
-- Brand configuration is REQUIRED - all values (name, colors, fontSizes, spacing, borderRadius) must be provided when calling createBrand()
-- Optional brand config: logo, footerLinks, navigation - if not provided, those components won't show links/items
-- No default brand values exist - apps must provide complete brand configuration at app level
-- Best practice: Create brand config in a shared file (e.g., app/brand.ts) and import it in layout files
-- Brand is stable at runtime - created once, doesn't change during app execution
-- Use useBrand() hook to access brand values (colors, spacing, fonts, navigation, footerLinks, etc.) in components
-- Use ThemeContext for dynamic theme colors
-- Never import brand directly - always use useBrand() hook inside components
-- For StyleSheet.create() that needs brand values, use inline styles instead (StyleSheet.create runs at module level and can't use hooks)
-- Navigation items are configured via brand.navigation.items - components (AppbarWeb, MobileMenuDrawer, mobile tabs) automatically use them
-- Navigation icons: use web (Feather) for web platform, mobile (SF Symbols for iOS, Feather for Android) for mobile platforms
+This document describes the conventions ("cursor rules") for working with theme and brand tokens in the `zero-to-app` design system. Follow these rules to keep the library aligned with Material Design 3 and maintainable.
 
+1. Use M3 palette tokens (no legacy aliases)
+- Always prefer Material 3 color roles defined on `brand.colors` (e.g. `primary`, `onPrimary`, `surface`, `onSurface`, `outlineVariant`, etc.).
+- Do not add or consume legacy tokens such as `backgroundColor`, `color`, `borderColor`, `highlightColor`, `buttonText`, `cardBackgroundColor`, or `appbarBackgroundColor`.
+
+2. Prefer semantic tokens for components
+- Use `theme.values.tokens.*` where available (e.g. `tokens.button.primaryBg`, `tokens.input.placeholder`, `tokens.typography.title`).
+- Semantic tokens allow future palette changes without editing component internals.
+
+3. Theme access
+- Use `useTheme()` to access theme values and helpers in components:
+  - `const { values, mode, toggleTheme, setMode } = useTheme();`
+- Use `useBrand()` to access raw brand configuration when you need non-theme values (fonts, spacing, logos).
+
+4. Adding new tokens
+- Add new color roles only when necessary and document them in `theme/themeConfig.ts`.
+- If a token is cross-cutting (used by many components), add it to `tokens` rather than ad-hoc in components.
+
+5. Typography
+- Use `tokens.typography` (headline/title/body/label/caption) for semantic font sizes.
+- If you need additional typographic control (weights, line-heights), add `tokens.typography.weights` and `tokens.typography.lineHeights`.
+
+6. Dark mode and system preference
+- `ThemeContext` exposes `mode: 'light' | 'dark'` and `setMode()`; prefer `mode` checks over `values.isDark` when possible.
+- Consider following system color scheme at the app level and expose a `followSystem` option if needed.
+
+7. Types and safety
+- When adding tokens, update `ThemeValuesType` and related types so TypeScript enforces usage.
+- Keep theme derivation centralized in `createLightTheme` / `createDarkTheme`.
+
+8. Documentation
+- Update `README.md` with any new tokens and provide usage examples.
+- Add small component code snippets where semantic tokens should be used.
+
+9. Backwards compatibility
+- Avoid adding temporary legacy shims. If you must support older apps, add clear migration notes in the README and remove shims in the next major release.
+
+10. Review checklist for PRs touching theme
+- Did you add/update types for new tokens? (`theme/themeConfig.ts`)
+- Did you populate the token in both light and dark creators? (`createLightTheme` / `createDarkTheme`)
+- Did you update consuming components to use semantic tokens? (`components/ui/*`, `components/*`)
+- Did you update README + tests where applicable?
+
+Following these rules keeps the system coherent, type-safe, and aligned with Material Design 3 best practices.

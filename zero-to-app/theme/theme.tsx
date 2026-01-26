@@ -1,31 +1,26 @@
-import React, { createContext, useState, useMemo } from 'react';
+import React, { createContext, useState, useMemo, useContext } from 'react';
 import { createDarkTheme, createLightTheme, ThemeValuesType } from './themeConfig';
+import { defaultBrand } from '../brand/defaultBrand';
 import { Brand } from '../brand';
 import { BrandProvider } from '../brand/brandContext';
 
 //Defining types fror the ThemeContext
+export type ThemeMode = 'light' | 'dark';
+
 export type ThemeContextType = {
   values: ThemeValuesType;
+  mode: ThemeMode;
+  setMode: (m: ThemeMode) => void;
   toggleTheme: () => void;
 };
 
 // Initialize ThemeContext with a placeholder that throws if used outside provider
 // This should never be used in practice since ZeroToApp always provides a real brand
 const ThemeContext = createContext<ThemeContextType>({
-  values: {
-    color: '#000000',
-    backgroundColor: '#FFFFFF',
-    highlightColor: '#000000',
-    borderColor: '#dddfe2',
-    inactiveIconColor: '#606770',
-    dividerColor: '#dddfe2',
-    cardBackgroundColor: '#FFFFFF',
-    appbarBackgroundColor: '#FFFFFF',
-    iconButtonBackgroundColor: '#999999',
-    iconButtonIconColor: '#ffffff',
-    inputBackgroundColor: '#ffffff',
-    linkColor: '#666666',
-    isDark: false,
+  values: createLightTheme(defaultBrand as any),
+  mode: 'light',
+  setMode: () => {
+    throw new Error('ThemeContext used outside ZeroToApp provider');
   },
   toggleTheme: () => {
     throw new Error('ThemeContext used outside ZeroToApp provider');
@@ -39,17 +34,27 @@ type ZeroToAppProps = {
 //Initialize ZeroToApp with a toggle function
 const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
   const lightTheme = useMemo(() => createLightTheme(brand), [brand]);
+  // Use brand.darkColors if available, otherwise generate from brand.colors
   const darkTheme = useMemo(() => createDarkTheme(brand), [brand]);
-  const [values, setTheme] = useState<ThemeValuesType>(lightTheme);
+  const [mode, setModeState] = useState<ThemeMode>('light');
+  const values = mode === 'light' ? lightTheme : darkTheme;
+
+  const setMode = (m: ThemeMode) => {
+    setModeState(m);
+  };
+
   const toggleTheme = () => {
-    setTheme(values === lightTheme ? darkTheme : lightTheme);
+    setModeState((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
     <BrandProvider brand={brand}>
-      <ThemeContext.Provider value={{ values, toggleTheme }}>{children}</ThemeContext.Provider>
+      <ThemeContext.Provider value={{ values, mode, setMode, toggleTheme }}>{children}</ThemeContext.Provider>
     </BrandProvider>
   );
 };
+
+// Hook for consumers
+export const useTheme = () => useContext(ThemeContext);
 
 export { ThemeContext, ZeroToApp };

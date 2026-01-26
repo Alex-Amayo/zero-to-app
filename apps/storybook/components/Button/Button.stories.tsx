@@ -1,143 +1,121 @@
-import type { Meta, StoryObj } from "@storybook/react-native";
-import { View, StyleSheet } from "react-native";
-import { Button } from "zero-to-app";
+import type { Meta, StoryObj } from '@storybook/react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'zero-to-app';
+import { ButtonVariants } from '../../../../zero-to-app/components/ui/Button';
 
-const mockOnPress = () => {
-  console.log("Button pressed");
-};
+const mockOnPress = () => console.log('pressed');
+
+/**
+ * Button (Material 3)
+ *
+ * This storybook file demonstrates the Material 3 variants supported by `Button`:
+ * - `filled` (default high-emphasis)
+ * - `elevated` (surface with elevation)
+ * - `tonal` (subtle filled tone)
+ * - `outlined` (transparent with border)
+ * - `text` (no background)
+ *
+ * Props exposed in controls: `title`, `variant`, `loading`, `disabled`, `raised`,
+ * `iconPosition`, `color`, `backgroundColor`, and `onPress`.
+ */
 
 const meta = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
   args: {
-    title: "Button",
+    title: 'Button',
     onPress: mockOnPress,
+    variant: 'filled',
+    loading: false,
+    disabled: false,
+    // legacy `raised` control removed; use `variant='elevated'` instead in stories
+    iconPosition: 'right',
+    color: undefined,
+    backgroundColor: undefined,
+    iconName: '',
+    iconLibrary: 'Feather',
   },
   argTypes: {
-    title: {
-      control: "text",
-      description: "Button text label",
-    },
+    title: { control: 'text', description: 'Button text label' },
     variant: {
-      control: "select",
-      options: ["default", "secondary", "outline", "destructive"],
-      description: "Button variant style",
+      control: 'select',
+      options: ButtonVariants as unknown as string[],
+      description: 'Material 3 variant',
     },
-    loading: {
-      control: "boolean",
-      description: "Show loading spinner",
-    },
-    disabled: {
-      control: "boolean",
-      description: "Disable button interactions",
-    },
-    raised: {
-      control: "boolean",
-      description: "Add shadow/elevation to button",
-    },
-    onPress: {
-      action: "pressed",
-      description: "Callback when button is pressed",
+    loading: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    // raised control intentionally omitted; variant='elevated' covers the same case
+    iconPosition: { control: 'select', options: ['left', 'right'] },
+    color: { control: 'color' },
+    backgroundColor: { control: 'color' },
+    iconName: { control: 'text', description: 'Name of the icon to render (Feather set)' },
+    iconLibrary: { control: 'text', description: 'Icon library name' },
+    onPress: { action: 'pressed' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Use the controls to explore Material 3 variants. Prefer theme tokens for color decisions; use `color` and `backgroundColor` sparingly for overrides.',
+      },
     },
   },
-  decorators: [
-    (Story) => (
-      <View style={styles.container}>
-        <Story />
-      </View>
-    ),
-  ],
-} satisfies Meta<typeof Button>;
+  decorators: [(Story: any) => <View style={styles.container}><Story /></View>],
+} as unknown as Meta<typeof Button>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Variants
-export const Default: Story = {
+const RenderTemplate = (args: any) => {
+  const { iconName, iconLibrary, iconSize, ...rest } = args;
+
+  const icon = iconName ? { name: iconName, library: iconLibrary || 'Feather', size: iconSize || 18 } : undefined;
+
+  return <Button {...rest} icon={icon} />;
+};
+
+export const Playground: Story = {
+  render: (args) => RenderTemplate(args),
   args: {
-    title: "Default Button",
-    variant: "default",
+    title: 'Playground',
   },
 };
 
-export const Secondary: Story = {
-  args: {
-    title: "Secondary Button",
-    variant: "secondary",
-  },
+export const VariantsGallery: Story = {
+  render: () => (
+    <View style={styles.row}>
+      <Button title="Filled" variant="filled" onPress={mockOnPress} style={styles.gap} />
+      <Button title="Elevated" variant="elevated" onPress={mockOnPress} style={styles.gap} />
+      <Button title="Tonal" variant="tonal" onPress={mockOnPress} style={styles.gap} />
+      <Button title="Outlined" variant="outlined" onPress={mockOnPress} style={styles.gap} />
+      <Button title="Text" variant="text" onPress={mockOnPress} style={styles.gap} />
+    </View>
+  ),
 };
 
-export const Outline: Story = {
-  args: {
-    title: "Outline Button",
-    variant: "outline",
-  },
+export const States: Story = {
+  render: () => (
+    <View style={styles.row}>
+      <Button title="Loading" variant="filled" loading onPress={mockOnPress} style={styles.gap} />
+      <Button title="Disabled" variant="filled" disabled onPress={mockOnPress} style={styles.gap} />
+      <Button title="Raised" variant="elevated" onPress={mockOnPress} style={styles.gap} />
+    </View>
+  ),
 };
 
-export const Destructive: Story = {
-  args: {
-    title: "Delete",
-    variant: "destructive",
-  },
-};
-
-// With Icons
-export const WithIconRight: Story = {
-  args: {
-    title: "Next",
-    variant: "default",
-    icon: {
-      library: "Feather",
-      name: "arrow-right",
-      size: 20,
-    },
-    iconPosition: "right",
-  },
-};
-
-export const WithIconLeft: Story = {
-  args: {
-    title: "Back",
-    variant: "outline",
-    icon: {
-      library: "Feather",
-      name: "arrow-left",
-      size: 20,
-    },
-    iconPosition: "left",
-  },
-};
-
-// States
-export const Loading: Story = {
-  args: {
-    title: "Loading...",
-    variant: "default",
-    loading: true,
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    title: "Disabled",
-    variant: "default",
-    disabled: true,
-  },
-};
-
-export const Raised: Story = {
-  args: {
-    title: "Raised Button",
-    variant: "default",
-    raised: true,
-  },
+export const IconExamples: Story = {
+  render: () => (
+    <View style={styles.row}>
+      <Button title="Back" variant="outlined" icon={{ name: 'arrow-left', library: 'Feather', size: 18 }} iconPosition="left" onPress={mockOnPress} style={styles.gap} />
+      <Button title="Next" variant="filled" icon={{ name: 'arrow-right', library: 'Feather', size: 18 }} iconPosition="right" onPress={mockOnPress} style={styles.gap} />
+    </View>
+  ),
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  container: { padding: 16, alignItems: 'center', justifyContent: 'center' },
+  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' },
+  gap: { margin: 8 },
 });

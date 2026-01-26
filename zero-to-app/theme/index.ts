@@ -1,4 +1,5 @@
 // Export theme from local files
-export { ThemeContext, ZeroToApp, type ThemeContextType } from './theme';
-export { createLightTheme, createDarkTheme, type ThemeValuesType } from './themeConfig';
+export { ThemeContext, ZeroToApp, useTheme, type ThemeContextType, type ThemeMode } from './theme';
+export { createLightTheme, createDarkTheme, type ThemeValuesType, type ThemeTokens } from './themeConfig';
+export { createHighContrastLightTheme, createHighContrastDarkTheme } from './highContrastTheme';
 

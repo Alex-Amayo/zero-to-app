@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
-import { Card, StyledText } from 'zero-to-app';
+import { Typography } from 'zero-to-app';
 import { ComponentData } from './componentData';
 import { CodeExample } from './CodeExample';
 import { PropsTable } from './PropsTable';
@@ -25,21 +25,21 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
   const currentExample = component.examples[selectedExampleIndex];
 
   return (
-    <Card>
+    <View style={styles.card}>
       <View style={styles.header}>
         <View style={styles.titleContainer}>
-          <StyledText fontSize="lg" bold>
+          <Typography variant="bodyLarge" weight="bold">
             {component.name}
-          </StyledText>
+          </Typography>
           <View style={styles.badge}>
-            <StyledText fontSize="xs" color="#ff5757">
+            <Typography variant="labelSmall" color="#ff5757">
               {component.category}
-            </StyledText>
+            </Typography>
           </View>
         </View>
-        <StyledText fontSize="sm" muted style={styles.description}>
+        <Typography variant="bodySmall" muted style={styles.description}>
           {component.description}
-        </StyledText>
+        </Typography>
       </View>
 
       <View style={styles.tabs}>
@@ -48,12 +48,12 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
             key={tab.id}
             onPress={() => setActiveTab(tab.id)}
             style={[styles.tab, activeTab === tab.id && styles.activeTab]}>
-            <StyledText
-              fontSize="sm"
-              bold={activeTab === tab.id}
+            <Typography
+              variant="bodySmall"
+              weight={activeTab === tab.id ? 'bold' : 'regular'}
               color={activeTab === tab.id ? '#ff5757' : undefined}>
               {tab.label}
-            </StyledText>
+            </Typography>
           </Pressable>
         ))}
       </View>
@@ -71,20 +71,20 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
                       styles.exampleButton,
                       selectedExampleIndex === index && styles.activeExampleButton,
                     ]}>
-                    <StyledText
-                      fontSize="xs"
+                    <Typography
+                      variant="labelSmall"
                       color={selectedExampleIndex === index ? '#fff' : '#ff5757'}>
                       {example.title}
-                    </StyledText>
+                    </Typography>
                   </Pressable>
                 ))}
               </View>
             )}
             <PreviewContainer>{currentExample?.preview()}</PreviewContainer>
             {currentExample?.description && (
-              <StyledText fontSize="sm" muted style={styles.exampleDescription}>
+              <Typography variant="bodySmall" muted style={styles.exampleDescription}>
                 {currentExample.description}
-              </StyledText>
+              </Typography>
             )}
           </>
         )}
@@ -101,25 +101,25 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
                       styles.exampleButton,
                       selectedExampleIndex === index && styles.activeExampleButton,
                     ]}>
-                    <StyledText
-                      fontSize="xs"
+                    <Typography
+                      variant="labelSmall"
                       color={selectedExampleIndex === index ? '#fff' : '#ff5757'}>
                       {example.title}
-                    </StyledText>
+                    </Typography>
                   </Pressable>
                 ))}
               </View>
             )}
             <View style={styles.importSection}>
-              <StyledText fontSize="sm" bold style={styles.importLabel}>
+              <Typography variant="bodySmall" weight="bold" style={styles.importLabel}>
                 Import:
-              </StyledText>
+              </Typography>
               <CodeExample code={component.import} />
             </View>
             <View style={styles.codeSection}>
-              <StyledText fontSize="sm" bold style={styles.codeLabel}>
+              <Typography variant="bodySmall" weight="bold" style={styles.codeLabel}>
                 Example:
-              </StyledText>
+              </Typography>
               <CodeExample code={currentExample?.code || ''} />
             </View>
           </>
@@ -127,7 +127,7 @@ export const ComponentPreviewCard: React.FC<ComponentPreviewCardProps> = ({ comp
 
         {activeTab === 'props' && <PropsTable props={component.props} />}
       </View>
-    </Card>
+    </View>
   );
 };
 
@@ -201,5 +201,13 @@ const styles = StyleSheet.create({
   },
   codeLabel: {
     marginBottom: 8,
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#ececec',
+    marginBottom: 12,
   },
 });

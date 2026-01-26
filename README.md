@@ -126,84 +126,78 @@ pnpm help
 
 ### Development Scripts
 
-Start development servers for local development:
+# zero-to-app
+
+zero-to-app is a React Native + Expo design system package. It provides a small set of polished UI primitives, a Material-3-aligned theme system, and utilities for cross-platform apps (iOS, Android, Web).
+
+## Installation
+
+Install in your project:
 
 ```bash
-# Storybook
-pnpm dev:storybook          # Start Storybook (native Expo)
-pnpm dev:storybook:web      # Start Storybook web dev server
-
-# Demo App
-pnpm dev:demo               # Start demo app
-pnpm dev:demo:ios           # Start demo on iOS
-pnpm dev:demo:android       # Start demo on Android
-pnpm dev:demo:web           # Start demo on web
+pnpm add zero-to-app
 ```
 
-### Build Scripts
-
-Build production artifacts:
+Or with npm:
 
 ```bash
-pnpm build                  # Build zero-to-app package
-pnpm build:demo             # Build demo web export
+npm install zero-to-app
 ```
 
-### Deploy Scripts
+## Quick Usage
 
-Publish updates to demo app:
+Wrap your app with the provider and pass a brand created with `createBrand`:
+
+```tsx
+import { ZeroToApp, createBrand, Button } from 'zero-to-app';
+
+const brand = createBrand({ name: 'My App', colors: { primary: '#0066CC' } });
+
+export default function App() {
+  return (
+    <ZeroToApp brand={brand}>
+      <Button title="Get started" onPress={() => {}} />
+    </ZeroToApp>
+  );
+}
+```
+
+## Main Components (high level)
+
+- `Button` — primary CTA and variants (see `zero-to-app/components/ui/Button.tsx`)
+- `Typography` / `StyledText` — semantic typography tokens
+- `Card` — surface container
+- `useDimensions`, `useWindowWidth`, `useWindowHeight` — responsive hooks
+- `ZeroToApp` provider and `createBrand` — brand & theme entrypoints
+
+For full component docs and examples see `apps/storybook/` and `zero-to-app/README.md`.
+
+## Material 3 tokens used (end-user-facing roles)
+
+This library expects and exposes M3-like roles on your brand:
+
+- `primary`, `onPrimary`
+- `secondary`, `onSecondary`
+- `background`, `onBackground`
+- `surface`, `onSurface`, `surfaceVariant`
+- `outline`, `outlineVariant`
+- `error`, `onError`
+
+When adding new visual tokens, update `zero-to-app/theme/themeConfig.ts` and both light/dark creators.
+
+## Contributing (short)
+
+- Install and run tests locally:
 
 ```bash
-pnpm deploy:demo            # Publish demo OTA update (production)
-pnpm deploy:demo:preview    # Publish demo OTA update (preview)
+pnpm install
+pnpm dev:storybook:web   # view components
+pnpm lint
+pnpm typecheck
 ```
 
-### Release Scripts
+- Follow token rules in `zero-to-app/.cursorrules` when changing theme tokens.
+- Make minimal, focused changes; update TypeScript types and unit tests alongside functional changes.
+- Open a PR with a concise description and Storybook screenshot(s) when visual changes are involved.
 
-Publish the design system package:
-
-```bash
-pnpm release                # Publish zero-to-app package to npm
-```
-
-### Quality Scripts
-
-Code quality and linting:
-
-```bash
-pnpm lint                   # Lint code
-pnpm lint:fix               # Lint and fix issues
-pnpm typecheck              # Run TypeScript checks
-pnpm clean                  # Remove build artifacts
-```
-
-## CI/CD
-
-This repository uses GitHub Actions for continuous integration and deployment.
-
-### Workflows
-
-| Workflow | Trigger | Purpose |
-|----------|---------|---------|
-| **CI** | Push to `main`, PRs | Lint, typecheck, build |
-| **Preview** | PRs | Deploy demo to preview channel |
-| **Release** | Tag `v*` or manual | Publish to npm + deploy production |
-
-### Required Secrets
-
-To enable automated deployments, add these secrets to your GitHub repository:
-
-| Secret | Purpose | How to get |
-|--------|---------|------------|
-| `EXPO_TOKEN` | EAS deployments | [Expo Access Tokens](https://expo.dev/accounts/[account]/settings/access-tokens) |
-| `NPM_TOKEN` | npm publishing | [npm Access Tokens](https://www.npmjs.com/settings/[username]/tokens) |
-
-### Pre-commit Hooks
-
-This project uses Husky for pre-commit hooks. On each commit:
-- ESLint runs on staged files
-- TypeScript checks run
-
-## License
-
-MIT
+If you want, I can expand the component list with exact exports from `zero-to-app/index.ts` or add short code examples for `useTheme()` usage.

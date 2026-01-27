@@ -1,24 +1,23 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { ThemeContext, ZeroToApp, defaultBrand } from '../index';
+import { ZeroToApp, useTheme } from './theme';
+import { defaultBrand } from '../brand/defaultBrand';
 import { Text } from 'react-native';
 
-//This is a test file for the ZeroToApp provider. It tests the ZeroToApp provider by toggling the theme from light to dark.
-//The test checks if the highlightColor changes to the brand secondary color after the theme is toggled.
+// This is a test file for the ZeroToApp provider. It tests the ZeroToApp provider by toggling the theme from light to dark.
+// The test checks if the isDark value changes after the theme is toggled.
 
-// Mock component to test ZeroToApp
+// Mock component to test ZeroToApp using the useTheme hook
 const TestComponent = () => {
+  const { values, toggleTheme } = useTheme();
+
   return (
-    <ThemeContext.Consumer>
-      {({ values, toggleTheme }) => (
-        <>
-          <Text testID="isDark">{String(values.isDark)}</Text>
-          <Text onPress={toggleTheme} testID="toggleTheme">
-            Toggle Theme
-          </Text>
-        </>
-      )}
-    </ThemeContext.Consumer>
+    <>
+      <Text testID="isDark">{String(values.isDark)}</Text>
+      <Text onPress={toggleTheme} testID="toggleTheme">
+        Toggle Theme
+      </Text>
+    </>
   );
 };
 

@@ -1,10 +1,9 @@
 import React, { createContext, useState, useMemo, useContext } from 'react';
-import { createDarkTheme, createLightTheme, ThemeValuesType } from './themeConfig';
-import { defaultBrand } from '../brand/defaultBrand';
+import { createDarkTheme, createLightTheme, ThemeValuesType, type ThemeTokens } from './themeConfig';
 import { Brand } from '../brand';
 import { BrandProvider } from '../brand/brandContext';
 
-//Defining types fror the ThemeContext
+// Defining types for the ThemeContext
 export type ThemeMode = 'light' | 'dark';
 
 export type ThemeContextType = {
@@ -14,18 +13,11 @@ export type ThemeContextType = {
   toggleTheme: () => void;
 };
 
-// Initialize ThemeContext with a placeholder that throws if used outside provider
-// This should never be used in practice since ZeroToApp always provides a real brand
-const ThemeContext = createContext<ThemeContextType>({
-  values: createLightTheme(defaultBrand as any),
-  mode: 'light',
-  setMode: () => {
-    throw new Error('ThemeContext used outside ZeroToApp provider');
-  },
-  toggleTheme: () => {
-    throw new Error('ThemeContext used outside ZeroToApp provider');
-  },
-});
+// Sentinel value to detect missing provider
+const MISSING_PROVIDER = Symbol('MISSING_PROVIDER');
+
+// Initialize ThemeContext with undefined to detect missing provider
+const ThemeContext = createContext<ThemeContextType | typeof MISSING_PROVIDER>(MISSING_PROVIDER);
 
 type ZeroToAppProps = {
   brand: Brand;
@@ -54,7 +46,96 @@ const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
   );
 };
 
-// Hook for consumers
-export const useTheme = () => useContext(ThemeContext);
+/**
+ * Hook to access the current theme values and mode.
+ * Must be used within a `<ZeroToApp>` provider.
+ *
+ * @returns The theme context containing values, mode, setMode, and toggleTheme
+ * @throws Error if used outside of a ZeroToApp provider
+ *
+ * @example
+ * ```tsx
+ * function MyComponent() {
+ *   const { values: theme, mode, toggleTheme } = useTheme();
+ *
+ *   return (
+ *     <View style={{ backgroundColor: theme.surface }}>
+ *       <Text style={{ color: theme.onSurface }}>
+ *         Current mode: {mode}
+ *       </Text>
+ *       <Button title="Toggle Theme" onPress={toggleTheme} />
+ *     </View>
+ *   );
+ * }
+ * ```
+ */
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext);
+
+  if (context === MISSING_PROVIDER) {
+    throw new Error(
+      'useTheme must be used within a <ZeroToApp> provider.\n\n' +
+        'Make sure your component is wrapped with ZeroToApp:\n\n' +
+        '  import { ZeroToApp, createBrand } from "zero-to-app";\n\n' +
+        '  const brand = createBrand({ ... });\n\n' +
+        '  function App() {\n' +
+        '    return (\n' +
+        '      <ZeroToApp brand={brand}>\n' +
+        '        <YourComponent />\n' +
+        '      </ZeroToApp>\n' +
+        '    );\n' +
+        '  }'
+    );
+  }
+
+  return context;
+};
+
+/**
+ * Convenience hook to access theme tokens directly without drilling through `values.tokens`.
+ * Must be used within a `<ZeroToApp>` provider.
+ *
+ * @returns The theme tokens object containing button, card, input, typography, elevation, etc.
+ * @throws Error if used outside of a ZeroToApp provider
+ *
+ * @example
+ * ```tsx
+ * function MyCard() {
+ *   const tokens = useTokens();
+ *
+ *   return (
+ *     <View style={{
+ *       backgroundColor: tokens.card.background,
+ *       shadowOffset: { width: 0, height: tokens.elevation.level2 },
+ *     }}>
+ *       <Text style={{ fontSize: tokens.typography.bodyMedium }}>
+ *         Card content
+ *       </Text>
+ *     </View>
+ *   );
+ * }
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Access specific token groups
+ * function MyButton() {
+ *   const { button, focusRing } = useTokens();
+ *
+ *   return (
+ *     <Pressable style={{
+ *       backgroundColor: button.filledBg,
+ *       borderColor: focusRing.color,
+ *     }}>
+ *       <Text style={{ color: button.filledText }}>Click me</Text>
+ *     </Pressable>
+ *   );
+ * }
+ * ```
+ */
+export const useTokens = (): ThemeTokens => {
+  const { values } = useTheme();
+  return values.tokens;
+};
 
 export { ThemeContext, ZeroToApp };

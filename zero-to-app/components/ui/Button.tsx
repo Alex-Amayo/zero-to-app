@@ -18,27 +18,128 @@ import type { InteractiveComponentProps, LoadableComponentProps } from '../share
 import type { IconLibrary } from '../../brand/brandTypes';
 
 // 2. TYPES
+
+/**
+ * Configuration for button icons.
+ *
+ * @example
+ * ```tsx
+ * // Using Feather icons (default)
+ * <Button title="Next" icon={{ name: 'arrow-right' }} />
+ *
+ * // Using MaterialIcons
+ * <Button title="Save" icon={{ library: 'MaterialIcons', name: 'save', size: 20 }} />
+ *
+ * // Custom color
+ * <Button title="Delete" icon={{ name: 'trash-2', color: '#FF0000' }} />
+ * ```
+ */
 export interface IconConfig {
+  /** Icon library to use. @default 'Feather' */
   library?: IconLibrary;
+  /** Name of the icon from the specified library */
   name: string;
+  /** Icon size in pixels. @default 18 */
   size?: number;
+  /** Custom icon color. Defaults to button text color */
   color?: string;
 }
 
+/**
+ * Material Design 3 button variants.
+ * - `filled`: High-emphasis, solid background (default)
+ * - `elevated`: Medium-emphasis with shadow/elevation
+ * - `tonal`: Medium-emphasis with secondary container color
+ * - `outlined`: Medium-emphasis with border, no fill
+ * - `text`: Low-emphasis, text only
+ */
 export type ButtonVariant = 'elevated' | 'filled' | 'tonal' | 'outlined' | 'text';
 export const ButtonVariants = ['filled', 'elevated', 'tonal', 'outlined', 'text'] as const;
 
+/**
+ * Props for the Button component.
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <Button title="Click me" onPress={() => console.log('Pressed!')} />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Different variants
+ * <Button title="Primary Action" variant="filled" />
+ * <Button title="Secondary" variant="tonal" />
+ * <Button title="Cancel" variant="outlined" />
+ * <Button title="Learn more" variant="text" />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // With icon
+ * <Button
+ *   title="Continue"
+ *   icon={{ name: 'arrow-right' }}
+ *   iconPosition="right"
+ * />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Loading state
+ * <Button title="Submitting..." loading={true} />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Custom colors (use sparingly - prefer variants)
+ * <Button
+ *   title="Custom"
+ *   backgroundColor="#FF6B35"
+ *   color="#FFFFFF"
+ * />
+ * ```
+ */
 export interface ButtonProps extends Omit<InteractiveComponentProps, 'onPress'>, LoadableComponentProps {
+  /** Button label text */
   title: string;
-  // Accept either an event-aware handler or a simple no-arg callback for flexibility
+  /** Press handler. Receives optional GestureResponderEvent */
   onPress?: (event?: GestureResponderEvent) => void;
+  /**
+   * Visual style variant following M3 button spec.
+   * @default 'filled'
+   */
   variant?: ButtonVariant;
-  // `raised` is a convenience legacy prop mapped to `variant='elevated'`
+  /**
+   * Legacy prop for elevated variant. Use `variant="elevated"` instead.
+   * @deprecated Use `variant="elevated"` instead
+   */
   raised?: boolean;
+  /** Optional icon configuration */
   icon?: IconConfig;
+  /**
+   * Position of the icon relative to the title.
+   * @default 'right'
+   */
   iconPosition?: 'left' | 'right';
+  /**
+   * Override text color. Use sparingly - prefer semantic variants.
+   * Useful for special cases like destructive actions.
+   */
   color?: string;
+  /**
+   * Override background color. Use sparingly - prefer semantic variants.
+   */
   backgroundColor?: string;
+  /**
+   * Button size affecting height.
+   * - `xs`: 32dp
+   * - `s`: 40dp (default)
+   * - `m`: 56dp
+   * - `l`: 96dp
+   * - `xl`: 136dp
+   * @default 's'
+   */
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
 }
 

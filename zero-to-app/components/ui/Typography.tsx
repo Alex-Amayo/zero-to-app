@@ -2,7 +2,18 @@ import React, { forwardRef, useMemo } from 'react';
 import { StyleSheet, Text, TextStyle, type TextProps as RNTextProps } from 'react-native';
 import { useTheme } from '../../theme';
 
-// M3 Typography variants
+/**
+ * Material Design 3 typography variants.
+ *
+ * **Display** (57-36px): Hero text, large promotional content
+ * **Headline** (32-24px): Page titles, section headers
+ * **Title** (22-14px): Card titles, list headers
+ * **Body** (16-12px): Main content text
+ * **Label** (14-11px): Buttons, captions, metadata
+ *
+ * Legacy aliases (`headline`, `title`, `body`, `label`, `caption`) are
+ * supported for backwards compatibility but M3 variants are preferred.
+ */
 export type TypographyVariant =
   | 'displayLarge'
   | 'displayMedium'
@@ -26,17 +37,98 @@ export type TypographyVariant =
   | 'label'
   | 'caption';
 
+/**
+ * Font weight options.
+ * Can use semantic names or numeric values (100-900).
+ */
 export type TypographyWeight = 'light' | 'regular' | 'medium' | 'bold' | number;
+
+/** Text alignment options */
 export type TypographyAlign = 'left' | 'center' | 'right' | 'justify';
 
+/**
+ * Props for the Typography component.
+ *
+ * @example
+ * ```tsx
+ * // Basic usage with default body text
+ * <Typography>Hello, world!</Typography>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Page title
+ * <Typography variant="headlineLarge" weight="bold">
+ *   Welcome Back
+ * </Typography>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Card title with custom color
+ * <Typography variant="titleMedium" color="#6750A4">
+ *   Featured Article
+ * </Typography>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Muted secondary text
+ * <Typography variant="bodySmall" muted>
+ *   Last updated 2 hours ago
+ * </Typography>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Button label (uppercase)
+ * <Typography variant="labelLarge" weight="medium" uppercase>
+ *   Submit
+ * </Typography>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Centered hero text
+ * <Typography variant="displayMedium" align="center">
+ *   Build Something Amazing
+ * </Typography>
+ * ```
+ */
 export interface TypographyProps extends Omit<RNTextProps, 'style'> {
+  /** Text content to render */
   children: React.ReactNode;
+  /**
+   * Typography scale variant following M3 type system.
+   * @default 'bodyMedium'
+   */
   variant?: TypographyVariant;
+  /**
+   * Font weight. Use semantic names or numeric values.
+   * @default 'regular'
+   */
   weight?: TypographyWeight;
+  /**
+   * Text alignment.
+   * @default 'left'
+   */
   align?: TypographyAlign;
+  /**
+   * Custom text color. Defaults to theme's `onSurface` color.
+   */
   color?: string;
+  /**
+   * Transform text to uppercase.
+   * @default false
+   */
   uppercase?: boolean;
+  /**
+   * Apply muted styling using theme's `onSurfaceVariant` color.
+   * Useful for secondary or supporting text.
+   * @default false
+   */
   muted?: boolean;
+  /** Additional text styles to merge */
   style?: TextStyle;
 }
 

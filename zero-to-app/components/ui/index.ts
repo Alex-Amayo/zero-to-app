@@ -6,3 +6,5 @@ export { ButtonVariants } from './Button';
 // Typography
 export { Typography } from './Typography';
 export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAlign } from './Typography';
+export { ThemedView } from './ThemedView';
+export type { ThemedViewProps, ThemedViewVariant } from './ThemedView';

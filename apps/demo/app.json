@@ -1,15 +1,14 @@
 {
   "expo": {
-    "name": "zero-to-app-showcase",
-    "slug": "zero-to-app-showcase",
+    "name": "demo",
+    "slug": "demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "zerotoappshowcase",
+    "scheme": "demo",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "icon": "./assets/expo.icon"
     },
     "android": {
       "adaptiveIcon": {
@@ -30,24 +29,17 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
+          "backgroundColor": "#208AEF",
+          "android": {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 76
           }
         }
       ]
     ],
     "experiments": {
-      "typedRoutes": true
-    },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "e6d33f41-c585-4b78-958b-a80bf7322ee7"
-      }
+      "typedRoutes": true,
+      "reactCompiler": true
     }
   }
 }

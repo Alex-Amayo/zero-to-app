@@ -1,3 +1,5 @@
 packages:
-  - 'zero-to-app'
-  - 'apps/*'
+  - zero-to-app
+  - apps/*
+
+nodeLinker: hoisted

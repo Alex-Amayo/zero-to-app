@@ -45,5 +45,8 @@
     "*.{ts,tsx}": [
       "bash -c 'pnpm typecheck'"
     ]
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "6.1.2"
   }
 }

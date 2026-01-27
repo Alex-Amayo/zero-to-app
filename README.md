@@ -82,7 +82,7 @@ function MyComponent() {
 
 ## What's Included
 
-- **30+ UI Components**: Buttons, inputs, cards, forms, navigation, media components, and more
+- **UI Components*: Buttons, inputs, cards, forms, navigation, media components, and more
 - **Theme System**: Built-in light and dark mode support
 - **Brand Configuration**: Fully customizable colors, fonts, spacing, and branding
 - **Responsive Utilities**: Hooks and utilities for responsive design

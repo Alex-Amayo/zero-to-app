@@ -54,7 +54,7 @@ export const manualBrandExample = createBrand({
     onPrimaryContainer: '#21005E',
 
     // Secondary colors - Material Design 3 purple
-    secondary: '#625B71',
+    secondary: '#FF66C4',
     onSecondary: '#FFFFFF',
     secondaryContainer: '#E8DEF8',
     onSecondaryContainer: '#1D192B',

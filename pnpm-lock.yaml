@@ -99,6 +99,9 @@ importers:
       react-native-worklets:
         specifier: 0.7.2
         version: 0.7.2(@babel/core@7.28.6)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
+      zero-to-app:
+        specifier: workspace:*
+        version: link:../../zero-to-app
     devDependencies:
       '@types/react':
         specifier: ~19.2.2
@@ -10368,7 +10371,7 @@ snapshots:
 
   expo-blur@55.0.3(expo@55.0.0-preview.7)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0):
     dependencies:
-      expo: 55.0.0-preview.7(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@55.0.3)(expo-router@55.0.0-beta.4)(react-dom@19.2.0(react@19.2.0))(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
+      expo: 55.0.0-preview.7(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@6.1.2)(expo-router@55.0.0-beta.4)(react-dom@19.2.0(react@19.2.0))(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
       react: 19.2.0
       react-native: 0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0)
 

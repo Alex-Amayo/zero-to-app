@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Typography } from './Typography';
 import { useTheme } from '../../theme';
-import { renderIcon } from '../navigation/iconUtils';
+import { renderIcon } from '../../utils/iconUtils';
 import type { InteractiveComponentProps, LoadableComponentProps } from '../shared/types';
 import type { IconLibrary } from '../../brand/brandTypes';
 
@@ -110,11 +110,6 @@ export interface ButtonProps extends Omit<InteractiveComponentProps, 'onPress'>,
    * @default 'filled'
    */
   variant?: ButtonVariant;
-  /**
-   * Legacy prop for elevated variant. Use `variant="elevated"` instead.
-   * @deprecated Use `variant="elevated"` instead
-   */
-  raised?: boolean;
   /** Optional icon configuration */
   icon?: IconConfig;
   /**
@@ -158,7 +153,6 @@ export interface ButtonProps extends Omit<InteractiveComponentProps, 'onPress'>,
 const Button = forwardRef<View, ButtonProps>(({
   title,
   variant = 'filled',
-  raised = false,
   loading = false,
   disabled = false,
   icon,
@@ -174,9 +168,6 @@ const Button = forwardRef<View, ButtonProps>(({
 }, ref) => {
   const { values: theme } = useTheme();
   const tokens = theme.tokens;
-
-  // Resolve legacy `raised` prop to `elevated` variant for backwards-compatibility
-  const resolvedVariant: ButtonVariant = raised ? 'elevated' : variant;
 
   // Track hover and focus states (web-only features)
   const [hovered, setHovered] = useState(false);
@@ -223,7 +214,7 @@ const Button = forwardRef<View, ButtonProps>(({
       bg = t.disabledBg;
       borderColor = variant === 'outlined' ? theme.outlineVariant : undefined;
     } else {
-      switch (resolvedVariant) {
+      switch (variant) {
         case 'filled':
           bg = pressed ? t.filledPressedBg : hovered ? t.filledHoverBg : t.filledBg;
           if (Platform.OS !== 'web') {
@@ -305,7 +296,7 @@ const Button = forwardRef<View, ButtonProps>(({
     if (isDisabled) return tokens.button.disabledText;
 
     const t = tokens.button;
-    switch (resolvedVariant) {
+    switch (variant) {
       case 'filled':
         return t.filledText;
       case 'elevated':

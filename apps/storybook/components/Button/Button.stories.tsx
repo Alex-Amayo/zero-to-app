@@ -16,7 +16,7 @@ const mockOnPress = () => console.log('pressed');
  * - `outlined` (transparent with border)
  * - `text` (no background)
  *
- * Props exposed in controls: `title`, `variant`, `loading`, `disabled`, `raised`,
+ * Props exposed in controls: `title`, `variant`, `loading`, `disabled`,
  * `iconPosition`, `color`, `backgroundColor`, and `onPress`.
  */
 
@@ -29,7 +29,6 @@ const meta = {
     variant: 'filled',
     loading: false,
     disabled: false,
-    // legacy `raised` control removed; use `variant='elevated'` instead in stories
     iconPosition: 'right',
     color: undefined,
     backgroundColor: undefined,
@@ -45,7 +44,6 @@ const meta = {
     },
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
-    // raised control intentionally omitted; variant='elevated' covers the same case
     iconPosition: { control: 'select', options: ['left', 'right'] },
     color: { control: 'color' },
     backgroundColor: { control: 'color' },
@@ -98,7 +96,7 @@ export const VariantsGallery: Story = {
 export const States: Story = {
   render: () => (
     <View style={styles.row}>
-      <Button title="Loading" variant="filled" loading onPress={mockOnPress} style={styles.gap} />
+      <Button title="Elevated" variant="elevated" loading onPress={mockOnPress} style={styles.gap} />
       <Button title="Disabled" variant="filled" disabled onPress={mockOnPress} style={styles.gap} />
       <Button title="Raised" variant="elevated" onPress={mockOnPress} style={styles.gap} />
     </View>

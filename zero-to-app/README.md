@@ -114,9 +114,9 @@ import { AppbarWeb } from 'zero-to-app/components/navigation';
 |-----------|--------|-----------|
 | `StyledText` | Named | `fontSize`, `align`, `color`, `bold`, `muted`, `numberOfLines` |
 | `TextLink` | Default | `text`, `href`, `onPress`, `align` |
-| `Button` | Default | `title`, `onPress`, `secondary`, `loading`, `icon`, `iconPosition` |
+| `Button` | Default | `title`, `onPress`, `variant`, `loading`, `icon`, `iconPosition` |
 | `IconButton` | Default | `iconName`, `onPress`, `color`, `backgroundColor` |
-| `ToggleIconButton` | Default | `iconName`, `alternateIconName`, `onPress`, `raised` |
+| `ToggleIconButton` | Default | `iconName`, `alternateIconName`, `onPress` |
 | `BlurButton` | Default | `onPress`, `children`, `intensity`, `tint` |
 | `ArrowButton` | Default | `direction`, `onPress`, `hidden` |
 | `StyledTextInput` | Default | `value`, `onChangeText`, `inputHeight`, `onKeyDown` |

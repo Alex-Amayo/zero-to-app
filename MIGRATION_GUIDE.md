@@ -161,6 +161,7 @@ Features:
 - ✅ Focus ring for keyboard navigation on web
 - ✅ Proper elevation shadows on elevated variant
 - ✅ All colors from theme tokens
+- ✅ Eliminated deprecated `raised` prop (use `variant="elevated"`)
 
 ## Type Safety Improvements
 
@@ -177,7 +178,8 @@ function useButtonTokens(): ThemeTokens['button'] {
 
 ## Breaking Changes
 
-None! All changes are backwards compatible. `StyledText` continues to work as before.
+- **Button**: The deprecated `raised` prop has been removed. Use `variant="elevated"` instead.
+- All other changes are backwards compatible. `StyledText` continues to work as before.
 
 ## Deprecation Timeline
 

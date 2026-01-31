@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from '@expo/vector-icons';
-import { PlatformIcon, IconLibrary } from '../../brand/brandTypes';
+import { PlatformIcon, IconLibrary } from '../brand/brandTypes';
 
 type IconLibraryType = keyof typeof Icons;
 
@@ -73,4 +73,3 @@ export function getFeatherIconName(
 
   return normalized.name;
 }
-

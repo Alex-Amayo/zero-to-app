@@ -83,7 +83,7 @@ Completely refactored Button to align with M3 standards:
   - Elevation changes on press
 - ✅ **Proper state management**: useState for hover/focus tracking
 - ✅ **M3 elevation system**: Dynamic shadows based on variant and state
-- ✅ **Cleaner code**: Removed redundant memoization, simplified logic
+- ✅ **Cleaner code**: Removed redundant memoization, simplified logic, and eliminated deprecated `raised` prop.
 
 #### Variants
 All five M3 button variants properly implemented:
@@ -231,7 +231,8 @@ Comprehensive guide covering:
 - `zero-to-app/components/ui/index.ts` - Updated exports
 
 ### Deleted
-- None (all changes backwards compatible)
+- `raised` prop in `Button` (now uses `variant="elevated"`)
+- None (all other changes backwards compatible)
 
 ---
 

@@ -5,7 +5,6 @@
   "version": "1.0.0",
   "orientation": "portrait",
   "icon": "./assets/icon.png",
-  "newArchEnabled": true,
   "userInterfaceStyle": "automatic",
   "ios": {
     "supportsTablet": true,
@@ -35,7 +34,8 @@
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       }
-    ]
+    ],
+    "@react-native-community/datetimepicker"
   ],
   "experiments": {
     "reactCompiler": true,

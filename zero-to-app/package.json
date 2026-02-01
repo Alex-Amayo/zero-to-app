@@ -1,0 +1,126 @@
+{
+  "name": "zero-to-app",
+  "version": "2.0.0",
+  "description": "30+ reusable React Native components for iOS, Android, and Web",
+  "license": "MIT",
+  "author": "Alex Amayo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alex-Amayo/zero-to-app.git"
+  },
+  "homepage": "https://zero-to-app.expo.app",
+  "keywords": [
+    "react-native",
+    "expo",
+    "ui-components",
+    "design-system",
+    "cross-platform",
+    "ios",
+    "android",
+    "web",
+    "theming",
+    "components"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./brand": {
+      "types": "./dist/brand/index.d.ts",
+      "default": "./dist/brand/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "default": "./dist/theme/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "default": "./dist/hooks/index.js"
+    },
+    "./context": {
+      "types": "./dist/context/scrollContext.d.ts",
+      "default": "./dist/context/scrollContext.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*/index.d.ts",
+      "default": "./dist/components/*/index.js"
+    },
+    "./components/*/*": {
+      "types": "./dist/components/*/*.d.ts",
+      "default": "./dist/components/*/*.js"
+    },
+    "./ui": {
+      "types": "./dist/components/ui/index.d.ts",
+      "default": "./dist/components/ui/index.js"
+    },
+    "./ui/*": {
+      "types": "./dist/components/ui/*.d.ts",
+      "default": "./dist/components/ui/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "pnpm exec tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
+    "@material/material-color-utilities": "^0.4.0",
+    "react-hook-form": "^7.0.0",
+    "zod": "^3.22.0"
+  },
+  "peerDependencies": {
+    "@expo/vector-icons": "*",
+    "@shopify/flash-list": "*",
+    "expo-blur": "*",
+    "expo-glass-effect": "*",
+    "expo-router": "*",
+    "lottie-react-native": "*",
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0",
+    "react-native-reanimated-carousel": "*"
+  },
+  "peerDependenciesMeta": {
+    "@expo/vector-icons": {
+      "optional": true
+    },
+    "@shopify/flash-list": {
+      "optional": true
+    },
+    "expo-blur": {
+      "optional": true
+    },
+    "expo-glass-effect": {
+      "optional": true
+    },
+    "expo-router": {
+      "optional": true
+    },
+    "lottie-react-native": {
+      "optional": true
+    },
+    "react-native-reanimated-carousel": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "^30.0.0",
+    "@types/react": "~19.2.0",
+    "expo-router": "55.0.0-beta.4",
+    "jest": "^30.2.0",
+    "react-test-renderer": "^19.2.4",
+    "typescript": "~5.9.2"
+  }
+}

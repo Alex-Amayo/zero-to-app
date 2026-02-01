@@ -1,4 +1,5 @@
 packages:
-  - 'package'
-  - 'apps/*'
-  - 'cli'
+  - zero-to-app
+  - apps/*
+
+nodeLinker: hoisted

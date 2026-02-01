@@ -5,7 +5,7 @@
  */
 
 import { useWindowDimensions } from 'react-native';
-import { breakpoints } from './useDimensions';
+import { breakpoints } from './use-dimensions';
 
 export const useWindowWidth = () => {
   return useWindowDimensions().width;

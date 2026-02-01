@@ -1,5 +1,5 @@
-import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, Name, NavigationConfig, Spacing } from './brandTypes';
-import { generateLightColors, generateDarkColors, type PaletteOptions } from './paletteGenerator';
+import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, Name, NavigationConfig, Spacing } from './brand-types';
+import { generateLightColors, generateDarkColors, type PaletteOptions } from './palette-generator';
 
 export interface Brand {
   colors: Colors;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { Brand } from './brandConfig';
+import { Brand } from './brand-config';
 
 // Brand context type
 type BrandContextType = Brand;

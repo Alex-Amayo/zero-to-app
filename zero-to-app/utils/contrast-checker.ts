@@ -3,8 +3,8 @@
  * Automated accessibility contrast validation
  */
 
-import { hasContrastRatio } from '../brand/paletteGenerator';
-import type { Colors } from '../brand/brandTypes';
+import { hasContrastRatio } from '../brand/palette-generator';
+import type { Colors } from '../brand/brand-types';
 
 export interface ContrastCheck {
   pair: string;

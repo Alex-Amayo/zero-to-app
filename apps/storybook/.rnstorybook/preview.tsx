@@ -3,7 +3,7 @@ import { withBackgrounds } from "@storybook/addon-ondevice-backgrounds";
 import type { Preview } from "@storybook/react-native";
 import { Platform } from "react-native";
 import { ZeroToApp } from "zero-to-app";
-import { storybookBrand } from "../.storybook/brandConfig";
+import { storybookBrand } from "../.storybook/brand-config";
 
 // fix for actions on web
 if (Platform.OS === "web") {

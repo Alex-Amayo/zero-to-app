@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from '@expo/vector-icons';
-import { PlatformIcon, IconLibrary } from '../brand/brandTypes';
+import { PlatformIcon, IconLibrary } from '../brand/brand-types';
 
 type IconLibraryType = keyof typeof Icons;
 

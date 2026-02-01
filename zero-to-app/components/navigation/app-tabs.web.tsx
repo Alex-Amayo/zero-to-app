@@ -9,8 +9,8 @@ import {
 import React, { ReactNode } from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { useTheme } from '../../theme';
-import { Typography } from '../ui/Typography';
-import { ThemedView } from '../ui/ThemedView';
+import { Typography } from '../ui/typography';
+import { ThemedView } from '../ui/themed-view';
 
 /**
  * External link configuration for AppTabs

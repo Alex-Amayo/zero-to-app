@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo, useContext } from 'react';
-import { createDarkTheme, createLightTheme, ThemeValuesType, type ThemeTokens } from './themeConfig';
+import { createDarkTheme, createLightTheme, ThemeValuesType, type ThemeTokens } from './theme-config';
 import { Brand } from '../brand';
-import { BrandProvider } from '../brand/brandContext';
+import { BrandProvider } from '../brand/brand-context';
 
 // Defining types for the ThemeContext
 export type ThemeMode = 'light' | 'dark';

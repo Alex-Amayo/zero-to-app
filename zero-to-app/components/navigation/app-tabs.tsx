@@ -1,16 +1,70 @@
-import {
-  Tabs,
-  TabList,
-  TabTrigger,
-  TabSlot,
-  TabTriggerSlotProps,
-  TabListProps,
-} from 'expo-router/ui';
 import React, { ReactNode } from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { useTheme } from '../../theme';
-import { Typography } from '../ui/Typography';
-import { ThemedView } from '../ui/ThemedView';
+import { Typography } from '../ui/typography';
+import { ThemedView } from '../ui/themed-view';
+
+// Import expo-router types
+import type { TabTriggerSlotProps, TabListProps } from 'expo-router/ui';
+
+// Gracefully handle missing expo-router context for Storybook/testing
+let ExpoTabs: any;
+let ExpoTabList: any;
+let ExpoTabTrigger: any;
+let ExpoTabSlot: any;
+let hasExpoRouter = false;
+
+try {
+  const expoRouterUI = require('expo-router/ui');
+  ExpoTabs = expoRouterUI.Tabs;
+  ExpoTabList = expoRouterUI.TabList;
+  ExpoTabTrigger = expoRouterUI.TabTrigger;
+  ExpoTabSlot = expoRouterUI.TabSlot;
+  hasExpoRouter = true;
+} catch (e) {
+  console.warn('expo-router/ui not available, using fallback components');
+}
+
+// Fallback components for when expo-router context is not available
+const FallbackTabs = ({ children, style, ...props }: any) => (
+  <View style={[{ flex: 1 }, style]} {...props}>{children}</View>
+);
+
+const FallbackTabList = ({ children, asChild, style, ...props }: any) => {
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children, props);
+  }
+  return <View style={style} {...props}>{children}</View>;
+};
+
+const FallbackTabTrigger = ({ children, asChild, name, href, ...props }: any) => {
+  const isFocused = name === 'home'; // Mock: first tab always focused in fallback
+  const handlePress = () => console.log(`Tab pressed: ${name} (${href})`);
+
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children, {
+      ...props,
+      isFocused,
+      onPress: handlePress
+    } as any);
+  }
+
+  return (
+    <Pressable {...props} onPress={handlePress}>
+      {children}
+    </Pressable>
+  );
+};
+
+const FallbackTabSlot = ({ style, ...props }: any) => (
+  <View style={style} {...props} />
+);
+
+// Allow overriding components for testing/storybook, or use fallbacks if expo-router unavailable
+const Tabs = (global as any).__TABS_OVERRIDE__ || (hasExpoRouter ? ExpoTabs : FallbackTabs);
+const TabList = (global as any).__TABLIST_OVERRIDE__ || (hasExpoRouter ? ExpoTabList : FallbackTabList);
+const TabTrigger = (global as any).__TABTRIGGER_OVERRIDE__ || (hasExpoRouter ? ExpoTabTrigger : FallbackTabTrigger);
+const TabSlot = (global as any).__TABSLOT_OVERRIDE__ || (hasExpoRouter ? ExpoTabSlot : FallbackTabSlot);
 
 /**
  * External link configuration for AppTabs

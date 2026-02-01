@@ -11,11 +11,11 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { Typography } from './Typography';
+import { Typography } from './typography';
 import { useTheme } from '../../theme';
-import { renderIcon } from '../../utils/iconUtils';
+import { renderIcon } from '../../utils/icon-utils';
 import type { InteractiveComponentProps, LoadableComponentProps } from '../shared/types';
-import type { IconLibrary } from '../../brand/brandTypes';
+import type { IconLibrary } from '../../brand/brand-types';
 
 // 2. TYPES
 

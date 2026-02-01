@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { View } from 'react-native';
 import { ThemeContext, BrandProvider, createLightTheme, createDarkTheme } from 'zero-to-app';
-import { storybookBrand } from './brandConfig';
+import { storybookBrand } from './brand-config';
 import type { StoryContext } from '@storybook/react-native';
 
 // Wrapper component that manages theme based on Storybook globals

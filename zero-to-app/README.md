@@ -812,7 +812,7 @@ function MyComponent() {
 
 ### Theme Customization
 
-Edit `theme/themeConfig.ts` to customize:
+Edit `theme/theme-config.ts` to customize:
 
 - **Light Theme:** `lightTheme` object
 - **Dark Theme:** `darkTheme` object
@@ -820,7 +820,7 @@ Edit `theme/themeConfig.ts` to customize:
 
 ### Component Customization
 
-- **UI Components:** Edit files in `components/ui/` (e.g., `components/ui/Button.tsx`)
+- **UI Components:** Edit files in `components/ui/` (e.g., `components/ui/button.tsx`)
 - **Composite Components:** Edit files in `components/{category}/` (e.g., `components/layout/WebPageLayout.tsx`)
 
 ---

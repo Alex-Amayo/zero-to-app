@@ -5,5 +5,5 @@ export * from './theme';
 export * from './components';
 // Chat components are now exported via components
 export * from './hooks';
-export { ScrollProvider, useScrollContext } from './context/scrollContext';
+export { ScrollProvider, useScrollContext } from './context/scroll-context';
 

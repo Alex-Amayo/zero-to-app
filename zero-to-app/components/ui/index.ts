@@ -1,10 +1,10 @@
 // UI components
-export { Button } from './Button';
-export type { ButtonProps, ButtonVariant, IconConfig } from './Button';
-export { ButtonVariants } from './Button';
+export { Button } from './button';
+export type { ButtonProps, ButtonVariant, IconConfig } from './button';
+export { ButtonVariants } from './button';
 
 // Typography
-export { Typography } from './Typography';
-export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAlign } from './Typography';
-export { ThemedView } from './ThemedView';
-export type { ThemedViewProps, ThemedViewVariant } from './ThemedView';
+export { Typography } from './typography';
+export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAlign } from './typography';
+export { ThemedView } from './themed-view';
+export type { ThemedViewProps, ThemedViewVariant } from './themed-view';

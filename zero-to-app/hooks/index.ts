@@ -1,5 +1,5 @@
 // Barrel export for zero-to-app hooks
-export * from './useDimensions';
-export * from './useWindowWidth';
-export * from './useWindowHeight';
+export * from './use-dimensions';
+export * from './use-window-width';
+export * from './use-window-height';
 

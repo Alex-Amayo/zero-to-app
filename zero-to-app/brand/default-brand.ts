@@ -1,4 +1,4 @@
-import { createBrand } from './brandConfig';
+import { createBrand } from './brand-config';
 
 /**
  * Default brand configuration using Material Design 3 reference colors.

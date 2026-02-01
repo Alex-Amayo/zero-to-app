@@ -1,3 +1,3 @@
 // Utility exports
-export * from './contrastChecker';
-export * from './iconUtils';
+export * from './contrast-checker';
+export * from './icon-utils';

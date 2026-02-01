@@ -3,8 +3,8 @@
  * Validates WCAG compliance for default themes
  */
 
-import { generateLightColors, generateDarkColors } from '../../brand/paletteGenerator';
-import { checkThemeContrast, validateThemeContrast, assertThemeContrast } from '../contrastChecker';
+import { generateLightColors, generateDarkColors } from '../../brand/palette-generator';
+import { checkThemeContrast, validateThemeContrast, assertThemeContrast } from '../contrast-checker';
 
 describe('Contrast Checker', () => {
   describe('Material Design 3 Default Purple Theme', () => {

@@ -10,7 +10,7 @@ import {
   TonalPalette,
   Hct,
 } from '@material/material-color-utilities';
-import type { Colors } from './brandTypes';
+import type { Colors } from './brand-types';
 
 export interface PaletteOptions {
   /** Seed color for primary palette (hex format) */

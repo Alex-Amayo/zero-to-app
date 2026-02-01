@@ -3,8 +3,8 @@
  * Provides enhanced contrast for accessibility
  */
 
-import { generateHighContrastColors } from '../brand/paletteGenerator';
-import { ThemeValuesType } from './themeConfig';
+import { generateHighContrastColors } from '../brand/palette-generator';
+import { ThemeValuesType } from './theme-config';
 import type { Brand } from '../brand';
 
 /**

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'zero-to-app';
-import { ButtonVariants } from '../../../../zero-to-app/components/ui/Button';
+import { ButtonVariants } from 'zero-to-app';
 
 const mockOnPress = () => console.log('pressed');
 

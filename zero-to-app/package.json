@@ -85,6 +85,7 @@
     "@shopify/flash-list": "*",
     "expo-blur": "*",
     "expo-glass-effect": "*",
+    "expo-router": "*",
     "lottie-react-native": "*",
     "react": ">=18.0.0",
     "react-native": ">=0.70.0",
@@ -101,6 +102,9 @@
       "optional": true
     },
     "expo-glass-effect": {
+      "optional": true
+    },
+    "expo-router": {
       "optional": true
     },
     "lottie-react-native": {

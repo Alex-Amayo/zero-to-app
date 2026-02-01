@@ -2,8 +2,8 @@ import React from 'react';
 import { fireEvent, render, renderHook } from '@testing-library/react-native';
 import { Text, View } from 'react-native';
 import { ZeroToApp, useTheme, useTokens } from './theme';
-import { defaultBrand } from '../brand/defaultBrand';
-import { createLightTheme, createDarkTheme } from './themeConfig';
+import { defaultBrand } from '../brand/default-brand';
+import { createLightTheme, createDarkTheme } from './theme-config';
 
 // Test component that exposes theme values for assertions
 const ThemeTestComponent = () => {

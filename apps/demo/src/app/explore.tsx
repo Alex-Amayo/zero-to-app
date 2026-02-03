@@ -1,181 +1,194 @@
-import { Image } from 'expo-image';
-import { SymbolView } from 'expo-symbols';
-import React from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import { StyleSheet, View, Platform } from 'react-native';
+import {
+  Button,
+  Typography,
+  ThemedView,
+  Sidebar,
+  SidebarHeader,
+  SidebarSection,
+  SidebarItem,
+  SidebarFooter,
+  useSidebar,
+  useDimensions,
+  breakpoints,
+} from 'zero-to-app';
 
-import { ExternalLink } from '@/components/external-link';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Collapsible } from '@/components/ui/collapsible';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { useTheme } from '@/hooks/use-theme';
+export default function ExploreScreen() {
+  const { open } = useSidebar();
+  const { width } = useDimensions();
+  const isDesktop = width >= breakpoints.large;
+  const [selectedItem, setSelectedItem] = useState('home');
 
-export default function TabTwoScreen() {
-  const safeAreaInsets = useSafeAreaInsets();
-  const insets = {
-    ...safeAreaInsets,
-    bottom: safeAreaInsets.bottom + BottomTabInset + Spacing.three,
+  const handleItemPress = (item: string) => {
+    setSelectedItem(item);
   };
-  const theme = useTheme();
-
-  const contentPlatformStyle = Platform.select({
-    android: {
-      paddingTop: insets.top,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
-      paddingBottom: insets.bottom,
-    },
-    web: {
-      paddingTop: Spacing.six,
-      paddingBottom: Spacing.four,
-    },
-  });
 
   return (
-    <ScrollView
-      style={[styles.scrollView, { backgroundColor: theme.background }]}
-      contentInset={insets}
-      contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="subtitle">Explore</ThemedText>
-          <ThemedText style={styles.centerText} themeColor="textSecondary">
-            This starter app includes example{'\n'}code to help you get started.
-          </ThemedText>
+    <View style={styles.container}>
+      {/* Sidebar */}
+      <Sidebar
+        header={
+          <SidebarHeader
+            title="Zero to App"
+            subtitle="Demo Sidebar"
+          />
+        }
+        footer={
+          <SidebarFooter>
+            <Typography variant="labelSmall" muted>
+              © 2024 Zero to App
+            </Typography>
+            <Typography variant="labelSmall" muted>
+              v1.0.0
+            </Typography>
+          </SidebarFooter>
+        }
+      >
+        <SidebarSection title="Main">
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'home' }}
+            label="Home"
+            active={selectedItem === 'home'}
+            onPress={() => handleItemPress('home')}
+          />
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'compass' }}
+            label="Explore"
+            active={selectedItem === 'explore'}
+            onPress={() => handleItemPress('explore')}
+          />
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'settings' }}
+            label="Settings"
+            active={selectedItem === 'settings'}
+            onPress={() => handleItemPress('settings')}
+          />
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'user' }}
+            label="Profile"
+            active={selectedItem === 'profile'}
+            onPress={() => handleItemPress('profile')}
+          />
+        </SidebarSection>
 
-          <ExternalLink href="https://docs.expo.dev" asChild>
-            <Pressable style={({ pressed }) => pressed && styles.pressed}>
-              <ThemedView type="backgroundElement" style={styles.linkButton}>
-                <ThemedText type="link">Expo documentation</ThemedText>
-                <SymbolView
-                  tintColor={theme.text}
-                  name={{ ios: 'arrow.up.right.square', android: 'link', web: 'link' }}
-                  size={12}
-                />
-              </ThemedView>
-            </Pressable>
-          </ExternalLink>
-        </ThemedView>
+        <SidebarSection title="Help">
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'help-circle' }}
+            label="Help"
+            active={selectedItem === 'help'}
+            onPress={() => handleItemPress('help')}
+          />
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'log-out' }}
+            label="Logout"
+            active={selectedItem === 'logout'}
+            onPress={() => handleItemPress('logout')}
+          />
+        </SidebarSection>
+      </Sidebar>
 
-        <ThemedView style={styles.sectionsWrapper}>
-          <Collapsible title="File-based routing">
-            <ThemedText type="small">
-              This app has two screens: <ThemedText type="code">src/app/index.tsx</ThemedText> and{' '}
-              <ThemedText type="code">src/app/explore.tsx</ThemedText>
-            </ThemedText>
-            <ThemedText type="small">
-              The layout file in <ThemedText type="code">src/app/_layout.tsx</ThemedText> sets up
-              the tab navigator.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/router/introduction">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
+      {/* Main content area */}
+      <ThemedView
+        variant="background"
+        style={[
+          styles.content,
+          // Add left margin for persistent sidebar on desktop
+          isDesktop && styles.contentWithSidebar,
+        ]}
+      >
+        <View style={styles.body}>
+          {/* Show menu button on mobile */}
+          {!isDesktop && (
+            <Button
+              title="Menu"
+              icon={{ library: 'Feather', name: 'menu' }}
+              iconPosition="left"
+              variant="text"
+              onPress={open}
+            />
+          )}
 
-          <Collapsible title="Android, iOS, and web support">
-            <ThemedView type="backgroundElement" style={styles.collapsibleContent}>
-              <ThemedText type="small">
-                You can open this project on Android, iOS, and the web. To open the web version,
-                press <ThemedText type="smallBold">w</ThemedText> in the terminal running this
-                project.
-              </ThemedText>
-              <Image
-                source={require('@/assets/images/tutorial-web.png')}
-                style={styles.imageTutorial}
-              />
-            </ThemedView>
-          </Collapsible>
+          <Typography variant="headlineMedium" weight="bold">
+            Explore
+          </Typography>
 
-          <Collapsible title="Images">
-            <ThemedText type="small">
-              For static images, you can use the <ThemedText type="code">@2x</ThemedText> and{' '}
-              <ThemedText type="code">@3x</ThemedText> suffixes to provide files for different
-              screen densities.
-            </ThemedText>
-            <Image source={require('@/assets/images/react-logo.png')} style={styles.imageReact} />
-            <ExternalLink href="https://reactnative.dev/docs/images">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
+          <ThemedView variant="surface" style={styles.card}>
+            <Typography variant="titleLarge" weight="medium">
+              Selected: {selectedItem.charAt(0).toUpperCase() + selectedItem.slice(1)}
+            </Typography>
 
-          <Collapsible title="Light and dark mode components">
-            <ThemedText type="small">
-              This template has light and dark mode support. The{' '}
-              <ThemedText type="code">useColorScheme()</ThemedText> hook lets you inspect what the
-              user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
+            <Typography variant="bodyMedium" style={styles.description}>
+              This is the Explore screen demonstrating the Sidebar component from zero-to-app.
+            </Typography>
 
-          <Collapsible title="Animations">
-            <ThemedText type="small">
-              This template includes an example of an animated component. The{' '}
-              <ThemedText type="code">src/components/ui/collapsible.tsx</ThemedText> component uses
-              the powerful <ThemedText type="code">react-native-reanimated</ThemedText> library to
-              animate opening this hint.
-            </ThemedText>
-          </Collapsible>
-        </ThemedView>
-        {Platform.OS === 'web' && <WebBadge />}
+            <Typography variant="bodySmall" muted style={styles.description}>
+              <Typography variant="bodySmall" weight="bold">
+                Desktop (≥1024px):
+              </Typography>
+              {' '}Persistent sidebar on the left
+            </Typography>
+
+            <Typography variant="bodySmall" muted style={styles.description}>
+              <Typography variant="bodySmall" weight="bold">
+                Mobile/Tablet (&lt;1024px):
+              </Typography>
+              {' '}Drawer that slides from left with backdrop
+            </Typography>
+
+            <Typography variant="bodySmall" muted style={styles.description}>
+              <Typography variant="bodySmall" weight="bold">
+                Control:
+              </Typography>
+              {' '}Use useSidebar() hook to open/close/toggle the drawer
+            </Typography>
+          </ThemedView>
+
+          <ThemedView variant="surface" style={styles.card}>
+            <Typography variant="titleMedium" weight="medium">
+              Platform Information
+            </Typography>
+
+            <Typography variant="bodyMedium" style={styles.description}>
+              Platform: {Platform.OS}
+            </Typography>
+
+            <Typography variant="bodyMedium" style={styles.description}>
+              Screen width: {Math.round(width)}px
+            </Typography>
+
+            <Typography variant="bodyMedium" style={styles.description}>
+              Layout: {isDesktop ? 'Desktop' : 'Mobile'}
+            </Typography>
+          </ThemedView>
+        </View>
       </ThemedView>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  content: {
     flex: 1,
   },
-  contentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  contentWithSidebar: {
+    marginLeft: 280, // Sidebar width from tokens
   },
-  container: {
-    maxWidth: MaxContentWidth,
-    flexGrow: 1,
+  body: {
+    flex: 1,
+    padding: 24,
+    gap: 16,
   },
-  titleContainer: {
-    gap: Spacing.three,
-    alignItems: 'center',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.six,
+  card: {
+    padding: 24,
+    borderRadius: 12,
+    gap: 12,
   },
-  centerText: {
-    textAlign: 'center',
-  },
-  pressed: {
-    opacity: 0.7,
-  },
-  linkButton: {
-    flexDirection: 'row',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.two,
-    borderRadius: Spacing.five,
-    justifyContent: 'center',
-    gap: Spacing.one,
-    alignItems: 'center',
-  },
-  sectionsWrapper: {
-    gap: Spacing.five,
-    paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.three,
-  },
-  collapsibleContent: {
-    alignItems: 'center',
-  },
-  imageTutorial: {
-    width: '100%',
-    aspectRatio: 296 / 171,
-    borderRadius: Spacing.three,
-    marginTop: Spacing.two,
-  },
-  imageReact: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
+  description: {
+    marginTop: 4,
   },
 });

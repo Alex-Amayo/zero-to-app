@@ -7,10 +7,13 @@ import {
   TabListProps,
 } from 'expo-router/ui';
 import React, { ReactNode } from 'react';
-import { Pressable, View, StyleSheet } from 'react-native';
+import { Pressable, View, StyleSheet, Platform } from 'react-native';
 import { useTheme } from '../../theme';
 import { Typography } from '../ui/typography';
 import { ThemedView } from '../ui/themed-view';
+import { Link } from 'expo-router';
+import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
+import { renderIcon, type PlatformIcon } from '../../icons';
 
 /**
  * External link configuration for AppTabs
@@ -18,9 +21,24 @@ import { ThemedView } from '../ui/themed-view';
 export interface AppTabsExternalLink {
   /** Link label text */
   label: string;
-  /** Link component (should include href and navigation logic) */
-  component: ReactNode;
+  /** External URL href */
+  href: string;
 }
+
+/**
+ * SF Symbol icon configuration for iOS
+ */
+export interface SFSymbolIcon {
+  /** Default state SF Symbol name */
+  default: string;
+  /** Selected state SF Symbol name */
+  selected: string;
+}
+
+/**
+ * Material Design icon name for Android
+ */
+export type MaterialIconName = string;
 
 /**
  * Tab configuration for AppTabs
@@ -32,6 +50,12 @@ export interface AppTabConfig {
   href: string;
   /** Tab display label */
   label: string;
+  /** iOS SF Symbol icon configuration (must include both default and selected states) */
+  sfSymbol: SFSymbolIcon;
+  /** Android Material Design icon name */
+  materialIcon: MaterialIconName;
+  /** Optional web-specific icon configuration (defaults to Material icon if not provided) */
+  webIcon?: PlatformIcon | string;
 }
 
 /**
@@ -46,6 +70,8 @@ export interface AppTabsProps {
   externalLinks?: AppTabsExternalLink[];
   /** Maximum content width (default: 1200) */
   maxWidth?: number;
+  /** App bar height (default: 64) */
+  height?: number;
 }
 
 /**
@@ -57,6 +83,7 @@ export default function AppTabs({
   tabs,
   externalLinks = [],
   maxWidth = 1200,
+  height = 64,
 }: AppTabsProps) {
   return (
     <Tabs>
@@ -64,10 +91,16 @@ export default function AppTabs({
         <CustomTabList
           brandName={brandName}
           externalLinks={externalLinks}
-          maxWidth={maxWidth}>
+          maxWidth={maxWidth}
+          height={height}>
           {tabs.map((tab) => (
             <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-              <TabButton>{tab.label}</TabButton>
+              <TabButton
+                height={height}
+                webIcon={tab.webIcon}
+                materialIcon={tab.materialIcon}>
+                {tab.label}
+              </TabButton>
             </TabTrigger>
           ))}
         </CustomTabList>
@@ -79,10 +112,17 @@ export default function AppTabs({
 
 interface TabButtonProps extends TabTriggerSlotProps {
   children: ReactNode;
+  height?: number;
+  webIcon?: PlatformIcon | string;
+  materialIcon: string;
 }
 
-export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
+export function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
   const { values: theme } = useTheme();
+
+  // Use webIcon if provided, otherwise fallback to materialIcon with MaterialIcons library
+  const iconToRender = webIcon || { library: 'MaterialIcons' as const, name: materialIcon };
+  const iconColor = isFocused ? theme.primary : theme.onSurfaceVariant;
 
   return (
     <Pressable
@@ -90,9 +130,10 @@ export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
       style={({ pressed, hovered }: any) => [
         styles.tabButton,
         {
-          paddingVertical: theme.tokens.elevation.level2,
-          paddingHorizontal: theme.tokens.elevation.level3,
+          paddingHorizontal: theme.tokens.elevation.level4,
           borderRadius: theme.tokens.elevation.level2,
+          height,
+          justifyContent: 'center',
         },
         pressed && { opacity: 0.7 },
         hovered && {
@@ -101,18 +142,25 @@ export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
             : 'rgba(0, 0, 0, 0.05)',
         },
       ]}>
-      <Typography
-        variant="labelLarge"
-        weight="medium"
-        color={isFocused ? theme.primary : theme.onSurfaceVariant}
-        style={styles.tabButtonText}>
-        {children}
-      </Typography>
+      <View style={styles.tabButtonContent}>
+        {renderIcon(iconToRender, 'MaterialIcons', 20, iconColor)}
+        <Typography
+          variant="labelLarge"
+          weight="medium"
+          color={iconColor}
+          style={styles.tabButtonText}>
+          {children}
+        </Typography>
+      </View>
       {isFocused && (
         <View
           style={[
             styles.activeIndicator,
-            { backgroundColor: theme.primary },
+            {
+              backgroundColor: theme.primary,
+              borderTopLeftRadius: 2,
+              borderTopRightRadius: 2,
+            },
           ]}
         />
       )}
@@ -120,20 +168,77 @@ export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
   );
 }
 
+interface ExternalLinkButtonProps {
+  href: string;
+  label: string;
+  height?: number;
+}
+
+function ExternalLinkButton({ href, label, height }: ExternalLinkButtonProps) {
+  const { values: theme } = useTheme();
+
+  const handlePress = async (event: any) => {
+    if (Platform.OS !== 'web') {
+      event.preventDefault();
+      await openBrowserAsync(href, {
+        presentationStyle: WebBrowserPresentationStyle.AUTOMATIC,
+      });
+    }
+  };
+
+  return (
+    <Link href={href as any} target="_blank" onPress={handlePress} asChild>
+      <Pressable
+        style={({ pressed, hovered }: any) => [
+          styles.tabButton,
+          {
+            paddingHorizontal: theme.tokens.elevation.level4,
+            borderRadius: theme.tokens.elevation.level2,
+            height,
+            justifyContent: 'center',
+          },
+          pressed && { opacity: 0.7 },
+          hovered && {
+            backgroundColor: theme.isDark
+              ? 'rgba(255, 255, 255, 0.08)'
+              : 'rgba(0, 0, 0, 0.05)',
+          },
+        ]}>
+        <Typography
+          variant="labelLarge"
+          weight="medium"
+          color={theme.onSurfaceVariant}
+          style={styles.tabButtonText}>
+          {label}
+        </Typography>
+      </Pressable>
+    </Link>
+  );
+}
+
 interface CustomTabListProps extends TabListProps {
   brandName: string;
   externalLinks: AppTabsExternalLink[];
   maxWidth: number;
+  height: number;
 }
 
 export function CustomTabList({
   brandName,
   externalLinks,
   maxWidth,
+  height,
   children,
   ...props
 }: CustomTabListProps) {
   const { values: theme } = useTheme();
+
+  // Calculate tonal surface color overlay (8% primary for elevation level 2)
+  const getSurfaceWithTonalElevation = () => {
+    const baseColor = theme.surfaceContainer;
+    // Return base color - tonal elevation is already handled by variant="appbar"
+    return baseColor;
+  };
 
   return (
     <ThemedView
@@ -141,10 +246,13 @@ export function CustomTabList({
       style={[
         styles.appBar,
         {
-          borderBottomWidth: 1,
-          borderBottomColor: theme.outlineVariant,
-          paddingVertical: theme.tokens.elevation.level3,
+          paddingVertical: 0,
           paddingHorizontal: theme.tokens.elevation.level5,
+          shadowColor: theme.shadow,
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.05,
+          shadowRadius: 2,
+          elevation: 1,
         },
       ]}>
       <View
@@ -153,21 +261,21 @@ export function CustomTabList({
           styles.appBarContent,
           {
             maxWidth,
-            gap: theme.tokens.elevation.level5,
+            gap: theme.tokens.elevation.level3,
           },
         ]}>
         <Typography variant="titleMedium" weight="bold" style={styles.brandText}>
           {brandName}
         </Typography>
 
-        <View style={[styles.tabsContainer, { gap: theme.tokens.elevation.level2 }]}>
+        <View style={[styles.tabsContainer, { gap: theme.tokens.elevation.level1 }]}>
           {children}
         </View>
 
         {externalLinks.length > 0 && (
-          <View style={[styles.externalLinksContainer, { gap: theme.tokens.elevation.level3 }]}>
+          <View style={[styles.externalLinksContainer, { gap: theme.tokens.elevation.level1, marginLeft: theme.tokens.elevation.level4 }]}>
             {externalLinks.map((link, index) => (
-              <View key={index}>{link.component}</View>
+              <ExternalLinkButton key={index} href={link.href} label={link.label} height={height} />
             ))}
           </View>
         )}
@@ -196,6 +304,13 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     position: 'relative',
+    // @ts-ignore - Web-only transition property
+    transition: 'background-color 0.2s ease, opacity 0.15s ease',
+  },
+  tabButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   tabButtonText: {
     fontWeight: '500',
@@ -205,7 +320,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 2,
+    height: 3,
+    // @ts-ignore - Web-only transition property
+    transition: 'opacity 0.2s ease',
   },
   externalLinksContainer: {
     flexDirection: 'row',

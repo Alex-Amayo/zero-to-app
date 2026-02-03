@@ -1,7 +1,5 @@
 # zero-to-app
 
-[![CI](https://github.com/Alex-Amayo/zero-to-app/actions/workflows/ci.yml/badge.svg)](https://github.com/Alex-Amayo/zero-to-app/actions/workflows/ci.yml)
-
 A Material Design 3 component library for React Native and Expo, supporting iOS, Android, and Web platforms.
 
 🌐 **Live Demo:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
@@ -16,15 +14,15 @@ npm install zero-to-app
 pnpm add zero-to-app
 ```
 
-### Peer Dependencies
-
-Install required peer dependencies:
+### Required Peer Dependencies
 
 ```bash
-npx expo install react-native-reanimated react-native-gesture-handler react-native-safe-area-context react-native-screens expo-router
+npx expo install react-native-reanimated react-native-gesture-handler react-native-safe-area-context react-native-screens expo-router @expo/vector-icons
 ```
 
-Optional dependencies (for specific components):
+### Optional Dependencies
+
+For specific components (blur effects, carousels, animations):
 
 ```bash
 npx expo install expo-blur expo-glass-effect @shopify/flash-list lottie-react-native react-native-reanimated-carousel
@@ -47,23 +45,10 @@ export default function RootLayout() {
     colors: {
       primary: '#6200EE',
       onPrimary: '#FFFFFF',
-      // ... other M3 color tokens
+      // ... other M3 color tokens (see below)
     },
-    fontSizes: {
-      small: 14,
-      medium: 16,
-      large: 20,
-      xlarge: 25,
-    },
-    spacing: {
-      xs: 4,
-      sm: 8,
-      md: 12,
-      lg: 16,
-      xl: 20,
-      xxl: 24,
-      xxxl: 40,
-    },
+    fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },
+    spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
     borderRadius: 8,
   });
 
@@ -73,6 +58,18 @@ export default function RootLayout() {
     </ZeroToApp>
   );
 }
+```
+
+**💡 Pro tip:** Use `colorSeed` to auto-generate all M3 tokens from a single color:
+
+```tsx
+const brand = createBrand({
+  name: 'My App',
+  colors: { colorSeed: { primary: '#6750A4' } }, // Generates full palette
+  fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },
+  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
+  borderRadius: 8,
+});
 ```
 
 ### 2. Use Components
@@ -96,185 +93,98 @@ function MyScreen() {
 
 ---
 
-## Material Design 3 Tokens
-
-This library implements the Material Design 3 color system. All color tokens must be provided via the `createBrand()` function.
-
-### Required Color Tokens
-
-| Token | Purpose | Example |
-|-------|---------|---------|
-| `primary` | Primary brand color | `#6200EE` |
-| `onPrimary` | Text/icons on primary | `#FFFFFF` |
-| `primaryContainer` | Container using primary | `#EADDFF` |
-| `onPrimaryContainer` | Text on primary container | `#21005E` |
-| `secondary` | Secondary brand color | `#03DAC6` |
-| `onSecondary` | Text/icons on secondary | `#000000` |
-| `secondaryContainer` | Container using secondary | `#B2F1E8` |
-| `onSecondaryContainer` | Text on secondary container | `#00201C` |
-| `tertiary` | Tertiary accent color | `#03A9F4` |
-| `onTertiary` | Text/icons on tertiary | `#FFFFFF` |
-| `tertiaryContainer` | Container using tertiary | `#B3E5FC` |
-| `onTertiaryContainer` | Text on tertiary container | `#001F28` |
-| `error` | Error state color | `#B00020` |
-| `onError` | Text/icons on error | `#FFFFFF` |
-| `errorContainer` | Container for errors | `#FDECEA` |
-| `onErrorContainer` | Text on error container | `#410002` |
-| `surface` | Background surface | `#FFFFFF` |
-| `onSurface` | Primary text on surface | `#1C1B1F` |
-| `surfaceVariant` | Variant surface color | `#E7E0EC` |
-| `onSurfaceVariant` | Text on surface variant | `#49454F` |
-| `outline` | Border/divider color | `#79747E` |
-| `outlineVariant` | Subtle borders | `#CAC4D0` |
-| `surfaceContainer*` | Surface elevation levels | Various |
-| `inverseSurface` | Inverse surface (tooltips) | `#313033` |
-| `inverseOnSurface` | Text on inverse surface | `#F4EFF4` |
-| `inversePrimary` | Primary color on inverse | `#D0BCFF` |
-| `scrim` | Overlay scrim | `#000000` |
-| `shadow` | Shadow color | `#000000` |
-
-### Semantic Tokens
-
-The library provides semantic tokens for common use cases (auto-generated from M3 tokens):
-
-```tsx
-import { useTheme } from 'zero-to-app';
-
-function MyComponent() {
-  const { values } = useTheme();
-
-  // Button tokens
-  values.tokens.button.filledBg
-  values.tokens.button.filledText
-
-  // Input tokens
-  values.tokens.input.background
-  values.tokens.input.border
-
-  // Typography tokens
-  values.tokens.typography.headlineLarge
-  values.tokens.typography.bodyMedium
-}
-```
-
----
-
 ## Components
 
-### Navigation
+### Button
 
-#### AppTabs
-Native tab navigation for iOS and Android with automatic icon rendering.
-
-```tsx
-import { AppTabs } from 'zero-to-app';
-
-// Configure via brand:
-const brand = createBrand({
-  // ...
-  navigation: {
-    items: [
-      {
-        route: '/(tabs)/home',
-        title: 'Home',
-        icon: {
-          web: { library: 'Feather', name: 'home' },
-          mobile: 'house' // SF Symbol on iOS, Feather on Android
-        }
-      },
-    ]
-  }
-});
-```
-
-**Note:** AppTabs requires expo-router and is difficult to mock in Storybook. Test in the demo app instead.
-
-### UI
-
-#### Button
-Material Design 3 button with five variants.
+Material Design 3 button with five variants:
 
 ```tsx
-<Button title="Save" variant="filled" onPress={() => {}} />
-<Button title="Cancel" variant="outlined" onPress={() => {}} />
-<Button title="Delete" variant="text" onPress={() => {}} />
-<Button title="Action" variant="tonal" onPress={() => {}} />
-<Button title="Float" variant="elevated" onPress={() => {}} />
+<Button title="Primary" variant="filled" onPress={handlePress} />
+<Button title="Secondary" variant="tonal" onPress={handlePress} />
+<Button title="Tertiary" variant="outlined" onPress={handlePress} />
+<Button title="Text" variant="text" onPress={handlePress} />
+<Button title="Elevated" variant="elevated" onPress={handlePress} />
+
+// With icon
+<Button
+  title="Save"
+  icon={{ library: 'Feather', name: 'save', size: 20 }}
+  iconPosition="left"
+  onPress={handleSave}
+/>
 ```
 
-**Props:**
-- `title: string` - Button text
-- `variant?: 'filled' | 'elevated' | 'tonal' | 'outlined' | 'text'` - Visual style (default: 'filled')
-- `onPress?: () => void` - Press handler
-- `loading?: boolean` - Show loading spinner
-- `disabled?: boolean` - Disable interaction
-- `icon?: IconConfig` - Optional icon
-- `iconPosition?: 'left' | 'right'` - Icon position (default: 'right')
-- `size?: 'xs' | 's' | 'm' | 'l' | 'xl'` - Button size (default: 's')
+**Key Props:** `title`, `variant`, `onPress`, `loading`, `disabled`, `icon`, `iconPosition`, `size`
 
-#### Typography
-Type-safe typography component with M3 type scale.
+### Typography
+
+Type-safe typography with M3 type scale:
 
 ```tsx
 <Typography variant="displayLarge">Hero Title</Typography>
 <Typography variant="headlineMedium" weight="bold">Section</Typography>
 <Typography variant="bodyMedium">Body text</Typography>
-<Typography variant="labelSmall" color="#FF0000">Label</Typography>
+<Typography variant="labelSmall" muted>Caption</Typography>
 ```
 
-**Props:**
-- `variant?: TypographyVariant` - M3 type scale variant
-- `weight?: 'light' | 'regular' | 'medium' | 'bold'` - Font weight
-- `color?: string` - Text color
-- `align?: 'left' | 'center' | 'right'` - Text alignment
-- `numberOfLines?: number` - Limit lines
+**Variants:** `display{Large|Medium|Small}`, `headline{Large|Medium|Small}`, `title{Large|Medium|Small}`, `body{Large|Medium|Small}`, `label{Large|Medium|Small}`
 
-**Variants:** `displayLarge`, `displayMedium`, `displaySmall`, `headlineLarge`, `headlineMedium`, `headlineSmall`, `titleLarge`, `titleMedium`, `titleSmall`, `bodyLarge`, `bodyMedium`, `bodySmall`, `labelLarge`, `labelMedium`, `labelSmall`
+### ThemedView
 
-#### ThemedView
-Container component with automatic theme-aware styling.
+Container with automatic theme-aware styling:
 
 ```tsx
 <ThemedView variant="surface">
-  <Typography>Content</Typography>
+  <Typography>Automatically themed content</Typography>
 </ThemedView>
 ```
 
-**Props:**
-- `variant?: 'background' | 'surface' | 'surfaceVariant' | 'primary' | 'secondary'`
-- `style?: ViewStyle` - Additional styles
+**Variants:** `background`, `surface`, `surfaceVariant`, `primary`, `secondary`, `appbar`
 
-### Utils
+### AppTabs
 
-#### Icon Utilities
-Helper functions for rendering icons from various libraries.
+Cross-platform tab navigation (requires expo-router):
 
 ```tsx
-import { renderIcon } from 'zero-to-app';
+import { AppTabs } from 'zero-to-app';
 
-// Used internally by Button, AppTabs, etc.
-renderIcon(
-  { name: 'home', size: 24 },
-  'Feather',
-  24,
-  '#000000'
-)
+export default function TabLayout() {
+  return (
+    <AppTabs
+      brandName="My App"
+      tabs={[
+        {
+          name: 'index',
+          href: '/',
+          label: 'Home',
+          sfSymbol: { default: 'house', selected: 'house.fill' },
+          materialIcon: 'home',
+        },
+      ]}
+    />
+  );
+}
 ```
 
-Supported libraries: Feather, MaterialIcons, Ionicons, FontAwesome, AntDesign, Entypo, MaterialCommunityIcons, and more.
+**Platform Behavior:**
+- **iOS**: NativeTabs with liquid glass effect, SF Symbols
+- **Android**: NativeTabs with Material Design icons
+- **Web**: Custom app bar with flexible icon libraries
 
 ---
 
 ## Hooks
 
 ### useTheme()
-Access the current theme values and toggle function.
+
+Access theme values and toggle light/dark mode:
 
 ```tsx
 import { useTheme } from 'zero-to-app';
 
 function MyComponent() {
-  const { values, mode, toggleTheme, setMode } = useTheme();
+  const { values, mode, toggleTheme } = useTheme();
 
   return (
     <View style={{ backgroundColor: values.surface }}>
@@ -285,7 +195,8 @@ function MyComponent() {
 ```
 
 ### useBrand()
-Access brand configuration values.
+
+Access brand configuration:
 
 ```tsx
 import { useBrand } from 'zero-to-app';
@@ -305,13 +216,14 @@ function MyComponent() {
 ```
 
 ### useDimensions()
-Get responsive window dimensions and breakpoint.
+
+Get responsive window dimensions and breakpoint:
 
 ```tsx
 import { useDimensions, breakpoints } from 'zero-to-app';
 
 function ResponsiveComponent() {
-  const { width, height, breakpoint } = useDimensions();
+  const { width, breakpoint } = useDimensions();
   const isDesktop = width >= breakpoints.large;
 
   return (
@@ -322,15 +234,74 @@ function ResponsiveComponent() {
 }
 ```
 
+**Breakpoints:** `small` (< 480px), `medium` (≥ 768px), `large` (≥ 1024px), `xlarge` (≥ 1280px)
+
+---
+
+## Material Design 3 Tokens
+
+### Required Color Tokens
+
+| Token | Purpose | Example |
+|-------|---------|---------|
+| `primary` | Primary brand color | `#6200EE` |
+| `onPrimary` | Text/icons on primary | `#FFFFFF` |
+| `primaryContainer` | Container using primary | `#EADDFF` |
+| `onPrimaryContainer` | Text on primary container | `#21005E` |
+| `secondary` | Secondary brand color | `#03DAC6` |
+| `onSecondary` | Text/icons on secondary | `#000000` |
+| `tertiary` | Tertiary accent color | `#03A9F4` |
+| `error` | Error state color | `#B00020` |
+| `surface` | Background surface | `#FFFFFF` |
+| `onSurface` | Primary text on surface | `#1C1B1F` |
+| `outline` | Border/divider color | `#79747E` |
+
+**+ 20 more tokens** (surface variants, inverse colors, etc.) - see [.claude/skills/zero-to-app-usage.md](./.claude/skills/zero-to-app-usage.md) for complete list
+
+### Semantic Tokens
+
+The library provides component-specific tokens:
+
+```tsx
+const { values: theme } = useTheme();
+
+theme.tokens.button.filledBg
+theme.tokens.input.background
+theme.tokens.card.background
+theme.tokens.typography.headlineLarge
+```
+
+---
+
+## Icons
+
+Icons are powered by `@expo/vector-icons` with platform-specific support:
+
+```tsx
+import { renderIcon } from 'zero-to-app/icons';
+
+// Render any icon from supported libraries
+renderIcon(
+  { library: 'Feather', name: 'home' },
+  'Feather',
+  24,
+  '#000000'
+)
+```
+
+**Supported Libraries:** Feather, MaterialIcons, Ionicons, FontAwesome, AntDesign, Entypo, MaterialCommunityIcons, and more
+
+📖 **Full icon docs:** See [zero-to-app/icons/README.md](./zero-to-app/icons/README.md)
+
 ---
 
 ## Development
 
-This repository is a pnpm monorepo containing:
+This is a pnpm monorepo with three main parts:
 
 - **`zero-to-app/`** - The publishable component library
-- **`apps/storybook/`** - Storybook for isolated component development (web + native)
-- **`apps/demo/`** - Demo Expo app for testing integrated components
+- **`apps/storybook/`** - Storybook for isolated component development
+- **`apps/demo/`** - Demo Expo app for integrated testing
 
 ### Getting Started
 
@@ -338,59 +309,38 @@ This repository is a pnpm monorepo containing:
 # Install dependencies
 pnpm install
 
-# View all available scripts
+# View available commands
 pnpm help
 ```
 
 ### Development Workflow
 
-#### Storybook (Preferred for Isolated Components)
-
-Use Storybook for developing and testing isolated UI components:
+**Storybook (Preferred for Isolated Components):**
 
 ```bash
-# Web Storybook (fast iteration)
-pnpm dev:storybook:web
-
-# Native Storybook (test on device)
-pnpm dev:storybook
-pnpm dev:storybook:ios
-pnpm dev:storybook:android
+pnpm dev:storybook:web      # Fast web iteration
+pnpm dev:storybook          # Native Expo Storybook
+pnpm dev:storybook:ios      # iOS device testing
+pnpm dev:storybook:android  # Android device testing
 ```
 
-**When to use Storybook:**
-- Developing isolated UI components (Button, Typography, Cards, etc.)
-- Testing component variants and states
-- Visual regression testing
-- Component documentation
+Use Storybook for: Button, Typography, Cards, Inputs, and other isolated UI components
 
-**Limitations:**
-- expo-router components cannot be easily mocked
-- Complex native dependencies (file system, navigation) are difficult to mock
-- Don't spend time creating complex mocks for React Native/Storybook interop
-
-#### Demo App (For Integrated Components)
-
-Use the demo app for components that require expo-router, navigation, or other complex dependencies:
+**Demo App (For Integrated Components):**
 
 ```bash
-# Start demo app
-pnpm dev:demo
-pnpm dev:demo:ios
-pnpm dev:demo:android
-pnpm dev:demo:web
+pnpm dev:demo          # Start Expo dev server
+pnpm dev:demo:ios      # iOS simulator
+pnpm dev:demo:android  # Android emulator
+pnpm dev:demo:web      # Web browser
 ```
 
-**When to use Demo:**
-- Testing AppTabs and navigation components
-- Components requiring expo-router context
-- Integration testing with real navigation
-- Testing components with file system or other native dependencies
+Use Demo for: AppTabs, navigation, expo-router components, complex dependencies
 
-### Building the Library
+### Building & Publishing
 
 ```bash
-# Build zero-to-app package
+# Build library
 pnpm build
 
 # Type checking
@@ -398,15 +348,12 @@ pnpm typecheck
 
 # Linting
 pnpm lint
-pnpm lint:fix
-```
 
-### Publishing
-
-```bash
-# Build and publish to npm
+# Publish to npm
 pnpm release
 ```
+
+📖 **Full development guide:** See [.claude/skills/zero-to-app-dev.md](./.claude/skills/zero-to-app-dev.md)
 
 ---
 
@@ -414,42 +361,32 @@ pnpm release
 
 ### Component Development Guidelines
 
-1. **Use Storybook for isolated components** - Develop Button, Typography, Cards, Inputs, etc. in Storybook for fast iteration
-2. **Use Demo for integrated components** - Test navigation, routing, and complex dependencies in the demo app
-3. **Don't over-mock** - If a dependency is hard to mock (expo-router, file system), use the demo app instead
-4. **Follow Material Design 3** - Use M3 tokens and design patterns
-5. **TypeScript first** - All components must be fully typed
-6. **Accessibility** - Support keyboard navigation, screen readers, and focus states
-7. **Document props** - Use JSDoc comments for all public APIs
+1. **Use Storybook for isolated components** - Fast iteration for Button, Typography, Cards, etc.
+2. **Use Demo for integrated components** - Test navigation and expo-router dependencies
+3. **Follow Material Design 3** - Use M3 tokens and design patterns
+4. **TypeScript first** - All components must be fully typed with JSDoc
+5. **Accessibility** - Support keyboard navigation, screen readers, and WCAG AA contrast
 
 ### Adding New Components
 
-1. Create component in `zero-to-app/components/`
+1. Create component in `zero-to-app/components/ui/` or `zero-to-app/components/navigation/`
 2. Export from appropriate index file
 3. Add Storybook story (if component can be isolated)
-4. Update TypeScript types
-5. Test in demo app if needed
-6. Document in README
+4. Test in demo app if needed
+5. Update documentation
 
-### Code Style
+---
 
-- Use functional components with hooks
-- Prefer named exports for utilities, default exports for components
-- Follow existing component structure (imports, types, component, styles, exports)
-- Use semantic tokens from theme where possible
-- Keep components focused and composable
+## Resources
+
+- **Documentation:** [GitHub Repository](https://github.com/Alex-Amayo/zero-to-app)
+- **Live Demo:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
+- **Material Design 3:** [m3.material.io](https://m3.material.io)
+- **NPM Package:** [npmjs.com/package/zero-to-app](https://www.npmjs.com/package/zero-to-app)
+- **Issues:** [GitHub Issues](https://github.com/Alex-Amayo/zero-to-app/issues)
 
 ---
 
 ## License
 
 MIT
-
----
-
-## Links
-
-- **Documentation:** [GitHub Repository](https://github.com/Alex-Amayo/zero-to-app)
-- **Live Demo:** [https://zero-to-app.expo.app](https://zero-to-app.expo.app)
-- **Issues:** [GitHub Issues](https://github.com/Alex-Amayo/zero-to-app/issues)
-- **NPM:** [zero-to-app](https://www.npmjs.com/package/zero-to-app)

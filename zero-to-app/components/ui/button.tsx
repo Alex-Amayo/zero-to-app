@@ -13,9 +13,8 @@ import {
 } from 'react-native';
 import { Typography } from './typography';
 import { useTheme } from '../../theme';
-import { renderIcon } from '../../utils/icon-utils';
+import { renderIcon, type IconLibrary } from '../../icons';
 import type { InteractiveComponentProps, LoadableComponentProps } from '../shared/types';
-import type { IconLibrary } from '../../brand/brand-types';
 
 // 2. TYPES
 

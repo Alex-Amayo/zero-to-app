@@ -4,6 +4,79 @@
 
 ---
 
+## LLM-Assisted Development Quick Start
+
+**Use this section when helping developers build components with Claude or other AI assistants.**
+
+### Common Development Tasks
+
+**"Help me build a new UI component"**
+1. Decide: Storybook or Demo? (Use Storybook unless it needs expo-router)
+2. Check existing components in `zero-to-app/components/ui/` for patterns
+3. Use `useTheme()` for colors (semantic tokens first: `theme.tokens.button.filledBg`)
+4. Use `useBrand()` for spacing/sizing: `brand.spacing.lg`, `brand.borderRadius`
+5. Export from `components/ui/index.ts`
+6. Run `pnpm typecheck` to validate
+
+**"Help me add navigation"**
+1. Use Demo app (expo-router required)
+2. Check `zero-to-app/components/navigation/app-tabs.tsx` for patterns
+3. Test on iOS (NativeTabs), Android (NativeTabs), Web (custom app bar)
+
+**"Help me add new theme tokens"**
+1. Update `ThemeValuesType` in `zero-to-app/theme/theme-config.ts`
+2. Add to both `createLightTheme()` and `createDarkTheme()`
+3. Use in components via `useTheme()`
+4. Run `pnpm build` and `pnpm typecheck`
+
+**"Help me fix TypeScript errors"**
+- Read the error carefully - often points to exact fix needed
+- Check `zero-to-app/index.ts` for public exports
+- Ensure types are exported from component files
+- Run `pnpm typecheck` in monorepo root
+
+### Quick Commands Reference
+
+```bash
+# Development
+pnpm dev:storybook:web      # UI component iteration (fastest)
+pnpm dev:demo               # Full app testing with expo-router
+
+# Validation
+pnpm typecheck              # Check types across monorepo
+pnpm lint                   # Check code style
+pnpm build                  # Build zero-to-app package
+
+# Testing
+pnpm dev:demo:ios           # Test on iOS simulator
+pnpm dev:demo:android       # Test on Android emulator
+```
+
+### Component Development Checklist
+
+When building a new component, ensure:
+- [ ] Uses `useTheme()` for all colors (no hardcoded hex values)
+- [ ] Uses `useBrand()` for spacing, borderRadius, fontSizes
+- [ ] TypeScript props interface with JSDoc comments
+- [ ] Supports light/dark mode automatically
+- [ ] Exported from appropriate `index.ts` file
+- [ ] Passes `pnpm typecheck` with no errors
+- [ ] Tested in Storybook (isolated) or Demo (integrated)
+
+### File Locations Quick Reference
+
+| Need to... | Go to... |
+|------------|----------|
+| Add new UI component | `zero-to-app/components/ui/` |
+| Add navigation component | `zero-to-app/components/navigation/` |
+| Add/modify theme tokens | `zero-to-app/theme/theme-config.ts` |
+| Add new hook | `zero-to-app/hooks/` |
+| Test isolated component | `apps/storybook/components/` |
+| Test with routing | `apps/demo/app/` |
+| Update public API | `zero-to-app/index.ts` |
+
+---
+
 ## Repository Structure
 
 This is a **pnpm monorepo** with the following structure:

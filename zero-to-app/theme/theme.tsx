@@ -2,6 +2,8 @@ import React, { createContext, useState, useMemo, useContext } from 'react';
 import { createDarkTheme, createLightTheme, ThemeValuesType, type ThemeTokens } from './theme-config';
 import { Brand } from '../brand';
 import { BrandProvider } from '../brand/brand-context';
+import { SidebarProvider } from '../context/sidebar-context';
+import { LayoutProvider } from '../context/layout-context';
 
 // Defining types for the ThemeContext
 export type ThemeMode = 'light' | 'dark';
@@ -41,7 +43,13 @@ const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
 
   return (
     <BrandProvider brand={brand}>
-      <ThemeContext.Provider value={{ values, mode, setMode, toggleTheme }}>{children}</ThemeContext.Provider>
+      <ThemeContext.Provider value={{ values, mode, setMode, toggleTheme }}>
+        <LayoutProvider>
+          <SidebarProvider>
+            {children}
+          </SidebarProvider>
+        </LayoutProvider>
+      </ThemeContext.Provider>
     </BrandProvider>
   );
 };

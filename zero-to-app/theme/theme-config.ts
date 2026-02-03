@@ -84,6 +84,15 @@ export interface ThemeValuesType {
       background: string;
       text: string;
     };
+    sidebar: {
+      background: string;
+      itemText: string;
+      itemActiveText: string;
+      itemActiveBg: string;
+      itemHoverBg: string;
+      divider: string;
+      width: number;
+    };
     elevation: {
       level0: number;
       level1: number;
@@ -221,6 +230,15 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         background: c.primary,
         text: c.onPrimary,
       },
+      sidebar: {
+        background: c.surfaceContainer,
+        itemText: c.onSurface,
+        itemActiveText: c.primary,
+        itemActiveBg: c.primaryContainer,
+        itemHoverBg: c.surfaceContainerHigh,
+        divider: c.outlineVariant ?? c.outline,
+        width: 280,
+      },
       elevation: {
         level0: 0,
         level1: 1,
@@ -354,6 +372,15 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
       badge: {
         background: c.primary,
         text: c.onPrimary,
+      },
+      sidebar: {
+        background: c.surfaceContainer,
+        itemText: c.onSurface,
+        itemActiveText: c.primary,
+        itemActiveBg: c.primaryContainer,
+        itemHoverBg: c.surfaceContainerHigh,
+        divider: c.outlineVariant ?? c.outline,
+        width: 280,
       },
       elevation: {
         level0: 0,

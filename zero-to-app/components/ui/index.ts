@@ -20,3 +20,7 @@ export { SidebarHeader } from './sidebar-header';
 export type { SidebarHeaderProps } from './sidebar-header';
 export { SidebarFooter } from './sidebar-footer';
 export type { SidebarFooterProps } from './sidebar-footer';
+
+// Screen
+export { Screen } from './screen';
+export type { ScreenProps } from './screen';

@@ -3,16 +3,6 @@ import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { useTheme } from '../../theme';
 
 /**
- * External link configuration for AppTabs
- */
-export interface AppTabsExternalLink {
-  /** Link label text */
-  label: string;
-  /** External URL href */
-  href: string;
-}
-
-/**
  * SF Symbol icon configuration for iOS
  */
 export interface SFSymbolIcon {
@@ -37,23 +27,21 @@ export interface AppTabConfig {
   href: string;
   /** Tab display label */
   label: string;
-  /** iOS SF Symbol icon configuration (must include both default and selected states) */
-  sfSymbol: SFSymbolIcon;
-  /** Android Material Design icon name */
-  materialIcon: MaterialIconName;
+  /** Optional iOS SF Symbol icon configuration (must include both default and selected states) */
+  sfSymbol?: SFSymbolIcon;
+  /** Optional Android Material Design icon name */
+  materialIcon?: MaterialIconName;
 }
 
 /**
- * Props for AppTabs component
+ * Props for AppTabs component (native iOS/Android)
  */
 export interface AppTabsProps {
-  /** Brand or app name to display */
-  brandName: string;
+  /** Brand or app name to display (not used on native, for interface compatibility) */
+  brandName?: string;
   /** Array of tab configurations */
   tabs: AppTabConfig[];
-  /** Optional external links to display */
-  externalLinks?: AppTabsExternalLink[];
-  /** Maximum content width (default: 1200) */
+  /** Maximum content width (not used on native, for interface compatibility) */
   maxWidth?: number;
 }
 
@@ -73,10 +61,12 @@ export default function AppTabs({
       iconColor={theme.onSurfaceVariant}>
       {tabs.map((tab) => (
         <NativeTabs.Trigger key={tab.name} name={tab.name}>
-          <NativeTabs.Trigger.Icon
-            sf={tab.sfSymbol as any}
-            md={tab.materialIcon}
-          />
+          {(tab.sfSymbol || tab.materialIcon) && (
+            <NativeTabs.Trigger.Icon
+              sf={tab.sfSymbol as any}
+              md={tab.materialIcon}
+            />
+          )}
           <NativeTabs.Trigger.Label>{tab.label}</NativeTabs.Trigger.Label>
         </NativeTabs.Trigger>
       ))}

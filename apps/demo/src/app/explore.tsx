@@ -4,6 +4,7 @@ import {
   Button,
   Typography,
   ThemedView,
+  Screen,
   Sidebar,
   SidebarHeader,
   SidebarSection,
@@ -25,7 +26,8 @@ export default function ExploreScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <Screen variant="background" edges={['top', 'bottom']}>
+      <View style={styles.container}>
       {/* Sidebar */}
       <Sidebar
         header={
@@ -163,7 +165,8 @@ export default function ExploreScreen() {
           </ThemedView>
         </View>
       </ThemedView>
-    </View>
+      </View>
+    </Screen>
   );
 }
 

@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Screen } from 'zero-to-app';
 
 import { AnimatedIcon } from '@/components/animated-icon';
 import { HintRow } from '@/components/hint-row';
@@ -11,8 +11,9 @@ import { Image } from 'expo-image';
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
+    <Screen variant="background" edges={['top', 'bottom']}>
+      <ThemedView style={styles.container}>
+        <ThemedView style={styles.safeArea}>
         <ThemedView style={styles.heroSection}>
           <Image source={require('@/assets/images/zero-to-app.png')} style={{ width: 200, height: 200, marginBottom: Spacing.four }} />
           <ThemedText type="title" style={styles.title}>
@@ -31,8 +32,9 @@ export default function HomeScreen() {
         </ThemedView>
 
         {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        </ThemedView>
+      </ThemedView>
+    </Screen>
   );
 }
 

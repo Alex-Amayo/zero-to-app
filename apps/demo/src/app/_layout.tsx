@@ -1,15 +1,14 @@
 import React from 'react';
-import { ZeroToApp, AppTabs, AppTabsExternalLink, defaultBrand } from 'zero-to-app';
-
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-
+import { Platform } from 'react-native';
+import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink } from 'zero-to-app';
 export default function TabLayout() {
-  const externalLinks: AppTabsExternalLink[] = [
+  const externalLinks: AppTabsExternalLink[] | undefined = Platform.OS === 'web' ? [
     {
       label: 'Docs',
       href: 'https://docs.expo.dev',
+      icon: { library: 'Feather', name: 'book-open' },
     },
-  ];
+  ] : undefined;
 
   return (
       <ZeroToApp brand={defaultBrand}>
@@ -31,7 +30,7 @@ export default function TabLayout() {
             materialIcon: 'explore',
           },
         ]}
-        externalLinks={externalLinks}
+        {...(Platform.OS === 'web' && { externalLinks })}
       />
 
       </ZeroToApp>

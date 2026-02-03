@@ -23,6 +23,8 @@ export interface AppTabsExternalLink {
   label: string;
   /** External URL href */
   href: string;
+  /** Optional icon configuration */
+  icon?: PlatformIcon | string;
 }
 
 /**
@@ -50,11 +52,11 @@ export interface AppTabConfig {
   href: string;
   /** Tab display label */
   label: string;
-  /** iOS SF Symbol icon configuration (must include both default and selected states) */
-  sfSymbol: SFSymbolIcon;
-  /** Android Material Design icon name */
-  materialIcon: MaterialIconName;
-  /** Optional web-specific icon configuration (defaults to Material icon if not provided) */
+  /** Optional iOS SF Symbol icon configuration (must include both default and selected states) */
+  sfSymbol?: SFSymbolIcon;
+  /** Optional Android Material Design icon name */
+  materialIcon?: MaterialIconName;
+  /** Optional web-specific icon configuration */
   webIcon?: PlatformIcon | string;
 }
 
@@ -114,14 +116,14 @@ interface TabButtonProps extends TabTriggerSlotProps {
   children: ReactNode;
   height?: number;
   webIcon?: PlatformIcon | string;
-  materialIcon: string;
+  materialIcon?: string;
 }
 
 export function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
   const { values: theme } = useTheme();
 
   // Use webIcon if provided, otherwise fallback to materialIcon with MaterialIcons library
-  const iconToRender = webIcon || { library: 'MaterialIcons' as const, name: materialIcon };
+  const iconToRender = webIcon || (materialIcon ? { library: 'MaterialIcons' as const, name: materialIcon } : undefined);
   const iconColor = isFocused ? theme.primary : theme.onSurfaceVariant;
 
   return (
@@ -143,7 +145,7 @@ export function TabButton({ children, isFocused, height, webIcon, materialIcon, 
         },
       ]}>
       <View style={styles.tabButtonContent}>
-        {renderIcon(iconToRender, 'MaterialIcons', 20, iconColor)}
+        {iconToRender && renderIcon(iconToRender, 'MaterialIcons', 20, iconColor)}
         <Typography
           variant="labelLarge"
           weight="medium"
@@ -172,9 +174,10 @@ interface ExternalLinkButtonProps {
   href: string;
   label: string;
   height?: number;
+  icon?: PlatformIcon | string;
 }
 
-function ExternalLinkButton({ href, label, height }: ExternalLinkButtonProps) {
+function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonProps) {
   const { values: theme } = useTheme();
 
   const handlePress = async (event: any) => {
@@ -204,13 +207,16 @@ function ExternalLinkButton({ href, label, height }: ExternalLinkButtonProps) {
               : 'rgba(0, 0, 0, 0.05)',
           },
         ]}>
-        <Typography
-          variant="labelLarge"
-          weight="medium"
-          color={theme.onSurfaceVariant}
-          style={styles.tabButtonText}>
-          {label}
-        </Typography>
+        <View style={styles.tabButtonContent}>
+          {icon && renderIcon(icon, 'MaterialIcons', 20, theme.onSurfaceVariant)}
+          <Typography
+            variant="labelLarge"
+            weight="medium"
+            color={theme.onSurfaceVariant}
+            style={styles.tabButtonText}>
+            {label}
+          </Typography>
+        </View>
       </Pressable>
     </Link>
   );
@@ -275,7 +281,7 @@ export function CustomTabList({
         {externalLinks.length > 0 && (
           <View style={[styles.externalLinksContainer, { gap: theme.tokens.elevation.level1, marginLeft: theme.tokens.elevation.level4 }]}>
             {externalLinks.map((link, index) => (
-              <ExternalLinkButton key={index} href={link.href} label={link.label} height={height} />
+              <ExternalLinkButton key={index} href={link.href} label={link.label} height={height} icon={link.icon} />
             ))}
           </View>
         )}

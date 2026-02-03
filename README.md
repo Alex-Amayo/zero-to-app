@@ -162,6 +162,9 @@ export default function TabLayout() {
           materialIcon: 'home',
         },
       ]}
+      externalLinks={[
+        { label: 'Docs', href: 'https://docs.example.com', icon: { library: 'Feather', name: 'book-open' } }
+      ]}
     />
   );
 }
@@ -170,7 +173,70 @@ export default function TabLayout() {
 **Platform Behavior:**
 - **iOS**: NativeTabs with liquid glass effect, SF Symbols
 - **Android**: NativeTabs with Material Design icons
-- **Web**: Custom app bar with flexible icon libraries
+- **Web**: Custom app bar with flexible icon libraries + external links
+
+### Sidebar
+
+Responsive sidebar/drawer navigation with automatic desktop/mobile behavior:
+
+```tsx
+import { Sidebar, SidebarHeader, SidebarSection, SidebarItem, SidebarFooter, useSidebar } from 'zero-to-app';
+
+function MyScreen() {
+  const { open } = useSidebar();
+
+  return (
+    <>
+      <Sidebar
+        header={<SidebarHeader title="My App" />}
+        footer={<SidebarFooter>v1.0.0</SidebarFooter>}
+      >
+        <SidebarSection title="Main">
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'home' }}
+            label="Home"
+            active={true}
+            onPress={() => console.log('Home')}
+          />
+        </SidebarSection>
+      </Sidebar>
+
+      {/* Mobile: Show menu button to open drawer */}
+      <Button title="Menu" onPress={open} />
+    </>
+  );
+}
+```
+
+**Platform Behavior:**
+- **Desktop (≥1024px)**: Static sidebar always visible, positioned below AppBar
+- **Mobile (<1024px)**: Drawer that slides from left with backdrop, auto-closes on item click
+
+**Key Props:**
+- `useSidebar()` hook: `{ isOpen, open, close, toggle }`
+- Icons are optional on all items
+
+### Screen
+
+Screen wrapper with native screen container and safe areas:
+
+```tsx
+import { Screen } from 'zero-to-app';
+
+function MyScreen() {
+  return (
+    <Screen variant="background" scrollable>
+      <Typography>Content automatically handles safe areas</Typography>
+    </Screen>
+  );
+}
+```
+
+**Features:**
+- Uses `react-native-screens` for truly native screen behavior
+- Automatic SafeAreaView integration
+- Optional ScrollView via `scrollable` prop
+- Themed background variants
 
 ---
 
@@ -235,6 +301,40 @@ function ResponsiveComponent() {
 ```
 
 **Breakpoints:** `small` (< 480px), `medium` (≥ 768px), `large` (≥ 1024px), `xlarge` (≥ 1280px)
+
+### useSidebar()
+
+Control sidebar/drawer state from anywhere:
+
+```tsx
+import { useSidebar } from 'zero-to-app';
+
+function MyComponent() {
+  const { isOpen, open, close, toggle } = useSidebar();
+
+  return (
+    <Button title="Toggle Sidebar" onPress={toggle} />
+  );
+}
+```
+
+### useLayout()
+
+Access shared layout information like AppBar height:
+
+```tsx
+import { useLayout } from 'zero-to-app';
+
+function MyComponent() {
+  const { appBarHeight, setAppBarHeight } = useLayout();
+
+  return (
+    <View style={{ top: appBarHeight }}>
+      {/* Content positioned below AppBar */}
+    </View>
+  );
+}
+```
 
 ---
 

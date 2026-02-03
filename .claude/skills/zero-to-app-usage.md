@@ -277,6 +277,8 @@ const { values: theme } = useTheme();
 #### Complete Configuration
 
 ```tsx
+import { Platform } from 'react-native';
+
 <AppTabs
   brandName="My App"
   tabs={[
@@ -284,8 +286,8 @@ const { values: theme } = useTheme();
       name: 'index',
       href: '/',
       label: 'Home',
-      sfSymbol: { default: 'house', selected: 'house.fill' },
-      materialIcon: 'home',
+      sfSymbol: { default: 'house', selected: 'house.fill' }, // Optional
+      materialIcon: 'home', // Optional
       webIcon: { library: 'Feather', name: 'home' }, // Optional web override
     },
     {
@@ -300,36 +302,42 @@ const { values: theme } = useTheme();
       name: 'profile',
       href: '/profile',
       label: 'Profile',
-      sfSymbol: { default: 'person', selected: 'person.fill' },
-      materialIcon: 'person',
+      // Icons are optional - can have tabs without icons
     },
   ]}
-  externalLinks={[
-    { label: 'Docs', href: 'https://docs.myapp.com' },
-    { label: 'Support', href: 'https://support.myapp.com' },
-  ]}
+  {...(Platform.OS === 'web' && {
+    externalLinks: [
+      { label: 'Docs', href: 'https://docs.myapp.com', icon: { library: 'Feather', name: 'book-open' } },
+      { label: 'Support', href: 'https://support.myapp.com', icon: { library: 'Feather', name: 'help-circle' } },
+    ]
+  })}
 />
 ```
+
+**Important:** Icons (`sfSymbol`, `materialIcon`, `webIcon`) are all optional. External links are **web-only** and should be conditionally passed.
 
 #### Platform-Specific Behaviors
 
 **iOS:**
 - Uses `NativeTabs` from expo-router/unstable-native-tabs
 - Liquid glass effect (iOS 26+)
-- SF Symbols icons
+- SF Symbols icons (optional)
 - Bottom tabs with native animations
+- External links **not supported**
 
 **Android:**
 - Uses `NativeTabs` from expo-router/unstable-native-tabs
 - Material Design 3 navigation bar
-- Material icons
+- Material icons (optional)
 - Bottom tabs with native animations
+- External links **not supported**
 
 **Web:**
 - Custom app bar at top (horizontal layout)
-- Uses `webIcon` if provided, otherwise `materialIcon`
+- Uses `webIcon` if provided, otherwise `materialIcon` (all optional)
 - Supports any icon library from @expo/vector-icons
 - Responsive breakpoints
+- External links displayed in app bar with optional icons
 
 ---
 
@@ -413,6 +421,15 @@ theme.tokens.typography.labelSmall
 // AppBar tokens
 theme.tokens.appbar.background
 theme.tokens.appbar.text
+
+// Sidebar tokens
+theme.tokens.sidebar.background
+theme.tokens.sidebar.itemText
+theme.tokens.sidebar.itemActiveText
+theme.tokens.sidebar.itemActiveBg
+theme.tokens.sidebar.itemHoverBg
+theme.tokens.sidebar.divider
+theme.tokens.sidebar.width
 ```
 
 ### useDimensions()
@@ -498,9 +515,168 @@ function DynamicCard() {
 }
 ```
 
+### useSidebar()
+
+Control sidebar/drawer state globally:
+
+```tsx
+import { useSidebar } from 'zero-to-app';
+
+function MyComponent() {
+  const { isOpen, open, close, toggle } = useSidebar();
+
+  return (
+    <>
+      <Button title="Open Sidebar" onPress={open} />
+      <Button title="Close Sidebar" onPress={close} />
+      <Button title="Toggle Sidebar" onPress={toggle} />
+      <Typography>Sidebar is {isOpen ? 'open' : 'closed'}</Typography>
+    </>
+  );
+}
+```
+
+### useLayout()
+
+Access shared layout information like AppBar height:
+
+```tsx
+import { useLayout } from 'zero-to-app';
+
+function MyComponent() {
+  const { appBarHeight, setAppBarHeight } = useLayout();
+
+  return (
+    <View style={{ top: appBarHeight, position: 'absolute' }}>
+      {/* Content positioned below AppBar */}
+    </View>
+  );
+}
+```
+
 ---
 
 ## Common Patterns
+
+### Sidebar Navigation Pattern
+
+Complete sidebar implementation with responsive behavior:
+
+```tsx
+import {
+  Sidebar,
+  SidebarHeader,
+  SidebarSection,
+  SidebarItem,
+  SidebarFooter,
+  useSidebar,
+  useDimensions,
+  breakpoints,
+  Button,
+  ThemedView,
+} from 'zero-to-app';
+
+function MyScreen() {
+  const { open } = useSidebar();
+  const { width } = useDimensions();
+  const isDesktop = width >= breakpoints.large;
+  const [selectedItem, setSelectedItem] = useState('home');
+
+  return (
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <Sidebar
+        header={<SidebarHeader title="My App" subtitle="v1.0.0" />}
+        footer={
+          <SidebarFooter>
+            <Typography variant="labelSmall" muted>© 2024 My App</Typography>
+          </SidebarFooter>
+        }
+      >
+        <SidebarSection title="Main">
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'home' }}
+            label="Home"
+            active={selectedItem === 'home'}
+            onPress={() => setSelectedItem('home')}
+          />
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'search' }}
+            label="Explore"
+            active={selectedItem === 'explore'}
+            onPress={() => setSelectedItem('explore')}
+          />
+        </SidebarSection>
+
+        <SidebarSection title="Account">
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'user' }}
+            label="Profile"
+            active={selectedItem === 'profile'}
+            onPress={() => setSelectedItem('profile')}
+          />
+          <SidebarItem
+            icon={{ library: 'Feather', name: 'settings' }}
+            label="Settings"
+            active={selectedItem === 'settings'}
+            onPress={() => setSelectedItem('settings')}
+          />
+        </SidebarSection>
+      </Sidebar>
+
+      {/* Main content */}
+      <ThemedView
+        variant="background"
+        style={{
+          flex: 1,
+          marginLeft: isDesktop ? 280 : 0, // Sidebar width on desktop
+        }}
+      >
+        {/* Mobile: Show menu button */}
+        {!isDesktop && (
+          <Button
+            title="Menu"
+            icon={{ library: 'Feather', name: 'menu' }}
+            variant="text"
+            onPress={open}
+          />
+        )}
+
+        {/* Your screen content */}
+      </ThemedView>
+    </View>
+  );
+}
+```
+
+**Behavior:**
+- **Desktop (≥1024px)**: Static sidebar always visible on left
+- **Mobile (<1024px)**: Drawer slides from left, auto-closes on item click
+
+### Screen Component Pattern
+
+Using Screen for native screen behavior with safe areas:
+
+```tsx
+import { Screen, Typography, Button } from 'zero-to-app';
+
+function MyScreen() {
+  return (
+    <Screen variant="background" scrollable edges={['top', 'bottom']}>
+      <Typography variant="headlineLarge">Welcome</Typography>
+      <Typography variant="bodyMedium">
+        Content automatically handles safe areas on notched devices
+      </Typography>
+      <Button title="Get Started" variant="filled" onPress={handleStart} />
+    </Screen>
+  );
+}
+```
+
+**Props:**
+- `variant`: Theme variant (background, surface, etc.)
+- `scrollable`: Wraps content in ScrollView
+- `edges`: Which safe area edges to respect (['top', 'bottom', 'left', 'right'])
+- `contentContainerStyle`: Styles for ScrollView content (when scrollable)
 
 ### Theme-Aware Custom Component
 

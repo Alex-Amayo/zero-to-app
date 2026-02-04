@@ -9,10 +9,10 @@ import {
   type ViewStyle,
 } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
-import { useTheme } from '../../theme';
-import { useDimensions, breakpoints } from '../../hooks';
-import { useSidebar } from '../../context/sidebar-context';
-import { useLayout } from '../../context/layout-context';
+import { useTheme } from '../../../theme';
+import { useDimensions, breakpoints } from '../../../hooks';
+import { useSidebar } from '../../../context/sidebar-context';
+import { useLayout } from '../../../context/layout-context';
 
 // 2. TYPES
 

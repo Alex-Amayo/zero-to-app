@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '../../theme';
-import { useSidebar } from '../../context/sidebar-context';
+import { useTheme } from '../../../theme';
+import { useSidebar } from '../../../context/sidebar-context';
 
 // 2. TYPES
 

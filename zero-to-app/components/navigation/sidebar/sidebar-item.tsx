@@ -9,13 +9,13 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { Typography } from './typography';
-import { useTheme } from '../../theme';
-import { useBrand } from '../../brand';
-import { useSidebar } from '../../context/sidebar-context';
-import { useDimensions, breakpoints } from '../../hooks';
-import { renderIcon, type IconLibrary } from '../../icons';
-import type { InteractiveComponentProps } from '../shared/types';
+import { Typography } from '../../ui/typography';
+import { useTheme } from '../../../theme';
+import { useBrand } from '../../../brand';
+import { useSidebar } from '../../../context/sidebar-context';
+import { useDimensions, breakpoints } from '../../../hooks';
+import { renderIcon, type IconLibrary } from '../../../icons';
+import type { InteractiveComponentProps } from '../../shared/types';
 
 // 2. TYPES
 

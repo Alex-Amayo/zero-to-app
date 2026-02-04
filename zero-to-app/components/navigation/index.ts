@@ -1,4 +1,20 @@
 // Navigation components
-export { default as AppTabs } from './app-tabs';
-export type { AppTabsProps, AppTabConfig } from './app-tabs';
-export type { AppTabsExternalLink } from './app-tabs.web';
+export { AppTabs } from './app-tabs';
+export type { AppTabsProps, AppTabConfig, AppTabsExternalLink } from './app-tabs';
+
+// Sidebar components
+export {
+  Sidebar,
+  SidebarItem,
+  SidebarSection,
+  SidebarHeader,
+  SidebarFooter,
+} from './sidebar';
+export type {
+  SidebarProps,
+  SidebarItemProps,
+  SidebarItemIconConfig,
+  SidebarSectionProps,
+  SidebarHeaderProps,
+  SidebarFooterProps,
+} from './sidebar';

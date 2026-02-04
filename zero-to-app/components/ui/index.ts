@@ -9,17 +9,22 @@ export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAl
 export { ThemedView } from './themed-view';
 export type { ThemedViewProps, ThemedViewVariant } from './themed-view';
 
-// Sidebar
-export { Sidebar } from './sidebar';
-export type { SidebarProps } from './sidebar';
-export { SidebarItem } from './sidebar-item';
-export type { SidebarItemProps, SidebarItemIconConfig } from './sidebar-item';
-export { SidebarSection } from './sidebar-section';
-export type { SidebarSectionProps } from './sidebar-section';
-export { SidebarHeader } from './sidebar-header';
-export type { SidebarHeaderProps } from './sidebar-header';
-export { SidebarFooter } from './sidebar-footer';
-export type { SidebarFooterProps } from './sidebar-footer';
+// Sidebar (re-exported from navigation for backwards compatibility)
+export {
+  Sidebar,
+  SidebarItem,
+  SidebarSection,
+  SidebarHeader,
+  SidebarFooter,
+} from '../navigation/sidebar';
+export type {
+  SidebarProps,
+  SidebarItemProps,
+  SidebarItemIconConfig,
+  SidebarSectionProps,
+  SidebarHeaderProps,
+  SidebarFooterProps,
+} from '../navigation/sidebar';
 
 // Screen
 export { Screen } from './screen';

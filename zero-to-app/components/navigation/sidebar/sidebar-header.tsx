@@ -1,9 +1,9 @@
 // 1. IMPORTS
 import React from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle, type ImageSourcePropType, Image } from 'react-native';
-import { Typography } from './typography';
-import { useTheme } from '../../theme';
-import { useBrand } from '../../brand';
+import { Typography } from '../../ui/typography';
+import { useTheme } from '../../../theme';
+import { useBrand } from '../../../brand';
 
 // 2. TYPES
 

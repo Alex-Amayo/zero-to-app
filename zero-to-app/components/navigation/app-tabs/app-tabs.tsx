@@ -1,6 +1,6 @@
 import React from 'react';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { useTheme } from '../../theme';
+import { useTheme } from '../../../theme';
 
 /**
  * SF Symbol icon configuration for iOS

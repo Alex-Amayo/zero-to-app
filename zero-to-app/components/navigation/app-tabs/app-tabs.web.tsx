@@ -8,12 +8,12 @@ import {
 } from 'expo-router/ui';
 import React, { ReactNode } from 'react';
 import { Pressable, View, StyleSheet, Platform } from 'react-native';
-import { useTheme } from '../../theme';
-import { Typography } from '../ui/typography';
-import { ThemedView } from '../ui/themed-view';
+import { useTheme } from '../../../theme';
+import { Typography } from '../../ui/typography';
+import { ThemedView } from '../../ui/themed-view';
 import { Link } from 'expo-router';
 import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
-import { renderIcon, type PlatformIcon } from '../../icons';
+import { renderIcon, type PlatformIcon } from '../../../icons';
 
 /**
  * External link configuration for AppTabs

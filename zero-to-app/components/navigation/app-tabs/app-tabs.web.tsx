@@ -6,14 +6,15 @@ import {
   TabTriggerSlotProps,
   TabListProps,
 } from 'expo-router/ui';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { Pressable, View, StyleSheet, Platform } from 'react-native';
-import { useTheme } from '../../../theme';
+import { useThemeContext } from '../../../theme';
 import { Typography } from '../../ui/typography';
 import { ThemedView } from '../../ui/themed-view';
 import { Link } from 'expo-router';
 import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
 import { renderIcon, type PlatformIcon } from '../../../icons';
+import { useLayout } from '../../../context/layout-context';
 
 /**
  * External link configuration for AppTabs
@@ -70,8 +71,6 @@ export interface AppTabsProps {
   tabs: AppTabConfig[];
   /** Optional external links to display */
   externalLinks?: AppTabsExternalLink[];
-  /** Maximum content width (default: 1200) */
-  maxWidth?: number;
   /** App bar height (default: 64) */
   height?: number;
 }
@@ -84,16 +83,20 @@ export default function AppTabs({
   brandName,
   tabs,
   externalLinks = [],
-  maxWidth = 1200,
   height = 64,
 }: AppTabsProps) {
+  const { setAppBarHeight } = useLayout();
+
+  useEffect(() => {
+    setAppBarHeight(height);
+  }, [height, setAppBarHeight]);
+
   return (
     <Tabs>
       <TabList asChild>
         <CustomTabList
           brandName={brandName}
           externalLinks={externalLinks}
-          maxWidth={maxWidth}
           height={height}>
           {tabs.map((tab) => (
             <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
@@ -120,7 +123,8 @@ interface TabButtonProps extends TabTriggerSlotProps {
 }
 
 export function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
-  const { values: theme } = useTheme();
+  const { values: theme } = useThemeContext();
+  const spacing = theme.spacing;
 
   // Use webIcon if provided, otherwise fallback to materialIcon with MaterialIcons library
   const iconToRender = webIcon || (materialIcon ? { library: 'MaterialIcons' as const, name: materialIcon } : undefined);
@@ -132,8 +136,8 @@ export function TabButton({ children, isFocused, height, webIcon, materialIcon, 
       style={({ pressed, hovered }: any) => [
         styles.tabButton,
         {
-          paddingHorizontal: theme.tokens.elevation.level4,
-          borderRadius: theme.tokens.elevation.level2,
+          paddingHorizontal: spacing.lg,
+          borderRadius: theme.borderRadius,
           height,
           justifyContent: 'center',
         },
@@ -144,7 +148,7 @@ export function TabButton({ children, isFocused, height, webIcon, materialIcon, 
             : 'rgba(0, 0, 0, 0.05)',
         },
       ]}>
-      <View style={styles.tabButtonContent}>
+      <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
         {iconToRender && renderIcon(iconToRender, 'MaterialIcons', 20, iconColor)}
         <Typography
           variant="labelLarge"
@@ -178,7 +182,8 @@ interface ExternalLinkButtonProps {
 }
 
 function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonProps) {
-  const { values: theme } = useTheme();
+  const { values: theme } = useThemeContext();
+  const spacing = theme.spacing;
 
   const handlePress = async (event: any) => {
     if (Platform.OS !== 'web') {
@@ -195,8 +200,8 @@ function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonPro
         style={({ pressed, hovered }: any) => [
           styles.tabButton,
           {
-            paddingHorizontal: theme.tokens.elevation.level4,
-            borderRadius: theme.tokens.elevation.level2,
+            paddingHorizontal: spacing.lg,
+            borderRadius: theme.borderRadius,
             height,
             justifyContent: 'center',
           },
@@ -207,7 +212,7 @@ function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonPro
               : 'rgba(0, 0, 0, 0.05)',
           },
         ]}>
-        <View style={styles.tabButtonContent}>
+        <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
           {icon && renderIcon(icon, 'MaterialIcons', 20, theme.onSurfaceVariant)}
           <Typography
             variant="labelLarge"
@@ -225,26 +230,18 @@ function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonPro
 interface CustomTabListProps extends TabListProps {
   brandName: string;
   externalLinks: AppTabsExternalLink[];
-  maxWidth: number;
   height: number;
 }
 
 export function CustomTabList({
   brandName,
   externalLinks,
-  maxWidth,
   height,
   children,
   ...props
 }: CustomTabListProps) {
-  const { values: theme } = useTheme();
-
-  // Calculate tonal surface color overlay (8% primary for elevation level 2)
-  const getSurfaceWithTonalElevation = () => {
-    const baseColor = theme.surfaceContainer;
-    // Return base color - tonal elevation is already handled by variant="appbar"
-    return baseColor;
-  };
+  const { values: theme } = useThemeContext();
+  const spacing = theme.spacing;
 
   return (
     <ThemedView
@@ -252,8 +249,9 @@ export function CustomTabList({
       style={[
         styles.appBar,
         {
+          height,
           paddingVertical: 0,
-          paddingHorizontal: theme.tokens.elevation.level5,
+          paddingHorizontal: spacing.xxl,
           shadowColor: theme.shadow,
           shadowOffset: { width: 0, height: 1 },
           shadowOpacity: 0.05,
@@ -265,21 +263,18 @@ export function CustomTabList({
         {...props}
         style={[
           styles.appBarContent,
-          {
-            maxWidth,
-            gap: theme.tokens.elevation.level3,
-          },
+          { height, gap: spacing.sm },
         ]}>
         <Typography variant="titleMedium" weight="bold" style={styles.brandText}>
           {brandName}
         </Typography>
 
-        <View style={[styles.tabsContainer, { gap: theme.tokens.elevation.level1 }]}>
+        <View style={[styles.tabsContainer, { gap: spacing.xs }]}>
           {children}
         </View>
 
         {externalLinks.length > 0 && (
-          <View style={[styles.externalLinksContainer, { gap: theme.tokens.elevation.level1, marginLeft: theme.tokens.elevation.level4 }]}>
+          <View style={[styles.externalLinksContainer, { gap: spacing.xs, marginLeft: spacing.lg }]}>
             {externalLinks.map((link, index) => (
               <ExternalLinkButton key={index} href={link.href} label={link.label} height={height} icon={link.icon} />
             ))}
@@ -294,7 +289,6 @@ const styles = StyleSheet.create({
   appBar: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'center',
   },
   appBarContent: {
     flexDirection: 'row',
@@ -316,7 +310,6 @@ const styles = StyleSheet.create({
   tabButtonContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
   tabButtonText: {
     fontWeight: '500',

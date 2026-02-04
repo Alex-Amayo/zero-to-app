@@ -1,0 +1,8 @@
+{
+  "android": {
+    "package": "com.alexamayo.zerotoappmonorepo"
+  },
+  "ios": {
+    "bundleIdentifier": "com.alexamayo.zerotoappmonorepo"
+  }
+}

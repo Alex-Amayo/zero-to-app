@@ -9,7 +9,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
-import { useTheme } from '../../../theme';
+import { useThemeContext } from '../../../theme';
 import { useDimensions, breakpoints } from '../../../hooks';
 import { useSidebar } from '../../../context/sidebar-context';
 import { useLayout } from '../../../context/layout-context';
@@ -38,18 +38,6 @@ export interface SidebarProps {
  * Sidebar component for web platform
  * - Desktop (≥1024px): Persistent sidebar on left (always visible, below AppBar)
  * - Mobile/Tablet (<1024px): Overlay drawer with backdrop
- *
- * @example
- * ```tsx
- * <Sidebar
- *   header={<SidebarHeader title="My App" />}
- *   footer={<SidebarFooter>© 2024</SidebarFooter>}
- * >
- *   <SidebarSection>
- *     <SidebarItem label="Home" icon={{ name: 'home' }} />
- *   </SidebarSection>
- * </Sidebar>
- * ```
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   header,
@@ -58,33 +46,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
   style,
   testID,
 }) => {
-  const { values: theme } = useTheme();
+  const { values: theme } = useThemeContext();
   const { width } = useDimensions();
   const { isOpen, close } = useSidebar();
   const { appBarHeight } = useLayout();
   const tokens = theme.tokens.sidebar;
 
-  // Determine if we're on desktop (persistent sidebar) or mobile (drawer)
   const isDesktop = width >= breakpoints.large;
 
-  // Animation values for mobile drawer
   const translateX = useSharedValue(isDesktop || isOpen ? 0 : -tokens.width);
   const backdropOpacity = useSharedValue(isOpen && !isDesktop ? 0.5 : 0);
 
-  // Update animation when isOpen or isDesktop changes
   React.useEffect(() => {
     if (isDesktop) {
-      // Desktop: always visible, no animation needed
       translateX.value = 0;
       backdropOpacity.value = 0;
     } else {
-      // Mobile: animate in/out
       translateX.value = withTiming(isOpen ? 0 : -tokens.width, { duration: 300 });
       backdropOpacity.value = withTiming(isOpen ? 0.5 : 0, { duration: 300 });
     }
   }, [isOpen, isDesktop, translateX, backdropOpacity, tokens.width]);
 
-  // Animated styles
   const animatedSidebarStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],
   }));
@@ -113,41 +95,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
         testID={testID}
       >
         {header}
-
         <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollContentContainer}>
           {children}
         </ScrollView>
-
         {footer}
       </View>
     );
   }
 
   // Mobile: drawer with backdrop
-  // Don't render if not open (for performance)
   if (!isOpen) {
     return null;
   }
 
   return (
     <>
-      {/* Backdrop */}
       <Animated.View
         style={[
           styles.backdrop,
-          {
-            backgroundColor: theme.scrim,
-          },
+          { backgroundColor: theme.scrim },
           animatedBackdropStyle,
         ]}
       >
-        <Pressable
-          style={StyleSheet.absoluteFill}
-          onPress={close}
-        />
+        <Pressable style={StyleSheet.absoluteFill} onPress={close} />
       </Animated.View>
 
-      {/* Drawer */}
       <Animated.View
         style={[
           styles.drawerMobile,
@@ -165,11 +137,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         testID={testID}
       >
         {header}
-
         <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollContentContainer}>
           {children}
         </ScrollView>
-
         {footer}
       </Animated.View>
     </>

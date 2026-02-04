@@ -1,6 +1,6 @@
 import React from 'react';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { useTheme } from '../../../theme';
+import { useThemeContext } from '../../../theme';
 
 /**
  * SF Symbol icon configuration for iOS
@@ -53,7 +53,7 @@ export interface AppTabsProps {
 export default function AppTabs({
   tabs,
 }: AppTabsProps) {
-  const { values: theme } = useTheme();
+  const { values: theme } = useThemeContext();
 
   return (
     <NativeTabs

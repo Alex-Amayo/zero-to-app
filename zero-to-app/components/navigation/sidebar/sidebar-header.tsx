@@ -2,21 +2,12 @@
 import React from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle, type ImageSourcePropType, Image } from 'react-native';
 import { Typography } from '../../ui/typography';
-import { useTheme } from '../../../theme';
-import { useBrand } from '../../../brand';
+import { useThemeContext } from '../../../theme';
 
 // 2. TYPES
 
 /**
  * Props for the SidebarHeader component
- *
- * @example
- * ```tsx
- * <SidebarHeader
- *   title="My App"
- *   subtitle="v1.0.0"
- * />
- * ```
  */
 export interface SidebarHeaderProps {
   /** Header title text */
@@ -37,25 +28,6 @@ export interface SidebarHeaderProps {
 
 /**
  * Header component for sidebar with optional logo, title, and subtitle
- *
- * @example
- * ```tsx
- * <SidebarHeader
- *   logo={require('./logo.png')}
- *   title="My App"
- *   subtitle="Dashboard"
- * />
- * ```
- *
- * @example
- * ```tsx
- * // Custom content
- * <SidebarHeader>
- *   <View>
- *     <Text>Custom Header</Text>
- *   </View>
- * </SidebarHeader>
- * ```
  */
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   title,
@@ -65,17 +37,16 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   children,
   testID,
 }) => {
-  const { values: theme } = useTheme();
-  const brand = useBrand();
+  const { values: theme } = useThemeContext();
+  const spacing = theme.spacing;
 
-  // If custom children provided, use them
   if (children) {
     return (
       <View
         style={[
           styles.container,
           {
-            padding: brand.spacing.lg,
+            padding: spacing.lg,
             borderBottomWidth: 1,
             borderBottomColor: theme.tokens.sidebar.divider,
           },
@@ -88,14 +59,13 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     );
   }
 
-  // Default header with logo, title, subtitle
   return (
     <View
       style={[
         styles.container,
         {
-          padding: brand.spacing.lg,
-          gap: brand.spacing.sm,
+          padding: spacing.lg,
+          gap: spacing.sm,
           borderBottomWidth: 1,
           borderBottomColor: theme.tokens.sidebar.divider,
         },

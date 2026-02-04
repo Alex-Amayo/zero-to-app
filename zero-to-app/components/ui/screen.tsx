@@ -1,9 +1,10 @@
 // 1. IMPORTS
 import React from 'react';
-import { ScrollView, StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
+import { ScrollView, StyleSheet, type StyleProp, type ViewStyle, Platform, View } from 'react-native';
 import { Screen as RNScreen } from 'react-native-screens';
 import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 import { ThemedView, type ThemedViewVariant } from './themed-view';
+import { useLayout } from '../../context/layout-context';
 
 // 2. TYPES
 
@@ -44,6 +45,12 @@ export interface ScreenProps {
   testID?: string;
   /** Whether to show vertical scroll indicator. @default true */
   showsVerticalScrollIndicator?: boolean;
+  /** 
+   * Whether to center content horizontally and apply a max-width.
+   * Useful for home screens or landing pages on web.
+   * @default false
+   */
+  centered?: boolean;
 }
 
 // 3. COMPONENT
@@ -97,21 +104,44 @@ export const Screen: React.FC<ScreenProps> = ({
   style,
   testID,
   showsVerticalScrollIndicator = true,
+  centered = false,
 }) => {
+  const { appBarHeight } = useLayout();
+
+  const content = (
+    <View style={[
+      styles.content,
+      centered && styles.centeredContent,
+      style
+    ]}>
+      {children}
+    </View>
+  );
+
   return (
     <RNScreen style={styles.screen}>
-      <SafeAreaView style={styles.safeArea} edges={edges} testID={testID}>
-        <ThemedView variant={variant} style={[styles.container, style]}>
+      <SafeAreaView 
+        style={[
+          styles.safeArea, 
+          Platform.OS === 'web' && { marginTop: appBarHeight }
+        ]} 
+        edges={edges} 
+        testID={testID}
+      >
+        <ThemedView variant={variant} style={styles.container}>
           {scrollable ? (
             <ScrollView
               style={styles.scrollView}
-              contentContainerStyle={contentContainerStyle}
+              contentContainerStyle={[
+                contentContainerStyle,
+                centered && styles.centeredContentContainer
+              ]}
               showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             >
-              {children}
+              {content}
             </ScrollView>
           ) : (
-            children
+            content
           )}
         </ThemedView>
       </SafeAreaView>
@@ -131,6 +161,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  content: {
+    flex: 1,
+  },
+  centeredContent: {
+    width: '100%',
+    maxWidth: 1200,
+    alignSelf: 'center',
+  },
+  centeredContentContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
   },
   scrollView: {
     flex: 1,

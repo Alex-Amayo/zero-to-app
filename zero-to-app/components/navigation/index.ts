@@ -15,6 +15,7 @@ export type {
   SidebarItemProps,
   SidebarItemIconConfig,
   SidebarSectionProps,
+  SidebarSectionIconConfig,
   SidebarHeaderProps,
   SidebarFooterProps,
 } from './sidebar';

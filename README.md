@@ -218,25 +218,30 @@ function MyScreen() {
 
 ### Screen
 
-Screen wrapper with native screen container and safe areas:
+Standardized screen wrapper that handles layout, navigation chrome, and safe areas:
 
 ```tsx
 import { Screen } from 'zero-to-app';
 
 function MyScreen() {
   return (
-    <Screen variant="background" scrollable>
-      <Typography>Content automatically handles safe areas</Typography>
+    <Screen 
+      variant="background" 
+      scrollable
+      centered // Horizontally centers content with max-width (useful for web)
+    >
+      <Typography>Content automatically handles safe areas and web offsets</Typography>
     </Screen>
   );
 }
 ```
 
 **Features:**
-- Uses `react-native-screens` for truly native screen behavior
-- Automatic SafeAreaView integration
-- Optional ScrollView via `scrollable` prop
-- Themed background variants
+- **Navigation Awareness**: Automatically offsets content for the web `AppBar` using `useLayout()`.
+- **Layout Consistency**: `centered` prop handles horizontal centering and max-width uniformly.
+- **Native Performance**: Uses `react-native-screens` for truly native screen behavior.
+- **Automatic SafeAreas**: Integration with `react-native-safe-area-context`.
+- **Scroll Handling**: Optional ScrollView via `scrollable` prop.
 
 ---
 
@@ -244,38 +249,82 @@ function MyScreen() {
 
 ### useTheme()
 
-Access theme values and toggle light/dark mode:
+Access the current active theme values (colors, spacing, and border radius):
 
 ```tsx
 import { useTheme } from 'zero-to-app';
 
 function MyComponent() {
-  const { values, mode, toggleTheme } = useTheme();
+  const theme = useTheme();
 
   return (
-    <View style={{ backgroundColor: values.surface }}>
-      <Button title="Toggle Theme" onPress={toggleTheme} />
+    <View style={{ 
+      backgroundColor: theme.surface,
+      padding: theme.spacing.md,
+      borderRadius: theme.borderRadius
+    }}>
+      <Text style={{ color: theme.onSurface }}>Themed Content</Text>
     </View>
   );
 }
 ```
 
-### useBrand()
+### useThemeMode()
 
-Access brand configuration:
+Access theme mode and controllers:
 
 ```tsx
-import { useBrand } from 'zero-to-app';
+import { useThemeMode } from 'zero-to-app';
+
+function ThemeToggler() {
+  const { mode, toggleTheme } = useThemeMode();
+
+  return (
+    <Button 
+      title={`Switch to ${mode === 'light' ? 'dark' : 'light'}`} 
+      onPress={toggleTheme} 
+    />
+  );
+}
+```
+
+### useBrandConfig()
+
+Access brand configuration (static values like name, logo):
+
+```tsx
+import { useBrandConfig } from 'zero-to-app';
 
 function MyComponent() {
-  const brand = useBrand();
+  const brand = useBrandConfig();
+  const { values: theme } = useThemeContext();
 
   return (
     <View style={{
-      padding: brand.spacing.lg,
-      borderRadius: brand.borderRadius
+      borderRadius: theme.borderRadius
     }}>
       <Text>{brand.name}</Text>
+    </View>
+  );
+}
+```
+
+### useThemeContext()
+
+Access the full theme context (values, mode, and controllers). Recommended for internal use or complex theme logic:
+
+```tsx
+import { useThemeContext } from 'zero-to-app';
+
+function MyThemedComponent() {
+  const { values: theme, mode, setMode } = useThemeContext();
+
+  return (
+    <View style={{ 
+      backgroundColor: theme.surface,
+      padding: theme.spacing.md 
+    }}>
+      <Text style={{ color: theme.onSurface }}>Current mode: {mode}</Text>
     </View>
   );
 }
@@ -363,7 +412,7 @@ function MyComponent() {
 The library provides component-specific tokens:
 
 ```tsx
-const { values: theme } = useTheme();
+const theme = useTheme();
 
 theme.tokens.button.filledBg
 theme.tokens.input.background

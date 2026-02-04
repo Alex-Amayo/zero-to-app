@@ -47,6 +47,9 @@
     ]
   },
   "dependencies": {
-    "@expo/metro-runtime": "6.1.2"
+    "@expo/metro-runtime": "6.1.2",
+    "expo": "~55.0.0-preview.7",
+    "react": "19.2.0",
+    "react-native": "0.83.1"
   }
 }

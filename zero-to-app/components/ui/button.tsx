@@ -165,7 +165,7 @@ const Button = forwardRef<View, ButtonProps>(({
   backgroundColor,
   size = 's',
 }, ref) => {
-  const { values: theme } = useTheme();
+  const theme = useTheme();
   const tokens = theme.tokens;
 
   // Track hover and focus states (web-only features)

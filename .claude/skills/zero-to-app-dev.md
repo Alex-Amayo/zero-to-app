@@ -14,9 +14,10 @@
 1. Decide: Storybook or Demo? (Use Storybook unless it needs expo-router)
 2. Check existing components in `zero-to-app/components/ui/` for patterns
 3. Use `useTheme()` for colors (semantic tokens first: `theme.tokens.button.filledBg`)
-4. Use `useBrand()` for spacing/sizing: `brand.spacing.lg`, `brand.borderRadius`
-5. Export from `components/ui/index.ts`
-6. Run `pnpm typecheck` to validate
+4. Use `useTheme()` for spacing/sizing: `theme.spacing.lg`, `theme.borderRadius`
+5. Use `useBrandConfig()` for brand identity: `brand.name`, `brand.logo`
+6. Export from `components/ui/index.ts`
+7. Run `pnpm typecheck` to validate
 
 **"Help me add navigation"**
 1. Use Demo app (expo-router required)
@@ -56,7 +57,8 @@ pnpm dev:demo:android       # Test on Android emulator
 
 When building a new component, ensure:
 - [ ] Uses `useTheme()` for all colors (no hardcoded hex values)
-- [ ] Uses `useBrand()` for spacing, borderRadius, fontSizes
+- [ ] Uses `useTheme()` for spacing, borderRadius
+- [ ] Uses `useBrandConfig()` for fontSizes (or `theme.tokens.typography`)
 - [ ] TypeScript props interface with JSDoc comments
 - [ ] Supports light/dark mode automatically
 - [ ] Exported from appropriate `index.ts` file
@@ -72,7 +74,7 @@ When building a new component, ensure:
 | Add/modify theme tokens | `zero-to-app/theme/theme-config.ts` |
 | Add new hook | `zero-to-app/hooks/` |
 | Test isolated component | `apps/storybook/components/` |
-| Test with routing | `apps/demo/app/` |
+| Test with routing | `apps/demo/src/app/` |
 | Update public API | `zero-to-app/index.ts` |
 
 ---
@@ -89,7 +91,7 @@ zero-to-app/
 │   │   └── navigation/      # Navigation components (AppTabs, etc.)
 │   ├── theme/               # Theme system and M3 tokens
 │   ├── brand/               # Brand configuration and palette generation
-│   ├── hooks/               # Custom hooks (useDimensions, useTheme, useBrand)
+│   ├── hooks/               # Custom hooks (useDimensions, useTheme, useBrandConfig)
 │   ├── utils/               # Icon utilities, contrast checker
 │   └── index.ts             # Public API exports
 ├── apps/
@@ -183,15 +185,17 @@ function MyComponent() {
 
 **Brand Configuration Access:**
 ```tsx
-import { useBrand } from '../../brand';
+import { useBrandConfig } from '../../brand';
+import { useTheme } from '../../theme';
 
 function MyComponent() {
-  const brand = useBrand();
+  const brand = useBrandConfig();
+  const theme = useTheme();
 
   return (
     <View style={{
-      padding: brand.spacing.lg,
-      borderRadius: brand.borderRadius
+      padding: theme.spacing.lg,
+      borderRadius: theme.borderRadius
     }}>
       <Text style={{ fontSize: brand.fontSizes.large }}>
         {brand.name}
@@ -279,7 +283,7 @@ Every component follows this structure:
 import React, { forwardRef } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { useTheme } from '../../theme';
-import { useBrand } from '../../brand';
+import { useBrandConfig } from '../../brand';
 
 // 2. TYPES
 export interface MyComponentProps {
@@ -294,11 +298,11 @@ export interface MyComponentProps {
 // 3. COMPONENT
 export const MyComponent = forwardRef<View, MyComponentProps>(
   ({ title, size = 'medium', onPress, style }, ref) => {
-    const { values: theme } = useTheme();
-    const brand = useBrand();
+    const theme = useTheme();
+    const brand = useBrandConfig();
 
     return (
-      <View ref={ref} style={[styles.container, style]}>
+      <View ref={ref} style={[styles.container, style, { padding: theme.spacing.md }]}>
         {/* Component content */}
       </View>
     );
@@ -740,7 +744,7 @@ function ThemedCard() {
 | UI components | `zero-to-app/components/ui/` |
 | Navigation components | `zero-to-app/components/navigation/` |
 | Storybook stories | `apps/storybook/components/` |
-| Demo app | `apps/demo/app/` |
+| Demo app | `apps/demo/src/app/` |
 
 ### Commands
 | Task | Command |
@@ -760,8 +764,8 @@ function ThemedCard() {
 | `ZeroToApp` | `theme/index.ts` | Theme provider wrapper |
 | `createBrand` | `brand/index.ts` | Brand configuration creator |
 | `useTheme` | `theme/index.ts` | Access theme tokens |
-| `useBrand` | `brand/index.ts` | Access brand config |
+| `useBrandConfig` | `brand/index.ts` | Access brand config |
 | `useDimensions` | `hooks/index.ts` | Responsive dimensions |
-| `Button` | `components/ui/index.ts` | M3 button component |
-| `Typography` | `components/ui/index.ts` | M3 typography component |
-| `AppTabs` | `components/navigation/index.ts` | Native tab navigation |
+| `Button` | `components/ui/index.ts" | M3 button component |
+| `Typography` | `components/ui/index.ts" | M3 typography component |
+| `AppTabs` | `components/navigation/index.ts" | Native tab navigation |

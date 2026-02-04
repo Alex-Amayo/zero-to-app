@@ -11,51 +11,44 @@ import { Image } from 'expo-image';
 
 export default function HomeScreen() {
   return (
-    <Screen variant="background" edges={['top', 'bottom']}>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <Image source={require('@/assets/images/zero-to-app.png')} style={{ width: 200, height: 200, marginBottom: Spacing.four }} />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Zero To App
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
+    <Screen 
+      variant="background" 
+      edges={['top']}
+      centered
+      contentContainerStyle={styles.contentContainer}
+    >
+      <ThemedView style={styles.heroSection}>
+        <Image source={require('@/assets/images/zero-to-app.png')} style={{ width: 200, height: 200, marginBottom: Spacing.four }} />
+        <ThemedText type="title" style={styles.title}>
+          Welcome to&nbsp;Zero To App
         </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow title="Try editing" hint="src/app/index.tsx" />
-          <HintRow title="Dev tools" hint="cmd+d" />
-          <HintRow title="Fresh start" hint="npm reset project" />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-        </ThemedView>
       </ThemedView>
+
+      <ThemedText type="code" style={styles.code}>
+        get started
+      </ThemedText>
+
+      <ThemedView type="backgroundElement" style={styles.stepContainer}>
+        <HintRow title="Try editing" hint="src/app/index.tsx" />
+        <HintRow title="Dev tools" hint="cmd+d" />
+        <HintRow title="Fresh start" hint="npm reset project" />
+      </ThemedView>
+
+      {Platform.OS === 'web' && <WebBadge />}
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
+  contentContainer: {
     paddingHorizontal: Spacing.four,
     alignItems: 'center',
     gap: Spacing.three,
     paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
   },
   heroSection: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
     paddingHorizontal: Spacing.four,
     gap: Spacing.four,
   },

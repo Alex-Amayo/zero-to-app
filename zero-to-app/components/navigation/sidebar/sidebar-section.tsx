@@ -2,25 +2,31 @@
 import React from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { Typography } from '../../ui/typography';
-import { useTheme } from '../../../theme';
-import { useBrand } from '../../../brand';
+import { useThemeContext } from '../../../theme';
+import { renderIcon, type IconLibrary } from '../../../icons';
 
 // 2. TYPES
 
 /**
+ * Configuration for sidebar section icons
+ */
+export interface SidebarSectionIconConfig {
+  /** Icon library to use. @default 'Feather' */
+  library?: IconLibrary;
+  /** Name of the icon from the specified library */
+  name: string;
+  /** Icon size in pixels. @default 14 */
+  size?: number;
+}
+
+/**
  * Props for the SidebarSection component
- *
- * @example
- * ```tsx
- * <SidebarSection title="Navigation">
- *   <SidebarItem label="Home" />
- *   <SidebarItem label="Settings" />
- * </SidebarSection>
- * ```
  */
 export interface SidebarSectionProps {
   /** Optional section header title */
   title?: string;
+  /** Optional icon configuration for the section header */
+  icon?: SidebarSectionIconConfig;
   /** Section content (usually SidebarItem components) */
   children: React.ReactNode;
   /** Custom styles */
@@ -33,37 +39,34 @@ export interface SidebarSectionProps {
 
 /**
  * Groups sidebar items with an optional section header
- *
- * @example
- * ```tsx
- * <SidebarSection title="Main">
- *   <SidebarItem icon={{ name: 'home' }} label="Home" />
- *   <SidebarItem icon={{ name: 'search' }} label="Search" />
- * </SidebarSection>
- *
- * <SidebarSection title="Settings">
- *   <SidebarItem icon={{ name: 'settings' }} label="Settings" />
- *   <SidebarItem icon={{ name: 'help-circle' }} label="Help" />
- * </SidebarSection>
- * ```
  */
 export const SidebarSection: React.FC<SidebarSectionProps> = ({
   title,
+  icon,
   children,
   style,
   testID,
 }) => {
-  const { values: theme } = useTheme();
-  const brand = useBrand();
+  const { values: theme } = useThemeContext();
   const tokens = theme.tokens.sidebar;
+  const spacing = theme.spacing;
+
+  const renderSectionIcon = () => {
+    if (!icon) return null;
+    const iconSize = icon.size || 14;
+    const iconLibrary = icon.library || 'Feather';
+    return (
+      <View style={styles.iconContainer}>
+        {renderIcon(icon, iconLibrary, iconSize, theme.onSurfaceVariant)}
+      </View>
+    );
+  };
 
   return (
     <View
       style={[
         styles.container,
-        {
-          paddingVertical: brand.spacing.sm,
-        },
+        { paddingVertical: spacing.sm },
         style,
       ]}
       testID={testID}
@@ -72,12 +75,10 @@ export const SidebarSection: React.FC<SidebarSectionProps> = ({
         <View
           style={[
             styles.header,
-            {
-              paddingHorizontal: brand.spacing.md,
-              paddingBottom: brand.spacing.xs,
-            },
+            { paddingHorizontal: spacing.md, gap: spacing.xs },
           ]}
         >
+          {renderSectionIcon()}
           <Typography
             variant="labelSmall"
             weight="medium"
@@ -89,17 +90,16 @@ export const SidebarSection: React.FC<SidebarSectionProps> = ({
         </View>
       )}
 
-      <View style={[styles.itemsContainer, { gap: brand.spacing.xs }]}>
+      <View style={[styles.itemsContainer, { gap: spacing.xs }]}>
         {children}
       </View>
 
-      {/* Divider after section */}
       <View
         style={[
           styles.divider,
           {
             backgroundColor: tokens.divider,
-            marginTop: brand.spacing.sm,
+            marginTop: spacing.sm,
           },
         ]}
       />
@@ -113,6 +113,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   header: {
+    minHeight: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    alignItems: 'center',
     justifyContent: 'center',
   },
   itemsContainer: {

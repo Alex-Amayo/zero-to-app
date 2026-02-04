@@ -1,13 +1,13 @@
 import React from 'react';
 import { fireEvent, render, renderHook } from '@testing-library/react-native';
 import { Text, View } from 'react-native';
-import { ZeroToApp, useTheme, useTokens } from './theme';
+import { ZeroToApp, useThemeContext, useTheme, useThemeMode, useTokens } from './theme';
 import { defaultBrand } from '../brand/default-brand';
 import { createLightTheme, createDarkTheme } from './theme-config';
 
 // Test component that exposes theme values for assertions
 const ThemeTestComponent = () => {
-  const { values, mode, toggleTheme, setMode } = useTheme();
+  const { values, mode, toggleTheme, setMode } = useThemeContext();
 
   return (
     <View>
@@ -39,6 +39,30 @@ const TokensTestComponent = () => {
       <Text testID="tokenTypographyHeadlineLarge">{String(tokens.typography.headlineLarge)}</Text>
       <Text testID="tokenElevationLevel3">{String(tokens.elevation.level3)}</Text>
       <Text testID="tokenFocusRingWidth">{String(tokens.focusRing.width)}</Text>
+    </View>
+  );
+};
+
+// Test component for useTheme hook
+const ThemeValuesTestComponent = () => {
+  const theme = useTheme();
+
+  return (
+    <View>
+      <Text testID="themePrimary">{theme.primary}</Text>
+      <Text testID="themeIsDark">{String(theme.isDark)}</Text>
+    </View>
+  );
+};
+
+// Test component for useThemeMode hook
+const ThemeModeTestComponent = () => {
+  const { mode, toggleTheme } = useThemeMode();
+
+  return (
+    <View>
+      <Text testID="modeMode">{mode}</Text>
+      <Text onPress={toggleTheme} testID="modeToggle">Toggle</Text>
     </View>
   );
 };
@@ -190,9 +214,9 @@ describe('ZeroToApp Provider', () => {
   });
 });
 
-describe('useTheme hook', () => {
+describe('useThemeContext hook', () => {
   it('returns theme context with all expected properties', () => {
-    const { result } = renderHook(() => useTheme(), { wrapper });
+    const { result } = renderHook(() => useThemeContext(), { wrapper });
 
     expect(result.current).toHaveProperty('values');
     expect(result.current).toHaveProperty('mode');
@@ -205,14 +229,14 @@ describe('useTheme hook', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(() => {
-      renderHook(() => useTheme());
-    }).toThrow('useTheme must be used within a <ZeroToApp> provider');
+      renderHook(() => useThemeContext());
+    }).toThrow('useThemeContext must be used within a <ZeroToApp> provider');
 
     consoleSpy.mockRestore();
   });
 
   it('values object contains all Material 3 color roles', () => {
-    const { result } = renderHook(() => useTheme(), { wrapper });
+    const { result } = renderHook(() => useThemeContext(), { wrapper });
     const { values } = result.current;
 
     // Core color roles

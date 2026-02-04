@@ -1,21 +1,12 @@
 // 1. IMPORTS
 import React from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
-import { Typography } from '../../ui/typography';
-import { useTheme } from '../../../theme';
-import { useBrand } from '../../../brand';
+import { useThemeContext } from '../../../theme';
 
 // 2. TYPES
 
 /**
  * Props for the SidebarFooter component
- *
- * @example
- * ```tsx
- * <SidebarFooter>
- *   <Text>© 2024 My App</Text>
- * </SidebarFooter>
- * ```
  */
 export interface SidebarFooterProps {
   /** Footer content */
@@ -30,33 +21,21 @@ export interface SidebarFooterProps {
 
 /**
  * Footer component for sidebar with custom content
- *
- * @example
- * ```tsx
- * <SidebarFooter>
- *   <Typography variant="labelSmall" muted>
- *     © 2024 My Company
- *   </Typography>
- *   <Typography variant="labelSmall" muted>
- *     v1.0.0
- *   </Typography>
- * </SidebarFooter>
- * ```
  */
 export const SidebarFooter: React.FC<SidebarFooterProps> = ({
   children,
   style,
   testID,
 }) => {
-  const { values: theme } = useTheme();
-  const brand = useBrand();
+  const { values: theme } = useThemeContext();
+  const spacing = theme.spacing;
 
   return (
     <View
       style={[
         styles.container,
         {
-          padding: brand.spacing.lg,
+          padding: spacing.lg,
           borderTopWidth: 1,
           borderTopColor: theme.tokens.sidebar.divider,
         },

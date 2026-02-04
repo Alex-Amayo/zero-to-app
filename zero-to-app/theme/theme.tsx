@@ -64,25 +64,49 @@ const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
  * @example
  * ```tsx
  * function MyComponent() {
- *   const { values: theme, mode, toggleTheme } = useTheme();
+ *   const theme = useTheme();
  *
  *   return (
  *     <View style={{ backgroundColor: theme.surface }}>
  *       <Text style={{ color: theme.onSurface }}>
- *         Current mode: {mode}
+ *         Hello World
  *       </Text>
- *       <Button title="Toggle Theme" onPress={toggleTheme} />
  *     </View>
  *   );
  * }
  * ```
  */
-export const useTheme = (): ThemeContextType => {
+export const useTheme = (): ThemeValuesType => {
+  const { values } = useThemeContext();
+  return values;
+};
+
+/**
+ * Hook to access the current theme mode and controllers.
+ * Must be used within a `<ZeroToApp>` provider.
+ *
+ * @returns The theme mode context containing mode, setMode, and toggleTheme
+ * @throws Error if used outside of a ZeroToApp provider
+ *
+ * @example
+ * ```tsx
+ * function ThemeToggler() {
+ *   const { mode, toggleTheme } = useThemeMode();
+ *   return <Button title={`Switch to ${mode === 'light' ? 'dark' : 'light'}`} onPress={toggleTheme} />;
+ * }
+ * ```
+ */
+export const useThemeMode = () => {
+  const { mode, setMode, toggleTheme } = useThemeContext();
+  return { mode, setMode, toggleTheme };
+};
+
+export const useThemeContext = (): ThemeContextType => {
   const context = useContext(ThemeContext);
 
   if (context === MISSING_PROVIDER) {
     throw new Error(
-      'useTheme must be used within a <ZeroToApp> provider.\n\n' +
+      'useThemeContext must be used within a <ZeroToApp> provider.\n\n' +
         'Make sure your component is wrapped with ZeroToApp:\n\n' +
         '  import { ZeroToApp, createBrand } from "zero-to-app";\n\n' +
         '  const brand = createBrand({ ... });\n\n' +
@@ -142,7 +166,7 @@ export const useTheme = (): ThemeContextType => {
  * ```
  */
 export const useTokens = (): ThemeTokens => {
-  const { values } = useTheme();
+  const { values } = useThemeContext();
   return values.tokens;
 };
 

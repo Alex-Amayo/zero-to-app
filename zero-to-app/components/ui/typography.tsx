@@ -152,7 +152,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
     },
     ref
   ) => {
-    const { values: theme } = useTheme();
+    const theme = useTheme();
 
     const textStyle: TextStyle = useMemo(() => {
       const tokens = theme.tokens.typography;

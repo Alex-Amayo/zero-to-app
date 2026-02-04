@@ -487,29 +487,30 @@ function ResponsiveNav() {
 }
 ```
 
-### useBrand()
+### useBrandConfig()
 
 #### Dynamic Spacing
 
 ```tsx
 function DynamicCard() {
-  const brand = useBrand();
+  const brand = useBrandConfig();
+  const theme = useTheme();
   const { breakpoint } = useDimensions();
 
   const padding = breakpoint === 'small'
-    ? brand.spacing.md
+    ? theme.spacing.md
     : breakpoint === 'medium'
-    ? brand.spacing.lg
-    : brand.spacing.xl;
+    ? theme.spacing.lg
+    : theme.spacing.xl;
 
   return (
     <View
       style={{
         padding,
-        borderRadius: brand.borderRadius,
+        borderRadius: theme.borderRadius,
       }}
     >
-      <Typography>Responsive padding</Typography>
+      <Typography>{brand.name}: Responsive padding</Typography>
     </View>
   );
 }
@@ -681,11 +682,11 @@ function MyScreen() {
 ### Theme-Aware Custom Component
 
 ```tsx
-import { useTheme, useBrand } from 'zero-to-app';
+import { useTheme, useBrandConfig } from 'zero-to-app';
 
 function CustomCard({ title, children }: { title: string; children: React.ReactNode }) {
-  const { values: theme } = useTheme();
-  const brand = useBrand();
+  const theme = useTheme();
+  const brand = useBrandConfig();
 
   return (
     <View
@@ -693,8 +694,8 @@ function CustomCard({ title, children }: { title: string; children: React.ReactN
         backgroundColor: theme.tokens.card.background,
         borderColor: theme.outline,
         borderWidth: 1,
-        borderRadius: brand.borderRadius,
-        padding: brand.spacing.lg,
+        borderRadius: theme.borderRadius,
+        padding: theme.spacing.lg,
         shadowColor: theme.shadow,
         shadowOpacity: 0.1,
         shadowRadius: 8,
@@ -704,7 +705,7 @@ function CustomCard({ title, children }: { title: string; children: React.ReactN
       <Typography variant="titleMedium" weight="medium">
         {title}
       </Typography>
-      <View style={{ marginTop: brand.spacing.sm }}>
+      <View style={{ marginTop: theme.spacing.sm }}>
         {children}
       </View>
     </View>
@@ -715,12 +716,12 @@ function CustomCard({ title, children }: { title: string; children: React.ReactN
 ### Fully Responsive Component
 
 ```tsx
-import { useDimensions, breakpoints, useBrand, useTheme } from 'zero-to-app';
+import { useDimensions, breakpoints, useBrandConfig, useTheme } from 'zero-to-app';
 
 function ResponsiveHero() {
   const { width, breakpoint } = useDimensions();
-  const brand = useBrand();
-  const { values: theme } = useTheme();
+  const brand = useBrandConfig();
+  const theme = useTheme();
 
   const isDesktop = width >= breakpoints.large;
   const isMobile = breakpoint === 'small';
@@ -729,14 +730,14 @@ function ResponsiveHero() {
     <View
       style={{
         flexDirection: isDesktop ? 'row' : 'column',
-        padding: isDesktop ? brand.spacing.xxxl : brand.spacing.xl,
-        gap: brand.spacing.xl,
+        padding: isDesktop ? theme.spacing.xxxl : theme.spacing.xl,
+        gap: theme.spacing.xl,
         backgroundColor: theme.surfaceContainer,
       }}
     >
       <View style={{ flex: isDesktop ? 1 : undefined }}>
         <Typography variant={isMobile ? 'headlineMedium' : 'displayLarge'}>
-          Welcome
+          {brand.name}
         </Typography>
         <Typography variant="bodyLarge" muted>
           Build amazing apps with zero-to-app
@@ -759,7 +760,7 @@ function ResponsiveHero() {
 
 ### Provider Not Wrapped
 
-**Error:** `useBrand must be used within BrandProvider`
+**Error:** `useBrandConfig must be used within a <ZeroToApp> provider`
 
 **Solution:** Ensure `<ZeroToApp>` wraps your entire app in the root layout:
 
@@ -926,11 +927,13 @@ function MyComponent() {
 - Create brand once at app root
 - Use `colorSeed` for automatic palette generation
 - Store brand config in separate file for reusability
+- Use `useBrandConfig()` for accessing static brand values
 
 ❌ **Don't:**
 - Create multiple brands in one app
 - Modify brand object at runtime
 - Recreate brand on every render
+- Use `useBrandConfig()` for spacing or border radius (use `useTheme()` instead)
 
 ### Component Composition
 

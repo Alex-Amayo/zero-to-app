@@ -12,7 +12,7 @@ export interface ThemedViewProps extends ViewProps {
 }
 
 export const ThemedView = ({ variant = 'surface', color, style, children, ...rest }: ThemedViewProps) => {
-  const { values: theme } = useTheme();
+  const theme = useTheme();
 
   const variantMap: Record<ThemedViewVariant, string> = {
     surface: theme.surface,

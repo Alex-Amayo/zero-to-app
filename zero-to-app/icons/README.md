@@ -317,7 +317,7 @@ import { useTheme } from 'zero-to-app';
 import { renderIcon } from 'zero-to-app/icons';
 
 function ThemedIcon() {
-  const { values: theme } = useTheme();
+  const theme = useTheme();
 
   return renderIcon(
     { library: 'Feather', name: 'settings' },

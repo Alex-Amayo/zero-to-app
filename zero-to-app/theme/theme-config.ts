@@ -34,6 +34,8 @@ export interface ThemeValuesType {
   inversePrimary: string;
   scrim: string;
   shadow: string;
+  spacing: import('../brand').Spacing;
+  borderRadius: number;
   isDark: boolean;
   // Semantic tokens for common component use
   tokens: {
@@ -181,6 +183,8 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
     inversePrimary: c.inversePrimary,
     scrim: c.scrim,
     shadow: c.shadow,
+    spacing: brand.spacing,
+    borderRadius: brand.borderRadius,
     isDark: false,
     tokens: {
       button: {
@@ -330,6 +334,8 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
     inversePrimary: c.inversePrimary,
     scrim: c.scrim,
     shadow: c.shadow,
+    spacing: brand.spacing,
+    borderRadius: brand.borderRadius,
     isDark: true,
     tokens: {
       button: {

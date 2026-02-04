@@ -27,12 +27,13 @@ export const BrandProvider = ({ brand, children }: BrandProviderProps) => {
  * @example
  * ```tsx
  * function MyHeader() {
- *   const brand = useBrand();
+ *   const { values: theme } = useThemeContext();
+ *   const brand = useBrandConfig();
  *
  *   return (
- *     <View style={{ padding: brand.spacing.md }}>
+ *     <View style={{ padding: theme.spacing.md }}>
  *       <Image source={brand.logo.light} />
- *       <Text style={{ fontSize: brand.fontSizes.large }}>
+ *       <Text style={{ fontSize: brand.fontSizes.large, color: theme.primary }}>
  *         {brand.name}
  *       </Text>
  *     </View>
@@ -42,15 +43,16 @@ export const BrandProvider = ({ brand, children }: BrandProviderProps) => {
  *
  * @example
  * ```tsx
- * // Access brand colors directly
+ * // Access brand colors directly (Internal use)
  * function ColoredBox() {
- *   const { colors, spacing } = useBrand();
+ *   const { values: theme } = useThemeContext();
+ *   const { colors } = useBrandConfig();
  *
  *   return (
  *     <View style={{
  *       backgroundColor: colors.primaryContainer,
- *       padding: spacing.lg,
- *       borderRadius: 8,
+ *       padding: theme.spacing.lg,
+ *       borderRadius: theme.borderRadius,
  *     }}>
  *       <Text style={{ color: colors.onPrimaryContainer }}>
  *         Brand colored content
@@ -60,12 +62,12 @@ export const BrandProvider = ({ brand, children }: BrandProviderProps) => {
  * }
  * ```
  */
-export const useBrand = (): Brand => {
+export const useBrandConfig = (): Brand => {
   const context = useContext(BrandContext);
 
   if (context === undefined) {
     throw new Error(
-      'useBrand must be used within a <ZeroToApp> provider.\n\n' +
+      'useBrandConfig must be used within a <ZeroToApp> provider.\n\n' +
         'Make sure your component is wrapped with ZeroToApp:\n\n' +
         '  import { ZeroToApp, createBrand } from "zero-to-app";\n\n' +
         '  const brand = createBrand({\n' +

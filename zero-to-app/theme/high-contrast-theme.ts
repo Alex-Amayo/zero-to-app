@@ -21,6 +21,8 @@ export function createHighContrastLightTheme(brand: Brand): ThemeValuesType {
     ...highContrastColors,
     surfaceVariant: highContrastColors.surface,
     surfaceTint: highContrastColors.primary,
+    spacing: brand.spacing,
+    borderRadius: brand.borderRadius,
     isDark: false,
     tokens: {
       button: {
@@ -134,6 +136,8 @@ export function createHighContrastDarkTheme(brand: Brand): ThemeValuesType {
     surfaceTint: highContrastColors.primary,
     surface: '#000000',
     onSurface: '#FFFFFF',
+    spacing: brand.spacing,
+    borderRadius: brand.borderRadius,
     isDark: true,
     tokens: {
       button: {

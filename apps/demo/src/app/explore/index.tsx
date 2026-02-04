@@ -1,18 +1,22 @@
 import React from 'react';
-import { StyleSheet, View, Platform } from 'react-native';
+import { View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Typography, ThemedView, Button, Screen, useDimensions, breakpoints } from 'zero-to-app';
+import { Typography, ThemedView, Button, Screen, useTheme } from 'zero-to-app';
 
 export default function ExploreIndex() {
   const router = useRouter();
-  const { width } = useDimensions();
-  const isDesktop = width >= breakpoints.large;
+  const { spacing } = useTheme();
 
   const components = [
     {
       name: 'Button',
       description: 'Material Design 3 buttons with 5 variants, sizes, icons, and loading states',
       route: '/explore/button',
+    },
+    {
+      name: 'Collapsible',
+      description: 'Expandable/collapsible sections with animated transitions',
+      route: '/explore/collapsible',
     },
     {
       name: 'Typography',
@@ -32,22 +36,31 @@ export default function ExploreIndex() {
   ];
 
   return (
-    <Screen scrollable variant="background" edges={Platform.OS === 'web' || isDesktop ? ['top', 'bottom'] : ['bottom']}>
-      <View style={styles.container}>
+    <Screen scrollable variant="background" edges={['bottom']}>
+      <View style={{ padding: spacing.xxl, gap: spacing.sm }}>
         <Typography variant="headlineMedium" weight="bold">
           Component Showcase
         </Typography>
-        <Typography variant="bodyMedium" muted style={styles.subtitle}>
+        <Typography variant="bodyMedium" muted style={{ marginBottom: spacing.lg }}>
           Explore the Zero to App component library
         </Typography>
 
-        <View style={styles.grid}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.lg }}>
           {components.map((component) => (
-            <ThemedView key={component.name} variant="surface" style={styles.card}>
+            <ThemedView
+              key={component.name}
+              variant="card"
+              style={{
+                padding: spacing.xl,
+                borderRadius: spacing.md,
+                gap: spacing.md,
+                minWidth: 200,
+              }}
+            >
               <Typography variant="titleMedium" weight="medium">
                 {component.name}
               </Typography>
-              <Typography variant="bodySmall" muted style={styles.cardDescription}>
+              <Typography variant="bodySmall" muted style={{ flex: 1 }}>
                 {component.description}
               </Typography>
               <Button
@@ -63,30 +76,3 @@ export default function ExploreIndex() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    gap: 8,
-  },
-  subtitle: {
-    marginBottom: 16,
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 16,
-  },
-  card: {
-    padding: 20,
-    borderRadius: 12,
-    gap: 12,
-    minWidth: 250,
-    maxWidth: 350,
-    flex: 1,
-  },
-  cardDescription: {
-    flex: 1,
-  },
-});

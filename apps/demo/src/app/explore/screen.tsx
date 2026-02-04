@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Platform } from 'react-native';
-import { Typography, ThemedView, Screen, useDimensions, breakpoints } from 'zero-to-app';
+import { View } from 'react-native';
+import { Typography, ThemedView, Screen, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -25,7 +25,7 @@ const screenProps: PropDefinition[] = [
   {
     name: 'edges',
     type: "Edge[] ('top' | 'bottom' | 'left' | 'right')[]",
-    default: "['top', 'bottom']",
+    default: "['bottom']",
     description: 'Which safe area edges to respect',
   },
   {
@@ -52,47 +52,42 @@ const screenProps: PropDefinition[] = [
 ];
 
 export default function ScreenPage() {
-  const { width } = useDimensions();
-  const isDesktop = width >= breakpoints.large;
+  const { spacing } = useTheme();
+
+  const rowStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.md };
 
   return (
-    <Screen scrollable variant="background" edges={Platform.OS === 'web' || isDesktop ? ['top', 'bottom'] : ['bottom']}>
-      <View style={styles.container}>
-        <Typography variant="headlineMedium" weight="bold">
-          Screen
-        </Typography>
-        <Typography variant="bodyMedium" muted style={styles.description}>
-          Screen wrapper component providing consistent layout with native screen behavior,
-          safe areas, themed backgrounds, and optional scrolling.
-        </Typography>
+    <Screen scrollable variant="background" edges={['bottom']}>
+      <View style={{ padding: spacing.xxl, gap: spacing.xxl }}>
+        <View style={{ gap: spacing.xs }}>
+          <Typography variant="headlineMedium" weight="bold">
+            Screen
+          </Typography>
+          <Typography variant="bodyMedium" muted>
+            Screen wrapper component providing consistent layout with safe areas, themed backgrounds, and optional scrolling.
+          </Typography>
+        </View>
 
         <DemoSection
           title="Features"
           description="Key features of the Screen component"
         >
-          <View style={styles.featureList}>
-            <ThemedView variant="surfaceContainer" style={styles.featureItem}>
-              <Typography variant="labelLarge" weight="medium">Native Screen Container</Typography>
-              <Typography variant="bodySmall" muted>
-                Uses react-native-screens for truly native screen behavior and transitions
-              </Typography>
-            </ThemedView>
-
-            <ThemedView variant="surfaceContainer" style={styles.featureItem}>
+          <View style={{ gap: spacing.md }}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
               <Typography variant="labelLarge" weight="medium">Safe Area Support</Typography>
               <Typography variant="bodySmall" muted>
                 Automatically handles notches, status bars, and home indicators via SafeAreaView
               </Typography>
             </ThemedView>
 
-            <ThemedView variant="surfaceContainer" style={styles.featureItem}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
               <Typography variant="labelLarge" weight="medium">Themed Backgrounds</Typography>
               <Typography variant="bodySmall" muted>
                 Consistent background colors via ThemedView with variant support
               </Typography>
             </ThemedView>
 
-            <ThemedView variant="surfaceContainer" style={styles.featureItem}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
               <Typography variant="labelLarge" weight="medium">Optional Scrolling</Typography>
               <Typography variant="bodySmall" muted>
                 Enable scrollable content with the scrollable prop
@@ -105,8 +100,8 @@ export default function ScreenPage() {
           title="Basic Usage"
           description="Non-scrollable screen with default settings"
         >
-          <ThemedView variant="surfaceContainer" style={styles.codeBlock}>
-            <Typography variant="bodySmall" style={styles.code}>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm }}>
+            <Typography variant="bodySmall" style={{ fontFamily: 'monospace' }}>
               {`<Screen variant="background">
   <Typography variant="headlineLarge">
     Welcome
@@ -121,19 +116,18 @@ export default function ScreenPage() {
           title="Scrollable Screen"
           description="Enable scrolling for long content"
         >
-          <ThemedView variant="surfaceContainer" style={styles.codeBlock}>
-            <Typography variant="bodySmall" style={styles.code}>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm }}>
+            <Typography variant="bodySmall" style={{ fontFamily: 'monospace' }}>
               {`<Screen
   scrollable
   variant="surface"
   contentContainerStyle={{
-    padding: 24,
-    gap: 16
+    padding: spacing.xxl,
+    gap: spacing.lg
   }}
 >
   <Typography>Content 1</Typography>
   <Typography>Content 2</Typography>
-  <Typography>Content 3</Typography>
 </Screen>`}
             </Typography>
           </ThemedView>
@@ -143,31 +137,31 @@ export default function ScreenPage() {
           title="Custom Safe Area Edges"
           description="Control which edges respect safe areas"
         >
-          <View style={styles.edgesDemo}>
-            <ThemedView variant="surfaceContainer" style={styles.edgeBox}>
+          <View style={rowStyle}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.md, borderRadius: spacing.sm, minWidth: 120, gap: spacing.xs }}>
               <Typography variant="labelSmall" weight="medium">Top only</Typography>
-              <Typography variant="labelSmall" muted style={styles.code}>
+              <Typography variant="labelSmall" muted style={{ fontFamily: 'monospace' }}>
                 edges={`{['top']}`}
               </Typography>
             </ThemedView>
 
-            <ThemedView variant="surfaceContainer" style={styles.edgeBox}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.md, borderRadius: spacing.sm, minWidth: 120, gap: spacing.xs }}>
               <Typography variant="labelSmall" weight="medium">Bottom only</Typography>
-              <Typography variant="labelSmall" muted style={styles.code}>
+              <Typography variant="labelSmall" muted style={{ fontFamily: 'monospace' }}>
                 edges={`{['bottom']}`}
               </Typography>
             </ThemedView>
 
-            <ThemedView variant="surfaceContainer" style={styles.edgeBox}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.md, borderRadius: spacing.sm, minWidth: 120, gap: spacing.xs }}>
               <Typography variant="labelSmall" weight="medium">All edges</Typography>
-              <Typography variant="labelSmall" muted style={styles.code}>
+              <Typography variant="labelSmall" muted style={{ fontFamily: 'monospace' }}>
                 edges={`{['top', 'bottom', 'left', 'right']}`}
               </Typography>
             </ThemedView>
 
-            <ThemedView variant="surfaceContainer" style={styles.edgeBox}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.md, borderRadius: spacing.sm, minWidth: 120, gap: spacing.xs }}>
               <Typography variant="labelSmall" weight="medium">No edges</Typography>
-              <Typography variant="labelSmall" muted style={styles.code}>
+              <Typography variant="labelSmall" muted style={{ fontFamily: 'monospace' }}>
                 edges={`{[]}`}
               </Typography>
             </ThemedView>
@@ -178,20 +172,20 @@ export default function ScreenPage() {
           title="Background Variants"
           description="Use different themed backgrounds"
         >
-          <View style={styles.row}>
-            <ThemedView variant="background" style={styles.variantExample}>
+          <View style={rowStyle}>
+            <ThemedView variant="background" style={{ padding: spacing.lg, borderRadius: spacing.sm, minWidth: 100, alignItems: 'center' }}>
               <Typography variant="labelSmall">background</Typography>
             </ThemedView>
-            <ThemedView variant="surface" style={styles.variantExample}>
+            <ThemedView variant="surface" style={{ padding: spacing.lg, borderRadius: spacing.sm, minWidth: 100, alignItems: 'center' }}>
               <Typography variant="labelSmall">surface</Typography>
             </ThemedView>
-            <ThemedView variant="surfaceContainer" style={styles.variantExample}>
+            <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, minWidth: 100, alignItems: 'center' }}>
               <Typography variant="labelSmall">surfaceContainer</Typography>
             </ThemedView>
           </View>
         </DemoSection>
 
-        <Typography variant="titleLarge" weight="medium" style={styles.propsTitle}>
+        <Typography variant="titleLarge" weight="medium" style={{ marginTop: spacing.lg }}>
           Props
         </Typography>
         <PropsTable props={screenProps} />
@@ -199,53 +193,3 @@ export default function ScreenPage() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    gap: 24,
-  },
-  description: {
-    marginBottom: 8,
-  },
-  featureList: {
-    gap: 12,
-  },
-  featureItem: {
-    padding: 16,
-    borderRadius: 8,
-    gap: 4,
-  },
-  codeBlock: {
-    padding: 16,
-    borderRadius: 8,
-  },
-  code: {
-    fontFamily: 'monospace',
-  },
-  edgesDemo: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  edgeBox: {
-    padding: 12,
-    borderRadius: 8,
-    minWidth: 120,
-    gap: 4,
-  },
-  row: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  variantExample: {
-    padding: 16,
-    borderRadius: 8,
-    minWidth: 100,
-    alignItems: 'center',
-  },
-  propsTitle: {
-    marginTop: 16,
-  },
-});

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Platform } from 'react-native';
-import { Typography, ThemedView, Screen, useDimensions, breakpoints } from 'zero-to-app';
+import { View } from 'react-native';
+import { Typography, ThemedView, Screen, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -53,18 +53,21 @@ const typographyProps: PropDefinition[] = [
 ];
 
 export default function TypographyPage() {
-  const { width } = useDimensions();
-  const isDesktop = width >= breakpoints.large;
+  const { spacing } = useTheme();
+
+  const rowStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.xxl };
 
   return (
-    <Screen scrollable variant="background" edges={Platform.OS === 'web' || isDesktop ? ['top', 'bottom'] : ['bottom']}>
-      <View style={styles.container}>
-        <Typography variant="headlineMedium" weight="bold">
-          Typography
-        </Typography>
-        <Typography variant="bodyMedium" muted style={styles.description}>
-          Material Design 3 type scale with display, headline, title, body, and label variants.
-        </Typography>
+    <Screen scrollable variant="background" edges={['bottom']}>
+      <View style={{ padding: spacing.xxl, gap: spacing.xxl }}>
+        <View style={{ gap: spacing.xs }}>
+          <Typography variant="headlineMedium" weight="bold">
+            Typography
+          </Typography>
+          <Typography variant="bodyMedium" muted>
+            Material Design 3 type scale with display, headline, title, body, and label variants.
+          </Typography>
+        </View>
 
         <DemoSection
           title="Display"
@@ -115,7 +118,7 @@ export default function TypographyPage() {
           title="Font Weights"
           description="Semantic weight options for emphasis"
         >
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Typography variant="bodyLarge" weight="light">Light</Typography>
             <Typography variant="bodyLarge" weight="regular">Regular</Typography>
             <Typography variant="bodyLarge" weight="medium">Medium</Typography>
@@ -137,14 +140,14 @@ export default function TypographyPage() {
           title="Text Alignment"
           description="Control text alignment within its container"
         >
-          <ThemedView variant="surfaceContainer" style={styles.alignmentDemo}>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.md, borderRadius: spacing.sm, gap: spacing.sm }}>
             <Typography variant="bodyMedium" align="left">Left aligned (default)</Typography>
             <Typography variant="bodyMedium" align="center">Center aligned</Typography>
             <Typography variant="bodyMedium" align="right">Right aligned</Typography>
           </ThemedView>
         </DemoSection>
 
-        <Typography variant="titleLarge" weight="medium" style={styles.propsTitle}>
+        <Typography variant="titleLarge" weight="medium" style={{ marginTop: spacing.lg }}>
           Props
         </Typography>
         <PropsTable props={typographyProps} />
@@ -152,26 +155,3 @@ export default function TypographyPage() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    gap: 24,
-  },
-  description: {
-    marginBottom: 8,
-  },
-  row: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 24,
-  },
-  alignmentDemo: {
-    padding: 12,
-    borderRadius: 8,
-    gap: 8,
-  },
-  propsTitle: {
-    marginTop: 16,
-  },
-});

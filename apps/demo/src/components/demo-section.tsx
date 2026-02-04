@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Typography, ThemedView } from 'zero-to-app';
+import { View } from 'react-native';
+import { Typography, ThemedView, useTheme } from 'zero-to-app';
 
 interface DemoSectionProps {
   title: string;
@@ -9,33 +9,21 @@ interface DemoSectionProps {
 }
 
 export function DemoSection({ title, description, children }: DemoSectionProps) {
+  const { spacing } = useTheme();
+
   return (
-    <View style={styles.container}>
+    <View style={{ gap: spacing.lg, }}>
       <Typography variant="titleMedium" weight="medium">
         {title}
       </Typography>
       {description && (
-        <Typography variant="bodySmall" muted style={styles.description}>
+        <Typography variant="bodySmall" muted>
           {description}
         </Typography>
       )}
-      <ThemedView variant="surface" style={styles.content}>
+      <ThemedView variant="card" style={{ padding:spacing.md, borderRadius: spacing.md, gap: spacing.md }}>
         {children}
       </ThemedView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 8,
-  },
-  description: {
-    marginBottom: 4,
-  },
-  content: {
-    padding: 16,
-    borderRadius: 12,
-    gap: 12,
-  },
-});

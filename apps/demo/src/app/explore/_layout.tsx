@@ -1,27 +1,20 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {usePathname, useRouter, Stack} from 'expo-router';
+import { StyleSheet, View } from 'react-native';
+import { usePathname, useRouter, Slot } from 'expo-router';
 import {
-    Button,
     ThemedView,
     Sidebar,
     SidebarHeader,
     SidebarSection,
     SidebarItem,
-    useSidebar,
     useDimensions,
     breakpoints,
-    useTheme,
-    SidebarContextType,
-    Screen,
 } from 'zero-to-app';
 
 export default function ExploreLayout() {
     const pathname = usePathname();
     const router = useRouter();
-    const {open} = useSidebar() as SidebarContextType;
-    const {width} = useDimensions();
-    const theme = useTheme();
+    const { width } = useDimensions();
     const isDesktop = width >= breakpoints.large;
 
     const navigateTo = (route: string) => {
@@ -36,17 +29,6 @@ export default function ExploreLayout() {
         return currentPath === route || currentPath.startsWith(route + '/');
     };
 
-    const getTitle = (path: any): string => {
-        if (typeof path !== 'string') {
-            return 'Explore';
-        }
-        const segments = path.split('/').filter(Boolean);
-        const last = segments[segments.length - 1];
-        if (!last || last === 'explore') return 'Explore';
-        const title = last.charAt(0).toUpperCase() + last.slice(1);
-        return typeof title === 'string' ? title : 'Explore';
-    };
-
     return (
         <View style={styles.container}>
             <Sidebar
@@ -57,7 +39,7 @@ export default function ExploreLayout() {
                     />
                 }
             >
-                <SidebarSection title="Components" icon={{library: 'Feather', name: 'box'}}>
+                <SidebarSection title="Components" icon={{ library: 'Feather', name: 'box' }}>
                     <SidebarItem
                         label="Button"
                         active={isActive('/explore/button')}
@@ -88,11 +70,7 @@ export default function ExploreLayout() {
                     isDesktop && styles.contentWithSidebar,
                 ]}
             >
-                <Stack
-                    screenOptions={{
-                        headerShown: false,
-                    }}
-                />
+                <Slot />
             </ThemedView>
         </View>
     );
@@ -108,8 +86,5 @@ const styles = StyleSheet.create({
     },
     contentWithSidebar: {
         marginLeft: 280,
-    },
-    screen: {
-        flex: 1,
     },
 });

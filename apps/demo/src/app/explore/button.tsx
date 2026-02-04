@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, Platform } from 'react-native';
-import { Typography, Button, Screen, useDimensions, breakpoints } from 'zero-to-app';
+import { View } from 'react-native';
+import { Typography, Button, Screen, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -64,34 +64,37 @@ const buttonProps: PropDefinition[] = [
 
 export default function ButtonPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const { width } = useDimensions();
-  const isDesktop = width >= breakpoints.large;
+  const { spacing } = useTheme();
 
   const handleLoadingDemo = () => {
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), 2000);
   };
 
+  const rowStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.md };
+
   return (
-    <Screen scrollable variant="background" edges={Platform.OS === 'web' || isDesktop ? ['top', 'bottom'] : ['bottom']}>
-      <View style={styles.container}>
-        <Typography variant="headlineMedium" weight="bold">
-          Button
-        </Typography>
-        <Typography variant="bodyMedium" muted style={styles.description}>
-          Material Design 3 Button component with five variants for different emphasis levels.
-        </Typography>
+    <Screen scrollable variant="background" edges={['bottom']}>
+      <View style={{ padding: spacing.xxl, gap: spacing.xxl }}>
+        <View style={{ gap: spacing.xs }}>
+          <Typography variant="headlineMedium" weight="bold">
+            Button
+          </Typography>
+          <Typography variant="bodyMedium" muted>
+            Material Design 3 Button component with five variants for different emphasis levels.
+          </Typography>
+        </View>
 
         <DemoSection
           title="Variants"
           description="Five button variants for different emphasis levels"
         >
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button title="Filled" variant="filled" onPress={() => {}} />
             <Button title="Elevated" variant="elevated" onPress={() => {}} />
             <Button title="Tonal" variant="tonal" onPress={() => {}} />
           </View>
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button title="Outlined" variant="outlined" onPress={() => {}} />
             <Button title="Text" variant="text" onPress={() => {}} />
           </View>
@@ -101,12 +104,12 @@ export default function ButtonPage() {
           title="Sizes"
           description="Five size options from extra small to extra large"
         >
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button title="XS" size="xs" variant="tonal" onPress={() => {}} />
             <Button title="S (default)" size="s" variant="tonal" onPress={() => {}} />
             <Button title="M" size="m" variant="tonal" onPress={() => {}} />
           </View>
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button title="Large" size="l" variant="tonal" onPress={() => {}} />
             <Button title="Extra Large" size="xl" variant="tonal" onPress={() => {}} />
           </View>
@@ -116,7 +119,7 @@ export default function ButtonPage() {
           title="With Icons"
           description="Icons can be positioned on the left or right of the label"
         >
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button
               title="Continue"
               icon={{ library: 'Feather', name: 'arrow-right' }}
@@ -131,7 +134,7 @@ export default function ButtonPage() {
               onPress={() => {}}
             />
           </View>
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button
               title="Settings"
               icon={{ library: 'Feather', name: 'settings' }}
@@ -153,7 +156,7 @@ export default function ButtonPage() {
           title="Loading State"
           description="Shows a spinner and disables interaction while loading"
         >
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button
               title={isLoading ? 'Loading...' : 'Click to load'}
               loading={isLoading}
@@ -167,14 +170,14 @@ export default function ButtonPage() {
           title="Disabled State"
           description="Disabled buttons are non-interactive with reduced opacity"
         >
-          <View style={styles.row}>
+          <View style={rowStyle}>
             <Button title="Disabled Filled" disabled onPress={() => {}} />
             <Button title="Disabled Outlined" variant="outlined" disabled onPress={() => {}} />
             <Button title="Disabled Tonal" variant="tonal" disabled onPress={() => {}} />
           </View>
         </DemoSection>
 
-        <Typography variant="titleLarge" weight="medium" style={styles.propsTitle}>
+        <Typography variant="titleLarge" weight="medium" style={{ marginTop: spacing.lg }}>
           Props
         </Typography>
         <PropsTable props={buttonProps} />
@@ -182,21 +185,3 @@ export default function ButtonPage() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    gap: 24,
-  },
-  description: {
-    marginBottom: 8,
-  },
-  row: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  propsTitle: {
-    marginTop: 16,
-  },
-});

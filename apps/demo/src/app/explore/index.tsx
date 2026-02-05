@@ -37,7 +37,7 @@ export default function ExploreIndex() {
 
   return (
     <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ padding: spacing.xxl, gap: spacing.sm }}>
+      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.sm }}>
         <Typography variant="headlineMedium" weight="bold">
           Component Showcase
         </Typography>
@@ -45,7 +45,8 @@ export default function ExploreIndex() {
           Explore the Zero to App component library
         </Typography>
 
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.lg }}>
+        {/* component cards*/}
+        <ThemedView columns={3} gap={spacing.lg}>
           {components.map((component) => (
             <ThemedView
               key={component.name}
@@ -54,7 +55,6 @@ export default function ExploreIndex() {
                 padding: spacing.xl,
                 borderRadius: spacing.md,
                 gap: spacing.md,
-                minWidth: 200,
               }}
             >
               <Typography variant="titleMedium" weight="medium">
@@ -71,7 +71,7 @@ export default function ExploreIndex() {
               />
             </ThemedView>
           ))}
-        </View>
+        </ThemedView>
       </View>
     </Screen>
   );

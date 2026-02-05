@@ -17,6 +17,22 @@ const themedViewProps: PropDefinition[] = [
     description: 'Override with a specific background color',
   },
   {
+    name: 'columns',
+    type: 'number',
+    description: 'Number of columns on medium+ screens (1 column on small). Enables responsive grid layout.',
+  },
+  {
+    name: 'gap',
+    type: 'number',
+    description: 'Gap between items when columns is set',
+  },
+  {
+    name: 'rounded',
+    type: 'boolean',
+    default: 'true',
+    description: 'Apply border radius from theme',
+  },
+  {
     name: 'style',
     type: 'ViewStyle',
     description: 'Additional styles to apply',
@@ -36,7 +52,7 @@ export default function ThemedViewPage() {
 
   return (
     <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ padding: spacing.xxl, gap: spacing.xxl }}>
+      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
         <View style={{ gap: spacing.xs }}>
           <Typography variant="headlineMedium" weight="bold">
             ThemedView
@@ -102,6 +118,30 @@ export default function ThemedViewPage() {
               <Typography variant="labelMedium" color="#FFFFFF">#6750A4</Typography>
             </ThemedView>
           </View>
+        </DemoSection>
+
+        <DemoSection
+          title="Responsive Grid"
+          description="Use columns prop for automatic responsive layouts (2 columns on medium+, 1 on small)"
+        >
+          <ThemedView columns={2} gap={spacing.lg}>
+            <ThemedView variant="card" style={{ padding: spacing.lg, gap: spacing.xs }}>
+              <Typography variant="titleSmall" weight="medium">Card 1</Typography>
+              <Typography variant="bodySmall" muted>Automatically responsive</Typography>
+            </ThemedView>
+            <ThemedView variant="card" style={{ padding: spacing.lg, gap: spacing.xs }}>
+              <Typography variant="titleSmall" weight="medium">Card 2</Typography>
+              <Typography variant="bodySmall" muted>No manual breakpoint logic</Typography>
+            </ThemedView>
+            <ThemedView variant="card" style={{ padding: spacing.lg, gap: spacing.xs }}>
+              <Typography variant="titleSmall" weight="medium">Card 3</Typography>
+              <Typography variant="bodySmall" muted>Just set columns={'{2}'}</Typography>
+            </ThemedView>
+            <ThemedView variant="card" style={{ padding: spacing.lg, gap: spacing.xs }}>
+              <Typography variant="titleSmall" weight="medium">Card 4</Typography>
+              <Typography variant="bodySmall" muted>Children get responsive styles</Typography>
+            </ThemedView>
+          </ThemedView>
         </DemoSection>
 
         <DemoSection

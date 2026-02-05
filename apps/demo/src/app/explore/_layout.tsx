@@ -36,6 +36,7 @@ export default function ExploreLayout() {
                     <SidebarHeader
                         title="Components"
                         subtitle="Zero to App UI"
+                        onPress={() => navigateTo('/explore')}
                     />
                 }
             >

@@ -1,33 +1,9 @@
-// 1. IMPORTS
 import React from 'react';
-import { ScrollView, StyleSheet, type StyleProp, type ViewStyle, Platform, View } from 'react-native';
-import { Screen as RNScreen } from 'react-native-screens';
-import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet, type StyleProp, type ViewStyle, Platform } from 'react-native';
+import { SafeAreaView, type Edge, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ThemedView, type ThemedViewVariant } from './themed-view';
-import { useLayout } from '../../context/layout-context';
+import { useTheme } from '../../theme';
 
-// 2. TYPES
-
-/**
- * Props for the Screen component
- *
- * @example
- * ```tsx
- * // Basic screen with safe areas
- * <Screen>
- *   <Typography>Hello World</Typography>
- * </Screen>
- * ```
- *
- * @example
- * ```tsx
- * // Scrollable screen
- * <Screen scrollable>
- *   <Typography>Long content...</Typography>
- *   <Typography>More content...</Typography>
- * </Screen>
- * ```
- */
 export interface ScreenProps {
   /** Screen content */
   children: React.ReactNode;
@@ -35,7 +11,7 @@ export interface ScreenProps {
   scrollable?: boolean;
   /** Themed background variant. @default 'background' */
   variant?: ThemedViewVariant;
-  /** Which safe area edges to respect. @default ['top', 'bottom'] */
+  /** Which safe area edges to respect. @default ['bottom'] */
   edges?: Edge[];
   /** Styles for the ScrollView content container (only applies if scrollable=true) */
   contentContainerStyle?: StyleProp<ViewStyle>;
@@ -45,52 +21,14 @@ export interface ScreenProps {
   testID?: string;
   /** Whether to show vertical scroll indicator. @default true */
   showsVerticalScrollIndicator?: boolean;
-  /** 
-   * Whether to center content horizontally and apply a max-width.
-   * Useful for home screens or landing pages on web.
-   * @default false
-   */
-  centered?: boolean;
 }
 
-// 3. COMPONENT
-
 /**
- * Screen component with react-native-screens for truly native screen behavior
- *
- * Provides consistent screen layout with:
- * - Native screen container from react-native-screens
- * - SafeAreaView for mobile safe areas (notches, status bars, etc.)
- * - Themed background via ThemedView
- * - Optional scrollable content via ScrollView
+ * Screen component providing consistent layout with safe areas and optional scrolling.
  *
  * @example
  * ```tsx
- * // Non-scrollable screen
- * <Screen variant="background">
- *   <Typography variant="headlineLarge">Welcome</Typography>
- *   <Button title="Get Started" />
- * </Screen>
- * ```
- *
- * @example
- * ```tsx
- * // Scrollable screen with custom content padding
- * <Screen
- *   scrollable
- *   variant="surface"
- *   contentContainerStyle={{ padding: 24, gap: 16 }}
- * >
- *   <Typography>Content 1</Typography>
- *   <Typography>Content 2</Typography>
- *   <Typography>Content 3</Typography>
- * </Screen>
- * ```
- *
- * @example
- * ```tsx
- * // Screen respecting only top safe area
- * <Screen edges={['top']}>
+ * <Screen scrollable>
  *   <Typography>Content</Typography>
  * </Screen>
  * ```
@@ -99,82 +37,67 @@ export const Screen: React.FC<ScreenProps> = ({
   children,
   scrollable = false,
   variant = 'background',
-  edges = ['top', 'bottom'],
+  edges = ['bottom'],
   contentContainerStyle,
   style,
   testID,
   showsVerticalScrollIndicator = true,
-  centered = false,
 }) => {
-  const { appBarHeight } = useLayout();
+  const insets = useSafeAreaInsets();
+  const theme = useTheme();
 
-  const content = (
-    <View style={[
-      styles.content,
-      centered && styles.centeredContent,
-      style
-    ]}>
-      {children}
-    </View>
-  );
+  const iosBottomPadding = Platform.OS === 'ios' && edges.includes('bottom') 
+    ?  theme.spacing.xxl
+    : 0;
 
   return (
-    <RNScreen style={styles.screen}>
-      <SafeAreaView 
-        style={[
-          styles.safeArea, 
-          Platform.OS === 'web' && { marginTop: appBarHeight }
-        ]} 
-        edges={edges} 
-        testID={testID}
-      >
-        <ThemedView variant={variant} style={styles.container}>
-          {scrollable ? (
-            <ScrollView
-              style={styles.scrollView}
-              contentContainerStyle={[
-                contentContainerStyle,
-                centered && styles.centeredContentContainer
-              ]}
-              showsVerticalScrollIndicator={showsVerticalScrollIndicator}
-            >
-              {content}
-            </ScrollView>
-          ) : (
-            content
-          )}
-        </ThemedView>
+    <ThemedView variant={variant} style={styles.container}>
+      <SafeAreaView style={styles.safeArea} edges={edges} testID={testID}>
+        {scrollable ? (
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={[
+              styles.scrollContent,
+              { paddingBottom: iosBottomPadding },
+              contentContainerStyle,
+            ]}
+            showsVerticalScrollIndicator={showsVerticalScrollIndicator}
+          >
+            {children}
+          </ScrollView>
+        ) : (
+          <ThemedView
+            variant={variant}
+            style={[
+              styles.content,
+              { paddingBottom: iosBottomPadding },
+              style,
+            ]}
+          >
+            {children}
+          </ThemedView>
+        )}
       </SafeAreaView>
-    </RNScreen>
+    </ThemedView>
   );
 };
 
 Screen.displayName = 'Screen';
 
-// 4. STYLES
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1,
   },
   safeArea: {
     flex: 1,
   },
-  container: {
+  scrollView: {
     flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   content: {
-    flex: 1,
-  },
-  centeredContent: {
-    width: '100%',
-    maxWidth: 1200,
-    alignSelf: 'center',
-  },
-  centeredContentContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-  scrollView: {
     flex: 1,
   },
 });

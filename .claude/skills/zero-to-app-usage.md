@@ -272,6 +272,47 @@ const { values: theme } = useTheme();
 </ThemedView>
 ```
 
+#### Responsive Grid Layout
+
+Use `columns` prop for automatic responsive grids (N columns on medium+ screens, 1 on small):
+
+```tsx
+const { spacing } = useTheme();
+
+// Simple responsive grid - no manual breakpoint logic needed
+<ThemedView columns={2} gap={spacing.lg}>
+  <ThemedView variant="card" style={{ padding: spacing.lg }}>
+    <Typography>Card 1</Typography>
+  </ThemedView>
+  <ThemedView variant="card" style={{ padding: spacing.lg }}>
+    <Typography>Card 2</Typography>
+  </ThemedView>
+  <ThemedView variant="card" style={{ padding: spacing.lg }}>
+    <Typography>Card 3</Typography>
+  </ThemedView>
+  <ThemedView variant="card" style={{ padding: spacing.lg }}>
+    <Typography>Card 4</Typography>
+  </ThemedView>
+</ThemedView>
+```
+
+**Props:**
+- `columns`: Number of columns on medium+ screens (children stack to 1 column on small screens)
+- `gap`: Spacing between grid items (use `theme.spacing.lg`, etc.)
+
+This replaces manual responsive logic like:
+```tsx
+// ❌ Old way - manual breakpoint handling
+const { width } = useDimensions();
+const isMid = width >= breakpoints.medium;
+// ... then conditional styles on each child
+
+// ✅ New way - just use columns prop
+<ThemedView columns={2} gap={spacing.lg}>
+  {children}
+</ThemedView>
+```
+
 ### AppTabs
 
 #### Complete Configuration

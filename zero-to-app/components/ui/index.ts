@@ -3,6 +3,10 @@ export { Button } from './button';
 export type { ButtonProps, ButtonVariant, IconConfig } from './button';
 export { ButtonVariants } from './button';
 
+// Collapsible
+export { Collapsible } from './collapsible';
+export type { CollapsibleProps } from './collapsible';
+
 // Typography
 export { Typography } from './typography';
 export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAlign } from './typography';

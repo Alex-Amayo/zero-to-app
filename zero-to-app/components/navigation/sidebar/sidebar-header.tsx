@@ -1,6 +1,6 @@
 // 1. IMPORTS
 import React from 'react';
-import { StyleSheet, View, type StyleProp, type ViewStyle, type ImageSourcePropType, Image } from 'react-native';
+import { StyleSheet, View, Pressable, type StyleProp, type ViewStyle, type ImageSourcePropType, Image } from 'react-native';
 import { Typography } from '../../ui/typography';
 import { useThemeContext } from '../../../theme';
 
@@ -22,6 +22,8 @@ export interface SidebarHeaderProps {
   children?: React.ReactNode;
   /** Test ID for testing */
   testID?: string;
+  /** Optional click handler for the header */
+  onPress?: () => void;
 }
 
 // 3. COMPONENT
@@ -36,43 +38,15 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   style,
   children,
   testID,
+  onPress,
 }) => {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
 
-  if (children) {
-    return (
-      <View
-        style={[
-          styles.container,
-          {
-            padding: spacing.lg,
-            borderBottomWidth: 1,
-            borderBottomColor: theme.tokens.sidebar.divider,
-          },
-          style,
-        ]}
-        testID={testID}
-      >
-        {children}
-      </View>
-    );
-  }
-
-  return (
-    <View
-      style={[
-        styles.container,
-        {
-          padding: spacing.lg,
-          gap: spacing.sm,
-          borderBottomWidth: 1,
-          borderBottomColor: theme.tokens.sidebar.divider,
-        },
-        style,
-      ]}
-      testID={testID}
-    >
+  const content = children ? (
+    children
+  ) : (
+    <>
       {logo && (
         <Image
           source={logo}
@@ -101,6 +75,38 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           {subtitle}
         </Typography>
       )}
+    </>
+  );
+
+  const containerStyle = [
+    styles.container,
+    {
+      padding: spacing.lg,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.tokens.sidebar.divider,
+    },
+    !children && { gap: spacing.sm },
+    style,
+  ];
+
+  if (onPress) {
+    return (
+      <Pressable
+        style={containerStyle}
+        testID={testID}
+        onPress={onPress}
+      >
+        {content}
+      </Pressable>
+    );
+  }
+
+  return (
+    <View
+      style={containerStyle}
+      testID={testID}
+    >
+      {content}
     </View>
   );
 };

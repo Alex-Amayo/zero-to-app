@@ -66,7 +66,6 @@ export const SidebarSection: React.FC<SidebarSectionProps> = ({
     <View
       style={[
         styles.container,
-        { paddingVertical: spacing.sm },
         style,
       ]}
       testID={testID}
@@ -90,7 +89,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = ({
         </View>
       )}
 
-      <View style={[styles.itemsContainer, { gap: spacing.xs }]}>
+      <View style={styles.itemsContainer}>
         {children}
       </View>
 
@@ -99,7 +98,6 @@ export const SidebarSection: React.FC<SidebarSectionProps> = ({
           styles.divider,
           {
             backgroundColor: tokens.divider,
-            marginTop: spacing.sm,
           },
         ]}
       />

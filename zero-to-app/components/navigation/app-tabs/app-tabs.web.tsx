@@ -7,7 +7,7 @@ import {
   TabListProps,
 } from 'expo-router/ui';
 import React, { ReactNode, useEffect } from 'react';
-import { Pressable, View, StyleSheet, Platform } from 'react-native';
+import { Pressable, View, StyleSheet, Platform, Image, ImageSourcePropType } from 'react-native';
 import { useThemeContext } from '../../../theme';
 import { Typography } from '../../ui/typography';
 import { ThemedView } from '../../ui/themed-view';
@@ -67,6 +67,8 @@ export interface AppTabConfig {
 export interface AppTabsProps {
   /** Brand or app name to display */
   brandName: string;
+  /** Optional logo image to display instead of brand name (web only) */
+  logoImage?: ImageSourcePropType;
   /** Array of tab configurations */
   tabs: AppTabConfig[];
   /** Optional external links to display */
@@ -81,6 +83,7 @@ export interface AppTabsProps {
  */
 export default function AppTabs({
   brandName,
+  logoImage,
   tabs,
   externalLinks = [],
   height = 64,
@@ -96,6 +99,7 @@ export default function AppTabs({
       <TabList asChild>
         <CustomTabList
           brandName={brandName}
+          logoImage={logoImage}
           externalLinks={externalLinks}
           height={height}>
           {tabs.map((tab) => (
@@ -137,7 +141,6 @@ export function TabButton({ children, isFocused, height, webIcon, materialIcon, 
         styles.tabButton,
         {
           paddingHorizontal: spacing.lg,
-          borderRadius: theme.borderRadius,
           height,
           justifyContent: 'center',
         },
@@ -229,12 +232,14 @@ function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonPro
 
 interface CustomTabListProps extends TabListProps {
   brandName: string;
+  logoImage?: ImageSourcePropType;
   externalLinks: AppTabsExternalLink[];
   height: number;
 }
 
 export function CustomTabList({
   brandName,
+  logoImage,
   externalLinks,
   height,
   children,
@@ -246,6 +251,7 @@ export function CustomTabList({
   return (
     <ThemedView
       variant="appbar"
+      rounded={false}
       style={[
         styles.appBar,
         {
@@ -265,9 +271,19 @@ export function CustomTabList({
           styles.appBarContent,
           { height, gap: spacing.sm },
         ]}>
-        <Typography variant="titleMedium" weight="bold" style={styles.brandText}>
-          {brandName}
-        </Typography>
+        <Link href="/" style={styles.brandText}>
+          {logoImage ? (
+            <Image
+              source={logoImage}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
+          ) : (
+            <Typography variant="titleLarge" weight="medium">
+              {brandName}
+            </Typography>
+          )}
+        </Link>
 
         <View style={[styles.tabsContainer, { gap: spacing.xs }]}>
           {children}
@@ -297,6 +313,10 @@ const styles = StyleSheet.create({
   },
   brandText: {
     marginRight: 'auto',
+  },
+  logoImage: {
+    height: 32,
+    width: 120,
   },
   tabsContainer: {
     flexDirection: 'row',

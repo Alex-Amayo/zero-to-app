@@ -142,6 +142,23 @@ Container with automatic theme-aware styling:
 
 **Variants:** `background`, `surface`, `surfaceVariant`, `primary`, `secondary`, `appbar`
 
+#### Responsive Grid Layout
+
+Use the `columns` prop for automatic responsive grids (N columns on medium+ screens, 1 on small):
+
+```tsx
+<ThemedView columns={2} gap={spacing.lg}>
+  <ThemedView variant="card" style={{ padding: spacing.lg }}>
+    <Typography>Card 1</Typography>
+  </ThemedView>
+  <ThemedView variant="card" style={{ padding: spacing.lg }}>
+    <Typography>Card 2</Typography>
+  </ThemedView>
+</ThemedView>
+```
+
+**Key Props:** `variant`, `color`, `columns`, `gap`, `rounded`
+
 ### AppTabs
 
 Cross-platform tab navigation (requires expo-router):

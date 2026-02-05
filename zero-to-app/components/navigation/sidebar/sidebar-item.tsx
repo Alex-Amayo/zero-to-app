@@ -117,7 +117,6 @@ const SidebarItem = forwardRef<View, SidebarItemProps>(({
         styles.container,
         {
           backgroundColor,
-          borderRadius: theme.borderRadius,
           paddingHorizontal: spacing.md,
           paddingVertical: spacing.sm,
         },

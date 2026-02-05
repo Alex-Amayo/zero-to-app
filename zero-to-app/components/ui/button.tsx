@@ -236,7 +236,6 @@ const Button = forwardRef<View, ButtonProps>(({
           break;
       }
     }
-
     // Apply custom background color override
     if (backgroundColor) {
       bg = backgroundColor;
@@ -247,6 +246,7 @@ const Button = forwardRef<View, ButtonProps>(({
       styles[variant],
       // reserve touch target height for accessibility
       { minHeight: touchHeight },
+      { borderRadius: theme.borderRadius },
       bg ? { backgroundColor: bg } : null,
       borderColor ? { borderColor } : null,
       disabled ? styles.disabled : null,
@@ -325,7 +325,13 @@ const Button = forwardRef<View, ButtonProps>(({
       <View
         ref={ref}
         testID={testID}
-        style={[styles.base, styles[variant], { minHeight: touchHeight }, backgroundColor && { backgroundColor }]}
+        style={[
+          styles.base,
+          styles[variant],
+          { minHeight: touchHeight },
+          { borderRadius: theme.borderRadius },
+          backgroundColor && { backgroundColor },
+        ]}
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel ?? title}
         accessibilityHint={accessibilityHint}
@@ -398,8 +404,6 @@ const styles = StyleSheet.create({
   base: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20, // M3 standard button radius
-    
   },
   filled: {
     paddingHorizontal: 24,

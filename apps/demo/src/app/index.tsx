@@ -4,16 +4,16 @@ import { Image, StyleSheet } from "react-native";
 
 const FEATURES = [
   {
-    title: 'Build once, run everywhere!',
-    description: 'Cross-platform React Native components for iOS, Android, and the web.',
+    title: 'Material Design 3 ',
+    description: 'Utilize Google’s open-source design system to build beautiful and accessible apps',
   },
   {
     title: 'Material Design 3',
     description: 'Design system, color palette generation, beautiful and accessible apps',
   },
   {
-    title: 'Native Swift & Kotlin',
-    description: 'Going native where it matters, expo-router native tabs and custom native components',
+    title: 'Native Swift & Kotlin Components',
+    description: 'Built with Expo 55 and Expo Router, leveraging native SwiftUI and Kotlin components to deliver optimal performance and true platform fidelity.',
   },
   {
     title: 'Responsive',
@@ -30,7 +30,7 @@ export default function HomeScreen() {
       scrollable
       variant="background"
       edges={[]}
-      contentContainerStyle={{ paddingVertical: spacing.xxxl }}
+      contentContainerStyle={{ justifyContent: 'center' }}
     >
       {/* Hero Section */}
       <Container style={{ alignItems: 'center', gap: spacing.xxl }}>
@@ -49,12 +49,6 @@ export default function HomeScreen() {
           </Typography>
         </ThemedView>
 
-        <Button
-          title="Get Started"
-          variant="filled"
-          onPress={() => router.push('/explore')}
-          icon={{ name: 'rocket-launch', color: theme.onPrimary }}
-        />
       </Container>
 
       {/* Features Grid */}

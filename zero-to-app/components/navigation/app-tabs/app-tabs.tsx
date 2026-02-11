@@ -32,20 +32,35 @@ export interface AppTabConfig {
   sfSymbol?: SFSymbolIcon;
   /** Optional Android Material Design icon name */
   materialIcon?: MaterialIconName;
+  /** Optional web icon (web only) */
+  webIcon?: any;
 }
 
 /**
- * Props for AppTabs component (native iOS/Android)
+ * External link configuration (web only)
+ */
+export interface AppTabsExternalLink {
+  label: string;
+  href: string;
+  icon?: any;
+}
+
+/**
+ * Props for AppTabs component
  */
 export interface AppTabsProps {
-  /** Brand or app name to display (not used on native, for interface compatibility) */
+  /** Brand or app name to display */
   brandName?: string;
-  /** Optional logo image (web only, not used on native) */
+  /** Optional logo image */
   logoImage?: ImageSourcePropType;
   /** Array of tab configurations */
   tabs: AppTabConfig[];
-  /** Maximum content width (not used on native, for interface compatibility) */
-  maxWidth?: number;
+  /** External links shown in the app bar (web only) */
+  externalLinks?: AppTabsExternalLink[];
+  /** App bar height in pixels (web only) */
+  height?: number;
+  /** Called when hamburger is pressed (native only) */
+  onPrimaryMenuPress?: () => void;
 }
 
 /**

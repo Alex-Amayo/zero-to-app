@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Typography, ThemedView, Button, Screen, useTheme } from 'zero-to-app';
+import { Typography, ThemedView, Button, Screen, useTheme, Container } from 'zero-to-app';
 
 export default function ExploreIndex() {
   const router = useRouter();
@@ -46,7 +46,7 @@ export default function ExploreIndex() {
         </Typography>
 
         {/* component cards*/}
-        <ThemedView columns={3} gap={spacing.lg}>
+        <Container columns={3} gap={spacing.lg}>
           {components.map((component) => (
             <ThemedView
               key={component.name}
@@ -71,7 +71,7 @@ export default function ExploreIndex() {
               />
             </ThemedView>
           ))}
-        </ThemedView>
+        </Container>
       </View>
     </Screen>
   );

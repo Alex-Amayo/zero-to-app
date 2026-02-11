@@ -1,17 +1,51 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink } from 'zero-to-app';
-export default function TabLayout() {
-  const externalLinks: AppTabsExternalLink[] | undefined = Platform.OS === 'web' ? [
+import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar } from 'zero-to-app';
+import { usePathname, useRouter } from 'expo-router';
+import { View, StyleSheet } from 'react-native';
+
+function TabLayoutInner() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { toggle } = useSidebar();
+
+  const navigateTo = (route: string) => {
+    router.push(route as any);
+  };
+
+  const isActive = (route: string) => {
+    const currentPath = typeof pathname === 'string' ? pathname : '';
+    return currentPath === route || currentPath.startsWith(route + '/');
+  };
+
+  const externalLinks: AppTabsExternalLink[] = [
     {
       label: 'Docs',
       href: 'https://docs.expo.dev',
       icon: { library: 'Feather', name: 'book-open' },
     },
-  ] : undefined;
+  ];
 
   return (
-      <ZeroToApp brand={defaultBrand}>
+    <View style={styles.container}>
+      {Platform.OS !== 'web' && (
+        <Sidebar
+          header={
+            <SidebarHeader
+              title="Zero To App"
+              subtitle="Demo"
+              onPress={() => navigateTo('/')}
+            />
+          }
+          anchor="right"
+        >
+          <SidebarSection title="Navigation" icon={{ library: 'Feather', name: 'grid' }}>
+            <SidebarItem label="Home" active={isActive('/')} onPress={() => navigateTo('/')} />
+            <SidebarItem label="Explore" active={isActive('/explore')} onPress={() => navigateTo('/explore')} />
+          </SidebarSection>
+        </Sidebar>
+      )}
+
       <AppTabs
         brandName="Zero To App"
         logoImage={require('../../assets/images/rocket_logo.png')}
@@ -31,9 +65,21 @@ export default function TabLayout() {
             materialIcon: 'explore',
           },
         ]}
-        {...(Platform.OS === 'web' && { externalLinks })}
+        externalLinks={externalLinks}
+        {...(Platform.OS !== 'web' ? { onPrimaryMenuPress: toggle } : {})}
       />
-
-      </ZeroToApp>
+    </View>
   );
 }
+
+export default function TabLayout() {
+  return (
+    <ZeroToApp brand={defaultBrand}>
+      <TabLayoutInner />
+    </ZeroToApp>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+});

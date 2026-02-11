@@ -46,7 +46,7 @@ const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
       <ThemeContext.Provider value={{ values, mode, setMode, toggleTheme }}>
         <LayoutProvider>
           <SidebarProvider>
-            {children}
+              {children}
           </SidebarProvider>
         </LayoutProvider>
       </ThemeContext.Provider>

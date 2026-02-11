@@ -6,25 +6,24 @@ import {
   TabTriggerSlotProps,
   TabListProps,
 } from 'expo-router/ui';
-import React, { ReactNode, useEffect } from 'react';
-import { Pressable, View, StyleSheet, Platform, Image, ImageSourcePropType } from 'react-native';
+import React, { ReactNode, useState, useEffect } from 'react';
+import { Pressable, View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import { useThemeContext } from '../../../theme';
 import { Typography } from '../../ui/typography';
 import { ThemedView } from '../../ui/themed-view';
-import { Link } from 'expo-router';
-import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
+import { Link, usePathname } from 'expo-router';
 import { renderIcon, type PlatformIcon } from '../../../icons';
 import { useLayout } from '../../../context/layout-context';
+import { useDimensions, breakpoints } from '../../../hooks';
+import { useSidebar } from '../../../context/sidebar-context';
+import { Drawer } from '../drawer/drawer';
 
 /**
  * External link configuration for AppTabs
  */
 export interface AppTabsExternalLink {
-  /** Link label text */
   label: string;
-  /** External URL href */
   href: string;
-  /** Optional icon configuration */
   icon?: PlatformIcon | string;
 }
 
@@ -32,32 +31,21 @@ export interface AppTabsExternalLink {
  * SF Symbol icon configuration for iOS
  */
 export interface SFSymbolIcon {
-  /** Default state SF Symbol name */
   default: string;
-  /** Selected state SF Symbol name */
   selected: string;
 }
 
-/**
- * Material Design icon name for Android
- */
 export type MaterialIconName = string;
 
 /**
  * Tab configuration for AppTabs
  */
 export interface AppTabConfig {
-  /** Unique tab name (used for routing) */
   name: string;
-  /** Tab route href */
   href: string;
-  /** Tab display label */
   label: string;
-  /** Optional iOS SF Symbol icon configuration (must include both default and selected states) */
   sfSymbol?: SFSymbolIcon;
-  /** Optional Android Material Design icon name */
   materialIcon?: MaterialIconName;
-  /** Optional web-specific icon configuration */
   webIcon?: PlatformIcon | string;
 }
 
@@ -65,21 +53,18 @@ export interface AppTabConfig {
  * Props for AppTabs component
  */
 export interface AppTabsProps {
-  /** Brand or app name to display */
   brandName: string;
-  /** Optional logo image to display instead of brand name (web only) */
   logoImage?: ImageSourcePropType;
-  /** Array of tab configurations */
   tabs: AppTabConfig[];
-  /** Optional external links to display */
   externalLinks?: AppTabsExternalLink[];
-  /** App bar height (default: 64) */
   height?: number;
+  /** Native-only: called when hamburger is pressed on native platforms */
+  onPrimaryMenuPress?: () => void;
 }
 
 /**
  * Material 3 themed tabs component for navigation.
- * Web version with traditional top appbar layout.
+ * Responsive: right-side drawer on mobile, horizontal tabs on desktop.
  */
 export default function AppTabs({
   brandName,
@@ -89,10 +74,19 @@ export default function AppTabs({
   height = 64,
 }: AppTabsProps) {
   const { setAppBarHeight } = useLayout();
+  const { width } = useDimensions();
+  const isMobile = width < breakpoints.large;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setAppBarHeight(height);
   }, [height, setAppBarHeight]);
+
+  // Close drawer on navigation
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <Tabs>
@@ -101,23 +95,57 @@ export default function AppTabs({
           brandName={brandName}
           logoImage={logoImage}
           externalLinks={externalLinks}
-          height={height}>
+          height={height}
+          isMobile={isMobile}
+          onMenuPress={() => setMenuOpen(true)}>
           {tabs.map((tab) => (
             <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-              <TabButton
-                height={height}
-                webIcon={tab.webIcon}
-                materialIcon={tab.materialIcon}>
+              <TabButton height={height} webIcon={tab.webIcon} materialIcon={tab.materialIcon}>
                 {tab.label}
               </TabButton>
             </TabTrigger>
           ))}
         </CustomTabList>
       </TabList>
+
       <TabSlot style={{ height: '100%' }} />
+
+      {isMobile && (
+        <Drawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} side="right">
+          {tabs.map((tab) => {
+            const icon = tab.webIcon || (tab.materialIcon
+              ? { library: 'MaterialIcons' as const, name: tab.materialIcon }
+              : undefined);
+            const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/');
+            return (
+              <DrawerMenuItem
+                key={tab.name}
+                href={tab.href}
+                label={tab.label}
+                icon={icon}
+                active={isActive}
+              />
+            );
+          })}
+
+          {externalLinks.length > 0 && <DrawerDivider />}
+
+          {externalLinks.map((link, i) => (
+            <DrawerMenuItem
+              key={i}
+              href={link.href}
+              label={link.label}
+              icon={link.icon}
+              external
+            />
+          ))}
+        </Drawer>
+      )}
     </Tabs>
   );
 }
+
+// --- Tab bar button (desktop) ---
 
 interface TabButtonProps extends TabTriggerSlotProps {
   children: ReactNode;
@@ -126,11 +154,10 @@ interface TabButtonProps extends TabTriggerSlotProps {
   materialIcon?: string;
 }
 
-export function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
+function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
 
-  // Use webIcon if provided, otherwise fallback to materialIcon with MaterialIcons library
   const iconToRender = webIcon || (materialIcon ? { library: 'MaterialIcons' as const, name: materialIcon } : undefined);
   const iconColor = isFocused ? theme.primary : theme.onSurfaceVariant;
 
@@ -139,89 +166,122 @@ export function TabButton({ children, isFocused, height, webIcon, materialIcon, 
       {...props}
       style={({ pressed, hovered }: any) => [
         styles.tabButton,
-        {
-          paddingHorizontal: spacing.lg,
-          height,
-          justifyContent: 'center',
-        },
+        { paddingHorizontal: spacing.lg, height, justifyContent: 'center' },
         pressed && { opacity: 0.7 },
-        hovered && {
-          backgroundColor: theme.isDark
-            ? 'rgba(255, 255, 255, 0.08)'
-            : 'rgba(0, 0, 0, 0.05)',
-        },
+        hovered && { backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)' },
       ]}>
       <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
         {iconToRender && renderIcon(iconToRender, 'MaterialIcons', 20, iconColor)}
-        <Typography
-          variant="labelLarge"
-          weight="medium"
-          color={iconColor}
-          style={styles.tabButtonText}>
+        <Typography variant="labelLarge" weight="medium" color={iconColor}>
           {children}
         </Typography>
       </View>
       {isFocused && (
-        <View
-          style={[
-            styles.activeIndicator,
-            {
-              backgroundColor: theme.primary,
-              borderTopLeftRadius: 2,
-              borderTopRightRadius: 2,
-            },
-          ]}
-        />
+        <View style={[styles.activeIndicator, { backgroundColor: theme.primary }]} />
       )}
     </Pressable>
   );
 }
 
-interface ExternalLinkButtonProps {
-  href: string;
-  label: string;
-  height?: number;
-  icon?: PlatformIcon | string;
+// --- Custom tab list (the app bar) ---
+
+interface CustomTabListProps extends TabListProps {
+  brandName: string;
+  logoImage?: ImageSourcePropType;
+  externalLinks: AppTabsExternalLink[];
+  height: number;
+  isMobile: boolean;
+  onMenuPress: () => void;
 }
 
-function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonProps) {
+function CustomTabList({
+  brandName,
+  logoImage,
+  externalLinks,
+  height,
+  isMobile,
+  onMenuPress,
+  children,
+  ...props
+}: CustomTabListProps) {
+  const { values: theme } = useThemeContext();
+  const spacing = theme.spacing;
+  const { hasSidebar, open: openSidebar } = useSidebar();
+
+  const showSidebarTrigger = isMobile && hasSidebar;
+
+  return (
+    <ThemedView
+      variant="appbar"
+      rounded={false}
+      style={[styles.appBar, { height, paddingHorizontal: spacing.xxl }]}>
+      <View {...props} style={[styles.appBarContent, { height, gap: spacing.sm }]}>
+        {showSidebarTrigger && (
+          <Pressable
+            onPress={openSidebar}
+            style={({ pressed }: any) => [
+              styles.iconButton,
+              { padding: spacing.xs, borderRadius: theme.borderRadius, marginRight: spacing.sm },
+              pressed && { opacity: 0.7 },
+            ]}>
+            {renderIcon({ library: 'Feather', name: 'chevron-left' }, 'Feather', 20, theme.onSurface)}
+          </Pressable>
+        )}
+
+        <Link href="/" style={styles.brand}>
+          <View style={[styles.brandContent, { gap: spacing.sm }]}>
+            {logoImage && <Image source={logoImage} style={styles.logo} resizeMode="contain" />}
+            <Typography variant="titleLarge" weight="medium">{brandName}</Typography>
+          </View>
+        </Link>
+
+        {!isMobile && (
+          <>
+            <View style={[styles.tabs, { gap: spacing.xs }]}>{children}</View>
+            {externalLinks.length > 0 && (
+              <View style={[styles.tabs, { gap: spacing.xs, marginLeft: spacing.lg }]}>
+                {externalLinks.map((link, i) => (
+                  <ExternalLinkButton key={i} {...link} height={height} />
+                ))}
+              </View>
+            )}
+          </>
+        )}
+
+        {isMobile && (
+          <Pressable
+            onPress={onMenuPress}
+            style={({ pressed }: any) => [
+              styles.iconButton,
+              { padding: spacing.sm, borderRadius: theme.borderRadius },
+              pressed && { opacity: 0.7 },
+            ]}>
+            {renderIcon({ library: 'Feather', name: 'menu' }, 'Feather', 24, theme.onSurface)}
+          </Pressable>
+        )}
+      </View>
+    </ThemedView>
+  );
+}
+
+// --- Desktop external link button ---
+
+function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink & { height: number }) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
 
-  const handlePress = async (event: any) => {
-    if (Platform.OS !== 'web') {
-      event.preventDefault();
-      await openBrowserAsync(href, {
-        presentationStyle: WebBrowserPresentationStyle.AUTOMATIC,
-      });
-    }
-  };
-
   return (
-    <Link href={href as any} target="_blank" onPress={handlePress} asChild>
+    <Link href={href as any} target="_blank" asChild>
       <Pressable
         style={({ pressed, hovered }: any) => [
           styles.tabButton,
-          {
-            paddingHorizontal: spacing.lg,
-            borderRadius: theme.borderRadius,
-            height,
-            justifyContent: 'center',
-          },
+          { paddingHorizontal: spacing.lg, height, justifyContent: 'center', borderRadius: theme.borderRadius },
           pressed && { opacity: 0.7 },
-          hovered && {
-            backgroundColor: theme.isDark
-              ? 'rgba(255, 255, 255, 0.08)'
-              : 'rgba(0, 0, 0, 0.05)',
-          },
+          hovered && { backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)' },
         ]}>
         <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
           {icon && renderIcon(icon, 'MaterialIcons', 20, theme.onSurfaceVariant)}
-          <Typography
-            variant="labelLarge"
-            weight="medium"
-            color={theme.onSurfaceVariant}
-            style={styles.tabButtonText}>
+          <Typography variant="labelLarge" weight="medium" color={theme.onSurfaceVariant}>
             {label}
           </Typography>
         </View>
@@ -230,126 +290,72 @@ function ExternalLinkButton({ href, label, height, icon }: ExternalLinkButtonPro
   );
 }
 
-interface CustomTabListProps extends TabListProps {
-  brandName: string;
-  logoImage?: ImageSourcePropType;
-  externalLinks: AppTabsExternalLink[];
-  height: number;
-}
+// --- Drawer menu item ---
 
-export function CustomTabList({
-  brandName,
-  logoImage,
-  externalLinks,
-  height,
-  children,
-  ...props
-}: CustomTabListProps) {
+function DrawerMenuItem({
+  href,
+  label,
+  icon,
+  active,
+  external,
+}: {
+  href: string;
+  label: string;
+  icon?: PlatformIcon | string;
+  active?: boolean;
+  external?: boolean;
+}) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
+  const tokens = theme.tokens.sidebar;
+  const backgroundColor = active ? tokens.itemActiveBg : 'transparent';
+  const textColor = active ? tokens.itemActiveText : tokens.itemText;
 
   return (
-    <ThemedView
-      variant="appbar"
-      rounded={false}
-      style={[
-        styles.appBar,
-        {
-          height,
-          paddingVertical: 0,
-          paddingHorizontal: spacing.xxl,
-          shadowColor: theme.shadow,
-          shadowOffset: { width: 0, height: 1 },
-          shadowOpacity: 0.05,
-          shadowRadius: 2,
-          elevation: 1,
-        },
-      ]}>
-      <View
-        {...props}
-        style={[
-          styles.appBarContent,
-          { height, gap: spacing.sm },
+    <Link href={href as any} {...(external ? { target: '_blank' } : {})} asChild>
+      <Pressable
+        style={({ pressed, hovered }: any) => [
+          styles.drawerItem,
+          { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, backgroundColor },
+          hovered && !active && { backgroundColor: tokens.itemHoverBg },
+          pressed && { opacity: 0.7 },
         ]}>
-        <Link href="/" style={styles.brandContainer}>
-          <View style={[styles.brandContent, { gap: spacing.sm }]}>
-            {logoImage && (
-              <Image
-                source={logoImage}
-                style={styles.logoImage}
-                resizeMode="contain"
-              />
-            )}
-            <Typography variant="titleLarge" weight="medium">
-              {brandName}
-            </Typography>
-          </View>
-        </Link>
-
-        <View style={[styles.tabsContainer, { gap: spacing.xs }]}>
-          {children}
+        <View style={[styles.drawerItemContent, { gap: spacing.md }]}>
+          {icon && (
+            <View style={styles.drawerItemIcon}>
+              {renderIcon(icon, 'MaterialIcons', 20, textColor)}
+            </View>
+          )}
+          <Typography variant="labelLarge" weight="medium" color={textColor}>
+            {label}
+          </Typography>
+          {external && renderIcon({ library: 'Feather', name: 'external-link' }, 'Feather', 14, theme.onSurfaceVariant)}
         </View>
-
-        {externalLinks.length > 0 && (
-          <View style={[styles.externalLinksContainer, { gap: spacing.xs, marginLeft: spacing.lg }]}>
-            {externalLinks.map((link, index) => (
-              <ExternalLinkButton key={index} href={link.href} label={link.label} height={height} icon={link.icon} />
-            ))}
-          </View>
-        )}
-      </View>
-    </ThemedView>
+      </Pressable>
+    </Link>
   );
 }
 
+function DrawerDivider() {
+  const { values: theme } = useThemeContext();
+  return <View style={[styles.divider, { backgroundColor: theme.tokens.sidebar.divider }]} />;
+}
+
+// --- Styles ---
+
 const styles = StyleSheet.create({
-  appBar: {
-    width: '100%',
-    flexDirection: 'row',
-  },
-  appBarContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-  },
-  brandContainer: {
-    marginRight: 'auto',
-  },
-  brandContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  logoImage: {
-    height: 32,
-    width: 32,
-  },
-  tabsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tabButton: {
-    position: 'relative',
-    // @ts-ignore - Web-only transition property
-    transition: 'background-color 0.2s ease, opacity 0.15s ease',
-  },
-  tabButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tabButtonText: {
-    fontWeight: '500',
-  },
-  activeIndicator: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 3,
-    // @ts-ignore - Web-only transition property
-    transition: 'opacity 0.2s ease',
-  },
-  externalLinksContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  appBar: { width: '100%', flexDirection: 'row' },
+  appBarContent: { flexDirection: 'row', alignItems: 'center', width: '100%' },
+  brand: { marginRight: 'auto' },
+  brandContent: { flexDirection: 'row', alignItems: 'center' },
+  logo: { height: 32, width: 32 },
+  tabs: { flexDirection: 'row', alignItems: 'center' },
+  tabButton: { position: 'relative' },
+  tabButtonContent: { flexDirection: 'row', alignItems: 'center' },
+  activeIndicator: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderTopLeftRadius: 2, borderTopRightRadius: 2 },
+  iconButton: { alignItems: 'center', justifyContent: 'center' },
+  drawerItem: { minHeight: 48, justifyContent: 'center' },
+  drawerItemContent: { flexDirection: 'row', alignItems: 'center' },
+  drawerItemIcon: { width: 24, height: 24, alignItems: 'center', justifyContent: 'center' },
+  divider: { height: 1, marginVertical: 8 },
 });

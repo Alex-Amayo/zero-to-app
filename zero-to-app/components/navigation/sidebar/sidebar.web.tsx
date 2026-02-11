@@ -30,6 +30,8 @@ export interface SidebarProps {
   style?: StyleProp<ViewStyle>;
   /** Test ID for testing */
   testID?: string;
+  /** Anchor side for the sidebar: 'left' | 'right' (desktop and mobile drawer) */
+  anchor?: 'left' | 'right';
 }
 
 // 3. COMPONENT
@@ -45,16 +47,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
   footer,
   style,
   testID,
+  anchor = 'left',
 }) => {
   const { values: theme } = useThemeContext();
   const { width } = useDimensions();
-  const { isOpen, close } = useSidebar();
+  const { isOpen, close, registerSidebar, unregisterSidebar } = useSidebar();
   const { appBarHeight } = useLayout();
   const tokens = theme.tokens.sidebar;
 
+  React.useEffect(() => {
+    registerSidebar();
+    return () => unregisterSidebar();
+  }, [registerSidebar, unregisterSidebar]);
+
   const isDesktop = width >= breakpoints.large;
 
-  const translateX = useSharedValue(isDesktop || isOpen ? 0 : -tokens.width);
+  const isRight = anchor === 'right';
+  const translateX = useSharedValue(
+    isDesktop || isOpen ? 0 : isRight ? tokens.width : -tokens.width
+  );
   const backdropOpacity = useSharedValue(isOpen && !isDesktop ? 0.5 : 0);
 
   React.useEffect(() => {
@@ -62,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       translateX.value = 0;
       backdropOpacity.value = 0;
     } else {
-      translateX.value = withTiming(isOpen ? 0 : -tokens.width, { duration: 300 });
+      translateX.value = withTiming(isOpen ? 0 : isRight ? tokens.width : -tokens.width, { duration: 300 });
       backdropOpacity.value = withTiming(isOpen ? 0.5 : 0, { duration: 300 });
     }
   }, [isOpen, isDesktop, translateX, backdropOpacity, tokens.width]);
@@ -85,10 +96,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {
             width: tokens.width,
             backgroundColor: tokens.background,
-            borderRightWidth: 1,
-            borderRightColor: tokens.divider,
+            borderRightWidth: isRight ? 0 : 1,
+            borderRightColor: isRight ? 'transparent' : tokens.divider,
+            borderLeftWidth: isRight ? 1 : 0,
+            borderLeftColor: isRight ? tokens.divider : 'transparent',
             top: appBarHeight,
             height: `calc(100vh - ${appBarHeight}px)` as any,
+            left: isRight ? 'auto' as any : 0,
+            right: isRight ? 0 : 'auto' as any,
           },
           style,
         ]}
@@ -127,9 +142,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             width: tokens.width,
             backgroundColor: tokens.background,
             shadowColor: theme.shadow,
-            shadowOffset: { width: 2, height: 0 },
+            shadowOffset: { width: isRight ? -2 : 2, height: 0 },
             shadowOpacity: 0.15,
             shadowRadius: 8,
+            left: isRight ? 'auto' as any : 0,
+            right: isRight ? 0 : 'auto' as any,
           },
           animatedSidebarStyle,
           style,

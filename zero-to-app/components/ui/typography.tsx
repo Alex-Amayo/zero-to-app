@@ -10,9 +10,6 @@ import { useTheme } from '../../theme';
  * **Title** (22-14px): Card titles, list headers
  * **Body** (16-12px): Main content text
  * **Label** (14-11px): Buttons, captions, metadata
- *
- * Legacy aliases (`headline`, `title`, `body`, `label`, `caption`) are
- * supported for backwards compatibility but M3 variants are preferred.
  */
 export type TypographyVariant =
   | 'displayLarge'
@@ -29,13 +26,7 @@ export type TypographyVariant =
   | 'bodySmall'
   | 'labelLarge'
   | 'labelMedium'
-  | 'labelSmall'
-  // Legacy aliases for backwards compatibility
-  | 'headline'
-  | 'title'
-  | 'body'
-  | 'label'
-  | 'caption';
+  | 'labelSmall';
 
 /**
  * Font weight options.
@@ -157,19 +148,8 @@ export const Typography = forwardRef<Text, TypographyProps>(
     const textStyle: TextStyle = useMemo(() => {
       const tokens = theme.tokens.typography;
 
-      // Map legacy aliases to M3 variants (keep compatibility)
-      const legacyMap: Record<string, keyof typeof tokens> = {
-        headline: 'headlineLarge',
-        title: 'titleLarge',
-        body: 'bodyMedium',
-        label: 'labelMedium',
-        caption: 'labelSmall',
-      };
-
-      const resolvedVariant = (legacyMap as Record<string, string>)[variant] ?? variant;
-
       // Resolve font size from variant
-      const fontSize = (tokens as any)[resolvedVariant] ?? tokens.bodyMedium;
+      const fontSize = (tokens as any)[variant] ?? tokens.bodyMedium;
 
       // Resolve font weight
       let fontWeight: TextStyle['fontWeight'];

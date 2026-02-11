@@ -14,7 +14,7 @@ export default function TabLayout() {
       <ZeroToApp brand={defaultBrand}>
       <AppTabs
         brandName="Zero To App"
-        logoImage={require('../../assets/images/zero-to-app.png')}
+        logoImage={require('../../assets/images/rocket_logo.png')}
         tabs={[
           {
             name: 'index',

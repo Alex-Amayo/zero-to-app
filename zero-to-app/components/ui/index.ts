@@ -33,3 +33,7 @@ export type {
 // Screen
 export { Screen } from './screen';
 export type { ScreenProps } from './screen';
+
+// Container
+export { Container } from './container';
+export type { ContainerProps } from './container';

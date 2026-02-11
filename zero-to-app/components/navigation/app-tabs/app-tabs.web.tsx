@@ -271,18 +271,19 @@ export function CustomTabList({
           styles.appBarContent,
           { height, gap: spacing.sm },
         ]}>
-        <Link href="/" style={styles.brandText}>
-          {logoImage ? (
-            <Image
-              source={logoImage}
-              style={styles.logoImage}
-              resizeMode="contain"
-            />
-          ) : (
+        <Link href="/" style={styles.brandContainer}>
+          <View style={[styles.brandContent, { gap: spacing.sm }]}>
+            {logoImage && (
+              <Image
+                source={logoImage}
+                style={styles.logoImage}
+                resizeMode="contain"
+              />
+            )}
             <Typography variant="titleLarge" weight="medium">
               {brandName}
             </Typography>
-          )}
+          </View>
         </Link>
 
         <View style={[styles.tabsContainer, { gap: spacing.xs }]}>
@@ -311,12 +312,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  brandText: {
+  brandContainer: {
     marginRight: 'auto',
+  },
+  brandContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   logoImage: {
     height: 32,
-    width: 120,
+    width: 32,
   },
   tabsContainer: {
     flexDirection: 'row',

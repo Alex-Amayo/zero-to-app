@@ -1,26 +1,23 @@
-import { useTheme, Screen, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
-import {router} from "expo-router";
+import { useTheme, Screen, Container, ThemedView, Typography, Button } from 'zero-to-app';
+import { router } from "expo-router";
+import { Image, StyleSheet } from "react-native";
 
-const BENEFITS = [
+const FEATURES = [
   {
-    title: 'Less duplicate code',
-    description: 'Shared UI components across all platforms.',
-    icon: 'content-copy',
+    title: 'Build once, run everywhere!',
+    description: 'Cross-platform React Native components for iOS, Android, and the web.',
   },
   {
-    title: 'Type-safe styling',
-    description: 'Full TypeScript support for your design system.',
-    icon: 'shield',
+    title: 'Material Design 3',
+    description: 'Design system, color palette generation, beautiful and accessible apps',
   },
   {
-    title: 'Theming',
-    description: 'Material 3 based dynamic theming engine.',
-    icon: 'theme-light-dark',
+    title: 'Native Swift & Kotlin',
+    description: 'Going native where it matters, expo-router native tabs and custom native components',
   },
   {
-    title: 'Theming',
-    description: 'Material 3 based dynamic theming engine.',
-    icon: 'theme-light-dark',
+    title: 'Responsive',
+    description: 'Adaptive layouts that look perfect on phones, tablets, and desktop screens.',
   },
 ];
 
@@ -32,69 +29,78 @@ export default function HomeScreen() {
     <Screen
       scrollable
       variant="background"
-      edges={['top']}
-      style={{ alignItems: 'center'}}
+      edges={[]}
+      contentContainerStyle={{ paddingVertical: spacing.xxxl }}
     >
-      <ThemedView style={{ alignItems: 'center', justifyContent: 'center', gap: spacing.lg, padding: spacing.xxl }}>
-        <Typography variant="displayLarge" weight="bold">
-          Zero To App
-        </Typography>
-        <Typography variant={"displaySmall"} align="center">
-          Material 3 based UI library for React Native.
-        </Typography>
-        <Typography variant={"titleLarge"} align="center">
-          Seamless experiences across iOS, Android, and web.
-        </Typography>
-      </ThemedView>
+      {/* Hero Section */}
+      <Container style={{ alignItems: 'center', gap: spacing.xxl }}>
+        <Image
+          source={require('../../assets/images/rocket.png')}
+          style={styles.rocketImage}
+          resizeMode="contain"
+        />
 
-      <ThemedView columns={2} gap={spacing.lg} style={{ width: '100%', paddingHorizontal: spacing.xl }}>
-        {BENEFITS.map((benefit, index) => (
-          <ThemedView
-            key={index}
-            variant="card"
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: spacing.lg,
-              gap: spacing.lg,
-            }}
-          >
+        <ThemedView style={{ alignItems: 'center', gap: spacing.md }}>
+          <Typography variant="displayLarge" weight="bold">
+            Zero To App
+          </Typography>
+          <Typography variant="headlineSmall" align="center" color={theme.onSurfaceVariant}>
+            Ship beautiful cross-platform apps in record time
+          </Typography>
+        </ThemedView>
+
+        <Button
+          title="Get Started"
+          variant="filled"
+          onPress={() => router.push('/explore')}
+          icon={{ name: 'rocket-launch', color: theme.onPrimary }}
+        />
+      </Container>
+
+      {/* Features Grid */}
+      <Container style={{ marginTop: spacing.xxxl }}>
+        <ThemedView columns={2} gap={spacing.lg}>
+          {FEATURES.map((feature, index) => (
             <ThemedView
+              key={index}
+              variant="card"
               style={{
-                width: 48,
-                height: 48,
-                borderRadius: 24,
-                backgroundColor: theme.primaryContainer,
-                alignItems: 'center',
-                justifyContent: 'center',
+                padding: spacing.xl,
+                gap: spacing.sm,
               }}
             >
-              {renderIcon(benefit.icon, 'MaterialCommunityIcons', 24, theme.onPrimaryContainer)}
-            </ThemedView>
-            <ThemedView variant={"card"} style={{ flex: 1, gap: spacing.xs, padding: spacing.sm }}>
-              <Typography align={"center"} variant="titleMedium" weight="bold">
-                {benefit.title}
+              <Typography variant="titleLarge" weight="bold">
+                {feature.title}
               </Typography>
-              <Typography align={"center"} variant="bodyMedium" color={theme.onSurfaceVariant}>
-                {benefit.description}
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+                {feature.description}
               </Typography>
             </ThemedView>
-          </ThemedView>
-        ))}
-      </ThemedView>
+          ))}
+        </ThemedView>
+      </Container>
 
-      <ThemedView  style={{ alignItems: 'center', justifyContent: 'center', gap: spacing.lg, marginHorizontal: spacing.xl, marginTop: spacing.xl }}>
-        <Typography variant={"titleMedium"}>
-          Ready to build your next big thing?
+      {/* CTA Section */}
+      <Container style={{ alignItems: 'center', gap: spacing.lg, marginTop: spacing.xxxl }}>
+        <Typography variant="headlineMedium" align="center" weight="bold">
+          Ready to launch?
         </Typography>
-        <Button title="Explore Components" variant="elevated"
-                onPress={() => {router.push('/explore')}}
-                icon={
-                  {name: 'chevron-right', color: theme.onSurfaceVariant}
-                }
+        <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
+          Explore our component library and start building today
+        </Typography>
+        <Button
+          title="View Components"
+          variant="outlined"
+          onPress={() => router.push('/explore')}
         />
-      </ThemedView>
-
+      </Container>
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  rocketImage: {
+    width: 160,
+    height: 160,
+  },
+});

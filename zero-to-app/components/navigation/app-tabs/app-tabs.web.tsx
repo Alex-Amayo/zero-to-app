@@ -7,16 +7,17 @@ import {
   TabListProps,
 } from 'expo-router/ui';
 import React, { ReactNode, useState, useEffect } from 'react';
-import { Pressable, View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import { Pressable, View, StyleSheet, Image, ImageSourcePropType, Linking } from 'react-native';
 import { useThemeContext } from '../../../theme';
 import { Typography } from '../../ui/typography';
 import { ThemedView } from '../../ui/themed-view';
-import { Link, usePathname } from 'expo-router';
+import { Link, usePathname, useRouter } from 'expo-router';
 import { renderIcon, type PlatformIcon } from '../../../icons';
 import { useLayout } from '../../../context/layout-context';
 import { useDimensions, breakpoints } from '../../../hooks';
-import { useSidebar } from '../../../context/sidebar-context';
 import { Drawer } from '../drawer/drawer';
+import { SidebarItem } from '../sidebar/sidebar-item';
+import { sidebarItemStyles } from '../shared/sidebar-styles';
 
 /**
  * External link configuration for AppTabs
@@ -78,6 +79,7 @@ export default function AppTabs({
   const isMobile = width < breakpoints.large;
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setAppBarHeight(height);
@@ -111,34 +113,46 @@ export default function AppTabs({
       <TabSlot style={{ height: '100%' }} />
 
       {isMobile && (
-        <Drawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} side="right">
+        <Drawer
+          isOpen={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          side="right"
+          header={
+            <DrawerHeader brandName={brandName} logoImage={logoImage} />
+          }>
           {tabs.map((tab) => {
-            const icon = tab.webIcon || (tab.materialIcon
+            const icon = tab.webIcon
+              ? (typeof tab.webIcon === 'string' ? { name: tab.webIcon } : tab.webIcon)
+              : tab.materialIcon
               ? { library: 'MaterialIcons' as const, name: tab.materialIcon }
-              : undefined);
+              : undefined;
             const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/');
             return (
-              <DrawerMenuItem
+              <SidebarItem
                 key={tab.name}
-                href={tab.href}
                 label={tab.label}
                 icon={icon}
                 active={isActive}
+                onPress={() => router.push(tab.href as any)}
               />
             );
           })}
 
           {externalLinks.length > 0 && <DrawerDivider />}
 
-          {externalLinks.map((link, i) => (
-            <DrawerMenuItem
-              key={i}
-              href={link.href}
-              label={link.label}
-              icon={link.icon}
-              external
-            />
-          ))}
+          {externalLinks.map((link, i) => {
+            const icon = link.icon
+              ? (typeof link.icon === 'string' ? { name: link.icon } : link.icon)
+              : undefined;
+            return (
+              <SidebarItem
+                key={i}
+                label={link.label}
+                icon={icon}
+                onPress={() => Linking.openURL(link.href)}
+              />
+            );
+          })}
         </Drawer>
       )}
     </Tabs>
@@ -206,9 +220,6 @@ function CustomTabList({
 }: CustomTabListProps) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
-  const { hasSidebar, open: openSidebar } = useSidebar();
-
-  const showSidebarTrigger = isMobile && hasSidebar;
 
   return (
     <ThemedView
@@ -216,18 +227,6 @@ function CustomTabList({
       rounded={false}
       style={[styles.appBar, { height, paddingHorizontal: spacing.xxl }]}>
       <View {...props} style={[styles.appBarContent, { height, gap: spacing.sm }]}>
-        {showSidebarTrigger && (
-          <Pressable
-            onPress={openSidebar}
-            style={({ pressed }: any) => [
-              styles.iconButton,
-              { padding: spacing.xs, borderRadius: theme.borderRadius, marginRight: spacing.sm },
-              pressed && { opacity: 0.7 },
-            ]}>
-            {renderIcon({ library: 'Feather', name: 'chevron-left' }, 'Feather', 20, theme.onSurface)}
-          </Pressable>
-        )}
-
         <Link href="/" style={styles.brand}>
           <View style={[styles.brandContent, { gap: spacing.sm }]}>
             {logoImage && <Image source={logoImage} style={styles.logo} resizeMode="contain" />}
@@ -290,55 +289,25 @@ function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink &
   );
 }
 
-// --- Drawer menu item ---
+// --- Drawer header ---
 
-function DrawerMenuItem({
-  href,
-  label,
-  icon,
-  active,
-  external,
-}: {
-  href: string;
-  label: string;
-  icon?: PlatformIcon | string;
-  active?: boolean;
-  external?: boolean;
-}) {
+function DrawerHeader({ brandName, logoImage }: { brandName: string; logoImage?: ImageSourcePropType }) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
-  const tokens = theme.tokens.sidebar;
-  const backgroundColor = active ? tokens.itemActiveBg : 'transparent';
-  const textColor = active ? tokens.itemActiveText : tokens.itemText;
 
   return (
-    <Link href={href as any} {...(external ? { target: '_blank' } : {})} asChild>
-      <Pressable
-        style={({ pressed, hovered }: any) => [
-          styles.drawerItem,
-          { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, backgroundColor },
-          hovered && !active && { backgroundColor: tokens.itemHoverBg },
-          pressed && { opacity: 0.7 },
-        ]}>
-        <View style={[styles.drawerItemContent, { gap: spacing.md }]}>
-          {icon && (
-            <View style={styles.drawerItemIcon}>
-              {renderIcon(icon, 'MaterialIcons', 20, textColor)}
-            </View>
-          )}
-          <Typography variant="labelLarge" weight="medium" color={textColor}>
-            {label}
-          </Typography>
-          {external && renderIcon({ library: 'Feather', name: 'external-link' }, 'Feather', 14, theme.onSurfaceVariant)}
-        </View>
-      </Pressable>
-    </Link>
+    <View style={[styles.drawerHeader, { padding: spacing.lg, borderBottomColor: theme.tokens.sidebar.divider }]}>
+      <View style={[styles.brandContent, { gap: spacing.sm }]}>
+        {logoImage && <Image source={logoImage} style={styles.logo} resizeMode="contain" />}
+        <Typography variant="titleMedium" weight="bold">{brandName}</Typography>
+      </View>
+    </View>
   );
 }
 
 function DrawerDivider() {
   const { values: theme } = useThemeContext();
-  return <View style={[styles.divider, { backgroundColor: theme.tokens.sidebar.divider }]} />;
+  return <View style={[sidebarItemStyles.divider, { backgroundColor: theme.tokens.sidebar.divider }]} />;
 }
 
 // --- Styles ---
@@ -354,8 +323,5 @@ const styles = StyleSheet.create({
   tabButtonContent: { flexDirection: 'row', alignItems: 'center' },
   activeIndicator: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderTopLeftRadius: 2, borderTopRightRadius: 2 },
   iconButton: { alignItems: 'center', justifyContent: 'center' },
-  drawerItem: { minHeight: 48, justifyContent: 'center' },
-  drawerItemContent: { flexDirection: 'row', alignItems: 'center' },
-  drawerItemIcon: { width: 24, height: 24, alignItems: 'center', justifyContent: 'center' },
-  divider: { height: 1, marginVertical: 8 },
+  drawerHeader: { borderBottomWidth: 1, width: '100%' },
 });

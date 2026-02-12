@@ -12,12 +12,6 @@ export interface SidebarContextType {
   close: () => void;
   /** Toggle sidebar/drawer open/closed */
   toggle: () => void;
-  /** Whether a Sidebar component is currently mounted */
-  hasSidebar: boolean;
-  /** Called by Sidebar on mount to signal its presence */
-  registerSidebar: () => void;
-  /** Called by Sidebar on unmount to signal removal */
-  unregisterSidebar: () => void;
 }
 
 // Sentinel value to detect missing provider
@@ -51,7 +45,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   defaultOpen = false
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
-  const [hasSidebar, setHasSidebar] = useState(false);
 
   const open = useCallback(() => {
     setIsOpen(true);
@@ -65,17 +58,11 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     setIsOpen(prev => !prev);
   }, []);
 
-  const registerSidebar = useCallback(() => setHasSidebar(true), []);
-  const unregisterSidebar = useCallback(() => setHasSidebar(false), []);
-
   const value: SidebarContextType = {
     isOpen,
     open,
     close,
     toggle,
-    hasSidebar,
-    registerSidebar,
-    unregisterSidebar,
   };
 
   return (

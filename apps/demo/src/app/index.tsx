@@ -30,10 +30,9 @@ export default function HomeScreen() {
       scrollable
       variant="background"
       edges={[]}
-      contentContainerStyle={{ justifyContent: 'center' }}
     >
       {/* Hero Section */}
-      <Container style={{ alignItems: 'center', gap: spacing.xxl }}>
+      <Container style={{ alignItems: 'center', gap: spacing.xxl}}>
         <Image
           source={require('../../assets/images/rocket.png')}
           style={styles.rocketImage}

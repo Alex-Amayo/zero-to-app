@@ -15,6 +15,7 @@ import { useSidebar } from '../../../context/sidebar-context';
 import { useDimensions, breakpoints } from '../../../hooks';
 import { renderIcon, type IconLibrary } from '../../../icons';
 import type { InteractiveComponentProps } from '../../shared/types';
+import { sidebarItemStyles, getSidebarItemColors } from '../shared/sidebar-styles';
 
 // 2. TYPES
 
@@ -80,14 +81,9 @@ const SidebarItem = forwardRef<View, SidebarItemProps>(({
     }
   };
 
-  const backgroundColor = active
-    ? tokens.itemActiveBg
-    : hovered
-    ? tokens.itemHoverBg
-    : 'transparent';
-
-  const textColor = active ? tokens.itemActiveText : tokens.itemText;
-  const iconColor = active ? tokens.itemActiveText : tokens.itemText;
+  const { backgroundColor: baseBg, textColor } = getSidebarItemColors(tokens, active);
+  const backgroundColor = !active && hovered ? tokens.itemHoverBg : baseBg;
+  const iconColor = textColor;
 
   const renderItemIcon = () => {
     if (!icon) return null;
@@ -95,7 +91,7 @@ const SidebarItem = forwardRef<View, SidebarItemProps>(({
     const iconLibrary = icon.library || 'Feather';
 
     return (
-      <View style={styles.iconContainer}>
+      <View style={sidebarItemStyles.iconContainer}>
         {renderIcon(icon, iconLibrary, iconSize, iconColor)}
       </View>
     );
@@ -114,11 +110,11 @@ const SidebarItem = forwardRef<View, SidebarItemProps>(({
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled, selected: active }}
       style={[
-        styles.container,
+        sidebarItemStyles.container,
         {
           backgroundColor,
-          paddingHorizontal: spacing.md,
-          paddingVertical: spacing.sm,
+          paddingHorizontal: spacing.lg,
+          paddingVertical: spacing.md,
         },
         disabled && styles.disabled,
         style,
@@ -129,7 +125,7 @@ const SidebarItem = forwardRef<View, SidebarItemProps>(({
           : undefined
       }
     >
-      <View style={[styles.content, { gap: spacing.md }]}>
+      <View style={[sidebarItemStyles.content, { gap: spacing.md }]}>
         {renderItemIcon()}
         <Typography
           variant="labelLarge"
@@ -148,20 +144,6 @@ SidebarItem.displayName = 'SidebarItem';
 
 // 4. STYLES
 const styles = StyleSheet.create({
-  container: {
-    minHeight: 48,
-    justifyContent: 'center',
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconContainer: {
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   disabled: {
     opacity: 0.38,
   },

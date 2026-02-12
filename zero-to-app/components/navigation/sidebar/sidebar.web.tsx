@@ -8,11 +8,13 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
 import { useThemeContext } from '../../../theme';
 import { useDimensions, breakpoints } from '../../../hooks';
 import { useSidebar } from '../../../context/sidebar-context';
 import { useLayout } from '../../../context/layout-context';
+import { usePathname } from 'expo-router';
+import { renderIcon } from '../../../icons';
+import { Drawer } from '../drawer/drawer';
 
 // 2. TYPES
 
@@ -39,7 +41,7 @@ export interface SidebarProps {
 /**
  * Sidebar component for web platform
  * - Desktop (≥1024px): Persistent sidebar on left (always visible, below AppBar)
- * - Mobile/Tablet (<1024px): Overlay drawer with backdrop
+ * - Mobile/Tablet (<1024px): Floating trigger icon + overlay Drawer
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   header,
@@ -51,41 +53,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { values: theme } = useThemeContext();
   const { width } = useDimensions();
-  const { isOpen, close, registerSidebar, unregisterSidebar } = useSidebar();
+  const { isOpen, open, close } = useSidebar();
   const { appBarHeight } = useLayout();
   const tokens = theme.tokens.sidebar;
+  const spacing = theme.spacing;
+  const pathname = usePathname();
 
-  React.useEffect(() => {
-    registerSidebar();
-    return () => unregisterSidebar();
-  }, [registerSidebar, unregisterSidebar]);
+  // Capture the route scope on first mount so the sidebar only renders
+  // when the current pathname matches (prevents showing on other tabs
+  // when expo-router caches mounted layouts).
+  const routeScopeRef = React.useRef<string | null>(null);
+  if (routeScopeRef.current === null) {
+    const firstSegment = pathname.split('/').filter(Boolean)[0];
+    routeScopeRef.current = firstSegment ? `/${firstSegment}` : '/';
+  }
+
+  const isOnSidebarRoute = routeScopeRef.current === '/' ||
+    pathname === routeScopeRef.current ||
+    pathname.startsWith(routeScopeRef.current + '/');
 
   const isDesktop = width >= breakpoints.large;
-
   const isRight = anchor === 'right';
-  const translateX = useSharedValue(
-    isDesktop || isOpen ? 0 : isRight ? tokens.width : -tokens.width
-  );
-  const backdropOpacity = useSharedValue(isOpen && !isDesktop ? 0.5 : 0);
 
-  React.useEffect(() => {
-    if (isDesktop) {
-      translateX.value = 0;
-      backdropOpacity.value = 0;
-    } else {
-      translateX.value = withTiming(isOpen ? 0 : isRight ? tokens.width : -tokens.width, { duration: 300 });
-      backdropOpacity.value = withTiming(isOpen ? 0.5 : 0, { duration: 300 });
-    }
-  }, [isOpen, isDesktop, translateX, backdropOpacity, tokens.width]);
-
-  const animatedSidebarStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
-  }));
-
-  const animatedBackdropStyle = useAnimatedStyle(() => ({
-    opacity: backdropOpacity.value,
-    pointerEvents: backdropOpacity.value > 0 ? ('auto' as any) : ('none' as any),
-  }));
+  // Don't render anything when on a different route (cached tab)
+  if (!isOnSidebarRoute) {
+    return null;
+  }
 
   // Desktop: persistent sidebar below AppBar
   if (isDesktop) {
@@ -118,47 +111,37 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
   }
 
-  // Mobile: drawer with backdrop
-  if (!isOpen) {
-    return null;
-  }
-
+  // Mobile: self-contained trigger + Drawer
   return (
     <>
-      <Animated.View
-        style={[
-          styles.backdrop,
-          { backgroundColor: theme.scrim },
-          animatedBackdropStyle,
-        ]}
+      {!isOpen && (
+        <Pressable
+          onPress={open}
+          style={[
+            styles.mobileTrigger,
+            {
+              top: appBarHeight + spacing.sm,
+              left: isRight ? 'auto' as any : spacing.sm,
+              right: isRight ? spacing.sm : 'auto' as any,
+              backgroundColor: tokens.background,
+              borderRadius: theme.borderRadius,
+              shadowColor: theme.shadow,
+            },
+          ]}
+        >
+          {renderIcon({ library: 'Feather', name: 'menu' }, 'Feather', 20, theme.onSurface)}
+        </Pressable>
+      )}
+      <Drawer
+        isOpen={isOpen}
+        onClose={close}
+        side={anchor}
+        header={header}
+        footer={footer}
+        style={style}
       >
-        <Pressable style={StyleSheet.absoluteFill} onPress={close} />
-      </Animated.View>
-
-      <Animated.View
-        style={[
-          styles.drawerMobile,
-          {
-            width: tokens.width,
-            backgroundColor: tokens.background,
-            shadowColor: theme.shadow,
-            shadowOffset: { width: isRight ? -2 : 2, height: 0 },
-            shadowOpacity: 0.15,
-            shadowRadius: 8,
-            left: isRight ? 'auto' as any : 0,
-            right: isRight ? 0 : 'auto' as any,
-          },
-          animatedSidebarStyle,
-          style,
-        ]}
-        testID={testID}
-      >
-        {header}
-        <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollContentContainer}>
-          {children}
-        </ScrollView>
-        {footer}
-      </Animated.View>
+        {children}
+      </Drawer>
     </>
   );
 };
@@ -170,20 +153,14 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 100,
   },
-  drawerMobile: {
-    height: '100vh' as any,
+  mobileTrigger: {
     position: 'fixed' as any,
-    left: 0,
-    top: 0,
-    zIndex: 1001,
-  },
-  backdrop: {
-    position: 'fixed' as any,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1000,
+    zIndex: 99,
+    padding: 8,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
   },
   scrollContent: {
     flex: 1,

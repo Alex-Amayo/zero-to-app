@@ -41,10 +41,17 @@ export const Drawer: React.FC<DrawerProps> = ({
   const translateX = useSharedValue(isOpen ? 0 : initialTranslate);
   const backdropOpacity = useSharedValue(isOpen ? 0.5 : 0);
 
-  React.useEffect(() => {
+  // Ref-based effect event: animation always reads latest values,
+  // but only fires when isOpen changes.
+  const animateRef = React.useRef(() => {});
+  animateRef.current = () => {
     translateX.value = withTiming(isOpen ? 0 : initialTranslate, { duration: 250 });
     backdropOpacity.value = withTiming(isOpen ? 0.5 : 0, { duration: 250 });
-  }, [isOpen, translateX, backdropOpacity, initialTranslate]);
+  };
+
+  React.useEffect(() => {
+    animateRef.current();
+  }, [isOpen]);
 
   const animatedDrawerStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],

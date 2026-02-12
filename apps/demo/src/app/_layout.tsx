@@ -20,7 +20,7 @@ function TabLayoutInner() {
 
   const externalLinks: AppTabsExternalLink[] = [
     {
-      label: 'Docs',
+      label: 'Expo Docs',
       href: 'https://docs.expo.dev',
       icon: { library: 'Feather', name: 'book-open' },
     },

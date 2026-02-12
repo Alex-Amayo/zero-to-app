@@ -46,7 +46,7 @@ export default function ExploreIndex() {
         </Typography>
 
         {/* component cards*/}
-        <Container columns={3} gap={spacing.lg}>
+        <Container>
           {components.map((component) => (
             <ThemedView
               key={component.name}

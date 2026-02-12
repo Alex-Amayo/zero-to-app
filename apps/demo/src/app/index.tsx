@@ -4,22 +4,23 @@ import { Image, StyleSheet } from "react-native";
 
 const FEATURES = [
   {
-    title: 'Material Design 3 ',
-    description: 'Utilize Google’s open-source design system to build beautiful and accessible apps',
+    title: 'iOS, Android, and Web',
+    description: 'Single codebase with full support for iOS, Android, and web.',
+  },
+  {
+    title: 'Native Components',
+    description: 'Use SwiftUI and Jetpack Compose when needed for performance and deep platform integration.',
   },
   {
     title: 'Material Design 3',
-    description: 'Design system, color palette generation, beautiful and accessible apps',
+    description: 'Build polished, accessible interfaces with Google’s open source design system.',
   },
   {
-    title: 'Native Swift & Kotlin Components',
-    description: 'Built with Expo 55 and Expo Router, leveraging native SwiftUI and Kotlin components to deliver optimal performance and true platform fidelity.',
-  },
-  {
-    title: 'Responsive',
-    description: 'Adaptive layouts that look perfect on phones, tablets, and desktop screens.',
+    title: 'Claude Skills',
+    description: 'Accelerate development with AI powered skills that use primitives and design tokens to generate components, screens, and flows.',
   },
 ];
+
 
 export default function HomeScreen() {
   const theme = useTheme();
@@ -43,7 +44,7 @@ export default function HomeScreen() {
             Zero To App
           </Typography>
           <Typography variant="headlineSmall" align="center" color={theme.onSurfaceVariant}>
-            Ship beautiful cross-platform apps in record time
+            A React Native component library
           </Typography>
         </ThemedView>
 
@@ -82,7 +83,7 @@ export default function HomeScreen() {
         </Typography>
         <Button
           title="View Components"
-          variant="outlined"
+          variant="filled"
           onPress={() => router.push('/explore')}
         />
       </Container>

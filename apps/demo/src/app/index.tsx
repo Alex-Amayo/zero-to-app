@@ -29,7 +29,7 @@ export default function HomeScreen() {
     <Screen
       scrollable
       variant="background"
-      edges={[]}
+      edges={['top','bottom' ]}
     >
       {/* Hero Section */}
       <Container style={{ alignItems: 'center', gap: spacing.xxl}}>
@@ -38,7 +38,7 @@ export default function HomeScreen() {
           style={styles.rocketImage}
           resizeMode="contain"
         />
-
+ffffff
         <ThemedView style={{ alignItems: 'center', gap: spacing.md }}>
           <Typography variant="displayLarge" weight="bold">
             Zero To App

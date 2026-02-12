@@ -3,7 +3,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Pressable,
   ScrollView,
   type StyleProp,
   type ViewStyle,
@@ -13,8 +12,8 @@ import { useDimensions, breakpoints } from '../../../hooks';
 import { useSidebar } from '../../../context/sidebar-context';
 import { useLayout } from '../../../context/layout-context';
 import { usePathname } from 'expo-router';
-import { renderIcon } from '../../../icons';
 import { Drawer } from '../drawer/drawer';
+import { FAB } from '../../ui/fab';
 
 // 2. TYPES
 
@@ -115,22 +114,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {!isOpen && (
-        <Pressable
+        <FAB
+          icon={{ library: 'Feather', name: 'sidebar' }}
+          variant="primary"
+          size="medium"
           onPress={open}
           style={[
             styles.mobileTrigger,
             {
-              top: appBarHeight + spacing.sm,
-              left: isRight ? 'auto' as any : spacing.sm,
-              right: isRight ? spacing.sm : 'auto' as any,
-              backgroundColor: tokens.background,
-              borderRadius: theme.borderRadius,
-              shadowColor: theme.shadow,
+              bottom: spacing.lg,
+              right: isRight ? 'auto' as any : spacing.lg,
+              left: isRight ? spacing.lg : 'auto' as any,
             },
           ]}
-        >
-          {renderIcon({ library: 'Feather', name: 'menu' }, 'Feather', 20, theme.onSurface)}
-        </Pressable>
+        />
       )}
       <Drawer
         isOpen={isOpen}
@@ -156,11 +153,6 @@ const styles = StyleSheet.create({
   mobileTrigger: {
     position: 'fixed' as any,
     zIndex: 99,
-    padding: 8,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 4,
   },
   scrollContent: {
     flex: 1,

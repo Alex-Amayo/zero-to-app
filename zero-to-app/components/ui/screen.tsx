@@ -46,8 +46,8 @@ export const Screen: React.FC<ScreenProps> = ({
   const insets = useSafeAreaInsets();
   const theme = useTheme();
 
-  const iosBottomPadding = Platform.OS === 'ios' && edges.includes('bottom') 
-    ?  theme.spacing.xxl
+  const iosBottomPadding = Platform.OS === 'ios' && edges.includes('bottom')
+    ?  80
     : 0;
 
   return (

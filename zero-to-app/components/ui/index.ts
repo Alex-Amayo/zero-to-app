@@ -3,6 +3,10 @@ export { Button } from './button';
 export type { ButtonProps, ButtonVariant, IconConfig } from './button';
 export { ButtonVariants } from './button';
 
+// FAB
+export { FAB } from './fab';
+export type { FABProps, FABVariant, FABSize } from './fab';
+
 // Collapsible
 export { Collapsible } from './collapsible';
 export type { CollapsibleProps } from './collapsible';
@@ -29,6 +33,10 @@ export type {
   SidebarHeaderProps,
   SidebarFooterProps,
 } from '../navigation/sidebar';
+
+// NativeHeader (re-exported from navigation)
+export { NativeHeader } from '../navigation/native-header';
+export type { NativeHeaderProps, NativeHeaderAction } from '../navigation/native-header';
 
 // Screen
 export { Screen } from './screen';

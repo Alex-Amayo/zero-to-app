@@ -1,6 +1,5 @@
 import React from 'react';
-import {Stack} from 'expo-router';
-import {usePathname, useRouter} from 'expo-router';
+import {Stack, usePathname, useRouter} from 'expo-router';
 import {
     useTheme,
     Sidebar,

@@ -33,7 +33,7 @@ export default function HomeScreen() {
       edges={['top', 'bottom']}
       contentContainerStyle={{ gap: spacing.xxl, justifyContent: Platform.OS === 'web' ? 'center' : 'flex-start' }}
     >
-      <Container style={{ gap: spacing.xxl, paddingVertical: spacing.xxl }}>
+      <Container style={{ gap: spacing.xxl }}>
         {/* Hero Section */}
         <ThemedView style={{ alignItems: 'center', gap: spacing.xxl }}>
           <Image

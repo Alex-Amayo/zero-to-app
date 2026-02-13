@@ -1,8 +1,7 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, View, StyleSheet } from 'react-native';
 import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar } from 'zero-to-app';
 import { usePathname, useRouter } from 'expo-router';
-import { View, StyleSheet } from 'react-native';
 
 function TabLayoutInner() {
   const pathname = usePathname();

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Typography, ThemedView, Button, Screen, useTheme, Container, NativeHeader, useSidebar } from 'zero-to-app';
 

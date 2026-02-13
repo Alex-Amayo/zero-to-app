@@ -1,7 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Typography, ThemedView, Button, Screen, useTheme, Container } from 'zero-to-app';
+import { Typography, ThemedView, Button, Screen, useTheme, Container, NativeHeader, useSidebar } from 'zero-to-app';
+
 
 export default function ExploreIndex() {
   const router = useRouter();
@@ -35,44 +36,45 @@ export default function ExploreIndex() {
     },
   ];
 
-  return (
-    <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.sm }}>
-        <Typography variant="headlineMedium" weight="bold">
-          Component Showcase
-        </Typography>
-        <Typography variant="bodyMedium" muted style={{ marginBottom: spacing.lg }}>
-          Explore the Zero to App component library
-        </Typography>
+  const { open } = useSidebar();
 
-        {/* component cards*/}
-        <Container>
-          {components.map((component) => (
-            <ThemedView
-              key={component.name}
-              variant="card"
-              style={{
-                padding: spacing.xl,
-                borderRadius: spacing.md,
-                gap: spacing.md,
-              }}
-            >
-              <Typography variant="titleMedium" weight="medium">
-                {component.name}
-              </Typography>
-              <Typography variant="bodySmall" muted style={{ flex: 1 }}>
-                {component.description}
-              </Typography>
-              <Button
-                title="View"
-                variant="tonal"
-                size="xs"
-                onPress={() => router.push(component.route as any)}
-              />
-            </ThemedView>
-          ))}
-        </Container>
-      </View>
-    </Screen>
+  return (
+    <>
+      <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
+      <Screen scrollable variant="background" edges={['bottom']}>
+          <Container style={{ gap: spacing.xl, paddingTop: spacing.xl }}>
+            <Typography variant="headlineMedium" weight="bold">
+              Explore Components
+            </Typography>
+            <Typography variant="bodyMedium" muted>
+              Browse the component demos to see the theming system in action and view usage examples.
+            </Typography>
+            {components.map((component) => (
+              <ThemedView
+                key={component.name}
+                variant="card"
+                style={{
+                  padding: spacing.xl,
+                  borderRadius: spacing.md,
+                  gap: spacing.md,
+                }}
+              >
+                <Typography variant="titleMedium" weight="medium">
+                  {component.name}
+                </Typography>
+                <Typography variant="bodySmall" muted style={{ flex: 1 }}>
+                  {component.description}
+                </Typography>
+                <Button
+                  title="View"
+                  variant="tonal"
+                  size="xs"
+                  onPress={() => router.push(component.route as any)}
+                />
+              </ThemedView>
+            ))}
+          </Container>
+      </Screen>
+    </>
   );
 }

@@ -4,7 +4,7 @@ export type { AppTabsProps, AppTabConfig, AppTabsExternalLink } from './app-tabs
 
 // NativeHeader (iOS-only Stack.Toolbar wrapper)
 export { NativeHeader } from './native-header';
-export type { NativeHeaderProps, NativeHeaderAction } from './native-header';
+export type { NativeHeaderProps } from './native-header';
 
 // Sidebar components
 export {

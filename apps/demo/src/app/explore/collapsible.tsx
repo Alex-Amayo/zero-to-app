@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Typography, Collapsible, Screen, Button, useTheme } from 'zero-to-app';
+import { Typography, Collapsible, Screen, Button, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -60,13 +60,16 @@ const collapsibleProps: PropDefinition[] = [
 export default function CollapsiblePage() {
   const [controlledOpen, setControlledOpen] = useState(false);
   const { spacing } = useTheme();
+  const { open } = useSidebar();
 
   return (
-    <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
-        <View style={{ gap: spacing.xs }}>
-          <Typography variant="headlineMedium" weight="bold">
-            Collapsible
+    <>
+      <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
+      <Screen scrollable variant="background" edges={['bottom']}>
+        <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
+          <View style={{ gap: spacing.xs }}>
+            <Typography variant="headlineMedium" weight="bold">
+              Collapsible
           </Typography>
           <Typography variant="bodyMedium" muted>
             Expandable/collapsible content sections with animated transitions.
@@ -167,5 +170,6 @@ export default function CollapsiblePage() {
         <PropsTable props={collapsibleProps} />
       </View>
     </Screen>
+    </>
   );
 }

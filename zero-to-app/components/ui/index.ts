@@ -36,7 +36,7 @@ export type {
 
 // NativeHeader (re-exported from navigation)
 export { NativeHeader } from '../navigation/native-header';
-export type { NativeHeaderProps, NativeHeaderAction } from '../navigation/native-header';
+export type { NativeHeaderProps } from '../navigation/native-header';
 
 // Screen
 export { Screen } from './screen';

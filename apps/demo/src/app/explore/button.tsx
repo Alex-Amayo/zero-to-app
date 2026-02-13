@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Typography, Button, Screen, useTheme } from 'zero-to-app';
+import { Typography, Button, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -71,11 +71,14 @@ export default function ButtonPage() {
     setTimeout(() => setIsLoading(false), 2000);
   };
 
+  const { open } = useSidebar();
   const rowStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.md };
 
   return (
-    <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
+    <>
+      <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
+      <Screen scrollable variant="background" edges={['bottom']}>
+        <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
         <View style={{ gap: spacing.xs }}>
           <Typography variant="headlineMedium" weight="bold">
             Button
@@ -90,13 +93,13 @@ export default function ButtonPage() {
           description="Five button variants for different emphasis levels"
         >
           <View style={rowStyle}>
-            <Button title="Filled" variant="filled" onPress={() => {}} />
-            <Button title="Elevated" variant="elevated" onPress={() => {}} />
-            <Button title="Tonal" variant="tonal" onPress={() => {}} />
+            <Button title="Filled" variant="filled" onPress={() => { }} />
+            <Button title="Elevated" variant="elevated" onPress={() => { }} />
+            <Button title="Tonal" variant="tonal" onPress={() => { }} />
           </View>
           <View style={rowStyle}>
-            <Button title="Outlined" variant="outlined" onPress={() => {}} />
-            <Button title="Text" variant="text" onPress={() => {}} />
+            <Button title="Outlined" variant="outlined" onPress={() => { }} />
+            <Button title="Text" variant="text" onPress={() => { }} />
           </View>
         </DemoSection>
 
@@ -105,13 +108,13 @@ export default function ButtonPage() {
           description="Five size options from extra small to extra large"
         >
           <View style={rowStyle}>
-            <Button title="XS" size="xs" variant="tonal" onPress={() => {}} />
-            <Button title="S (default)" size="s" variant="tonal" onPress={() => {}} />
-            <Button title="M" size="m" variant="tonal" onPress={() => {}} />
+            <Button title="XS" size="xs" variant="tonal" onPress={() => { }} />
+            <Button title="S (default)" size="s" variant="tonal" onPress={() => { }} />
+            <Button title="M" size="m" variant="tonal" onPress={() => { }} />
           </View>
           <View style={rowStyle}>
-            <Button title="Large" size="l" variant="tonal" onPress={() => {}} />
-            <Button title="Extra Large" size="xl" variant="tonal" onPress={() => {}} />
+            <Button title="Large" size="l" variant="tonal" onPress={() => { }} />
+            <Button title="Extra Large" size="xl" variant="tonal" onPress={() => { }} />
           </View>
         </DemoSection>
 
@@ -124,14 +127,14 @@ export default function ButtonPage() {
               title="Continue"
               icon={{ library: 'Feather', name: 'arrow-right' }}
               iconPosition="right"
-              onPress={() => {}}
+              onPress={() => { }}
             />
             <Button
               title="Back"
               icon={{ library: 'Feather', name: 'arrow-left' }}
               iconPosition="left"
               variant="outlined"
-              onPress={() => {}}
+              onPress={() => { }}
             />
           </View>
           <View style={rowStyle}>
@@ -140,14 +143,14 @@ export default function ButtonPage() {
               icon={{ library: 'Feather', name: 'settings' }}
               iconPosition="left"
               variant="tonal"
-              onPress={() => {}}
+              onPress={() => { }}
             />
             <Button
               title="Download"
               icon={{ library: 'Feather', name: 'download' }}
               iconPosition="right"
               variant="elevated"
-              onPress={() => {}}
+              onPress={() => { }}
             />
           </View>
         </DemoSection>
@@ -171,9 +174,9 @@ export default function ButtonPage() {
           description="Disabled buttons are non-interactive with reduced opacity"
         >
           <View style={rowStyle}>
-            <Button title="Disabled Filled" disabled onPress={() => {}} />
-            <Button title="Disabled Outlined" variant="outlined" disabled onPress={() => {}} />
-            <Button title="Disabled Tonal" variant="tonal" disabled onPress={() => {}} />
+            <Button title="Disabled Filled" disabled onPress={() => { }} />
+            <Button title="Disabled Outlined" variant="outlined" disabled onPress={() => { }} />
+            <Button title="Disabled Tonal" variant="tonal" disabled onPress={() => { }} />
           </View>
         </DemoSection>
 
@@ -183,5 +186,6 @@ export default function ButtonPage() {
         <PropsTable props={buttonProps} />
       </View>
     </Screen>
+    </>
   );
 }

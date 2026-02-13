@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Typography, ThemedView, Screen, useTheme } from 'zero-to-app';
+import { Typography, ThemedView, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -55,14 +55,17 @@ const typographyProps: PropDefinition[] = [
 export default function TypographyPage() {
   const { spacing } = useTheme();
 
+  const { open } = useSidebar();
   const rowStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.xxl };
 
   return (
-    <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
-        <View style={{ gap: spacing.xs }}>
-          <Typography variant="headlineMedium" weight="bold">
-            Typography
+    <>
+      <NativeHeader rightIcon="sidebar.right" onRightPress={open} />
+      <Screen scrollable variant="background" edges={['bottom']}>
+        <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
+          <View style={{ gap: spacing.xs }}>
+            <Typography variant="headlineMedium" weight="bold">
+              Typography
           </Typography>
           <Typography variant="bodyMedium" muted>
             Material Design 3 type scale with display, headline, title, body, and label variants.
@@ -153,5 +156,6 @@ export default function TypographyPage() {
         <PropsTable props={typographyProps} />
       </View>
     </Screen>
+    </>
   );
 }

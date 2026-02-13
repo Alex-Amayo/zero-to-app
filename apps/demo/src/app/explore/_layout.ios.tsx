@@ -1,25 +1,18 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Stack} from 'expo-router';
 import {usePathname, useRouter} from 'expo-router';
 import {
-    ThemedView,
+    useTheme,
     Sidebar,
     SidebarHeader,
     SidebarSection,
     SidebarItem,
-    NativeHeader,
-    useSidebar,
-    useDimensions,
-    breakpoints,
-    SidebarContextType,
 } from 'zero-to-app';
 
 export default function ExploreLayout() {
+    const theme = useTheme();
     const pathname = usePathname();
     const router = useRouter();
-    const {open} = useSidebar() as SidebarContextType;
-    const {width} = useDimensions();
-    const isDesktop = width >= breakpoints.large;
 
     const navigateTo = (route: string) => {
         router.push(route as any);
@@ -33,23 +26,14 @@ export default function ExploreLayout() {
         return currentPath === route || currentPath.startsWith(route + '/');
     };
 
-    const getTitle = (path: any): string => {
-        if (typeof path !== 'string') {
-            return 'Explore';
-        }
-        const segments = path.split('/').filter(Boolean);
-        const last = segments[segments.length - 1];
-        if (!last || last === 'explore') return 'Explore';
-        const title = last.charAt(0).toUpperCase() + last.slice(1);
-        return typeof title === 'string' ? title : 'Explore';
-    };
     return (
-        <View style={styles.container}>
+        <>
             <Sidebar
                 header={
                     <SidebarHeader
                         title="Components"
                         subtitle="Zero to App UI"
+                        onPress={() => navigateTo('/explore')}
                     />
                 }
             >
@@ -74,37 +58,31 @@ export default function ExploreLayout() {
                         active={isActive('/explore/screen')}
                         onPress={() => navigateTo('/explore/screen')}
                     />
+                    <SidebarItem
+                        label="Collapsible"
+                        active={isActive('/explore/collapsible')}
+                        onPress={() => navigateTo('/explore/collapsible')}
+                    />
                 </SidebarSection>
             </Sidebar>
-            <ThemedView
-                variant="background"
-                style={[
-                    styles.content,
-                    isDesktop && styles.contentWithSidebar,
-                ]}
+
+            <Stack
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: theme.tokens.appbar.background,
+                    },
+                    headerTintColor: theme.onSurface,
+                    headerBackVisible: true,
+                    headerBackButtonDisplayMode: 'minimal',
+                }}
             >
-                <NativeHeader
-                    title={getTitle(pathname)}
-                    headerShown={!isDesktop}
-                    headerBackVisible={false}
-                    trailing={[
-                        {icon: 'sidebar.right', onPress: open},
-                    ]}
-                />
-            </ThemedView>
-        </View>
+                <Stack.Screen name="index" options={{title: 'Explore'}} />
+                <Stack.Screen name="button" options={{title: 'Button'}} />
+                <Stack.Screen name="typography" options={{title: 'Typography'}} />
+                <Stack.Screen name="themed-view" options={{title: 'Themed View'}} />
+                <Stack.Screen name="screen" options={{title: 'Screen'}} />
+                <Stack.Screen name="collapsible" options={{title: 'Collapsible'}} />
+            </Stack>
+            </>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-    content: {
-        flex: 1,
-    },
-    contentWithSidebar: {
-        marginLeft: 280,
-    },
-});

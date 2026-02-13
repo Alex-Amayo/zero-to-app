@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Typography, ThemedView, Screen, useTheme} from 'zero-to-app';
+import {Typography, ThemedView, Screen, useTheme, NativeHeader, useSidebar} from 'zero-to-app';
 import {DemoSection} from '../../components/demo-section';
 import {PropsTable, type PropDefinition} from '../../components/props-table';
 
@@ -54,14 +54,17 @@ const screenProps: PropDefinition[] = [
 export default function ScreenPage() {
     const {spacing} = useTheme();
 
+    const {open} = useSidebar();
     const rowStyle = {flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.md};
 
     return (
-        <Screen scrollable variant="background" edges={['bottom']}>
-            <View style={{paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl}}>
-                <View style={{gap: spacing.xs}}>
-                    <Typography variant="headlineMedium" weight="bold">
-                        Screen
+        <>
+            <NativeHeader rightIcon="sidebar.right" onRightPress={open} />
+            <Screen scrollable variant="background" edges={['bottom']}>
+                <View style={{paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl}}>
+                    <View style={{gap: spacing.xs}}>
+                        <Typography variant="headlineMedium" weight="bold">
+                            Screen
                     </Typography>
                     <Typography variant="bodyMedium" muted>
                         Screen wrapper component providing consistent layout with safe areas, themed backgrounds, and
@@ -230,5 +233,6 @@ export default function ScreenPage() {
                 <PropsTable props={screenProps}/>
             </View>
         </Screen>
+        </>
     );
 }

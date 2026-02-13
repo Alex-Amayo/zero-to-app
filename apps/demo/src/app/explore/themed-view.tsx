@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Typography, ThemedView, useTheme, Screen } from 'zero-to-app';
+import { Typography, ThemedView, useTheme, Screen, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
@@ -48,14 +48,17 @@ export default function ThemedViewPage() {
   const theme = useTheme();
   const { spacing } = theme;
 
+  const { open } = useSidebar();
   const rowStyle = { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: spacing.md };
 
   return (
-    <Screen scrollable variant="background" edges={['bottom']}>
-      <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
-        <View style={{ gap: spacing.xs }}>
-          <Typography variant="headlineMedium" weight="bold">
-            ThemedView
+    <>
+      <NativeHeader rightIcon="sidebar.right" onRightPress={open} />
+      <Screen scrollable variant="background" edges={['bottom']}>
+        <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
+          <View style={{ gap: spacing.xs }}>
+            <Typography variant="headlineMedium" weight="bold">
+              ThemedView
           </Typography>
           <Typography variant="bodyMedium" muted>
             Theme-aware View component with semantic background variants for consistent styling.
@@ -171,5 +174,6 @@ export default function ThemedViewPage() {
         <PropsTable props={themedViewProps} />
       </View>
     </Screen>
+    </>
   );
 }

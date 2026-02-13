@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
-import { StyleSheet, Text, TextStyle, type TextProps as RNTextProps } from 'react-native';
+import { StyleSheet, Text, type TextStyle, type StyleProp, type TextProps as RNTextProps } from 'react-native';
 import { useTheme } from '../../theme';
 
 /**
@@ -120,7 +120,7 @@ export interface TypographyProps extends Omit<RNTextProps, 'style'> {
    */
   muted?: boolean;
   /** Additional text styles to merge */
-  style?: TextStyle;
+  style?: StyleProp<TextStyle>;
 }
 
 /**
@@ -194,7 +194,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
         lineHeight,
         textAlign: align,
         color: textColor,
-        ...style,
+        ...(style ? StyleSheet.flatten(style) : undefined),
       };
     }, [variant, weight, align, color, muted, theme, style]);
 

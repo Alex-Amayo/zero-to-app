@@ -1,17 +1,11 @@
 import React from 'react';
-import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
-import { ThemedView } from './themed-view';
+import { StyleSheet } from 'react-native';
+import { ThemedView, type ThemedViewProps } from './themed-view';
 import { useTheme } from '../../theme';
 
-export interface ContainerProps {
-  /** Content to render within the container */
-  children: React.ReactNode;
+export interface ContainerProps extends ThemedViewProps {
   /** Maximum width in pixels. @default 1000 */
   maxWidth?: number;
-  /** Additional styles to apply */
-  style?: StyleProp<ViewStyle>;
-  /** Test ID for testing */
-  testID?: string;
 }
 
 /**
@@ -41,13 +35,12 @@ export const Container: React.FC<ContainerProps> = ({
   children,
   maxWidth = 1000,
   style,
-  testID,
+  ...rest
 }) => {
   const theme = useTheme();
 
   return (
     <ThemedView
-      testID={testID}
       style={[
         styles.container,
         {
@@ -56,6 +49,7 @@ export const Container: React.FC<ContainerProps> = ({
         },
         style,
       ]}
+      {...rest}
     >
       {children}
     </ThemedView>

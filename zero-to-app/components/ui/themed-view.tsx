@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, type ViewProps, type ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import { View, Platform, StyleSheet, type ViewProps, type ViewStyle, type LayoutChangeEvent } from 'react-native';
 import { useTheme } from '../../theme';
 import { useDimensions, breakpoints } from '../../hooks';
 
@@ -18,10 +18,11 @@ export interface ThemedViewProps extends ViewProps {
   gap?: number;
 }
 
-export const ThemedView = ({ variant = 'surface', color, rounded = true, columns, gap, style, children, ...rest }: ThemedViewProps) => {
+export const ThemedView = ({ variant = 'surface', color, rounded = true, columns, gap, style, children, onLayout, ...rest }: ThemedViewProps) => {
   const theme = useTheme();
   const { width } = useDimensions();
   const isMid = width >= breakpoints.medium;
+  const [containerWidth, setContainerWidth] = useState(0);
 
   const variantMap: Record<ThemedViewVariant, string> = {
     surface: theme.surface,
@@ -42,42 +43,61 @@ export const ThemedView = ({ variant = 'surface', color, rounded = true, columns
 
   // Handle responsive grid layout
   if (columns && columns > 1) {
+    // Resolve gap from prop, falling back to gap in style
+    const flatStyle = style ? StyleSheet.flatten(style) : undefined;
+    const effectiveGap = gap ?? (flatStyle as any)?.gap ?? 0;
+    const gapOffset = effectiveGap * (columns - 1) / columns;
+
     const containerStyle: ViewStyle = {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap,
+      gap: effectiveGap,
+    };
+
+    const handleLayout = (e: LayoutChangeEvent) => {
+      setContainerWidth(e.nativeEvent.layout.width);
+      onLayout?.(e);
     };
 
     const responsiveChildren = React.Children.map(children, (child) => {
-      if (React.isValidElement(child)) {
-        const gapOffset = gap ? (gap * (columns - 1)) / columns : 0;
-        // On medium+: use flexBasis to set column width, on small: full width
-        const itemStyle = isMid
-          ? {
-              flexBasis: `calc(${100 / columns}% - ${gapOffset}px)`,
-              flexGrow: 0,
-              flexShrink: 0,
-              maxWidth: `calc(${100 / columns}% - ${gapOffset}px)`,
-            }
-          : {
-              width: '100%',
-            };
-        return React.cloneElement(child as React.ReactElement<any>, {
-          style: [(child as React.ReactElement<any>).props.style, itemStyle],
-        });
+      if (!React.isValidElement(child)) return child;
+
+      let itemStyle: ViewStyle;
+
+      if (!isMid) {
+        // Small screens: single column
+        itemStyle = { width: '100%' };
+      } else if (Platform.OS === 'web') {
+        // Web: use calc() for precise sizing
+        itemStyle = {
+          flexBasis: `calc(${100 / columns}% - ${gapOffset}px)` as any,
+          flexGrow: 0,
+          flexShrink: 0,
+          maxWidth: `calc(${100 / columns}% - ${gapOffset}px)` as any,
+        };
+      } else if (containerWidth > 0) {
+        // Native: use measured width for pixel-perfect sizing
+        const itemWidth = (containerWidth - effectiveGap * (columns - 1)) / columns;
+        itemStyle = { width: itemWidth, flexGrow: 0, flexShrink: 0 };
+      } else {
+        // Native fallback before layout measurement
+        itemStyle = { flexBasis: `${Math.floor(100 / columns)}%`, flexShrink: 1 };
       }
-      return child;
+
+      return React.cloneElement(child as React.ReactElement<any>, {
+        style: [(child as React.ReactElement<any>).props.style, itemStyle],
+      });
     });
 
     return (
-      <View style={[viewStyle, containerStyle, style]} {...rest}>
+      <View style={[viewStyle, containerStyle, style]} onLayout={handleLayout} {...rest}>
         {responsiveChildren}
       </View>
     );
   }
 
   return (
-    <View style={[viewStyle, style]} {...rest}>
+    <View style={[viewStyle, style]} onLayout={onLayout} {...rest}>
       {children}
     </View>
   );

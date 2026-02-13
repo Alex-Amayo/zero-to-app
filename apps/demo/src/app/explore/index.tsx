@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Typography, ThemedView, Button, Screen, useTheme, Container, NativeHeader, useSidebar } from 'zero-to-app';
 
@@ -41,14 +41,17 @@ export default function ExploreIndex() {
   return (
     <>
       <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
-      <Screen scrollable variant="background" edges={['bottom']}>
-          <Container style={{ gap: spacing.xl, paddingTop: spacing.xl }}>
+      <Screen scrollable variant="background" edges={['bottom']} contentContainerStyle={{ paddingTop: spacing.xxxl }}>
+        <Container style={{ gap: spacing.xxl }}>
+          <ThemedView style={{ gap: spacing.xl }}>
             <Typography variant="headlineMedium" weight="bold">
               Explore Components
             </Typography>
             <Typography variant="bodyMedium" muted>
               Browse the component demos to see the theming system in action and view usage examples.
             </Typography>
+          </ThemedView>
+          <ThemedView columns={3} gap={spacing.lg}>
             {components.map((component) => (
               <ThemedView
                 key={component.name}
@@ -73,7 +76,8 @@ export default function ExploreIndex() {
                 />
               </ThemedView>
             ))}
-          </Container>
+          </ThemedView>
+        </Container>
       </Screen>
     </>
   );

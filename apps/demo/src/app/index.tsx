@@ -1,6 +1,6 @@
 import { useTheme, Screen, Container, ThemedView, Typography, Button } from 'zero-to-app';
 import { router } from "expo-router";
-import { Image, StyleSheet } from "react-native";
+import { Image, Platform, StyleSheet } from "react-native";
 
 const FEATURES = [
   {
@@ -8,12 +8,12 @@ const FEATURES = [
     description: 'Single codebase with full support for iOS, Android, and web.',
   },
   {
-    title: 'Native Components',
-    description: 'Use SwiftUI and Jetpack Compose when needed for performance and deep platform integration.',
-  },
-  {
     title: 'Material Design 3',
     description: 'Build polished, accessible interfaces with Google’s open source design system.',
+  },
+  {
+    title: 'Native Components',
+    description: 'Use SwiftUI and Jetpack Compose when needed for performance and deep platform integration.',
   },
   {
     title: 'Claude Skills',
@@ -30,28 +30,28 @@ export default function HomeScreen() {
     <Screen
       scrollable
       variant="background"
-      edges={['top','bottom' ]}
+      edges={['top', 'bottom']}
+      contentContainerStyle={{ gap: spacing.xxl, justifyContent: Platform.OS === 'web' ? 'center' : 'flex-start' }}
     >
-      {/* Hero Section */}
-      <Container style={{ alignItems: 'center', gap: spacing.xxl}}>
-        <Image
-          source={require('../../assets/images/rocket.png')}
-          style={styles.rocketImage}
-          resizeMode="contain"
-        />
-        <ThemedView style={{ alignItems: 'center', gap: spacing.md }}>
-          <Typography variant="displayLarge" weight="bold">
-            Zero To App
-          </Typography>
-          <Typography variant="headlineSmall" align="center" color={theme.onSurfaceVariant}>
-            A React Native component library
-          </Typography>
+      <Container style={{ gap: spacing.xxl, paddingVertical: spacing.xxl }}>
+        {/* Hero Section */}
+        <ThemedView style={{ alignItems: 'center', gap: spacing.xxl }}>
+          <Image
+            source={require('../../assets/images/rocket.png')}
+            style={styles.rocketImage}
+            resizeMode="contain"
+          />
+          <ThemedView style={{ alignItems: 'center', gap: spacing.md }}>
+            <Typography variant="displayLarge" weight="bold">
+              Zero To App
+            </Typography>
+            <Typography variant="headlineSmall" align="center" color={theme.onSurfaceVariant}>
+              A React Native component library
+            </Typography>
+          </ThemedView>
         </ThemedView>
 
-      </Container>
-
-      {/* Features Grid */}
-      <Container style={{ marginTop: spacing.xxxl }}>
+        {/* Features Grid */}
         <ThemedView columns={2} gap={spacing.lg}>
           {FEATURES.map((feature, index) => (
             <ThemedView
@@ -71,21 +71,15 @@ export default function HomeScreen() {
             </ThemedView>
           ))}
         </ThemedView>
-      </Container>
 
-      {/* CTA Section */}
-      <Container style={{ alignItems: 'center', gap: spacing.lg, marginTop: spacing.xxxl }}>
-        <Typography variant="headlineMedium" align="center" weight="bold">
-          Ready to launch?
-        </Typography>
-        <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
-          Explore our component library and start building today
-        </Typography>
-        <Button
-          title="View Components"
-          variant="filled"
-          onPress={() => router.push('/explore')}
-        />
+        {/* CTA Section */}
+        <ThemedView style={{ alignItems: 'center', gap: spacing.lg }}>
+          <Button
+            title="Get Started"
+            variant="filled"
+            onPress={() => router.push('/explore')}
+          />
+        </ThemedView>
       </Container>
     </Screen>
   );

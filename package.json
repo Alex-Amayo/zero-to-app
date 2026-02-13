@@ -19,7 +19,7 @@
     "deploy:demo": "pnpm --filter zero-to-app build && pnpm --filter demo publish",
     "deploy:demo:preview": "pnpm --filter zero-to-app build && pnpm --filter demo publish:preview",
     "release": "pnpm run build && pnpm --filter zero-to-app publish --access public --no-git-checks",
-    "lint": "pnpm --filter demo lint",
+    "lint": "pnpm --filter demo lint && pnpm typecheck",
     "lint:fix": "pnpm --filter demo lint -- --fix",
     "typecheck": "pnpm -r exec tsc --noEmit",
     "clean": "rm -rf zero-to-app/dist apps/*/dist apps/*/.expo",
@@ -40,7 +40,7 @@
   },
   "lint-staged": {
     "apps/demo/**/*.{ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix --config apps/demo/eslint.config.js"
     ],
     "*.{ts,tsx}": [
       "bash -c 'pnpm typecheck'"

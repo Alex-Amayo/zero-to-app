@@ -1,44 +1,41 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View } from 'react-native';
-import { ThemeContext, BrandProvider, createLightTheme, createDarkTheme } from 'zero-to-app';
+import { Platform, View } from 'react-native';
+import { ThemeContext, BrandProvider, createLightTheme, createDarkTheme, type ThemeContextType, type ThemeMode } from 'zero-to-app';
 import { storybookBrand } from './brand-config';
-import type { StoryContext } from '@storybook/react-native';
 
 // Wrapper component that manages theme based on Storybook globals
-const ThemeWrapper = ({ 
-  Story, 
-  theme 
-}: { 
+const ThemeWrapper = ({
+  Story,
+  theme
+}: {
   Story: React.ComponentType;
-  theme: 'light' | 'dark';
+  theme: ThemeMode;
 }) => {
   const lightTheme = useMemo(() => createLightTheme(storybookBrand), []);
   const darkTheme = useMemo(() => createDarkTheme(storybookBrand), []);
-  const [themeValues, setThemeValues] = useState(lightTheme);
+  const [mode, setMode] = useState<ThemeMode>(theme);
+  const themeValues = mode === 'dark' ? darkTheme : lightTheme;
 
-  // Update theme when global value changes
+  // Update mode when Storybook global changes
   useEffect(() => {
-    setThemeValues(theme === 'dark' ? darkTheme : lightTheme);
-  }, [theme, darkTheme, lightTheme]);
+    setMode(theme);
+  }, [theme]);
 
-  // Create theme context value with toggle function
-  const themeContextValue = useMemo(() => ({
+  // Create theme context value matching ThemeContextType
+  const themeContextValue = useMemo<ThemeContextType>(() => ({
     values: themeValues,
-    toggleTheme: () => {
-      // Toggle between light and dark
-      setThemeValues((current) => 
-        current === lightTheme ? darkTheme : lightTheme
-      );
-    },
-  }), [themeValues, darkTheme, lightTheme]);
+    mode,
+    setMode,
+    toggleTheme: () => setMode((m) => (m === 'light' ? 'dark' : 'light')),
+  }), [themeValues, mode]);
 
   return (
     <BrandProvider brand={storybookBrand}>
       <ThemeContext.Provider value={themeContextValue}>
-        <View style={{ 
-          flex: 1, 
+        <View style={{
+          flex: 1,
           backgroundColor: themeValues.surface,
-          minHeight: '100vh',
+          ...(Platform.OS === 'web' ? { minHeight: '100vh' as any } : {}),
         }}>
           <Story />
         </View>
@@ -47,10 +44,10 @@ const ThemeWrapper = ({
   );
 };
 
-export const withZeroToApp = (Story: React.ComponentType, context: StoryContext) => {
+export const withZeroToApp = (Story: React.ComponentType, context: { globals?: Record<string, unknown> }) => {
   // Get theme from Storybook globals, default to 'light'
-  const theme = (context.globals?.theme as 'light' | 'dark') || 'light';
-  
+  const theme = (context.globals?.theme as ThemeMode) || 'light';
+
   return (
     <ThemeWrapper Story={Story} theme={theme} />
   );

@@ -16,7 +16,7 @@ pnpm release             # Publish to npm
 ```
 
 ### When to Use What
-- **Storybook:** Isolated UI (Button, Typography, Card, Input)
+- **Storybook:** Isolated UI (Button, Typography, Card, Input, FAB, Collapsible)
 - **Demo App:** Navigation, expo-router components, native features
 
 ---
@@ -30,6 +30,9 @@ zero-to-app/
 │   ├── components/navigation/  # Nav components
 │   ├── theme/             # Theme system
 │   ├── hooks/             # Custom hooks
+│   ├── context/           # Context providers (sidebar, layout, scroll)
+│   ├── brand/             # Brand configuration
+│   ├── icons/             # Icon rendering
 │   └── index.ts           # Public exports
 ├── apps/storybook/        # Component stories
 └── apps/demo/             # Demo app
@@ -69,51 +72,6 @@ export const MyComponent = ({ title, size = 'medium' }: MyComponentProps) => {
 
 ---
 
-## Theme System
-
-### Two-Layer Tokens
-1. **Palette:** `primary`, `onPrimary`, `surface`, `onSurface`
-2. **Semantic:** `tokens.button.filledBg`, `tokens.card.background`
-
-### Usage
-```tsx
-const theme = useTheme();
-
-// Prefer semantic tokens
-const bg = theme.tokens.button.filledBg;
-
-// Fallback to palette
-const text = theme.onSurface;
-
-// Layout values
-const padding = theme.spacing.lg;
-const radius = theme.borderRadius;
-```
-
-### Adding Tokens
-1. Add to `ThemeValuesType` in `theme/theme-config.ts`
-2. Populate in `createLightTheme()` and `createDarkTheme()`
-
----
-
-## Responsive Hooks
-
-```tsx
-// Boolean flags (preferred)
-const { isDesktop, isMobile } = useResponsive();
-
-// Responsive values
-const padding = useResponsiveValue({ small: 16, large: 32 });
-
-// Single breakpoint check
-const isLarge = useBreakpoint('large');
-
-// Raw dimensions (when needed)
-const { width, height, breakpoint } = useDimensions();
-```
-
----
-
 ## Key Files
 
 | Purpose | Path |
@@ -122,7 +80,16 @@ const { width, height, breakpoint } = useDimensions();
 | Theme config | `zero-to-app/theme/theme-config.ts` |
 | Brand creation | `zero-to-app/brand/brand-config.ts` |
 | UI components | `zero-to-app/components/ui/` |
+| Nav components | `zero-to-app/components/navigation/` |
 | Hooks | `zero-to-app/hooks/` |
+| Contexts | `zero-to-app/context/` |
+
+---
+
+## Adding Theme Tokens
+
+1. Add to `ThemeValuesType` in `theme/theme-config.ts`
+2. Populate in `createLightTheme()` and `createDarkTheme()`
 
 ---
 

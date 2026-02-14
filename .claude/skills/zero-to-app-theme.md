@@ -1,3 +1,7 @@
+---
+description: Use when working with zero-to-app theming, design tokens, colors, spacing, or responsive hooks
+---
+
 # zero-to-app Theme System
 
 **Context:** Assisting users with `zero-to-app` theming, tokens, and responsive hooks.

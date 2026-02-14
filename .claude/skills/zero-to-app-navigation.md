@@ -1,3 +1,7 @@
+---
+description: Use when working with zero-to-app navigation components like AppBar, Sidebar, Tabs, or expo-router layouts
+---
+
 # zero-to-app Navigation
 
 **Context:** Assisting users with `zero-to-app` navigation components (requires expo-router).

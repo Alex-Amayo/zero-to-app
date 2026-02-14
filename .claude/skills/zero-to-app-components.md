@@ -1,3 +1,7 @@
+---
+description: Use when working with zero-to-app UI components like Button, Typography, ThemedView, Collapsible, etc.
+---
+
 # zero-to-app Components
 
 **Context:** Assisting users with `zero-to-app` UI components.

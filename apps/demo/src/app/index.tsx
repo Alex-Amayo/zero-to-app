@@ -1,4 +1,4 @@
-import { useTheme, Screen, Container, ThemedView, Typography, Button } from 'zero-to-app';
+import { useTheme, Screen, Container, ThemedView, Typography, Button, Collapsible } from 'zero-to-app';
 import { router } from "expo-router";
 import { Image, Platform, StyleSheet } from "react-native";
 
@@ -51,24 +51,14 @@ export default function HomeScreen() {
           </ThemedView>
         </ThemedView>
 
-        {/* Features Grid */}
-        <ThemedView columns={2} gap={spacing.lg}>
+        {/* Features */}
+        <ThemedView style={{ gap: spacing.md }}>
           {FEATURES.map((feature, index) => (
-            <ThemedView
-              key={index}
-              variant="card"
-              style={{
-                padding: spacing.xl,
-                gap: spacing.sm,
-              }}
-            >
-              <Typography variant="titleLarge" weight="bold">
-                {feature.title}
-              </Typography>
+            <Collapsible key={index} title={feature.title}>
               <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
                 {feature.description}
               </Typography>
-            </ThemedView>
+            </Collapsible>
           ))}
         </ThemedView>
 
@@ -77,6 +67,7 @@ export default function HomeScreen() {
           <Button
             title="Get Started"
             variant="filled"
+            icon={{ name: 'arrow-right' }}
             onPress={() => router.push('/explore')}
           />
         </ThemedView>

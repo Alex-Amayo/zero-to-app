@@ -1,3 +1,7 @@
+---
+description: Use when developing, building, or testing components for the zero-to-app library
+---
+
 # zero-to-app Development Guide
 
 **Context:** Assisting with development of the `zero-to-app` component library.

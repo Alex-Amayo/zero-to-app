@@ -1,3 +1,7 @@
+---
+description: Use when setting up zero-to-app in a new or existing React Native/Expo project
+---
+
 # zero-to-app Setup Guide
 
 **Context:** Assisting users setting up `zero-to-app` in React Native/Expo projects.

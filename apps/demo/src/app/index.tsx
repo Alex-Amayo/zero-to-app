@@ -1,26 +1,29 @@
-import { useTheme, Screen, Container, ThemedView, Typography, Button, Collapsible } from 'zero-to-app';
+import { useTheme, Screen, Container, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
 import { router } from "expo-router";
-import { Image, Platform, StyleSheet } from "react-native";
+import { Image, ImageBackground, StyleSheet, View } from "react-native";
 
 const FEATURES = [
   {
     title: 'iOS, Android, and Web',
-    description: 'Single codebase with full support for iOS, Android, and web.',
+    icon: { name: 'smartphone', library: 'Feather' as const },
+    description: 'Single codebase with full support for iOS, Android, and web platforms.',
   },
   {
     title: 'Material Design 3',
-    description: 'Build polished, accessible interfaces with Google’s open source design system.',
+    icon: { name: 'layers', library: 'Feather' as const },
+    description: 'Build polished, accessible interfaces with Google\'s open source design system.',
   },
   {
     title: 'Native Components',
+    icon: { name: 'cpu', library: 'Feather' as const },
     description: 'Use SwiftUI and Jetpack Compose when needed for performance and deep platform integration.',
   },
   {
     title: 'Claude Skills',
+    icon: { name: 'zap', library: 'Feather' as const },
     description: 'Accelerate development with AI powered skills that use primitives and design tokens to generate components, screens, and flows.',
   },
 ];
-
 
 export default function HomeScreen() {
   const theme = useTheme();
@@ -30,46 +33,82 @@ export default function HomeScreen() {
     <Screen
       scrollable
       variant="background"
-      edges={['top', 'bottom']}
-      contentContainerStyle={{ gap: spacing.xxl, justifyContent: Platform.OS === 'web' ? 'center' : 'flex-start' }}
+      edges={['bottom']}
     >
-      <Container style={{ gap: spacing.xxl }}>
-        {/* Hero Section */}
-        <ThemedView style={{ alignItems: 'center', gap: spacing.xxl }}>
+      {/* Head Section — Image Background with Title + Rocket */}
+      <ImageBackground
+        source={require('../../assets/images/stars_background.png')}
+        resizeMode="cover"
+        style={styles.headerBackground}
+        imageStyle={styles.headerImage}
+      >
+        <View style={{ alignItems: 'center', gap: spacing.lg, paddingVertical: spacing.xxl }}>
           <Image
             source={require('../../assets/images/rocket.png')}
             style={styles.rocketImage}
             resizeMode="contain"
           />
-          <ThemedView style={{ alignItems: 'center', gap: spacing.md }}>
-            <Typography variant="displayLarge" weight="bold">
+          <View style={{ alignItems: 'center', gap: spacing.md }}>
+            <Typography variant="displayLarge" weight="bold" color={"#FFFFFF"}>
               Zero To App
             </Typography>
-            <Typography variant="headlineSmall" align="center" color={theme.onSurfaceVariant}>
+            <Typography variant="headlineSmall" align="center" color={"#FFFFFF"}>
               A React Native component library
             </Typography>
-          </ThemedView>
-        </ThemedView>
-
-        {/* Features */}
-        <ThemedView style={{ gap: spacing.md }}>
-          {FEATURES.map((feature, index) => (
-            <Collapsible key={index} title={feature.title}>
-              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-                {feature.description}
-              </Typography>
-            </Collapsible>
-          ))}
-        </ThemedView>
-
-        {/* CTA Section */}
-        <ThemedView style={{ alignItems: 'center', gap: spacing.lg }}>
+          </View>
           <Button
             title="Get Started"
             variant="filled"
             icon={{ name: 'arrow-right' }}
             onPress={() => router.push('/explore')}
           />
+        </View>
+      </ImageBackground>
+
+      {/* Content Section — Two columns: Cards (left) + Info (right) */}
+      <Container style={{ gap: spacing.xxl, paddingVertical: spacing.xxl }}>
+        <ThemedView columns={2} gap={spacing.lg}>
+          {/* Left Column — Feature Cards */}
+          <ThemedView style={{ gap: spacing.md }}>
+            {FEATURES.map((feature, index) => (
+              <ThemedView
+                key={index}
+                variant="surfaceContainer"
+                style={[styles.card, { padding: spacing.lg, gap: spacing.sm, borderRadius: 16 }]}
+              >
+                <View style={[styles.iconCircle, { backgroundColor: theme.primaryContainer }]}>
+                  {renderIcon(feature.icon, 'Feather', 22, theme.onPrimaryContainer)}
+                </View>
+                <Typography variant="titleMedium" weight="bold">
+                  {feature.title}
+                </Typography>
+                <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
+                  {feature.description}
+                </Typography>
+              </ThemedView>
+            ))}
+          </ThemedView>
+
+          {/* Right Column — About Section */}
+          <ThemedView style={{ gap: spacing.lg }}>
+            <Typography variant="headlineMedium" weight="bold">
+              Build Apps Faster
+            </Typography>
+            <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+              Zero To App gives you a complete set of production-ready components built on Material Design 3.
+              From buttons and typography to navigation and layout, everything is designed to work seamlessly
+              across iOS, Android, and web.
+            </Typography>
+            <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+              Powered by Expo and React Native, the library includes a theming system with light and dark mode,
+              responsive breakpoints, and semantic design tokens — so you can focus on building your product
+              instead of reinventing the wheel.
+            </Typography>
+            <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+              Pair it with Claude Skills to accelerate your workflow. AI-powered code generation that understands
+              your design system and generates components, screens, and flows that match your app's look and feel.
+            </Typography>
+          </ThemedView>
         </ThemedView>
       </Container>
     </Screen>
@@ -77,8 +116,29 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  headerBackground: {
+    width: '100%',
+    overflow: 'hidden',
+  },
+  headerImage: {
+    resizeMode: 'cover',
+  },
   rocketImage: {
     width: 160,
     height: 160,
+  },
+  card: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  iconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

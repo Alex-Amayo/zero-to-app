@@ -51,10 +51,10 @@ export default function HomeScreen() {
             resizeMode="contain"
           />
           <View style={{ alignItems: 'center', gap: spacing.md }}>
-            <Typography variant="displayLarge" weight="bold">
+            <Typography variant="displayLarge" weight="bold" color={"white"}>
               Zero To App
             </Typography>
-            <Typography variant="headlineSmall" align="center">
+            <Typography variant="headlineSmall" align="center" color={"white"}>
               A React Native component library
             </Typography>
           </View>

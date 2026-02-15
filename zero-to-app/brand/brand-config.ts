@@ -29,7 +29,7 @@ export interface BrandConfig {
   darkColors?: Colors | { colorSeed: PaletteOptions };
   fontSizes: FontSizes;
   spacing: Spacing;
-  borderRadius: number;
+  borderRadius: BorderRadius;
   logo?: LogoConfig;
   footerLinks?: FooterLinks;
   navigation?: NavigationConfig;
@@ -56,7 +56,7 @@ function isColorSeed(colors: Colors | { colorSeed: PaletteOptions }): colors is 
  *   colors: { primary: '#ff0000', secondary: '#00ff00', ... },
  *   fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
  *   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
- *   borderRadius: 8,
+ *   borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
  * });
  *
  * @example
@@ -66,7 +66,7 @@ function isColorSeed(colors: Colors | { colorSeed: PaletteOptions }): colors is 
  *   colors: { colorSeed: { primary: '#6750A4' } },
  *   fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
  *   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
- *   borderRadius: 8,
+ *   borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
  * });
  */
 export const createBrand = (config: BrandConfig): Brand => {

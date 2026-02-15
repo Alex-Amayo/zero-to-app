@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: (args) => (
-    <ThemedView {...args} style={styles.box}>
+    <ThemedView {...args} rounded style={styles.box}>
       <Typography variant="titleMedium">ThemedView ({args.variant})</Typography>
     </ThemedView>
   ),
@@ -36,18 +36,18 @@ export const Playground: Story = {
 export const Variants: Story = {
   render: () => (
     <View style={styles.row}>
-      <ThemedView variant="surface" style={styles.gap}><Typography>Surface</Typography></ThemedView>
-      <ThemedView variant="surfaceContainer" style={styles.gap}><Typography>SurfaceContainer</Typography></ThemedView>
-      <ThemedView variant="card" style={styles.gap}><Typography>Card</Typography></ThemedView>
-      <ThemedView variant="appbar" style={styles.gap}><Typography>Appbar</Typography></ThemedView>
-      <ThemedView variant="primary" style={styles.gap}><Typography color='#FFFFFF'>Primary</Typography></ThemedView>
+      <ThemedView variant="surface" rounded style={styles.gap}><Typography>Surface</Typography></ThemedView>
+      <ThemedView variant="surfaceContainer" rounded style={styles.gap}><Typography>SurfaceContainer</Typography></ThemedView>
+      <ThemedView variant="card" rounded style={styles.gap}><Typography>Card</Typography></ThemedView>
+      <ThemedView variant="appbar" rounded style={styles.gap}><Typography>Appbar</Typography></ThemedView>
+      <ThemedView variant="primary" rounded style={styles.gap}><Typography color='#FFFFFF'>Primary</Typography></ThemedView>
     </View>
   ),
 };
 
 const styles = StyleSheet.create({
   container: { padding: 16, alignItems: 'center', justifyContent: 'center' },
-  box: { padding: 16, borderRadius: 8 },
+  box: { padding: 16 },
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' },
-  gap: { margin: 8, padding: 12, borderRadius: 8 },
+  gap: { margin: 8, padding: 12 },
 });

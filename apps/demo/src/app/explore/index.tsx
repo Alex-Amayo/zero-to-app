@@ -7,7 +7,17 @@ export default function ExploreIndex() {
   const router = useRouter();
   const { spacing } = useTheme();
 
-  const components = [
+  const pages = [
+    {
+      name: 'Tokens',
+      description: 'Design tokens reference: colors, spacing, border radius, typography, and component tokens',
+      route: '/explore/tokens',
+    },
+    {
+      name: 'Icons',
+      description: 'Icon system reference with 12 supported libraries, usage patterns, and icon gallery',
+      route: '/explore/icons',
+    },
     {
       name: 'Button',
       description: 'Material Design 3 buttons with 5 variants, sizes, icons, and loading states',
@@ -40,20 +50,20 @@ export default function ExploreIndex() {
   return (
     <>
       <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
-      <Screen scrollable variant="background" edges={['bottom']} contentContainerStyle={{ paddingTop: spacing.xxxl }}>
+      <Screen scrollable variant="background" edges={['bottom']} padded={false} contentContainerStyle={{ paddingTop: spacing.xxxl }}>
         <Container style={{ gap: spacing.xxl }}>
           <ThemedView style={{ gap: spacing.xl }}>
             <Typography variant="headlineMedium" weight="bold">
-              Explore Components
+              Explore Docs
             </Typography>
             <Typography variant="bodyMedium" muted>
-              Browse the component demos to see the theming system in action and view usage examples.
+              Browse foundation docs and component demos to see the theming system in action.
             </Typography>
           </ThemedView>
           <ThemedView columns={3} gap={spacing.lg}>
-            {components.map((component) => (
+            {pages.map((page) => (
               <ThemedView
-                key={component.name}
+                key={page.name}
                 variant="card"
                 style={{
                   padding: spacing.xl,
@@ -62,16 +72,16 @@ export default function ExploreIndex() {
                 }}
               >
                 <Typography variant="titleMedium" weight="medium">
-                  {component.name}
+                  {page.name}
                 </Typography>
                 <Typography variant="bodySmall" muted style={{ flex: 1 }}>
-                  {component.description}
+                  {page.description}
                 </Typography>
                 <Button
                   title="View"
                   variant="tonal"
                   size="xs"
-                  onPress={() => router.push(component.route as any)}
+                  onPress={() => router.push(page.route as any)}
                 />
               </ThemedView>
             ))}

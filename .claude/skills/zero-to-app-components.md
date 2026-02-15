@@ -95,13 +95,20 @@ Extends `ThemedView` — all `ThemedViewProps` are available.
 <Screen scrollable variant="background" edges={['top', 'bottom']}>
   {content}
 </Screen>
+
+{/* Full-bleed layout (no vertical padding) */}
+<Screen scrollable variant="background" padded={false}>
+  <ImageBackground>{hero}</ImageBackground>
+  <Container>{content}</Container>
+</Screen>
 ```
 
 **Props:**
 - `scrollable` — wraps in `ScrollView` (default `false`)
 - `variant` — `ThemedViewVariant` (default `'background'`)
 - `edges` — safe area edges (default `['bottom']`)
-- `contentContainerStyle` — styles for ScrollView content (when scrollable)
+- `padded` — applies default vertical padding from `theme.spacing.xxl` (default `true`). Set to `false` for full-bleed layouts (e.g. hero images)
+- `contentContainerStyle` — styles for ScrollView content (when scrollable). Applied after `padded`, so can override padding
 - `showsVerticalScrollIndicator` — default `true`
 
 ---

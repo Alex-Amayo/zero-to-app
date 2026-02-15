@@ -1,4 +1,5 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useTheme } from "zero-to-app";
 
 interface MyButtonProps {
   onPress: () => void;
@@ -6,8 +7,9 @@ interface MyButtonProps {
 }
 
 export const MyButton = ({ onPress, text }: MyButtonProps) => {
+  const theme = useTheme();
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={[styles.container, { borderRadius: theme.borderRadius.sm }]} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
@@ -19,7 +21,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: "purple",
     alignSelf: "flex-start",
-    borderRadius: 8,
   },
   text: { color: "white", fontSize: 16, fontWeight: "bold" },
 });

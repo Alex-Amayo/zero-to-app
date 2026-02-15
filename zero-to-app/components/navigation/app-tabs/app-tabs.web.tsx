@@ -110,7 +110,7 @@ export default function AppTabs({
         </CustomTabList>
       </TabList>
 
-      <TabSlot style={{ height: '100%' }} />
+      <TabSlot style={{ flex: 1, overflow: 'hidden' }} />
 
       {isMobile && (
         <Drawer
@@ -252,7 +252,7 @@ function CustomTabList({
             onPress={onMenuPress}
             style={({ pressed }: any) => [
               styles.iconButton,
-              { padding: spacing.sm, borderRadius: theme.borderRadius },
+              { padding: spacing.sm, borderRadius: theme.borderRadius.sm },
               pressed && { opacity: 0.7 },
             ]}>
             {renderIcon({ library: 'Feather', name: 'menu' }, 'Feather', 24, theme.onSurface)}
@@ -274,7 +274,7 @@ function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink &
       <Pressable
         style={({ pressed, hovered }: any) => [
           styles.tabButton,
-          { paddingHorizontal: spacing.lg, height, justifyContent: 'center', borderRadius: theme.borderRadius },
+          { paddingHorizontal: spacing.lg, height, justifyContent: 'center', borderRadius: theme.borderRadius.sm },
           pressed && { opacity: 0.7 },
           hovered && { backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)' },
         ]}>

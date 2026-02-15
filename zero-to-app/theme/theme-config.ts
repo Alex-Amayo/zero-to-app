@@ -35,7 +35,7 @@ export interface ThemeValuesType {
   scrim: string;
   shadow: string;
   spacing: import('../brand').Spacing;
-  borderRadius: number;
+  borderRadius: import('../brand').BorderRadius;
   isDark: boolean;
   // Semantic tokens for common component use
   tokens: {

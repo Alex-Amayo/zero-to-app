@@ -52,7 +52,7 @@ export const BrandProvider = ({ brand, children }: BrandProviderProps) => {
  *     <View style={{
  *       backgroundColor: colors.primaryContainer,
  *       padding: theme.spacing.lg,
- *       borderRadius: theme.borderRadius,
+ *       borderRadius: theme.borderRadius.sm,
  *     }}>
  *       <Text style={{ color: colors.onPrimaryContainer }}>
  *         Brand colored content
@@ -75,7 +75,7 @@ export const useBrandConfig = (): Brand => {
         '    colors: { colorSeed: { primary: "#6750A4" } },\n' +
         '    fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },\n' +
         '    spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },\n' +
-        '    borderRadius: 8,\n' +
+        '    borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },\n' +
         '  });\n\n' +
         '  function App() {\n' +
         '    return (\n' +

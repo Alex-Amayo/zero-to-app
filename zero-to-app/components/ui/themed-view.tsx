@@ -38,7 +38,7 @@ export const ThemedView = ({ variant = 'surface', color, rounded = true, columns
 
   const viewStyle: ViewStyle[] = [
     { backgroundColor },
-    ...(rounded ? [{ borderRadius: theme.borderRadius }] : []),
+    ...(rounded ? [{ borderRadius: theme.borderRadius.sm }] : []),
   ];
 
   // Handle responsive grid layout

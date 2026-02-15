@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Typography } from 'zero-to-app';
+import { Typography, ThemedView } from 'zero-to-app';
 
 /**
  * Typography (Material 3)
@@ -216,7 +216,7 @@ export const RealWorldExamples: Story = {
       </View>
 
       {/* Card Example */}
-      <View style={styles.card}>
+      <ThemedView rounded style={styles.card}>
         <Typography variant="titleMedium" weight="medium">Featured Article</Typography>
         <Typography variant="bodyMedium" style={styles.cardText} numberOfLines={2}>
           Discover how Material Design 3 brings dynamic color, improved accessibility, and refined components to your apps.
@@ -224,7 +224,7 @@ export const RealWorldExamples: Story = {
         <Typography variant="labelLarge" color="#6750A4" uppercase weight="medium">
           Read More
         </Typography>
-      </View>
+      </ThemedView>
 
       {/* List Example */}
       <View style={styles.section}>
@@ -268,9 +268,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    backgroundColor: '#F5F5F5',
     padding: 16,
-    borderRadius: 12,
     gap: 8,
     marginBottom: 16,
   },

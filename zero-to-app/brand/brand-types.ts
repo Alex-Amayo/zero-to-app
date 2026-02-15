@@ -2,7 +2,14 @@
 import { ImageSourcePropType } from 'react-native';
 
 export type Name = string;
-export type BorderRadius = number;
+export interface BorderRadius {
+  xs: number;   // 4  — chips, small badges
+  sm: number;   // 8  — buttons, inputs, tabs
+  md: number;   // 12 — collapsible, small FAB
+  lg: number;   // 16 — cards, medium FAB
+  xl: number;   // 28 — large FAB, sheets
+  full: number; // 9999 — pills, circles
+}
 
 /**
  * Material Design 3 color tokens - 26 core tokens

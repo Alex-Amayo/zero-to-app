@@ -1,6 +1,7 @@
 import { useTheme, Screen, Container, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
 import { router } from "expo-router";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const FEATURES = [
   {
@@ -34,6 +35,7 @@ export default function HomeScreen() {
       scrollable
       variant="background"
       edges={['bottom']}
+      padded={false}
     >
       {/* Head Section — Image Background with Title + Rocket */}
       <ImageBackground
@@ -42,17 +44,17 @@ export default function HomeScreen() {
         style={styles.headerBackground}
         imageStyle={styles.headerImage}
       >
-        <View style={{ alignItems: 'center', gap: spacing.lg, paddingVertical: spacing.xxl }}>
+        <SafeAreaView style={{ alignItems: 'center', gap: spacing.lg, paddingVertical: spacing.xxl }}>
           <Image
             source={require('../../assets/images/rocket.png')}
             style={styles.rocketImage}
             resizeMode="contain"
           />
           <View style={{ alignItems: 'center', gap: spacing.md }}>
-            <Typography variant="displayLarge" weight="bold" color={"#FFFFFF"}>
+            <Typography variant="displayLarge" weight="bold">
               Zero To App
             </Typography>
-            <Typography variant="headlineSmall" align="center" color={"#FFFFFF"}>
+            <Typography variant="headlineSmall" align="center">
               A React Native component library
             </Typography>
           </View>
@@ -62,34 +64,13 @@ export default function HomeScreen() {
             icon={{ name: 'arrow-right' }}
             onPress={() => router.push('/explore')}
           />
-        </View>
+        </SafeAreaView>
       </ImageBackground>
 
       {/* Content Section — Two columns: Cards (left) + Info (right) */}
       <Container style={{ gap: spacing.xxl, paddingVertical: spacing.xxl }}>
         <ThemedView columns={2} gap={spacing.lg}>
-          {/* Left Column — Feature Cards */}
-          <ThemedView style={{ gap: spacing.md }}>
-            {FEATURES.map((feature, index) => (
-              <ThemedView
-                key={index}
-                variant="surfaceContainer"
-                style={[styles.card, { padding: spacing.lg, gap: spacing.sm, borderRadius: 16 }]}
-              >
-                <View style={[styles.iconCircle, { backgroundColor: theme.primaryContainer }]}>
-                  {renderIcon(feature.icon, 'Feather', 22, theme.onPrimaryContainer)}
-                </View>
-                <Typography variant="titleMedium" weight="bold">
-                  {feature.title}
-                </Typography>
-                <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
-                  {feature.description}
-                </Typography>
-              </ThemedView>
-            ))}
-          </ThemedView>
-
-          {/* Right Column — About Section */}
+          {/* Left Column — About Section */}
           <ThemedView style={{ gap: spacing.lg }}>
             <Typography variant="headlineMedium" weight="bold">
               Build Apps Faster
@@ -106,8 +87,29 @@ export default function HomeScreen() {
             </Typography>
             <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
               Pair it with Claude Skills to accelerate your workflow. AI-powered code generation that understands
-              your design system and generates components, screens, and flows that match your app's look and feel.
+              your design system and generates components, screens, and flows that match your app&apos;s look and feel.
             </Typography>
+          </ThemedView>
+
+          {/* Right Column — Feature Cards */}
+          <ThemedView style={{ gap: spacing.md }}>
+            {FEATURES.map((feature, index) => (
+              <ThemedView
+                key={index}
+                variant="surfaceContainer"
+                style={[styles.card, { padding: spacing.lg, gap: spacing.sm, borderRadius: theme.borderRadius.lg }]}
+              >
+                <View style={[styles.iconCircle, { backgroundColor: theme.primaryContainer }]}>
+                  {renderIcon(feature.icon, 'Feather', 22, theme.onPrimaryContainer)}
+                </View>
+                <Typography variant="titleMedium" weight="bold">
+                  {feature.title}
+                </Typography>
+                <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
+                  {feature.description}
+                </Typography>
+              </ThemedView>
+            ))}
           </ThemedView>
         </ThemedView>
       </Container>
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
   iconCircle: {
     width: 44,
     height: 44,
-    borderRadius: 22,
+    borderRadius: 9999,
     alignItems: 'center',
     justifyContent: 'center',
   },

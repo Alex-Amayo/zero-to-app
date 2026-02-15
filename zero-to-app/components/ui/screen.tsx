@@ -21,6 +21,8 @@ export interface ScreenProps {
   testID?: string;
   /** Whether to show vertical scroll indicator. @default true */
   showsVerticalScrollIndicator?: boolean;
+  /** Whether to apply default vertical padding. @default true */
+  padded?: boolean;
 }
 
 /**
@@ -42,12 +44,13 @@ export const Screen: React.FC<ScreenProps> = ({
   style,
   testID,
   showsVerticalScrollIndicator = true,
+  padded = true,
 }) => {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
 
-  const iosBottomPadding = Platform.OS === 'ios' && edges.includes('bottom')
-    ?  80
+  const bottomPadding = edges.includes('bottom')
+    ? (Platform.OS === 'ios' ? 80 : theme.spacing.xxl)
     : 0;
 
   return (
@@ -58,7 +61,7 @@ export const Screen: React.FC<ScreenProps> = ({
             style={styles.scrollView}
             contentContainerStyle={[
               styles.scrollContent,
-              { paddingBottom: iosBottomPadding },
+              padded && { paddingTop: theme.spacing.xxl, paddingBottom: bottomPadding },
               contentContainerStyle,
             ]}
             showsVerticalScrollIndicator={showsVerticalScrollIndicator}
@@ -70,7 +73,7 @@ export const Screen: React.FC<ScreenProps> = ({
             variant={variant}
             style={[
               styles.content,
-              { paddingBottom: iosBottomPadding },
+              padded && { paddingTop: theme.spacing.xxl, paddingBottom: bottomPadding },
               style,
             ]}
           >

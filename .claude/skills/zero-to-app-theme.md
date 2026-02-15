@@ -26,9 +26,23 @@ theme.tokens.button.filledBg
 theme.tokens.card.background
 theme.tokens.input.border
 
-// Layout values
-theme.spacing.lg       // from brand config
-theme.borderRadius     // from brand config
+// Spacing scale
+theme.spacing.xs       // 4px
+theme.spacing.sm       // 8px
+theme.spacing.md       // 12px
+theme.spacing.lg       // 16px
+theme.spacing.xl       // 20px
+theme.spacing.xxl      // 24px
+theme.spacing.xxxl     // 40px
+
+// Border radius scale
+theme.borderRadius.xs    // 4px  — chips, small badges
+theme.borderRadius.sm    // 8px  — buttons, inputs, tabs
+theme.borderRadius.md    // 12px — collapsible, small FAB
+theme.borderRadius.lg    // 16px — cards, medium FAB
+theme.borderRadius.xl    // 28px — large FAB, sheets
+theme.borderRadius.full  // 9999 — pills, circles
+
 theme.isDark           // boolean
 ```
 

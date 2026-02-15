@@ -58,11 +58,11 @@ export interface FABProps extends Omit<InteractiveComponentProps, 'onPress'> {
   onPress?: (event?: GestureResponderEvent) => void;
 }
 
-// Size configuration
-const SIZE_CONFIG: Record<FABSize, { dimension: number; iconSize: number; borderRadius: number }> = {
-  small: { dimension: 40, iconSize: 20, borderRadius: 12 },
-  medium: { dimension: 56, iconSize: 24, borderRadius: 16 },
-  large: { dimension: 96, iconSize: 36, borderRadius: 28 },
+// Size configuration (borderRadius resolved from theme at render time)
+const SIZE_CONFIG: Record<FABSize, { dimension: number; iconSize: number; radiusKey: 'md' | 'lg' | 'xl' }> = {
+  small: { dimension: 40, iconSize: 20, radiusKey: 'md' },
+  medium: { dimension: 56, iconSize: 24, radiusKey: 'lg' },
+  large: { dimension: 96, iconSize: 36, radiusKey: 'xl' },
 };
 
 // 3. COMPONENT
@@ -138,7 +138,7 @@ const FAB = forwardRef<View, FABProps>(({
       styles.container,
       {
         backgroundColor: colors.bg,
-        borderRadius: sizeConfig.borderRadius,
+        borderRadius: theme.borderRadius[sizeConfig.radiusKey],
       },
     ];
 

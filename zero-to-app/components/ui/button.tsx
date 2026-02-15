@@ -215,21 +215,21 @@ const Button = forwardRef<View, ButtonProps>(({
     } else {
       switch (variant) {
         case 'filled':
-          bg = pressed ? t.filledPressedBg : hovered ? t.filledHoverBg : t.filledBg;
+          bg = t.filledBg;
           if (Platform.OS !== 'web') {
             elevation = pressed ? tokens.elevation.level0 : tokens.elevation.level1;
           }
           break;
         case 'elevated':
-          bg = hovered ? t.elevatedHoverBg : t.elevatedBg;
+          bg = t.elevatedBg;
           elevation = pressed ? tokens.elevation.level1 : tokens.elevation.level3;
           break;
         case 'tonal':
-          bg = hovered ? t.tonalHoverBg : t.tonalBg;
+          bg = t.tonalBg;
           break;
         case 'outlined':
           bg = 'transparent';
-          borderColor = hovered ? t.outlinedHoverBorder : t.outlinedBorder;
+          borderColor = t.outlinedBorder;
           break;
         case 'text':
           bg = 'transparent';
@@ -246,7 +246,7 @@ const Button = forwardRef<View, ButtonProps>(({
       styles[variant],
       // reserve touch target height for accessibility
       { minHeight: touchHeight },
-      { borderRadius: theme.borderRadius },
+      { borderRadius: theme.borderRadius.sm },
       bg ? { backgroundColor: bg } : null,
       borderColor ? { borderColor } : null,
       disabled ? styles.disabled : null,
@@ -270,6 +270,15 @@ const Button = forwardRef<View, ButtonProps>(({
         borderColor: tokens.focusRing.color,
         borderStyle: 'solid' as 'solid',
       });
+    }
+
+    // M3 state layer: subtle overlay on hover (8% opacity) and press (12% opacity)
+    if (Platform.OS === 'web' && !disabled) {
+      if (pressed) {
+        (baseStyle as ViewStyle[]).push({ opacity: 0.88 });
+      } else if (hovered) {
+        (baseStyle as ViewStyle[]).push({ opacity: 0.92 });
+      }
     }
 
     // subtle transform for hover/press unless user requests reduced motion
@@ -329,7 +338,7 @@ const Button = forwardRef<View, ButtonProps>(({
           styles.base,
           styles[variant],
           { minHeight: touchHeight },
-          { borderRadius: theme.borderRadius },
+          { borderRadius: theme.borderRadius.sm },
           backgroundColor && { backgroundColor },
         ]}
         accessibilityRole="button"

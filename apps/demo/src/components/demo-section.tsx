@@ -21,7 +21,7 @@ export function DemoSection({ title, description, children }: DemoSectionProps) 
           {description}
         </Typography>
       )}
-      <ThemedView variant="card" style={{ padding:spacing.md, borderRadius: borderRadius, gap: spacing.md }}>
+      <ThemedView variant="card" style={{ padding:spacing.md, borderRadius: borderRadius.sm, gap: spacing.md }}>
         {children}
       </ThemedView>
     </View>

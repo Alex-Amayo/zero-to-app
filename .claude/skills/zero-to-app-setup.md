@@ -18,7 +18,7 @@ const brand = createBrand({
   colors: { colorSeed: { primary: '#6750A4' } }, // Auto-generates M3 palette
   fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },
   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
-  borderRadius: 8,
+  borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
 });
 
 // Wrap app in root layout
@@ -38,7 +38,7 @@ const brand = createBrand({
 | `darkColors` | `Colors \| { colorSeed: PaletteOptions }` | No | Dark theme colors (auto-generated from seed if omitted) |
 | `fontSizes` | `{ small, medium, large, xlarge }` | Yes | Font size scale |
 | `spacing` | `{ xs, sm, md, lg, xl, xxl, xxxl }` | Yes | Spacing scale |
-| `borderRadius` | `number` | Yes | Global border radius |
+| `borderRadius` | `BorderRadius` | Yes | `{ xs, sm, md, lg, xl, full }` — border radius scale |
 | `logo` | `LogoConfig` | No | `{ light?: ImageSource, dark?: ImageSource }` |
 | `footerLinks` | `FooterLinks` | No | `{ links: Array }` |
 | `navigation` | `NavigationConfig` | No | `{ items: Array }` |

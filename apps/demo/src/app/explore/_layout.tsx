@@ -34,12 +34,24 @@ export default function ExploreLayout() {
             <Sidebar
                 header={
                     <SidebarHeader
-                        title="Components"
+                        title="Docs"
                         subtitle="Zero to App UI"
                         onPress={() => navigateTo('/explore')}
                     />
                 }
             >
+                <SidebarSection title="Foundation" icon={{ library: 'Feather', name: 'book-open' }}>
+                    <SidebarItem
+                        label="Tokens"
+                        active={isActive('/explore/tokens')}
+                        onPress={() => navigateTo('/explore/tokens')}
+                    />
+                    <SidebarItem
+                        label="Icons"
+                        active={isActive('/explore/icons')}
+                        onPress={() => navigateTo('/explore/icons')}
+                    />
+                </SidebarSection>
                 <SidebarSection title="Components" icon={{ library: 'Feather', name: 'box' }}>
                     <SidebarItem
                         label="Button"

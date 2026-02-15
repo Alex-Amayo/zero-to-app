@@ -55,7 +55,7 @@ export default function ThemedViewPage() {
     <>
       <NativeHeader rightIcon="sidebar.right" onRightPress={open} />
       <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xxl, gap: spacing.xxl }}>
+        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
           <View style={{ gap: spacing.xs }}>
             <Typography variant="headlineMedium" weight="bold">
               ThemedView

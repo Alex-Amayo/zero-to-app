@@ -1,4 +1,4 @@
-import { useTheme, Screen, Container, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
+import { useTheme, useThemeMode, Screen, Container, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
 import { router } from "expo-router";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -29,6 +29,7 @@ const FEATURES = [
 export default function HomeScreen() {
   const theme = useTheme();
   const { spacing } = theme;
+  const { mode, toggleTheme } = useThemeMode();
 
   return (
     <Screen
@@ -39,7 +40,7 @@ export default function HomeScreen() {
     >
       {/* Head Section — Image Background with Title + Rocket */}
       <ImageBackground
-        source={require('../../assets/images/stars_background.png')}
+        source={require('../../assets/images/gradient_background.png')}
         resizeMode="cover"
         style={styles.headerBackground}
         imageStyle={styles.headerImage}
@@ -58,12 +59,20 @@ export default function HomeScreen() {
               A React Native component library
             </Typography>
           </View>
-          <Button
-            title="Get Started"
-            variant="filled"
-            icon={{ name: 'arrow-right' }}
-            onPress={() => router.push('/explore')}
-          />
+          <View style={{ flexDirection: 'row', gap: spacing.md }}>
+            <Button
+              title="Get Started"
+              variant="filled"
+              icon={{ name: 'arrow-right' }}
+              onPress={() => router.push('/explore')}
+            />
+            <Button
+              title={mode === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              variant="tonal"
+              icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
+              onPress={toggleTheme}
+            />
+          </View>
         </SafeAreaView>
       </ImageBackground>
 

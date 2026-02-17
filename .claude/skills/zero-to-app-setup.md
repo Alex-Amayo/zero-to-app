@@ -19,6 +19,7 @@ const brand = createBrand({
   fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },
   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
   borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
+  shape: { surfaceBorderRadius: 12, buttonBorderRadius: 8 },
 });
 
 // Wrap app in root layout
@@ -39,6 +40,7 @@ const brand = createBrand({
 | `fontSizes` | `{ small, medium, large, xlarge }` | Yes | Font size scale |
 | `spacing` | `{ xs, sm, md, lg, xl, xxl, xxxl }` | Yes | Spacing scale |
 | `borderRadius` | `BorderRadius` | Yes | `{ xs, sm, md, lg, xl, full }` — border radius scale |
+| `shape` | `Shape` | No | `{ surfaceBorderRadius, buttonBorderRadius }` — defaults to `{ 12, 8 }` |
 | `logo` | `LogoConfig` | No | `{ light?: ImageSource, dark?: ImageSource }` |
 | `footerLinks` | `FooterLinks` | No | `{ links: Array }` |
 | `navigation` | `NavigationConfig` | No | `{ items: Array }` |

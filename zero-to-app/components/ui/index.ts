@@ -45,3 +45,7 @@ export type { ScreenProps } from './screen';
 // Container
 export { Container } from './container';
 export type { ContainerProps } from './container';
+
+// ThemedImage
+export { ThemedImage } from './themed-image';
+export type { ThemedImageProps } from './themed-image';

@@ -2,6 +2,11 @@
 import { ImageSourcePropType } from 'react-native';
 
 export type Name = string;
+export interface Shape {
+  surfaceBorderRadius: number;
+  buttonBorderRadius: number;
+}
+
 export interface BorderRadius {
   xs: number;   // 4  — chips, small badges
   sm: number;   // 8  — buttons, inputs, tabs

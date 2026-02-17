@@ -35,7 +35,11 @@ theme.spacing.xl       // 20px
 theme.spacing.xxl      // 24px
 theme.spacing.xxxl     // 40px
 
-// Border radius scale
+// Shape (preferred for components)
+theme.shape.surfaceBorderRadius  // 12px — cards, containers, collapsibles
+theme.shape.buttonBorderRadius   // 8px  — buttons, interactive elements
+
+// Border radius scale (for components needing multiple tiers, e.g. FAB)
 theme.borderRadius.xs    // 4px  — chips, small badges
 theme.borderRadius.sm    // 8px  — buttons, inputs, tabs
 theme.borderRadius.md    // 12px — collapsible, small FAB

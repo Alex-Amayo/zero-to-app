@@ -36,6 +36,7 @@ export interface ThemeValuesType {
   shadow: string;
   spacing: import('../brand').Spacing;
   borderRadius: import('../brand').BorderRadius;
+  shape: import('../brand').Shape;
   isDark: boolean;
   // Semantic tokens for common component use
   tokens: {
@@ -185,6 +186,7 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
     shadow: c.shadow,
     spacing: brand.spacing,
     borderRadius: brand.borderRadius,
+    shape: brand.shape,
     isDark: false,
     tokens: {
       button: {
@@ -336,6 +338,7 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
     shadow: c.shadow,
     spacing: brand.spacing,
     borderRadius: brand.borderRadius,
+    shape: brand.shape,
     isDark: true,
     tokens: {
       button: {

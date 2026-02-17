@@ -71,7 +71,7 @@ Additional props: `iconPosition` (`'left'` | `'right'`, default `'right'`), `col
 **Variants:** `background`, `surface` (default), `surfaceContainer`, `card`, `appbar`, `primary`
 
 Grid props: `columns` (multi-column on medium+ screens, single column on small), `gap`.
-`rounded` prop applies `theme.borderRadius` (default `true`).
+`rounded` prop applies `theme.shape.surfaceBorderRadius` (default `true`).
 
 ---
 
@@ -151,3 +151,25 @@ const [open, setOpen] = useState(false);
 - `contentVariant` — `'surface'` | `'surfaceContainer'` | `'card'` (default `'surfaceContainer'`)
 
 Animated expand/collapse with chevron rotation (uses `react-native-reanimated`).
+
+---
+
+## ThemedImage
+
+```tsx
+import { ThemedImage } from 'zero-to-app';
+
+<ThemedImage
+  lightSource={require('./logo_black.png')}
+  darkSource={require('./logo_white.png')}
+  style={{ width: 32, height: 32 }}
+  contentFit="contain"
+/>
+```
+
+Wraps `expo-image`'s `Image` and automatically switches between light/dark sources based on the current theme mode.
+
+**Props:**
+- `lightSource` — `ImageSource` shown in light mode
+- `darkSource` — `ImageSource` shown in dark mode
+- All other `ImageProps` from `expo-image` are spread through (`style`, `contentFit`, `transition`, `placeholder`, etc.)

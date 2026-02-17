@@ -7,7 +7,7 @@ import {
   TabListProps,
 } from 'expo-router/ui';
 import React, { ReactNode, useState, useEffect } from 'react';
-import { Pressable, View, StyleSheet, Image, ImageSourcePropType, Linking } from 'react-native';
+import { Pressable, View, StyleSheet, Linking } from 'react-native';
 import { useThemeContext } from '../../../theme';
 import { Typography } from '../../ui/typography';
 import { ThemedView } from '../../ui/themed-view';
@@ -55,7 +55,7 @@ export interface AppTabConfig {
  */
 export interface AppTabsProps {
   brandName: string;
-  logoImage?: ImageSourcePropType;
+  logoImage?: ReactNode;
   tabs: AppTabConfig[];
   externalLinks?: AppTabsExternalLink[];
   height?: number;
@@ -171,18 +171,20 @@ interface TabButtonProps extends TabTriggerSlotProps {
 function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
+  const [hovered, setHovered] = useState(false);
 
   const iconToRender = webIcon || (materialIcon ? { library: 'MaterialIcons' as const, name: materialIcon } : undefined);
-  const iconColor = isFocused ? theme.primary : theme.onSurfaceVariant;
+  const iconColor = isFocused || hovered ? theme.primary : theme.onSurfaceVariant;
 
   return (
     <Pressable
       {...props}
-      style={({ pressed, hovered }: any) => [
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
+      style={({ pressed }: any) => [
         styles.tabButton,
         { paddingHorizontal: spacing.lg, height, justifyContent: 'center' },
         pressed && { opacity: 0.7 },
-        hovered && { backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)' },
       ]}>
       <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
         {iconToRender && renderIcon(iconToRender, 'MaterialIcons', 20, iconColor)}
@@ -201,7 +203,7 @@ function TabButton({ children, isFocused, height, webIcon, materialIcon, ...prop
 
 interface CustomTabListProps extends TabListProps {
   brandName: string;
-  logoImage?: ImageSourcePropType;
+  logoImage?: ReactNode;
   externalLinks: AppTabsExternalLink[];
   height: number;
   isMobile: boolean;
@@ -229,7 +231,7 @@ function CustomTabList({
       <View {...props} style={[styles.appBarContent, { height, gap: spacing.sm }]}>
         <Link href="/" style={styles.brand}>
           <View style={[styles.brandContent, { gap: spacing.sm }]}>
-            {logoImage && <Image source={logoImage} style={styles.logo} resizeMode="contain" />}
+            {logoImage}
             <Typography variant="titleLarge" weight="medium">{brandName}</Typography>
           </View>
         </Link>
@@ -252,7 +254,7 @@ function CustomTabList({
             onPress={onMenuPress}
             style={({ pressed }: any) => [
               styles.iconButton,
-              { padding: spacing.sm, borderRadius: theme.borderRadius.sm },
+              { padding: spacing.sm, borderRadius: theme.shape.buttonBorderRadius },
               pressed && { opacity: 0.7 },
             ]}>
             {renderIcon({ library: 'Feather', name: 'menu' }, 'Feather', 24, theme.onSurface)}
@@ -268,19 +270,23 @@ function CustomTabList({
 function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink & { height: number }) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
+  const [hovered, setHovered] = useState(false);
+
+  const color = hovered ? theme.primary : theme.onSurfaceVariant;
 
   return (
     <Link href={href as any} target="_blank" asChild>
       <Pressable
-        style={({ pressed, hovered }: any) => [
+        onHoverIn={() => setHovered(true)}
+        onHoverOut={() => setHovered(false)}
+        style={({ pressed }: any) => [
           styles.tabButton,
-          { paddingHorizontal: spacing.lg, height, justifyContent: 'center', borderRadius: theme.borderRadius.sm },
+          { paddingHorizontal: spacing.lg, height, justifyContent: 'center', borderRadius: theme.shape.buttonBorderRadius },
           pressed && { opacity: 0.7 },
-          hovered && { backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)' },
         ]}>
         <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
-          {icon && renderIcon(icon, 'MaterialIcons', 20, theme.onSurfaceVariant)}
-          <Typography variant="labelLarge" weight="medium" color={theme.onSurfaceVariant}>
+          {icon && renderIcon(icon, 'MaterialIcons', 20, color)}
+          <Typography variant="labelLarge" weight="medium" color={color}>
             {label}
           </Typography>
         </View>
@@ -291,14 +297,14 @@ function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink &
 
 // --- Drawer header ---
 
-function DrawerHeader({ brandName, logoImage }: { brandName: string; logoImage?: ImageSourcePropType }) {
+function DrawerHeader({ brandName, logoImage }: { brandName: string; logoImage?: ReactNode }) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
 
   return (
     <View style={[styles.drawerHeader, { padding: spacing.lg, borderBottomColor: theme.tokens.sidebar.divider }]}>
       <View style={[styles.brandContent, { gap: spacing.sm }]}>
-        {logoImage && <Image source={logoImage} style={styles.logo} resizeMode="contain" />}
+        {logoImage}
         <Typography variant="titleMedium" weight="bold">{brandName}</Typography>
       </View>
     </View>
@@ -317,7 +323,6 @@ const styles = StyleSheet.create({
   appBarContent: { flexDirection: 'row', alignItems: 'center', width: '100%' },
   brand: { marginRight: 'auto' },
   brandContent: { flexDirection: 'row', alignItems: 'center' },
-  logo: { height: 32, width: 32 },
   tabs: { flexDirection: 'row', alignItems: 'center' },
   tabButton: { position: 'relative' },
   tabButtonContent: { flexDirection: 'row', alignItems: 'center' },

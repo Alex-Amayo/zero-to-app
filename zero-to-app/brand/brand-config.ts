@@ -1,4 +1,4 @@
-import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, Name, NavigationConfig, Spacing } from './brand-types';
+import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, Name, NavigationConfig, Shape, Spacing } from './brand-types';
 import { generateLightColors, generateDarkColors, type PaletteOptions } from './palette-generator';
 
 export interface Brand {
@@ -7,6 +7,7 @@ export interface Brand {
   fontSizes: FontSizes;
   spacing: Spacing;
   borderRadius: BorderRadius;
+  shape: Shape;
   name: Name;
   logo: LogoConfig;
   footerLinks: FooterLinks;
@@ -30,6 +31,7 @@ export interface BrandConfig {
   fontSizes: FontSizes;
   spacing: Spacing;
   borderRadius: BorderRadius;
+  shape?: Shape;
   logo?: LogoConfig;
   footerLinks?: FooterLinks;
   navigation?: NavigationConfig;
@@ -93,6 +95,7 @@ export const createBrand = (config: BrandConfig): Brand => {
     fontSizes: config.fontSizes,
     spacing: config.spacing,
     borderRadius: config.borderRadius,
+    shape: config.shape ?? { surfaceBorderRadius: 12, buttonBorderRadius: 8 },
     logo: config.logo ?? {
       light: undefined,
       dark: undefined,

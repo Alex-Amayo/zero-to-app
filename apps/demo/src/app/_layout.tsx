@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, View, StyleSheet } from 'react-native';
-import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar } from 'zero-to-app';
+import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar, ThemedImage } from 'zero-to-app';
 import { usePathname, useRouter } from 'expo-router';
 
 function TabLayoutInner() {
@@ -47,7 +47,14 @@ function TabLayoutInner() {
 
       <AppTabs
         brandName="Zero To App"
-        logoImage={require('../../assets/images/rocket_logo.png')}
+        logoImage={
+          <ThemedImage
+            lightSource={require('../../assets/images/rocket_logo_black.png')}
+            darkSource={require('../../assets/images/rocket_logo_white.png')}
+            style={{ width: 32, height: 32 }}
+            contentFit="contain"
+          />
+        }
         tabs={[
           {
             name: 'index',

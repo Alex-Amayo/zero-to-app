@@ -152,7 +152,7 @@ const Collapsible = forwardRef<View, CollapsibleProps>(
           accessibilityState={{ expanded: isOpen }}
           accessibilityLabel={`${title}, ${isOpen ? 'expanded' : 'collapsed'}`}
         >
-          <ThemedView variant={headerVariant} style={[styles.iconButton, { borderRadius: theme.borderRadius.md }]}>
+          <ThemedView variant={headerVariant} style={[styles.iconButton, { borderRadius: theme.shape.surfaceBorderRadius }]}>
             <Animated.View style={animatedIconStyle}>
               {renderIcon(
                 { name: iconName },
@@ -168,7 +168,7 @@ const Collapsible = forwardRef<View, CollapsibleProps>(
 
         {isOpen && (
           <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-            <ThemedView variant={contentVariant} style={[styles.content, { borderRadius: theme.borderRadius.md }]}>
+            <ThemedView variant={contentVariant} style={[styles.content, { borderRadius: theme.shape.surfaceBorderRadius }]}>
               {children}
             </ThemedView>
           </Animated.View>

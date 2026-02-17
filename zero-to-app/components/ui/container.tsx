@@ -49,6 +49,7 @@ export const Container: React.FC<ContainerProps> = ({
         },
         style,
       ]}
+      rounded={false}
       {...rest}
     >
       {children}

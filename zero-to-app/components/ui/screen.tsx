@@ -54,7 +54,7 @@ export const Screen: React.FC<ScreenProps> = ({
     : 0;
 
   return (
-    <ThemedView variant={variant} style={styles.container}>
+    <ThemedView variant={variant} rounded={false} style={styles.container}>
       <SafeAreaView style={styles.safeArea} edges={edges} testID={testID}>
         {scrollable ? (
           <ScrollView
@@ -71,6 +71,7 @@ export const Screen: React.FC<ScreenProps> = ({
         ) : (
           <ThemedView
             variant={variant}
+            rounded={false}
             style={[
               styles.content,
               padded && { paddingTop: theme.spacing.xxl, paddingBottom: bottomPadding },

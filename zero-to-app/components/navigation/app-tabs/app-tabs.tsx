@@ -1,5 +1,4 @@
-import React from 'react';
-import { ImageSourcePropType } from 'react-native';
+import React, { ReactNode } from 'react';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { useThemeContext } from '../../../theme';
 
@@ -52,7 +51,7 @@ export interface AppTabsProps {
   /** Brand or app name to display */
   brandName?: string;
   /** Optional logo image */
-  logoImage?: ImageSourcePropType;
+  logoImage?: ReactNode;
   /** Array of tab configurations */
   tabs: AppTabConfig[];
   /** External links shown in the app bar (web only) */

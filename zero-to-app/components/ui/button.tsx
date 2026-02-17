@@ -246,7 +246,7 @@ const Button = forwardRef<View, ButtonProps>(({
       styles[variant],
       // reserve touch target height for accessibility
       { minHeight: touchHeight },
-      { borderRadius: theme.borderRadius.sm },
+      { borderRadius: theme.shape.buttonBorderRadius },
       bg ? { backgroundColor: bg } : null,
       borderColor ? { borderColor } : null,
       disabled ? styles.disabled : null,
@@ -338,7 +338,7 @@ const Button = forwardRef<View, ButtonProps>(({
           styles.base,
           styles[variant],
           { minHeight: touchHeight },
-          { borderRadius: theme.borderRadius.sm },
+          { borderRadius: theme.shape.buttonBorderRadius },
           backgroundColor && { backgroundColor },
         ]}
         accessibilityRole="button"
@@ -368,7 +368,12 @@ const Button = forwardRef<View, ButtonProps>(({
     <Pressable
       ref={ref}
       testID={testID}
-      onPress={disabled ? undefined : onPress}
+      onPress={disabled ? undefined : (e) => {
+        if (Platform.OS === 'web') {
+          (e.currentTarget as any)?.blur?.();
+        }
+        onPress?.(e);
+      }}
       disabled={disabled}
       style={getButtonStyle}
       onHoverIn={() => setHovered(true)}

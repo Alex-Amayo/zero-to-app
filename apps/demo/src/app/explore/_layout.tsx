@@ -78,6 +78,7 @@ export default function ExploreLayout() {
 
             <ThemedView
                 variant="background"
+                rounded={false}
                 style={[
                     styles.content,
                     isDesktop && styles.contentWithSidebar,

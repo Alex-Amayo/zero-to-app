@@ -76,6 +76,7 @@ export const useBrandConfig = (): Brand => {
         '    fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },\n' +
         '    spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },\n' +
         '    borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },\n' +
+        '    shape: { surfaceBorderRadius: 12, buttonBorderRadius: 8 },\n' +
         '  });\n\n' +
         '  function App() {\n' +
         '    return (\n' +

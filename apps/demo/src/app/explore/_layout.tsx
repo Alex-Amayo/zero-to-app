@@ -73,6 +73,11 @@ export default function ExploreLayout() {
                         active={isActive('/explore/screen')}
                         onPress={() => navigateTo('/explore/screen')}
                     />
+                    <SidebarItem
+                        label="ThemedImage"
+                        active={isActive('/explore/themed-image')}
+                        onPress={() => navigateTo('/explore/themed-image')}
+                    />
                 </SidebarSection>
             </Sidebar>
 

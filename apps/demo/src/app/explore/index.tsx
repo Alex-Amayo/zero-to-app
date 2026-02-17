@@ -43,6 +43,11 @@ export default function ExploreIndex() {
       description: 'Screen wrapper with safe areas, themed backgrounds, and optional scrolling',
       route: '/explore/screen',
     },
+    {
+      name: 'ThemedImage',
+      description: 'Theme-aware image that switches between light and dark sources automatically',
+      route: '/explore/themed-image',
+    },
   ];
 
   const { open } = useSidebar();

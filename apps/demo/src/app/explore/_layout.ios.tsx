@@ -74,6 +74,11 @@ export default function ExploreLayout() {
                         active={isActive('/explore/collapsible')}
                         onPress={() => navigateTo('/explore/collapsible')}
                     />
+                    <SidebarItem
+                        label="ThemedImage"
+                        active={isActive('/explore/themed-image')}
+                        onPress={() => navigateTo('/explore/themed-image')}
+                    />
                 </SidebarSection>
             </Sidebar>
 
@@ -95,6 +100,7 @@ export default function ExploreLayout() {
                 <Stack.Screen name="themed-view" options={{title: 'Themed View'}} />
                 <Stack.Screen name="screen" options={{title: 'Screen'}} />
                 <Stack.Screen name="collapsible" options={{title: 'Collapsible'}} />
+                <Stack.Screen name="themed-image" options={{title: 'ThemedImage'}} />
             </Stack>
             </>
     );

@@ -41,8 +41,8 @@
       "default": "./dist/hooks/index.js"
     },
     "./context": {
-      "types": "./dist/context/scrollContext.d.ts",
-      "default": "./dist/context/scrollContext.js"
+      "types": "./dist/context/scroll-context.d.ts",
+      "default": "./dist/context/scroll-context.js"
     },
     "./components": {
       "types": "./dist/components/index.d.ts",

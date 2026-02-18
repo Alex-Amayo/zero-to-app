@@ -227,7 +227,7 @@ function CustomTabList({
     <ThemedView
       variant="appbar"
       rounded={false}
-      style={[styles.appBar, { height, paddingHorizontal: spacing.xxl }]}>
+      style={[styles.appBar, { height, paddingHorizontal: spacing.xxl, borderBottomWidth: 1, borderBottomColor: theme.tokens.appbar.border }]}>
       <View {...props} style={[styles.appBarContent, { height, gap: spacing.sm }]}>
         <Link href="/" style={styles.brand}>
           <View style={[styles.brandContent, { gap: spacing.sm }]}>
@@ -252,6 +252,8 @@ function CustomTabList({
         {isMobile && (
           <Pressable
             onPress={onMenuPress}
+            accessibilityLabel="Open menu"
+            accessibilityRole="button"
             style={({ pressed }: any) => [
               styles.iconButton,
               { padding: spacing.sm, borderRadius: theme.shape.buttonBorderRadius },

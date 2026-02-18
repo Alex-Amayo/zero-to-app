@@ -21,7 +21,7 @@ export const BrandProvider = ({ brand, children }: BrandProviderProps) => {
  * Hook to access the current brand configuration.
  * Must be used within a `<ZeroToApp>` or `<BrandProvider>` provider.
  *
- * @returns The brand configuration containing colors, spacing, fontSizes, logo, etc.
+ * @returns The brand configuration containing colors, spacing, logo, etc.
  * @throws Error if used outside of a ZeroToApp or BrandProvider
  *
  * @example
@@ -33,7 +33,7 @@ export const BrandProvider = ({ brand, children }: BrandProviderProps) => {
  *   return (
  *     <View style={{ padding: theme.spacing.md }}>
  *       <Image source={brand.logo.light} />
- *       <Text style={{ fontSize: brand.fontSizes.large, color: theme.primary }}>
+ *       <Text style={{ color: theme.primary }}>
  *         {brand.name}
  *       </Text>
  *     </View>
@@ -68,12 +68,11 @@ export const useBrandConfig = (): Brand => {
   if (context === undefined) {
     throw new Error(
       'useBrandConfig must be used within a <ZeroToApp> provider.\n\n' +
-        'Make sure your component is wrapped with ZeroToApp:\n\n' +
+        'Make sure your component is inside a ZeroToApp provider:\n\n' +
         '  import { ZeroToApp, createBrand } from "zero-to-app";\n\n' +
         '  const brand = createBrand({\n' +
         '    name: "My App",\n' +
         '    colors: { colorSeed: { primary: "#6750A4" } },\n' +
-        '    fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },\n' +
         '    spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },\n' +
         '    borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },\n' +
         '    shape: { surfaceBorderRadius: 12, buttonBorderRadius: 8 },\n' +

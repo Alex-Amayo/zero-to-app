@@ -58,6 +58,7 @@ export function createHighContrastLightTheme(brand: Brand): ThemeValuesType {
       appbar: {
         background: highContrastColors.surfaceContainerHighest,
         text: '#000000',
+        border: highContrastColors.outline,
       },
       link: {
         text: '#0000EE',
@@ -112,11 +113,6 @@ export function createHighContrastLightTheme(brand: Brand): ThemeValuesType {
         lineHeightTight: 1.2,
         lineHeightNormal: 1.5,
         lineHeightRelaxed: 1.75,
-        headline: brand.fontSizes.xlarge,
-        title: brand.fontSizes.large,
-        body: brand.fontSizes.medium,
-        label: brand.fontSizes.small,
-        caption: brand.fontSizes.small,
       },
     },
   };
@@ -174,6 +170,7 @@ export function createHighContrastDarkTheme(brand: Brand): ThemeValuesType {
       appbar: {
         background: '#000000',
         text: '#FFFFFF',
+        border: '#FFFFFF',
       },
       link: {
         text: '#8AB4F8', // High-contrast blue
@@ -228,11 +225,6 @@ export function createHighContrastDarkTheme(brand: Brand): ThemeValuesType {
         lineHeightTight: 1.2,
         lineHeightNormal: 1.5,
         lineHeightRelaxed: 1.75,
-        headline: brand.fontSizes.xlarge,
-        title: brand.fontSizes.large,
-        body: brand.fontSizes.medium,
-        label: brand.fontSizes.small,
-        caption: brand.fontSizes.small,
       },
     },
   };

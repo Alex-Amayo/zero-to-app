@@ -17,27 +17,6 @@ export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAl
 export { ThemedView } from './themed-view';
 export type { ThemedViewProps, ThemedViewVariant } from './themed-view';
 
-// Sidebar (re-exported from navigation for backwards compatibility)
-export {
-  Sidebar,
-  SidebarItem,
-  SidebarSection,
-  SidebarHeader,
-  SidebarFooter,
-} from '../navigation/sidebar';
-export type {
-  SidebarProps,
-  SidebarItemProps,
-  SidebarItemIconConfig,
-  SidebarSectionProps,
-  SidebarHeaderProps,
-  SidebarFooterProps,
-} from '../navigation/sidebar';
-
-// NativeHeader (re-exported from navigation)
-export { NativeHeader } from '../navigation/native-header';
-export type { NativeHeaderProps } from '../navigation/native-header';
-
 // Screen
 export { Screen } from './screen';
 export type { ScreenProps } from './screen';

@@ -26,8 +26,7 @@ export const ThemedView = ({ variant = 'surface', color, rounded = true, columns
 
   const variantMap: Record<ThemedViewVariant, string> = {
     surface: theme.surface,
-    surfaceContainer: // prefer semantic container token when available
-      (theme as any).surfaceContainer ?? theme.surface,
+    surfaceContainer: theme.surfaceContainer ?? theme.surface,
     card: theme.tokens.card.background,
     appbar: theme.tokens.appbar.background,
     primary: theme.primary,

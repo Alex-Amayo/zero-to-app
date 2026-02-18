@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Typography, ThemedView, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
+import { Typography, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 
 function ColorSwatch({ label, color }: { label: string; color: string }) {

@@ -71,7 +71,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       <Animated.View
         style={[styles.backdrop, { backgroundColor: theme.scrim }, animatedBackdropStyle]}
       >
-        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
+        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityLabel="Close drawer" accessibilityRole="button" />
       </Animated.View>
 
       <Animated.View

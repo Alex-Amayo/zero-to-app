@@ -78,6 +78,7 @@ export interface ThemeValuesType {
     appbar: {
       background: string;
       text: string;
+      border: string;
     };
     link: {
       text: string;
@@ -135,12 +136,6 @@ export interface ThemeValuesType {
       lineHeightTight: number;
       lineHeightNormal: number;
       lineHeightRelaxed: number;
-      // Legacy aliases for backwards compatibility
-      headline: number;
-      title: number;
-      body: number;
-      label: number;
-      caption: number;
     };
   };
 }
@@ -225,8 +220,9 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         placeholder: c.onSurfaceVariant,
       },
       appbar: {
-        background: c.surfaceContainerHighest,
+        background: c.surface,
         text: c.onSurface,
+        border: c.outlineVariant ?? c.outline,
       },
       link: {
         text: c.primary,
@@ -237,7 +233,7 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         text: c.onPrimary,
       },
       sidebar: {
-        background: c.surfaceContainer,
+        background: c.surface,
         itemText: c.onSurface,
         itemActiveText: c.primary,
         itemActiveBg: c.primaryContainer,
@@ -288,12 +284,6 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         lineHeightTight: 1.2,
         lineHeightNormal: 1.5,
         lineHeightRelaxed: 1.75,
-        // Legacy aliases for backwards compatibility
-        headline: brand.fontSizes.xlarge,
-        title: brand.fontSizes.large,
-        body: brand.fontSizes.medium,
-        label: brand.fontSizes.small,
-        caption: brand.fontSizes.small,
       },
     },
   };
@@ -371,8 +361,9 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         placeholder: c.onSurfaceVariant,
       },
       appbar: {
-        background: c.surfaceContainerHighest,
+        background: c.surface,
         text: c.onSurface,
+        border: c.outlineVariant ?? c.outline,
       },
       link: {
         text: c.primary,
@@ -383,7 +374,7 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         text: c.onPrimary,
       },
       sidebar: {
-        background: c.surfaceContainer,
+        background: c.surface,
         itemText: c.onSurface,
         itemActiveText: c.primary,
         itemActiveBg: c.primaryContainer,
@@ -434,12 +425,6 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         lineHeightTight: 1.2,
         lineHeightNormal: 1.5,
         lineHeightRelaxed: 1.75,
-        // Legacy aliases for backwards compatibility
-        headline: brand.fontSizes.xlarge,
-        title: brand.fontSizes.large,
-        body: brand.fontSizes.medium,
-        label: brand.fontSizes.small,
-        caption: brand.fontSizes.small,
       },
     },
   };

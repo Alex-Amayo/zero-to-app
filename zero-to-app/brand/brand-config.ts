@@ -1,10 +1,9 @@
-import { BorderRadius, Colors, FontSizes, FooterLinks, LogoConfig, Name, NavigationConfig, Shape, Spacing } from './brand-types';
+import { BorderRadius, Colors, FooterLinks, LogoConfig, Name, NavigationConfig, Shape, Spacing } from './brand-types';
 import { generateLightColors, generateDarkColors, type PaletteOptions } from './palette-generator';
 
 export interface Brand {
   colors: Colors;
   darkColors?: Colors; // Optional dark theme colors
-  fontSizes: FontSizes;
   spacing: Spacing;
   borderRadius: BorderRadius;
   shape: Shape;
@@ -28,7 +27,6 @@ export interface BrandConfig {
   colors: Colors | { colorSeed: PaletteOptions };
   /** Optional dark theme colors (generated from seed if not provided) */
   darkColors?: Colors | { colorSeed: PaletteOptions };
-  fontSizes: FontSizes;
   spacing: Spacing;
   borderRadius: BorderRadius;
   shape?: Shape;
@@ -56,7 +54,6 @@ function isColorSeed(colors: Colors | { colorSeed: PaletteOptions }): colors is 
  * const manualBrand = createBrand({
  *   name: 'My App',
  *   colors: { primary: '#ff0000', secondary: '#00ff00', ... },
- *   fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
  *   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
  *   borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
  * });
@@ -66,7 +63,6 @@ function isColorSeed(colors: Colors | { colorSeed: PaletteOptions }): colors is 
  * const generatedBrand = createBrand({
  *   name: 'My App',
  *   colors: { colorSeed: { primary: '#6750A4' } },
- *   fontSizes: { small: 12, medium: 14, large: 18, xlarge: 24 },
  *   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
  *   borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
  * });
@@ -92,7 +88,6 @@ export const createBrand = (config: BrandConfig): Brand => {
     name: config.name,
     colors: lightColors,
     darkColors,
-    fontSizes: config.fontSizes,
     spacing: config.spacing,
     borderRadius: config.borderRadius,
     shape: config.shape ?? { surfaceBorderRadius: 12, buttonBorderRadius: 8 },

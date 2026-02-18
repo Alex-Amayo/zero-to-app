@@ -70,13 +70,6 @@ export interface Colors {
   shadow: string;
 }
 
-export interface FontSizes {
-  small: number;
-  medium: number;
-  large: number;
-  xlarge: number;
-}
-
 export interface Spacing {
   xs: number;
   sm: number;

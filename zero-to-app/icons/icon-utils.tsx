@@ -43,7 +43,9 @@ export function renderIcon(
   const IconComponent = Icons[library];
 
   if (!IconComponent) {
-    console.warn(`Icon library "${library}" not found. Falling back to Feather.`);
+    if (typeof __DEV__ !== 'undefined' && __DEV__) {
+      console.warn(`Icon library "${library}" not found. Falling back to Feather.`);
+    }
     const FeatherIcon = Icons.Feather;
     return React.createElement(FeatherIcon, { name, size, color } as React.ComponentProps<typeof FeatherIcon>);
   }
@@ -65,9 +67,9 @@ export function getFeatherIconName(
   // If library is not Feather, we can't use it as Feather icon name
   // Return a fallback
   if (normalized.library !== 'Feather') {
-    console.warn(
-      `Icon library "${normalized.library}" cannot be used as Feather icon. Using fallback.`
-    );
+    if (typeof __DEV__ !== 'undefined' && __DEV__) {
+      console.warn(`Icon library "${normalized.library}" cannot be used as Feather icon. Using fallback.`);
+    }
     return 'circle';
   }
 

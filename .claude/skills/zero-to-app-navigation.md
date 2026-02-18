@@ -39,7 +39,7 @@ description: Use when working with zero-to-app navigation components like AppBar
 | `label` | `string` | Display label |
 | `sfSymbol` | `{ default, selected }` | iOS SF Symbol icons |
 | `materialIcon` | `string` | Android Material icon name |
-| `webIcon` | `any` | Web-only icon |
+| `webIcon` | `PlatformIcon \| string` | Web-only icon |
 
 Additional `AppTabsProps`: `logoImage`, `height` (web app bar height), `onPrimaryMenuPress` (native hamburger callback).
 
@@ -83,20 +83,6 @@ Route scoping: Sidebar captures the route segment on mount and only renders when
 
 ### SidebarFooter
 - `children`, `style` — bordered top content area
-
----
-
-## Drawer
-
-```tsx
-<Drawer isOpen={isOpen} onClose={close} side="left" header={...} footer={...}>
-  {children}
-</Drawer>
-```
-
-Standalone animated overlay panel. Slides in from `side` (`'left'` | `'right'`, default `'left'`) with backdrop. Uses `react-native-reanimated`.
-
-**Props:** `isOpen`, `onClose`, `side`, `header`, `footer`, `children`, `style`.
 
 ---
 

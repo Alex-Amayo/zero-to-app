@@ -5,24 +5,19 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const FEATURES = [
   {
-    title: 'iOS, Android, and Web',
-    icon: { name: 'smartphone', library: 'Feather' as const },
-    description: 'Single codebase with full support for iOS, Android, and web platforms.',
-  },
-  {
     title: 'Material Design 3',
     icon: { name: 'layers', library: 'Feather' as const },
-    description: 'Build polished, accessible interfaces with Google\'s open source design system.',
+    description: 'A complete implementation of Google\'s design system. Semantic tokens keep color, spacing, and typography consistent across every component.',
   },
   {
-    title: 'Native Components',
-    icon: { name: 'cpu', library: 'Feather' as const },
-    description: 'Use SwiftUI and Jetpack Compose when needed for performance and deep platform integration.',
+    title: 'Cross-platform',
+    icon: { name: 'smartphone', library: 'Feather' as const },
+    description: 'iOS, Android, and web from a single component tree. No platform forks, no duplicated styles.',
   },
   {
     title: 'Claude Skills',
     icon: { name: 'zap', library: 'Feather' as const },
-    description: 'Accelerate development with AI powered skills that use primitives and design tokens to generate components, screens, and flows.',
+    description: 'AI-assisted development that understands your design tokens and components. Generate screens that match your codebase, not generic boilerplate.',
   },
 ];
 
@@ -56,7 +51,7 @@ export default function HomeScreen() {
               Zero To App
             </Typography>
             <Typography variant="headlineSmall" align="center" color={"white"}>
-              A React Native component library
+              React Native components built on Material Design 3.
             </Typography>
           </View>
           <View style={{ flexDirection: 'row', gap: spacing.md }}>
@@ -82,21 +77,13 @@ export default function HomeScreen() {
           {/* Left Column — About Section */}
           <ThemedView style={{ gap: spacing.lg }}>
             <Typography variant="headlineMedium" weight="bold">
-              Build Apps Faster
+              Why Zero To App?
             </Typography>
             <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-              Zero To App gives you a complete set of production-ready components built on Material Design 3.
-              From buttons and typography to navigation and layout, everything is designed to work seamlessly
-              across iOS, Android, and web.
+              Zero to app uses react native stylesheet and semantic tokens form material design to ...
             </Typography>
             <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-              Powered by Expo and React Native, the library includes a theming system with light and dark mode,
-              responsive breakpoints, and semantic design tokens — so you can focus on building your product
-              instead of reinventing the wheel.
-            </Typography>
-            <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-              Pair it with Claude Skills to accelerate your workflow. AI-powered code generation that understands
-              your design system and generates components, screens, and flows that match your app&apos;s look and feel.
+              LLMs need consistent
             </Typography>
           </ThemedView>
 

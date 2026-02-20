@@ -8,6 +8,7 @@ export { defaultBrand } from './default-brand';
 export {
   generateLightColors,
   generateDarkColors,
+  contrastRatio,
   hasContrastRatio,
   generateHighContrastColors,
   type PaletteOptions,

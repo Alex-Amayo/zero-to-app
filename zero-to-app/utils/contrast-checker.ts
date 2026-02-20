@@ -3,7 +3,7 @@
  * Automated accessibility contrast validation
  */
 
-import { hasContrastRatio } from '../brand/palette-generator';
+import { contrastRatio, hasContrastRatio } from '../brand/palette-generator';
 import type { Colors } from '../brand/brand-types';
 
 export interface ContrastCheck {
@@ -58,12 +58,9 @@ export function checkThemeContrast(
   ];
 
   for (const { pair, fg, bg } of pairs) {
-    const passesAA = hasContrastRatio(fg, bg, minRatio);
-    const passesAAA = hasContrastRatio(fg, bg, aaaRatio);
-
-    // Simplified ratio calculation (actual WCAG uses luminance)
-    // For production, use a proper WCAG contrast calculator
-    const ratio = passesAAA ? 7.0 : passesAA ? 4.5 : 3.0;
+    const ratio = contrastRatio(fg, bg);
+    const passesAA = ratio >= minRatio;
+    const passesAAA = ratio >= aaaRatio;
 
     checks.push({
       pair,

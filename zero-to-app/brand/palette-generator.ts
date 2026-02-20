@@ -249,7 +249,33 @@ export function generateDarkColors(options: PaletteOptions): Colors {
 }
 
 /**
- * Utility to check if a color has sufficient contrast ratio
+ * Compute WCAG 2.1 relative luminance for an ARGB integer.
+ * https://www.w3.org/TR/WCAG21/#dfn-relative-luminance
+ */
+function relativeLuminance(argb: number): number {
+  const linearize = (val: number): number =>
+    val <= 0.04045 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+  const r = linearize(((argb >> 16) & 0xFF) / 255);
+  const g = linearize(((argb >> 8) & 0xFF) / 255);
+  const b = linearize((argb & 0xFF) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+/**
+ * Compute the WCAG 2.1 contrast ratio between two hex colors.
+ * Returns a value between 1 (no contrast) and 21 (black on white).
+ * https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio
+ */
+export function contrastRatio(foreground: string, background: string): number {
+  const fgL = relativeLuminance(argbFromHex(foreground));
+  const bgL = relativeLuminance(argbFromHex(background));
+  const lighter = Math.max(fgL, bgL);
+  const darker = Math.min(fgL, bgL);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+/**
+ * Check if two colors meet a minimum WCAG contrast ratio.
  * @param foreground Foreground color (hex)
  * @param background Background color (hex)
  * @param minRatio Minimum contrast ratio (default: 4.5 for AA compliance)
@@ -260,24 +286,7 @@ export function hasContrastRatio(
   background: string,
   minRatio: number = 4.5
 ): boolean {
-  const fgArgb = argbFromHex(foreground);
-  const bgArgb = argbFromHex(background);
-
-  const fgHct = Hct.fromInt(fgArgb);
-  const bgHct = Hct.fromInt(bgArgb);
-
-  // Calculate contrast ratio using tone (0-100 lightness scale)
-  const fgTone = fgHct.tone;
-  const bgTone = bgHct.tone;
-
-  const lighter = Math.max(fgTone, bgTone);
-  const darker = Math.min(fgTone, bgTone);
-
-  // Simplified contrast calculation based on tone difference
-  // Full WCAG calculation would need actual luminance values
-  const contrast = (lighter + 5) / (darker + 5);
-
-  return contrast >= minRatio;
+  return contrastRatio(foreground, background) >= minRatio;
 }
 
 /**

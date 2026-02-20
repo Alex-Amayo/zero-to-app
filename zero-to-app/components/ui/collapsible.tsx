@@ -1,5 +1,5 @@
 // 1. IMPORTS
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View, type ViewProps } from 'react-native';
 import Animated, {
   FadeIn,
@@ -89,6 +89,9 @@ export interface CollapsibleProps extends Omit<ViewProps, 'children'> {
   testID?: string;
 }
 
+// Icon button dimension — also used to indent the content panel beneath the text
+const ICON_BUTTON_SIZE = 32;
+
 // 3. COMPONENT
 
 /**
@@ -128,6 +131,11 @@ const Collapsible = forwardRef<View, CollapsibleProps>(
     // Animation value for chevron rotation
     const rotation = useSharedValue(isOpen ? 90 : 0);
 
+    // Sync rotation whenever isOpen changes (handles both controlled and uncontrolled modes)
+    useEffect(() => {
+      rotation.value = withTiming(isOpen ? 90 : 0, { duration: 200 });
+    }, [isOpen]);
+
     const handlePress = () => {
       const newState = !isOpen;
 
@@ -136,7 +144,6 @@ const Collapsible = forwardRef<View, CollapsibleProps>(
       }
 
       onToggle?.(newState);
-      rotation.value = withTiming(newState ? 90 : 0, { duration: 200 });
     };
 
     const animatedIconStyle = useAnimatedStyle(() => ({
@@ -146,7 +153,7 @@ const Collapsible = forwardRef<View, CollapsibleProps>(
     return (
       <View ref={ref} style={style} testID={testID} {...rest}>
         <Pressable
-          style={({ pressed }) => [styles.heading, pressed && styles.pressedHeading]}
+          style={({ pressed }) => [styles.heading, { gap: theme.spacing.sm }, pressed && styles.pressedHeading]}
           onPress={handlePress}
           accessibilityRole="button"
           accessibilityState={{ expanded: isOpen }}
@@ -168,7 +175,7 @@ const Collapsible = forwardRef<View, CollapsibleProps>(
 
         {isOpen && (
           <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-            <ThemedView variant={contentVariant} style={[styles.content, { borderRadius: theme.shape.surfaceBorderRadius }]}>
+            <ThemedView variant={contentVariant} style={[styles.content, { marginTop: theme.spacing.md, marginLeft: ICON_BUTTON_SIZE, padding: theme.spacing.lg, borderRadius: theme.shape.surfaceBorderRadius }]}>
               {children}
             </ThemedView>
           </Animated.View>
@@ -185,22 +192,17 @@ const styles = StyleSheet.create({
   heading: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
   pressedHeading: {
     opacity: 0.7,
   },
   iconButton: {
-    width: 32,
-    height: 32,
+    width: ICON_BUTTON_SIZE,
+    height: ICON_BUTTON_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  content: {
-    marginTop: 12,
-    marginLeft: 32,
-    padding: 16,
-  },
+  content: {},
 });
 
 // 5. EXPORTS

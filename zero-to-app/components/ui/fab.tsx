@@ -145,7 +145,7 @@ const FAB = forwardRef<View, FABProps>(({
     if (isExtended) {
       baseStyle.push({
         height: sizeConfig.dimension,
-        paddingHorizontal: 16,
+        paddingHorizontal: theme.spacing.lg,
         minWidth: sizeConfig.dimension,
       });
     } else {
@@ -200,7 +200,7 @@ const FAB = forwardRef<View, FABProps>(({
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
       accessibilityRole="button"
-      accessibilityLabel={accessibilityLabel ?? label}
+      accessibilityLabel={accessibilityLabel ?? label ?? icon.name}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled }}
       android_ripple={
@@ -209,7 +209,7 @@ const FAB = forwardRef<View, FABProps>(({
           : undefined
       }
     >
-      <View style={styles.content}>
+      <View style={[styles.content, { gap: theme.spacing.sm }]}>
         {renderIcon(icon, iconLibrary, iconSize, iconColor)}
         {isExtended && (
           <Typography
@@ -238,7 +238,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
   },
   disabled: {
     opacity: 0.38,

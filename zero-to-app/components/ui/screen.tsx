@@ -21,7 +21,11 @@ export interface ScreenProps {
   testID?: string;
   /** Whether to show vertical scroll indicator. @default true */
   showsVerticalScrollIndicator?: boolean;
-  /** Whether to apply default vertical padding. @default true */
+  /**
+   * Whether to apply default top padding. @default true
+   * Set to false for full-bleed layouts (e.g. hero images at the top).
+   * Bottom padding is always applied when edges includes 'bottom'.
+   */
   padded?: boolean;
 }
 
@@ -49,6 +53,8 @@ export const Screen: React.FC<ScreenProps> = ({
   const insets = useSafeAreaInsets();
   const theme = useTheme();
 
+  // 80dp is intentional: iOS tab bars vary in height and react-navigation doesn't expose
+  // a reliable metric here. This static value clears the standard tab bar + home indicator.
   const bottomPadding = edges.includes('bottom')
     ? (Platform.OS === 'ios' ? 80 : theme.spacing.xxl)
     : 0;
@@ -61,7 +67,8 @@ export const Screen: React.FC<ScreenProps> = ({
             style={styles.scrollView}
             contentContainerStyle={[
               styles.scrollContent,
-              padded && { paddingTop: theme.spacing.xxl, paddingBottom: bottomPadding },
+              padded && { paddingTop: theme.spacing.xxl },
+              { paddingBottom: bottomPadding },
               contentContainerStyle,
             ]}
             showsVerticalScrollIndicator={showsVerticalScrollIndicator}
@@ -74,7 +81,8 @@ export const Screen: React.FC<ScreenProps> = ({
             rounded={false}
             style={[
               styles.content,
-              padded && { paddingTop: theme.spacing.xxl, paddingBottom: bottomPadding },
+              padded && { paddingTop: theme.spacing.xxl },
+              { paddingBottom: bottomPadding },
               style,
             ]}
           >

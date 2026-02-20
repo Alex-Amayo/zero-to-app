@@ -139,6 +139,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
       muted = false,
       style,
       numberOfLines,
+      accessibilityRole,
       ...rest
     },
     ref
@@ -202,8 +203,11 @@ export const Typography = forwardRef<Text, TypographyProps>(
       ? children.toUpperCase()
       : children;
 
+    const resolvedRole = accessibilityRole ??
+      ((variant.startsWith('display') || variant.startsWith('headline')) ? 'header' as const : undefined);
+
     return (
-      <Text ref={ref} style={textStyle} numberOfLines={numberOfLines} {...rest}>
+      <Text ref={ref} style={textStyle} numberOfLines={numberOfLines} accessibilityRole={resolvedRole} {...rest}>
         {content}
       </Text>
     );

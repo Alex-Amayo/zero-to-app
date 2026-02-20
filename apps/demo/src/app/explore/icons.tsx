@@ -10,6 +10,7 @@ import {
   renderIcon,
 } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
+import { DocsPagination } from '../../components/docs-pagination';
 
 const iconLibraries = [
   { name: 'Feather', description: 'Clean, minimal line icons (default)' },
@@ -200,6 +201,7 @@ export default function IconsPage() {
               ))}
             </View>
           </DemoSection>
+          <DocsPagination />
         </View>
       </Screen>
     </>

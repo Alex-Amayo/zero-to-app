@@ -40,6 +40,18 @@ export default function ExploreLayout() {
                     />
                 }
             >
+                <SidebarSection title="Getting Started" icon={{ library: 'Feather', name: 'code' }}>
+                    <SidebarItem
+                        label="Installation"
+                        active={isActive('/explore')}
+                        onPress={() => navigateTo('/explore')}
+                    />
+                    <SidebarItem
+                        label="Theming"
+                        active={isActive('/explore/theming')}
+                        onPress={() => navigateTo('/explore/theming')}
+                    />
+                </SidebarSection>
                 <SidebarSection title="Foundation" icon={{ library: 'Feather', name: 'book-open' }}>
                     <SidebarItem
                         label="Tokens"
@@ -54,14 +66,14 @@ export default function ExploreLayout() {
                 </SidebarSection>
                 <SidebarSection title="Components" icon={{ library: 'Feather', name: 'box' }}>
                     <SidebarItem
-                        label="Button"
-                        active={isActive('/explore/button')}
-                        onPress={() => navigateTo('/explore/button')}
+                        label="Screen"
+                        active={isActive('/explore/screen')}
+                        onPress={() => navigateTo('/explore/screen')}
                     />
                     <SidebarItem
-                        label="Typography"
-                        active={isActive('/explore/typography')}
-                        onPress={() => navigateTo('/explore/typography')}
+                        label="Container"
+                        active={isActive('/explore/container')}
+                        onPress={() => navigateTo('/explore/container')}
                     />
                     <SidebarItem
                         label="ThemedView"
@@ -69,14 +81,19 @@ export default function ExploreLayout() {
                         onPress={() => navigateTo('/explore/themed-view')}
                     />
                     <SidebarItem
-                        label="Screen"
-                        active={isActive('/explore/screen')}
-                        onPress={() => navigateTo('/explore/screen')}
+                        label="Typography"
+                        active={isActive('/explore/typography')}
+                        onPress={() => navigateTo('/explore/typography')}
                     />
                     <SidebarItem
                         label="ThemedImage"
                         active={isActive('/explore/themed-image')}
                         onPress={() => navigateTo('/explore/themed-image')}
+                    />
+                    <SidebarItem
+                        label="Button"
+                        active={isActive('/explore/button')}
+                        onPress={() => navigateTo('/explore/button')}
                     />
                 </SidebarSection>
             </Sidebar>

@@ -35,11 +35,13 @@ theme.spacing.xl       // 20px
 theme.spacing.xxl      // 24px
 theme.spacing.xxxl     // 40px
 
-// Shape (preferred for components)
+// Shape — preferred for standard components
+// Use these first; they reflect the design system's intended rounding
 theme.shape.surfaceBorderRadius  // 12px — cards, containers, collapsibles
 theme.shape.buttonBorderRadius   // 8px  — buttons, interactive elements
 
-// Border radius scale (for components needing multiple tiers, e.g. FAB)
+// Border radius scale — use when a component needs multiple tiers (e.g. FAB sizes)
+// or when shape tokens don't fit the use case
 theme.borderRadius.xs    // 4px  — chips, small badges
 theme.borderRadius.sm    // 8px  — buttons, inputs, tabs
 theme.borderRadius.md    // 12px — collapsible, small FAB

@@ -9,10 +9,10 @@ interface DemoSectionProps {
 }
 
 export function DemoSection({ title, description, children }: DemoSectionProps) {
-  const { spacing, borderRadius } = useTheme();
+  const { spacing, shape, surfaceContainerHighest } = useTheme();
 
   return (
-    <View style={{ gap: spacing.lg }}>
+    <View style={{ gap: spacing.sm }}>
       <Typography variant="titleMedium" weight="medium">
         {title}
       </Typography>
@@ -21,7 +21,10 @@ export function DemoSection({ title, description, children }: DemoSectionProps) 
           {description}
         </Typography>
       )}
-      <ThemedView variant="card" style={{ padding:spacing.md, borderRadius: borderRadius.sm, gap: spacing.md }}>
+      <ThemedView
+        color={surfaceContainerHighest}
+        style={{ padding: spacing.xl, borderRadius: shape.surfaceBorderRadius, gap: spacing.lg }}
+      >
         {children}
       </ThemedView>
     </View>

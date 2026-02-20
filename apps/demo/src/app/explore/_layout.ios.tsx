@@ -36,6 +36,18 @@ export default function ExploreLayout() {
                     />
                 }
             >
+                <SidebarSection title="Getting Started" icon={{library: 'Feather', name: 'code'}}>
+                    <SidebarItem
+                        label="Installation"
+                        active={isActive('/explore')}
+                        onPress={() => navigateTo('/explore')}
+                    />
+                    <SidebarItem
+                        label="Theming"
+                        active={isActive('/explore/theming')}
+                        onPress={() => navigateTo('/explore/theming')}
+                    />
+                </SidebarSection>
                 <SidebarSection title="Foundation" icon={{library: 'Feather', name: 'book-open'}}>
                     <SidebarItem
                         label="Tokens"
@@ -50,14 +62,14 @@ export default function ExploreLayout() {
                 </SidebarSection>
                 <SidebarSection title="Components" icon={{library: 'Feather', name: 'box'}}>
                     <SidebarItem
-                        label="Button"
-                        active={isActive('/explore/button')}
-                        onPress={() => navigateTo('/explore/button')}
+                        label="Screen"
+                        active={isActive('/explore/screen')}
+                        onPress={() => navigateTo('/explore/screen')}
                     />
                     <SidebarItem
-                        label="Typography"
-                        active={isActive('/explore/typography')}
-                        onPress={() => navigateTo('/explore/typography')}
+                        label="Container"
+                        active={isActive('/explore/container')}
+                        onPress={() => navigateTo('/explore/container')}
                     />
                     <SidebarItem
                         label="ThemedView"
@@ -65,19 +77,19 @@ export default function ExploreLayout() {
                         onPress={() => navigateTo('/explore/themed-view')}
                     />
                     <SidebarItem
-                        label="Screen"
-                        active={isActive('/explore/screen')}
-                        onPress={() => navigateTo('/explore/screen')}
-                    />
-                    <SidebarItem
-                        label="Collapsible"
-                        active={isActive('/explore/collapsible')}
-                        onPress={() => navigateTo('/explore/collapsible')}
+                        label="Typography"
+                        active={isActive('/explore/typography')}
+                        onPress={() => navigateTo('/explore/typography')}
                     />
                     <SidebarItem
                         label="ThemedImage"
                         active={isActive('/explore/themed-image')}
                         onPress={() => navigateTo('/explore/themed-image')}
+                    />
+                    <SidebarItem
+                        label="Button"
+                        active={isActive('/explore/button')}
+                        onPress={() => navigateTo('/explore/button')}
                     />
                 </SidebarSection>
             </Sidebar>
@@ -92,15 +104,16 @@ export default function ExploreLayout() {
                     headerBackButtonDisplayMode: 'minimal',
                 }}
             >
-                <Stack.Screen name="index" options={{title: 'Explore'}} />
+                <Stack.Screen name="index" options={{title: 'Installation'}} />
+                <Stack.Screen name="theming" options={{title: 'Theming'}} />
                 <Stack.Screen name="tokens" options={{title: 'Tokens'}} />
                 <Stack.Screen name="icons" options={{title: 'Icons'}} />
-                <Stack.Screen name="button" options={{title: 'Button'}} />
-                <Stack.Screen name="typography" options={{title: 'Typography'}} />
-                <Stack.Screen name="themed-view" options={{title: 'Themed View'}} />
                 <Stack.Screen name="screen" options={{title: 'Screen'}} />
-                <Stack.Screen name="collapsible" options={{title: 'Collapsible'}} />
+                <Stack.Screen name="container" options={{title: 'Container'}} />
+                <Stack.Screen name="themed-view" options={{title: 'ThemedView'}} />
+                <Stack.Screen name="typography" options={{title: 'Typography'}} />
                 <Stack.Screen name="themed-image" options={{title: 'ThemedImage'}} />
+                <Stack.Screen name="button" options={{title: 'Button'}} />
             </Stack>
             </>
     );

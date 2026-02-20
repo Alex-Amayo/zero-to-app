@@ -1,97 +1,50 @@
-import React from 'react';
-import { useRouter } from 'expo-router';
-import { Typography, ThemedView, Button, Screen, useTheme, Container, NativeHeader, useSidebar } from 'zero-to-app';
+import { Screen, Typography, NativeHeader, useSidebar, useTheme } from 'zero-to-app';
+import { View } from 'react-native';
+import { CodeBlock } from '../../components/code-block';
+import { DocsPagination } from '../../components/docs-pagination';
 
-
-export default function ExploreIndex() {
-  const router = useRouter();
-  const { spacing } = useTheme();
-
-  const pages = [
-    {
-      name: 'Tokens',
-      description: 'Design tokens reference: colors, spacing, border radius, typography, and component tokens',
-      route: '/explore/tokens',
-    },
-    {
-      name: 'Icons',
-      description: 'Icon system reference with 12 supported libraries, usage patterns, and icon gallery',
-      route: '/explore/icons',
-    },
-    {
-      name: 'Button',
-      description: 'Material Design 3 buttons with 5 variants, sizes, icons, and loading states',
-      route: '/explore/button',
-    },
-    {
-      name: 'Collapsible',
-      description: 'Expandable/collapsible sections with animated transitions',
-      route: '/explore/collapsible',
-    },
-    {
-      name: 'Typography',
-      description: 'Complete M3 type scale with display, headline, title, body, and label variants',
-      route: '/explore/typography',
-    },
-    {
-      name: 'ThemedView',
-      description: 'Theme-aware container with surface variants for consistent backgrounds',
-      route: '/explore/themed-view',
-    },
-    {
-      name: 'Screen',
-      description: 'Screen wrapper with safe areas, themed backgrounds, and optional scrolling',
-      route: '/explore/screen',
-    },
-    {
-      name: 'ThemedImage',
-      description: 'Theme-aware image that switches between light and dark sources automatically',
-      route: '/explore/themed-image',
-    },
-  ];
-
+export default function GettingStartedPage() {
   const { open } = useSidebar();
+  const { spacing } = useTheme();
 
   return (
     <>
       <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
-      <Screen scrollable variant="background" edges={['bottom']} padded={false} contentContainerStyle={{ paddingTop: spacing.xxxl }}>
-        <Container style={{ gap: spacing.xxl }}>
-          <ThemedView style={{ gap: spacing.xl }}>
+      <Screen scrollable variant="background" edges={['bottom']}>
+        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
+          <View style={{ gap: spacing.xs }}>
             <Typography variant="headlineMedium" weight="bold">
-              Explore Docs
+              Getting Started
             </Typography>
             <Typography variant="bodyMedium" muted>
-              Browse foundation docs and component demos to see the theming system in action.
+              Add Zero To App to your Expo project in two steps.
             </Typography>
-          </ThemedView>
-          <ThemedView columns={3} gap={spacing.lg}>
-            {pages.map((page) => (
-              <ThemedView
-                key={page.name}
-                variant="card"
-                style={{
-                  padding: spacing.xl,
-                  borderRadius: spacing.md,
-                  gap: spacing.md,
-                }}
-              >
-                <Typography variant="titleMedium" weight="medium">
-                  {page.name}
-                </Typography>
-                <Typography variant="bodySmall" muted style={{ flex: 1 }}>
-                  {page.description}
-                </Typography>
-                <Button
-                  title="View"
-                  variant="tonal"
-                  size="xs"
-                  onPress={() => router.push(page.route as any)}
-                />
-              </ThemedView>
-            ))}
-          </ThemedView>
-        </Container>
+          </View>
+
+          <View style={{ gap: spacing.md }}>
+            <Typography variant="titleLarge" weight="bold">
+              Installation
+            </Typography>
+            <Typography variant="bodyMedium" muted>
+              Install the package using Expo&apos;s install command to ensure SDK version compatibility.
+            </Typography>
+            <CodeBlock code="npx expo install zero-to-app" />
+          </View>
+
+          <View style={{ gap: spacing.md }}>
+            <Typography variant="titleLarge" weight="bold">
+              Usage
+            </Typography>
+            <Typography variant="bodyMedium" muted>
+              Wrap your root layout with the <Typography variant="bodyMedium" style={{ fontFamily: 'monospace' }}>ZeroToApp</Typography> provider. This sets up theming, spacing, and context for all components.
+            </Typography>
+            <CodeBlock
+              multiline
+              code={"import { ZeroToApp } from 'zero-to-app';\n\nexport default function RootLayout() {\n  return (\n    <ZeroToApp>\n      <Stack />\n    </ZeroToApp>\n  );\n}"}
+            />
+          </View>
+          <DocsPagination />
+        </View>
       </Screen>
     </>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Typography, ThemedView, Screen, useTheme, NativeHeader, useSidebar} from 'zero-to-app';
 import {DemoSection} from '../../components/demo-section';
+import { DocsPagination } from '../../components/docs-pagination';
 import {PropsTable, type PropDefinition} from '../../components/props-table';
 
 const screenProps: PropDefinition[] = [
@@ -231,6 +232,7 @@ export default function ScreenPage() {
                     Props
                 </Typography>
                 <PropsTable props={screenProps}/>
+                <DocsPagination />
             </View>
         </Screen>
         </>

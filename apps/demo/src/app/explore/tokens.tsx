@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Typography, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
+import { DocsPagination } from '../../components/docs-pagination';
 
 function ColorSwatch({ label, color }: { label: string; color: string }) {
   const { spacing, borderRadius, onSurface } = useTheme();
@@ -251,6 +252,7 @@ export default function TokensPage() {
               </View>
             ))}
           </DemoSection>
+          <DocsPagination />
         </View>
       </Screen>
     </>

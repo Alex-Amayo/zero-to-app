@@ -70,7 +70,9 @@ Additional props: `iconPosition` (`'left'` | `'right'`, default `'right'`), `col
 
 **Variants:** `background`, `surface` (default), `surfaceContainer`, `card`, `appbar`, `primary`
 
-Grid props: `columns` (multi-column on medium+ screens, single column on small), `gap`.
+> **Note:** `background` and `surface` map to the same color (`theme.surface`). `background` is a semantic hint for intent only — there is no visual difference.
+
+Grid props: `columns` (multi-column on medium+ screens ≥768px, single column on small), `gap`.
 `rounded` prop applies `theme.shape.surfaceBorderRadius` (default `true`).
 
 ---
@@ -84,8 +86,10 @@ Grid props: `columns` (multi-column on medium+ screens, single column on small),
 <Container columns={2} gap={16}>{children}</Container>
 ```
 
-Constrains content width (default 1000px), centers horizontally, applies `theme.spacing.xl` horizontal padding.
+Constrains content width (default 1000px), centers horizontally (`alignSelf: 'center'`), applies `theme.spacing.xl` horizontal padding.
 Extends `ThemedView` — all `ThemedViewProps` are available.
+
+> **Note:** `Container` always renders with `rounded={false}` internally. Passing a `rounded` prop has no effect — border radius must be applied via `style` if needed.
 
 ---
 

@@ -1,7 +1,7 @@
 import { useTheme, useThemeMode, Screen, Container, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
 import { router } from "expo-router";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const FEATURES = [
   {
@@ -17,7 +17,7 @@ const FEATURES = [
   {
     title: 'Claude Skills',
     icon: { name: 'zap', library: 'Feather' as const },
-    description: 'AI-assisted development that understands your design tokens and components. Generate screens that match your codebase, not generic boilerplate.',
+    description: 'AI-assisted development that understands your design tokens and primitives. Generate components and flows that match your codebase, not generic boilerplate.',
   },
 ];
 
@@ -71,20 +71,29 @@ export default function HomeScreen() {
         </SafeAreaView>
       </ImageBackground>
 
-      {/* Content Section — Two columns: Cards (left) + Info (right) */}
-      <Container style={{ gap: spacing.xxl, paddingVertical: spacing.xxl }}>
-        <ThemedView columns={2} gap={spacing.lg}>
-          {/* Left Column — About Section */}
-          <ThemedView style={{ gap: spacing.lg }}>
-            <Typography variant="headlineMedium" weight="bold">
-              Why Zero To App?
-            </Typography>
-            <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-              Zero to app uses react native stylesheet and semantic tokens form material design to ...
-            </Typography>
-            <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-              LLMs need consistent
-            </Typography>
+      <Container style={{ gap: spacing.xl, justifyContent: 'center', paddingVertical: spacing.xxxl }}>
+        <Typography variant="displaySmall" weight="bold" align="center">
+          Build consistent cross-platform experiences.
+        </Typography>
+
+      </Container>
+
+      <Container>
+        <ThemedView columns={2} gap={spacing.xl}>
+          {/* Left Column — Title, Introduction, Installation */}
+          <ThemedView style={{ gap: spacing.xxl }}>
+
+            <ThemedView style={{ gap: spacing.lg }}>
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+                Zero to App uses semantic Material 3 tokens and standard React Native Stylesheets to deliver a performant, unified design system consistently across platforms.
+              </Typography>
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>Generate accessible color palettes from a single brand color. Start with one hex — refine
+                individual colors when you&#39;re ready.</Typography>
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+                Large Language Models (LLMs) perform best with structure. Included Claude Skills provide the context needed for AI to generate consistent, theme-aware flows and components — not just generic code snippets.
+              </Typography>
+            </ThemedView>
+
           </ThemedView>
 
           {/* Right Column — Feature Cards */}

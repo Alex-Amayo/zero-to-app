@@ -48,6 +48,9 @@ importers:
       expo:
         specifier: ~55.0.0-preview.7
         version: 55.0.0-preview.7(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@6.1.2)(expo-router@55.0.0-beta.4)(react-dom@19.2.0(react@19.2.0))(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
+      expo-clipboard:
+        specifier: ~55.0.6
+        version: 55.0.6(expo@55.0.0-preview.7)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
       expo-constants:
         specifier: ~55.0.2
         version: 55.0.2(expo@55.0.0-preview.7)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))
@@ -3613,6 +3616,13 @@ packages:
 
   expo-blur@55.0.3:
     resolution: {integrity: sha512-14zN1Hgin+wQ6idntv3fHMBa0CMGq8xuaGs3EtdeI+4Zp+HvcnBYx1OPubPKXcTgBuHVH0Ux2ghEzA2PBGOCnQ==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+
+  expo-clipboard@55.0.6:
+    resolution: {integrity: sha512-BC4UKhTbHR5Bwpy6JuPfS47RlG/MOJmOt07zRRIih9Z60IMM5qq0iYSPFHCOLXgb9yjyl+Mfa3BjBqaIohBTUA==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -10486,7 +10496,13 @@ snapshots:
 
   expo-blur@55.0.3(expo@55.0.0-preview.7)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0):
     dependencies:
-      expo: 55.0.0-preview.7(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@55.0.3)(expo-router@55.0.0-beta.4)(react-dom@19.2.0(react@19.2.0))(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
+      expo: 55.0.0-preview.7(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@6.1.2)(expo-router@55.0.0-beta.4)(react-dom@19.2.0(react@19.2.0))(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
+      react: 19.2.0
+      react-native: 0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0)
+
+  expo-clipboard@55.0.6(expo@55.0.0-preview.7)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0):
+    dependencies:
+      expo: 55.0.0-preview.7(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@6.1.2)(expo-router@55.0.0-beta.4)(react-dom@19.2.0(react@19.2.0))(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0))(react@19.2.0)
       react: 19.2.0
       react-native: 0.83.1(@babel/core@7.28.6)(@types/react@19.2.10)(react@19.2.0)
 

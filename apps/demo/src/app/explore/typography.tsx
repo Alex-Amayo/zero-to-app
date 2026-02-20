@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Typography, ThemedView, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
+import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
 const typographyProps: PropDefinition[] = [
@@ -154,6 +155,7 @@ export default function TypographyPage() {
           Props
         </Typography>
         <PropsTable props={typographyProps} />
+        <DocsPagination />
       </View>
     </Screen>
     </>

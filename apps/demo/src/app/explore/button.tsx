@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Typography, Button, Screen, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
+import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
 const buttonProps: PropDefinition[] = [
@@ -184,6 +185,7 @@ export default function ButtonPage() {
           Props
         </Typography>
         <PropsTable props={buttonProps} />
+        <DocsPagination />
       </View>
     </Screen>
     </>

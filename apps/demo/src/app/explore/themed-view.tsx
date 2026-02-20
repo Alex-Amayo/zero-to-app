@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Typography, ThemedView, useTheme, Screen, NativeHeader, useSidebar } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
+import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
 
 const themedViewProps: PropDefinition[] = [
@@ -172,6 +173,7 @@ export default function ThemedViewPage() {
           Props
         </Typography>
         <PropsTable props={themedViewProps} />
+        <DocsPagination />
       </View>
     </Screen>
     </>

@@ -79,36 +79,19 @@
     "build": "pnpm exec tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.0.0",
-    "@material/material-color-utilities": "^0.4.0",
-    "react-hook-form": "^7.0.0",
-    "zod": "^3.22.0"
+    "@material/material-color-utilities": "^0.4.0"
   },
   "peerDependencies": {
     "@expo/vector-icons": "*",
-    "@shopify/flash-list": "*",
-    "expo-blur": "*",
-    "expo-glass-effect": "*",
     "expo-image": "*",
     "expo-router": "*",
-    "lottie-react-native": "*",
     "react": ">=18.0.0",
     "react-native": ">=0.70.0",
-    "react-native-reanimated-carousel": "*",
-    "react-native-safe-area-context": "*",
-    "react-native-screens": "*"
+    "react-native-reanimated": "*",
+    "react-native-safe-area-context": "*"
   },
   "peerDependenciesMeta": {
     "@expo/vector-icons": {
-      "optional": true
-    },
-    "@shopify/flash-list": {
-      "optional": true
-    },
-    "expo-blur": {
-      "optional": true
-    },
-    "expo-glass-effect": {
       "optional": true
     },
     "expo-image": {
@@ -117,23 +100,17 @@
     "expo-router": {
       "optional": true
     },
-    "lottie-react-native": {
-      "optional": true
-    },
-    "react-native-reanimated-carousel": {
-      "optional": true
-    },
-    "react-native-safe-area-context": {
+    "react-native-reanimated": {
       "optional": false
     },
-    "react-native-screens": {
+    "react-native-safe-area-context": {
       "optional": false
     }
   },
   "devDependencies": {
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
-    "@types/react": "~19.2.0",
+    "@types/react": "~19.2.14",
     "expo-router": "55.0.0-beta.4",
     "jest": "^30.2.0",
     "react-test-renderer": "^19.2.4",

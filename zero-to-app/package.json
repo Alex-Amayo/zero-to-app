@@ -1,7 +1,7 @@
 {
   "name": "zero-to-app",
-  "version": "2.0.0",
-  "description": "30+ reusable React Native components for iOS, Android, and Web",
+  "version": "2.0.2",
+  "description": "React Native components for building cross-platform apps with Material Design.",
   "license": "MIT",
   "author": "Alex Amayo",
   "repository": {

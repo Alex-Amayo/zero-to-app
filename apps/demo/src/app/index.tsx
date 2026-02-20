@@ -71,7 +71,7 @@ export default function HomeScreen() {
         </SafeAreaView>
       </ImageBackground>
 
-      <Container style={{ gap: spacing.xl, justifyContent: 'center', paddingVertical: spacing.xxxl }}>
+      <Container style={{ gap: spacing.xl, justifyContent: 'center', paddingVertical: spacing.xl }}>
         <Typography variant="displaySmall" weight="bold" align="center">
           Build consistent cross-platform experiences.
         </Typography>

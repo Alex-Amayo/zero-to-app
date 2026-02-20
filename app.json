@@ -4,5 +4,12 @@
   },
   "ios": {
     "bundleIdentifier": "com.alexamayo.zerotoappmonorepo"
-  }
+  },
+  "extra": {
+    "eas": {
+      "projectId": "6fcbb645-f830-4aad-8f60-3874fe491420"
+    }
+  },
+  "owner": "alexamayo",
+  "slug": "zero-to-app"
 }

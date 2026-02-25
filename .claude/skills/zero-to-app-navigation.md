@@ -110,3 +110,40 @@ const { isOpen, open, close, toggle } = useSidebar();
 ```
 
 Controls sidebar/drawer open state. Provided automatically by `ZeroToApp`.
+
+---
+
+## useRouteNavigation()
+
+Combines `usePathname` + `useRouter` into reusable helpers for sidebar and nav components.
+
+```tsx
+const { isActive, navigateTo, pathname } = useRouteNavigation();
+
+// startsWith match (default) — /explore matches /explore/theming
+isActive('/explore')
+
+// Exact match — /explore only matches /explore, not /explore/theming
+isActive('/explore', { exact: true })
+
+// Navigate
+navigateTo('/explore/button')
+```
+
+**Typical sidebar usage:**
+```tsx
+const { isActive, navigateTo } = useRouteNavigation();
+
+<SidebarItem
+  label="Installation"
+  active={isActive('/explore', { exact: true })}
+  onPress={() => navigateTo('/explore')}
+/>
+<SidebarItem
+  label="Button"
+  active={isActive('/explore/button')}
+  onPress={() => navigateTo('/explore/button')}
+/>
+```
+
+Use `{ exact: true }` for index routes (e.g. `/explore`) where the default startsWith match would highlight the item on every sub-page.

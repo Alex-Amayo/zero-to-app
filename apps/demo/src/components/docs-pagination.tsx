@@ -1,28 +1,16 @@
 import { View } from 'react-native';
 import { Button, Typography, useTheme } from 'zero-to-app';
 import { usePathname, useRouter } from 'expo-router';
-
-const PAGES = [
-  { label: 'Installation', route: '/explore' },
-  { label: 'Theming', route: '/explore/theming' },
-  { label: 'Tokens', route: '/explore/tokens' },
-  { label: 'Icons', route: '/explore/icons' },
-  { label: 'Screen', route: '/explore/screen' },
-  { label: 'Container', route: '/explore/container' },
-  { label: 'ThemedView', route: '/explore/themed-view' },
-  { label: 'Typography', route: '/explore/typography' },
-  { label: 'ThemedImage', route: '/explore/themed-image' },
-  { label: 'Button', route: '/explore/button' },
-];
+import { NAV_PAGES } from '../config/nav';
 
 export function DocsPagination() {
   const pathname = usePathname();
   const router = useRouter();
   const { spacing, outlineVariant } = useTheme();
 
-  const currentIndex = PAGES.findIndex((p) => p.route === pathname);
-  const prev = currentIndex > 0 ? PAGES[currentIndex - 1] : null;
-  const next = currentIndex < PAGES.length - 1 ? PAGES[currentIndex + 1] : null;
+  const currentIndex = NAV_PAGES.findIndex((p) => p.route === pathname);
+  const prev = currentIndex > 0 ? NAV_PAGES[currentIndex - 1] : null;
+  const next = currentIndex < NAV_PAGES.length - 1 ? NAV_PAGES[currentIndex + 1] : null;
 
   return (
     <View style={{ gap: spacing.md, marginTop: spacing.xxxl }}>

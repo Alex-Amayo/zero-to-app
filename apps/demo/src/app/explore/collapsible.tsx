@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Typography, Collapsible, Screen, Button, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
+import { Typography, Collapsible, Button } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { DocsPagination } from '../../components/docs-pagination';
+import { DocsPage } from '../../components/docs-page';
 
 const collapsibleProps: PropDefinition[] = [
   {
@@ -59,58 +61,47 @@ const collapsibleProps: PropDefinition[] = [
 
 export default function CollapsiblePage() {
   const [controlledOpen, setControlledOpen] = useState(false);
-  const { spacing } = useTheme();
-  const { open } = useSidebar();
 
   return (
-    <>
-      <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
-      <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
-          <View style={{ gap: spacing.xs }}>
-            <Typography variant="headlineMedium" weight="bold">
-              Collapsible
-          </Typography>
-          <Typography variant="bodyMedium" muted>
-            Expandable/collapsible content sections with animated transitions.
-          </Typography>
-        </View>
-
-        <DemoSection
-          title="Basic Usage"
-          description="Simple collapsible section with default styling"
-          code={`<Collapsible title="Click to expand">
+    <DocsPage
+      title="Collapsible"
+      description="Expandable/collapsible content sections with animated transitions."
+    >
+      <DemoSection
+        title="Basic Usage"
+        description="Simple collapsible section with default styling"
+        code={`<Collapsible title="Click to expand">
   <Typography>
     This content is hidden by default and revealed when the header is pressed.
   </Typography>
 </Collapsible>`}
-        >
-          <Collapsible title="Click to expand">
-            <Typography>
-              This content is hidden by default and revealed when the header is pressed.
-              The chevron icon rotates to indicate the expanded state.
-            </Typography>
-          </Collapsible>
-        </DemoSection>
+      >
+        <Collapsible title="Click to expand">
+          <Typography>
+            This content is hidden by default and revealed when the header is pressed.
+            The chevron icon rotates to indicate the expanded state.
+          </Typography>
+        </Collapsible>
+      </DemoSection>
 
-        <DemoSection
-          title="Default Open"
-          description="Collapsible that starts in an expanded state"
-          code={`<Collapsible title="Already expanded" defaultOpen>
+      <DemoSection
+        title="Default Open"
+        description="Collapsible that starts in an expanded state"
+        code={`<Collapsible title="Already expanded" defaultOpen>
   <Typography>Starts in an open state.</Typography>
 </Collapsible>`}
-        >
-          <Collapsible title="Already expanded" defaultOpen>
-            <Typography>
-              This collapsible starts in an open state. Click the header to collapse it.
-            </Typography>
-          </Collapsible>
-        </DemoSection>
+      >
+        <Collapsible title="Already expanded" defaultOpen>
+          <Typography>
+            This collapsible starts in an open state. Click the header to collapse it.
+          </Typography>
+        </Collapsible>
+      </DemoSection>
 
-        <DemoSection
-          title="Controlled State"
-          description="External control over the open state"
-          code={`const [open, setOpen] = useState(false);
+      <DemoSection
+        title="Controlled State"
+        description="External control over the open state"
+        code={`const [open, setOpen] = useState(false);
 
 <Collapsible
   title="Controlled section"
@@ -119,56 +110,56 @@ export default function CollapsiblePage() {
 >
   <Typography>Controlled by external state.</Typography>
 </Collapsible>`}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+          <Button
+            title={controlledOpen ? 'Close' : 'Open'}
+            variant="tonal"
+            size="xs"
+            onPress={() => setControlledOpen(!controlledOpen)}
+          />
+          <Typography variant="bodySmall" muted>
+            State: {controlledOpen ? 'Open' : 'Closed'}
+          </Typography>
+        </View>
+        <Collapsible
+          title="Controlled section"
+          open={controlledOpen}
+          onToggle={setControlledOpen}
         >
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginBottom: spacing.md }}>
-            <Button
-              title={controlledOpen ? 'Close' : 'Open'}
-              variant="tonal"
-              size="xs"
-              onPress={() => setControlledOpen(!controlledOpen)}
-            />
-            <Typography variant="bodySmall" muted>
-              State: {controlledOpen ? 'Open' : 'Closed'}
-            </Typography>
-          </View>
-          <Collapsible
-            title="Controlled section"
-            open={controlledOpen}
-            onToggle={setControlledOpen}
-          >
-            <Typography>
-              This collapsible is controlled by external state.
-              Both the button and the header can toggle it.
-            </Typography>
-          </Collapsible>
-        </DemoSection>
+          <Typography>
+            This collapsible is controlled by external state.
+            Both the button and the header can toggle it.
+          </Typography>
+        </Collapsible>
+      </DemoSection>
 
-        <DemoSection
-          title="Nested Collapsibles"
-          description="Collapsibles can be nested within each other"
-          code={`<Collapsible title="Outer section">
+      <DemoSection
+        title="Nested Collapsibles"
+        description="Collapsibles can be nested within each other"
+        code={`<Collapsible title="Outer section">
   <Typography>Outer content.</Typography>
   <Collapsible title="Inner section" contentVariant="card">
     <Typography>Nested inside the outer collapsible.</Typography>
   </Collapsible>
 </Collapsible>`}
-        >
-          <Collapsible title="Outer section">
-            <Typography style={{ marginBottom: spacing.md }}>
-              This is the outer content. Click below for more.
+      >
+        <Collapsible title="Outer section">
+          <Typography style={{ marginBottom: 16 }}>
+            This is the outer content. Click below for more.
+          </Typography>
+          <Collapsible title="Inner section" contentVariant="card">
+            <Typography>
+              This is nested inside the outer collapsible.
             </Typography>
-            <Collapsible title="Inner section" contentVariant="card">
-              <Typography>
-                This is nested inside the outer collapsible.
-              </Typography>
-            </Collapsible>
           </Collapsible>
-        </DemoSection>
+        </Collapsible>
+      </DemoSection>
 
-        <DemoSection
-          title="Style Variants"
-          description="Different header and content background variants"
-          code={`<Collapsible
+      <DemoSection
+        title="Style Variants"
+        description="Different header and content background variants"
+        code={`<Collapsible
   title="Surface variant"
   headerVariant="surface"
   contentVariant="surface"
@@ -182,31 +173,28 @@ export default function CollapsiblePage() {
 >
   <Typography>Content with card styling</Typography>
 </Collapsible>`}
-        >
-          <View style={{ gap: spacing.lg }}>
-            <Collapsible
-              title="Surface variant"
-              headerVariant="surface"
-              contentVariant="surface"
-            >
-              <Typography>Content with surface styling</Typography>
-            </Collapsible>
-            <Collapsible
-              title="Card variant"
-              headerVariant="surfaceContainer"
-              contentVariant="card"
-            >
-              <Typography>Content with card styling</Typography>
-            </Collapsible>
-          </View>
-        </DemoSection>
+      >
+        <View style={{ gap: 16 }}>
+          <Collapsible
+            title="Surface variant"
+            headerVariant="surface"
+            contentVariant="surface"
+          >
+            <Typography>Content with surface styling</Typography>
+          </Collapsible>
+          <Collapsible
+            title="Card variant"
+            headerVariant="surfaceContainer"
+            contentVariant="card"
+          >
+            <Typography>Content with card styling</Typography>
+          </Collapsible>
+        </View>
+      </DemoSection>
 
-        <Typography variant="titleLarge" weight="medium" style={{ marginTop: spacing.lg }}>
-          Props
-        </Typography>
-        <PropsTable props={collapsibleProps} />
-      </View>
-    </Screen>
-    </>
+      <Typography variant="titleLarge" weight="medium">Props</Typography>
+      <PropsTable props={collapsibleProps} />
+      <DocsPagination />
+    </DocsPage>
   );
 }

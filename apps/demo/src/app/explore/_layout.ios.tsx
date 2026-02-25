@@ -1,29 +1,18 @@
 import React from 'react';
-import {Stack, usePathname, useRouter} from 'expo-router';
+import {Stack} from 'expo-router';
 import {
     useTheme,
     Sidebar,
     SidebarHeader,
     SidebarSection,
     SidebarItem,
+    useRouteNavigation,
 } from 'zero-to-app';
+import { NAV_SECTIONS } from '../../config/nav';
 
 export default function ExploreLayout() {
     const theme = useTheme();
-    const pathname = usePathname();
-    const router = useRouter();
-
-    const navigateTo = (route: string) => {
-        router.push(route as any);
-    };
-
-    const isActive = (route: string) => {
-        const currentPath = typeof pathname === 'string' ? pathname : '';
-        if (route === '/explore' || route === '/explore/') {
-            return currentPath === '/explore' || currentPath === '/explore/';
-        }
-        return currentPath === route || currentPath.startsWith(route + '/');
-    };
+    const { isActive, navigateTo } = useRouteNavigation();
 
     return (
         <>
@@ -36,62 +25,22 @@ export default function ExploreLayout() {
                     />
                 }
             >
-                <SidebarSection title="Getting Started" icon={{library: 'Feather', name: 'code'}}>
-                    <SidebarItem
-                        label="Installation"
-                        active={isActive('/explore')}
-                        onPress={() => navigateTo('/explore')}
-                    />
-                    <SidebarItem
-                        label="Theming"
-                        active={isActive('/explore/theming')}
-                        onPress={() => navigateTo('/explore/theming')}
-                    />
-                </SidebarSection>
-                <SidebarSection title="Foundation" icon={{library: 'Feather', name: 'book-open'}}>
-                    <SidebarItem
-                        label="Tokens"
-                        active={isActive('/explore/tokens')}
-                        onPress={() => navigateTo('/explore/tokens')}
-                    />
-                    <SidebarItem
-                        label="Icons"
-                        active={isActive('/explore/icons')}
-                        onPress={() => navigateTo('/explore/icons')}
-                    />
-                </SidebarSection>
-                <SidebarSection title="Components" icon={{library: 'Feather', name: 'box'}}>
-                    <SidebarItem
-                        label="Screen"
-                        active={isActive('/explore/screen')}
-                        onPress={() => navigateTo('/explore/screen')}
-                    />
-                    <SidebarItem
-                        label="Container"
-                        active={isActive('/explore/container')}
-                        onPress={() => navigateTo('/explore/container')}
-                    />
-                    <SidebarItem
-                        label="ThemedView"
-                        active={isActive('/explore/themed-view')}
-                        onPress={() => navigateTo('/explore/themed-view')}
-                    />
-                    <SidebarItem
-                        label="Typography"
-                        active={isActive('/explore/typography')}
-                        onPress={() => navigateTo('/explore/typography')}
-                    />
-                    <SidebarItem
-                        label="ThemedImage"
-                        active={isActive('/explore/themed-image')}
-                        onPress={() => navigateTo('/explore/themed-image')}
-                    />
-                    <SidebarItem
-                        label="Button"
-                        active={isActive('/explore/button')}
-                        onPress={() => navigateTo('/explore/button')}
-                    />
-                </SidebarSection>
+                {NAV_SECTIONS.map((section) => (
+                    <SidebarSection
+                        key={section.title}
+                        title={section.title}
+                        icon={section.icon as any}
+                    >
+                        {section.items.map((item) => (
+                            <SidebarItem
+                                key={item.route}
+                                label={item.label}
+                                active={isActive(item.route, { exact: item.exact })}
+                                onPress={() => navigateTo(item.route)}
+                            />
+                        ))}
+                    </SidebarSection>
+                ))}
             </Sidebar>
 
             <Stack
@@ -114,7 +63,8 @@ export default function ExploreLayout() {
                 <Stack.Screen name="typography" options={{title: 'Typography'}} />
                 <Stack.Screen name="themed-image" options={{title: 'ThemedImage'}} />
                 <Stack.Screen name="button" options={{title: 'Button'}} />
+                <Stack.Screen name="collapsible" options={{title: 'Collapsible'}} />
             </Stack>
-            </>
+        </>
     );
 }

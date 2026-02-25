@@ -1,21 +1,10 @@
 import React from 'react';
 import { Platform, View, StyleSheet } from 'react-native';
-import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar, ThemedImage } from 'zero-to-app';
-import { usePathname, useRouter } from 'expo-router';
+import { ZeroToApp, AppTabs, defaultBrand, AppTabsExternalLink, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar, ThemedImage, useRouteNavigation } from 'zero-to-app';
 
 function TabLayoutInner() {
-  const pathname = usePathname();
-  const router = useRouter();
+  const { isActive, navigateTo } = useRouteNavigation();
   const { toggle } = useSidebar();
-
-  const navigateTo = (route: string) => {
-    router.push(route as any);
-  };
-
-  const isActive = (route: string) => {
-    const currentPath = typeof pathname === 'string' ? pathname : '';
-    return currentPath === route || currentPath.startsWith(route + '/');
-  };
 
   const externalLinks: AppTabsExternalLink[] = [
     {

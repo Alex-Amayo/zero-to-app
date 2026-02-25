@@ -55,9 +55,8 @@ export const Screen: React.FC<ScreenProps> = ({
 
   // 80dp is intentional: iOS tab bars vary in height and react-navigation doesn't expose
   // a reliable metric here. This static value clears the standard tab bar + home indicator.
-  const bottomPadding = edges.includes('bottom')
-    ? (Platform.OS === 'ios' ? 80 : theme.spacing.xxl)
-    : 0;
+  // Android: SafeAreaView handles the inset — no extra padding needed.
+  const bottomPadding = edges.includes('bottom') && Platform.OS === 'ios' ? 80 : 0;
 
   return (
     <ThemedView variant={variant} rounded={false} style={styles.container}>

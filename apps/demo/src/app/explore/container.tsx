@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Typography, Screen, Container, ThemedView, useTheme, NativeHeader, useSidebar } from 'zero-to-app';
+import { Typography, Screen, Container, ThemedView, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { DocsPage } from '../../components/docs-page';
 
 const containerProps: PropDefinition[] = [
   {
@@ -55,50 +56,42 @@ function Placeholder({ label, height = 48 }: { label: string; height?: number })
 }
 
 export default function ContainerPage() {
-  const { open } = useSidebar();
-  const { spacing, shape } = useTheme();
+  const { shape } = useTheme();
 
   return (
-    <>
-      <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
-      <Screen scrollable variant="background" edges={['bottom']} padded={false}>
-        <View style={{ paddingHorizontal: spacing.xxl, paddingVertical: spacing.xxl, gap: spacing.xxl }}>
-          <View style={{ gap: spacing.xs }}>
-            <Typography variant="headlineMedium" weight="bold">Container</Typography>
-            <Typography variant="bodyMedium" muted>
-              Constrains content width for readability on large screens. Centers horizontally and applies consistent horizontal padding.
-            </Typography>
-          </View>
-
-          <DemoSection
-            title="Default (maxWidth 1000)"
-            description="Content is constrained and centered. On narrow screens it fills the available width."
-            code={`<Container>
+    <DocsPage
+      title="Container"
+      description="Constrains content width for readability on large screens. Centers horizontally and applies consistent horizontal padding."
+    >
+      <DemoSection
+        title="Default (maxWidth 1000)"
+        description="Content is constrained and centered. On narrow screens it fills the available width."
+        code={`<Container>
   <Typography>Content constrained to 1000px max width</Typography>
 </Container>`}
-          >
-            <Container style={{ gap: spacing.md, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
-              <Placeholder label="Content" />
-              <Placeholder label="Content" />
-            </Container>
-          </DemoSection>
+      >
+        <Container style={{ gap: 12, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
+          <Placeholder label="Content" />
+          <Placeholder label="Content" />
+        </Container>
+      </DemoSection>
 
-          <DemoSection
-            title="Custom maxWidth"
-            description="Useful for narrow reading columns or tighter layouts."
-            code={`<Container maxWidth={480}>
+      <DemoSection
+        title="Custom maxWidth"
+        description="Useful for narrow reading columns or tighter layouts."
+        code={`<Container maxWidth={480}>
   <Typography>Narrow content (480px max)</Typography>
 </Container>`}
-          >
-            <Container maxWidth={480} style={{ gap: spacing.md, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
-              <Placeholder label="Narrow content (480px max)" />
-            </Container>
-          </DemoSection>
+      >
+        <Container maxWidth={480} style={{ gap: 12, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
+          <Placeholder label="Narrow content (480px max)" />
+        </Container>
+      </DemoSection>
 
-          <DemoSection
-            title="Responsive grid"
-            description="Inherits ThemedView's columns prop. Single column on small screens, multi-column on medium+ (≥768px)."
-            code={`<Container columns={2} gap={16}>
+      <DemoSection
+        title="Responsive grid"
+        description="Inherits ThemedView's columns prop. Single column on small screens, multi-column on medium+ (≥768px)."
+        code={`<Container columns={2} gap={16}>
   <Placeholder label="Col 1" />
   <Placeholder label="Col 2" />
 </Container>
@@ -108,22 +101,22 @@ export default function ContainerPage() {
   <Placeholder label="Col 2" />
   <Placeholder label="Col 3" />
 </Container>`}
-          >
-            <Container columns={2} gap={spacing.md}>
-              <Placeholder label="Col 1" />
-              <Placeholder label="Col 2" />
-            </Container>
-            <Container columns={3} gap={spacing.md} style={{ marginTop: spacing.md }}>
-              <Placeholder label="Col 1" />
-              <Placeholder label="Col 2" />
-              <Placeholder label="Col 3" />
-            </Container>
-          </DemoSection>
+      >
+        <Container columns={2} gap={12}>
+          <Placeholder label="Col 1" />
+          <Placeholder label="Col 2" />
+        </Container>
+        <Container columns={3} gap={12} style={{ marginTop: 12 }}>
+          <Placeholder label="Col 1" />
+          <Placeholder label="Col 2" />
+          <Placeholder label="Col 3" />
+        </Container>
+      </DemoSection>
 
-          <DemoSection
-            title="Full-bleed layout pattern"
-            description="Use padded={false} on Screen with Container inside to get a hero image edge-to-edge while keeping content constrained."
-            code={`<Screen scrollable variant="background" padded={false}>
+      <DemoSection
+        title="Full-bleed layout pattern"
+        description="Use padded={false} on Screen with Container inside to get a hero image edge-to-edge while keeping content constrained."
+        code={`<Screen scrollable variant="background" padded={false}>
   {/* Full-bleed hero — no Container */}
   <HeroImage />
 
@@ -132,22 +125,20 @@ export default function ContainerPage() {
     <Typography variant="titleLarge">Title</Typography>
   </Container>
 </Screen>`}
-          >
-            <ThemedView variant="surfaceContainer" style={{ borderRadius: shape.surfaceBorderRadius, overflow: 'hidden' }}>
-              <View style={{ height: 64, backgroundColor: '#6750A420', alignItems: 'center', justifyContent: 'center' }}>
-                <Typography variant="labelMedium" muted>Full-bleed hero (no Container)</Typography>
-              </View>
-              <Container style={{ paddingVertical: spacing.lg, gap: spacing.sm }}>
-                <Placeholder label="Constrained content" />
-              </Container>
-            </ThemedView>
-          </DemoSection>
+      >
+        <ThemedView variant="surfaceContainer" style={{ borderRadius: shape.surfaceBorderRadius, overflow: 'hidden' }}>
+          <View style={{ height: 64, backgroundColor: '#6750A420', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="labelMedium" muted>Full-bleed hero (no Container)</Typography>
+          </View>
+          <Container style={{ paddingVertical: 16, gap: 8 }}>
+            <Placeholder label="Constrained content" />
+          </Container>
+        </ThemedView>
+      </DemoSection>
 
-          <Typography variant="titleLarge" weight="medium">Props</Typography>
-          <PropsTable props={containerProps} />
-          <DocsPagination />
-        </View>
-      </Screen>
-    </>
+      <Typography variant="titleLarge" weight="medium">Props</Typography>
+      <PropsTable props={containerProps} />
+      <DocsPagination />
+    </DocsPage>
   );
 }

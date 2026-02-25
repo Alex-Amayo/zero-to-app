@@ -69,6 +69,21 @@ export default function ThemedViewPage() {
         <DemoSection
           title="Surface Variants"
           description="Different surface levels for visual hierarchy"
+          code={`<ThemedView variant="background" style={{ padding: 16 }}>
+  <Typography>background</Typography>
+</ThemedView>
+<ThemedView variant="surface" style={{ padding: 16 }}>
+  <Typography>surface</Typography>
+</ThemedView>
+<ThemedView variant="surfaceContainer" style={{ padding: 16 }}>
+  <Typography>surfaceContainer</Typography>
+</ThemedView>
+<ThemedView variant="card" style={{ padding: 16 }}>
+  <Typography>card</Typography>
+</ThemedView>
+<ThemedView variant="primary" style={{ padding: 16 }}>
+  <Typography color={theme.onPrimary}>primary</Typography>
+</ThemedView>`}
         >
           <View style={rowStyle}>
             <ThemedView variant="background" style={{ padding: spacing.lg, borderRadius: spacing.md, minWidth: 140, gap: spacing.xs }}>
@@ -110,6 +125,15 @@ export default function ThemedViewPage() {
         <DemoSection
           title="Custom Colors"
           description="Override the variant with a specific color"
+          code={`<ThemedView color="#E8DEF8" style={{ padding: 16 }}>
+  <Typography>#E8DEF8</Typography>
+</ThemedView>
+<ThemedView color="#D0BCFF" style={{ padding: 16 }}>
+  <Typography>#D0BCFF</Typography>
+</ThemedView>
+<ThemedView color="#6750A4" style={{ padding: 16 }}>
+  <Typography color="#FFFFFF">#6750A4</Typography>
+</ThemedView>`}
         >
           <View style={rowStyle}>
             <ThemedView color="#E8DEF8" style={{ padding: spacing.lg, borderRadius: spacing.sm, minWidth: 100, alignItems: 'center' }}>
@@ -127,6 +151,14 @@ export default function ThemedViewPage() {
         <DemoSection
           title="Responsive Grid"
           description="Use columns prop for automatic responsive layouts (2 columns on medium+, 1 on small)"
+          code={`<ThemedView columns={2} gap={16}>
+  <ThemedView variant="card" style={{ padding: 16 }}>
+    <Typography variant="titleSmall" weight="medium">Card 1</Typography>
+  </ThemedView>
+  <ThemedView variant="card" style={{ padding: 16 }}>
+    <Typography variant="titleSmall" weight="medium">Card 2</Typography>
+  </ThemedView>
+</ThemedView>`}
         >
           <ThemedView columns={2} gap={spacing.lg}>
             <ThemedView variant="card" style={{ padding: spacing.lg, gap: spacing.xs }}>
@@ -151,6 +183,17 @@ export default function ThemedViewPage() {
         <DemoSection
           title="Use Cases"
           description="Common patterns for using ThemedView"
+          code={`<ThemedView variant="card" style={{ padding: 20, borderRadius: 16, gap: 8 }}>
+  <Typography variant="titleMedium" weight="medium">Card Component</Typography>
+  <Typography variant="bodySmall" muted>Use the card variant for elevated content</Typography>
+</ThemedView>
+
+<ThemedView variant="surface" style={{ padding: 16, borderRadius: 12, gap: 12 }}>
+  <Typography variant="labelMedium" weight="medium">Surface</Typography>
+  <ThemedView variant="surfaceContainer" style={{ padding: 12, borderRadius: 8 }}>
+    <Typography variant="labelSmall">surfaceContainer (nested)</Typography>
+  </ThemedView>
+</ThemedView>`}
         >
           <View style={{ gap: spacing.lg }}>
             <ThemedView variant="card" style={{ padding: spacing.xl, borderRadius: spacing.lg, gap: spacing.sm }}>

@@ -73,6 +73,9 @@ export default function ContainerPage() {
           <DemoSection
             title="Default (maxWidth 1000)"
             description="Content is constrained and centered. On narrow screens it fills the available width."
+            code={`<Container>
+  <Typography>Content constrained to 1000px max width</Typography>
+</Container>`}
           >
             <Container style={{ gap: spacing.md, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
               <Placeholder label="Content" />
@@ -83,6 +86,9 @@ export default function ContainerPage() {
           <DemoSection
             title="Custom maxWidth"
             description="Useful for narrow reading columns or tighter layouts."
+            code={`<Container maxWidth={480}>
+  <Typography>Narrow content (480px max)</Typography>
+</Container>`}
           >
             <Container maxWidth={480} style={{ gap: spacing.md, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
               <Placeholder label="Narrow content (480px max)" />
@@ -92,6 +98,16 @@ export default function ContainerPage() {
           <DemoSection
             title="Responsive grid"
             description="Inherits ThemedView's columns prop. Single column on small screens, multi-column on medium+ (≥768px)."
+            code={`<Container columns={2} gap={16}>
+  <Placeholder label="Col 1" />
+  <Placeholder label="Col 2" />
+</Container>
+
+<Container columns={3} gap={16}>
+  <Placeholder label="Col 1" />
+  <Placeholder label="Col 2" />
+  <Placeholder label="Col 3" />
+</Container>`}
           >
             <Container columns={2} gap={spacing.md}>
               <Placeholder label="Col 1" />
@@ -107,6 +123,15 @@ export default function ContainerPage() {
           <DemoSection
             title="Full-bleed layout pattern"
             description="Use padded={false} on Screen with Container inside to get a hero image edge-to-edge while keeping content constrained."
+            code={`<Screen scrollable variant="background" padded={false}>
+  {/* Full-bleed hero — no Container */}
+  <HeroImage />
+
+  {/* Constrained content below */}
+  <Container style={{ paddingVertical: 16, gap: 8 }}>
+    <Typography variant="titleLarge">Title</Typography>
+  </Container>
+</Screen>`}
           >
             <ThemedView variant="surfaceContainer" style={{ borderRadius: shape.surfaceBorderRadius, overflow: 'hidden' }}>
               <View style={{ height: 64, backgroundColor: '#6750A420', alignItems: 'center', justifyContent: 'center' }}>

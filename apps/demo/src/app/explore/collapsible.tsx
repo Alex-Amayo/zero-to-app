@@ -79,6 +79,11 @@ export default function CollapsiblePage() {
         <DemoSection
           title="Basic Usage"
           description="Simple collapsible section with default styling"
+          code={`<Collapsible title="Click to expand">
+  <Typography>
+    This content is hidden by default and revealed when the header is pressed.
+  </Typography>
+</Collapsible>`}
         >
           <Collapsible title="Click to expand">
             <Typography>
@@ -91,6 +96,9 @@ export default function CollapsiblePage() {
         <DemoSection
           title="Default Open"
           description="Collapsible that starts in an expanded state"
+          code={`<Collapsible title="Already expanded" defaultOpen>
+  <Typography>Starts in an open state.</Typography>
+</Collapsible>`}
         >
           <Collapsible title="Already expanded" defaultOpen>
             <Typography>
@@ -102,6 +110,15 @@ export default function CollapsiblePage() {
         <DemoSection
           title="Controlled State"
           description="External control over the open state"
+          code={`const [open, setOpen] = useState(false);
+
+<Collapsible
+  title="Controlled section"
+  open={open}
+  onToggle={setOpen}
+>
+  <Typography>Controlled by external state.</Typography>
+</Collapsible>`}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md, marginBottom: spacing.md }}>
             <Button
@@ -129,6 +146,12 @@ export default function CollapsiblePage() {
         <DemoSection
           title="Nested Collapsibles"
           description="Collapsibles can be nested within each other"
+          code={`<Collapsible title="Outer section">
+  <Typography>Outer content.</Typography>
+  <Collapsible title="Inner section" contentVariant="card">
+    <Typography>Nested inside the outer collapsible.</Typography>
+  </Collapsible>
+</Collapsible>`}
         >
           <Collapsible title="Outer section">
             <Typography style={{ marginBottom: spacing.md }}>
@@ -145,6 +168,20 @@ export default function CollapsiblePage() {
         <DemoSection
           title="Style Variants"
           description="Different header and content background variants"
+          code={`<Collapsible
+  title="Surface variant"
+  headerVariant="surface"
+  contentVariant="surface"
+>
+  <Typography>Content with surface styling</Typography>
+</Collapsible>
+<Collapsible
+  title="Card variant"
+  headerVariant="surfaceContainer"
+  contentVariant="card"
+>
+  <Typography>Content with card styling</Typography>
+</Collapsible>`}
         >
           <View style={{ gap: spacing.lg }}>
             <Collapsible

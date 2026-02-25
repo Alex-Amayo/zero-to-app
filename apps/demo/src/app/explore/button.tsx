@@ -92,6 +92,11 @@ export default function ButtonPage() {
         <DemoSection
           title="Variants"
           description="Five button variants for different emphasis levels"
+          code={`<Button title="Filled" variant="filled" onPress={() => {}} />
+<Button title="Elevated" variant="elevated" onPress={() => {}} />
+<Button title="Tonal" variant="tonal" onPress={() => {}} />
+<Button title="Outlined" variant="outlined" onPress={() => {}} />
+<Button title="Text" variant="text" onPress={() => {}} />`}
         >
           <View style={rowStyle}>
             <Button title="Filled" variant="filled" onPress={() => { }} />
@@ -107,6 +112,11 @@ export default function ButtonPage() {
         <DemoSection
           title="Sizes"
           description="Five size options from extra small to extra large"
+          code={`<Button title="XS" size="xs" variant="tonal" onPress={() => {}} />
+<Button title="S (default)" size="s" variant="tonal" onPress={() => {}} />
+<Button title="M" size="m" variant="tonal" onPress={() => {}} />
+<Button title="Large" size="l" variant="tonal" onPress={() => {}} />
+<Button title="Extra Large" size="xl" variant="tonal" onPress={() => {}} />`}
         >
           <View style={rowStyle}>
             <Button title="XS" size="xs" variant="tonal" onPress={() => { }} />
@@ -122,6 +132,19 @@ export default function ButtonPage() {
         <DemoSection
           title="With Icons"
           description="Icons can be positioned on the left or right of the label"
+          code={`<Button
+  title="Continue"
+  icon={{ library: 'Feather', name: 'arrow-right' }}
+  iconPosition="right"
+  onPress={() => {}}
+/>
+<Button
+  title="Back"
+  icon={{ library: 'Feather', name: 'arrow-left' }}
+  iconPosition="left"
+  variant="outlined"
+  onPress={() => {}}
+/>`}
         >
           <View style={rowStyle}>
             <Button
@@ -159,6 +182,12 @@ export default function ButtonPage() {
         <DemoSection
           title="Loading State"
           description="Shows a spinner and disables interaction while loading"
+          code={`<Button
+  title="Click to load"
+  loading={isLoading}
+  onPress={() => setIsLoading(true)}
+/>
+<Button title="Always loading" loading={true} variant="tonal" />`}
         >
           <View style={rowStyle}>
             <Button
@@ -173,6 +202,9 @@ export default function ButtonPage() {
         <DemoSection
           title="Disabled State"
           description="Disabled buttons are non-interactive with reduced opacity"
+          code={`<Button title="Disabled Filled" disabled onPress={() => {}} />
+<Button title="Disabled Outlined" variant="outlined" disabled onPress={() => {}} />
+<Button title="Disabled Tonal" variant="tonal" disabled onPress={() => {}} />`}
         >
           <View style={rowStyle}>
             <Button title="Disabled Filled" disabled onPress={() => { }} />

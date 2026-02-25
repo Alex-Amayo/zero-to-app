@@ -107,43 +107,49 @@ export default function ScreenPage() {
                 <DemoSection
                     title="Basic Usage"
                     description="Non-scrollable screen with default settings"
-                >
-                    <ThemedView variant="surfaceContainer" style={{padding: spacing.lg, borderRadius: spacing.sm}}>
-                        <Typography variant="bodySmall" style={{fontFamily: 'monospace'}}>
-                            {`<Screen variant="background">
-  <Typography variant="headlineLarge">
-    Welcome
-  </Typography>
+                    code={`<Screen variant="background">
+  <Typography variant="headlineLarge">Welcome</Typography>
   <Button title="Get Started" />
 </Screen>`}
-                        </Typography>
+                >
+                    <ThemedView variant="surfaceContainer" style={{padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs}}>
+                        <Typography variant="labelMedium" weight="medium">Non-scrollable</Typography>
+                        <Typography variant="bodySmall" muted>Default — content fills the screen</Typography>
                     </ThemedView>
                 </DemoSection>
 
                 <DemoSection
                     title="Scrollable Screen"
                     description="Enable scrolling for long content"
-                >
-                    <ThemedView variant="surfaceContainer" style={{padding: spacing.lg, borderRadius: spacing.sm}}>
-                        <Typography variant="bodySmall" style={{fontFamily: 'monospace'}}>
-                            {`<Screen
+                    code={`<Screen
   scrollable
   variant="surface"
-  contentContainerStyle={{
-    padding: spacing.xxl,
-    gap: spacing.lg
-  }}
+  contentContainerStyle={{ padding: spacing.xxl, gap: spacing.lg }}
 >
   <Typography>Content 1</Typography>
   <Typography>Content 2</Typography>
 </Screen>`}
-                        </Typography>
+                >
+                    <ThemedView variant="surfaceContainer" style={{padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs}}>
+                        <Typography variant="labelMedium" weight="medium">Scrollable</Typography>
+                        <Typography variant="bodySmall" muted>Wraps children in a ScrollView</Typography>
                     </ThemedView>
                 </DemoSection>
 
                 <DemoSection
                     title="Custom Safe Area Edges"
                     description="Control which edges respect safe areas"
+                    code={`// Top only
+<Screen edges={['top']} />
+
+// Bottom only (most common — avoids home indicator)
+<Screen edges={['bottom']} />
+
+// All edges
+<Screen edges={['top', 'bottom', 'left', 'right']} />
+
+// No safe area insets
+<Screen edges={[]} />`}
                 >
                     <View style={rowStyle}>
                         <ThemedView variant="surfaceContainer" style={{
@@ -199,6 +205,9 @@ export default function ScreenPage() {
                 <DemoSection
                     title="Background Variants"
                     description="Use different themed backgrounds"
+                    code={`<Screen variant="background">...</Screen>
+<Screen variant="surface">...</Screen>
+<Screen variant="surfaceContainer">...</Screen>`}
                 >
                     <View style={rowStyle}>
                         <ThemedView variant="background" style={{

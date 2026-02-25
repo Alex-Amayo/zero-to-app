@@ -63,6 +63,12 @@ export default function ThemedImagePage() {
           <DemoSection
             title="Theme-Aware Logo"
             description="Toggle the theme to see the image switch between light and dark variants"
+            code={`<ThemedImage
+  lightSource={require('./logo-light.png')}
+  darkSource={require('./logo-dark.png')}
+  style={{ width: 64, height: 64 }}
+  contentFit="contain"
+/>`}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.xl }}>
               <ThemedImage
@@ -84,6 +90,24 @@ export default function ThemedImagePage() {
           <DemoSection
             title="Sizes"
             description="ThemedImage respects the style dimensions you provide"
+            code={`<ThemedImage
+  lightSource={require('./logo-light.png')}
+  darkSource={require('./logo-dark.png')}
+  style={{ width: 24, height: 24 }}
+  contentFit="contain"
+/>
+<ThemedImage
+  lightSource={require('./logo-light.png')}
+  darkSource={require('./logo-dark.png')}
+  style={{ width: 48, height: 48 }}
+  contentFit="contain"
+/>
+<ThemedImage
+  lightSource={require('./logo-light.png')}
+  darkSource={require('./logo-dark.png')}
+  style={{ width: 96, height: 96 }}
+  contentFit="contain"
+/>`}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.lg }}>
               <View style={{ alignItems: 'center', gap: spacing.xs }}>

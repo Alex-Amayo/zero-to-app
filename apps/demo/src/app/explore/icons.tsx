@@ -56,7 +56,6 @@ export default function IconsPage() {
             </Typography>
           </View>
 
-          {/* Supported Libraries */}
           <DemoSection
             title="Supported Libraries"
             description="12 icon libraries available via @expo/vector-icons"
@@ -84,10 +83,21 @@ export default function IconsPage() {
             ))}
           </DemoSection>
 
-          {/* Icon Usage */}
           <DemoSection
             title="Icon Usage"
             description="renderIcon() accepts a PlatformIcon or string, with optional library, size, and color"
+            code={`import { renderIcon } from 'zero-to-app';
+
+// Basic usage
+renderIcon({ library: 'Feather', name: 'star' }, 'Feather', 24, theme.primary)
+
+// Different sizes
+renderIcon({ library: 'Feather', name: 'star' }, 'Feather', 14, theme.onSurface)
+renderIcon({ library: 'Feather', name: 'star' }, 'Feather', 32, theme.onSurface)
+
+// Cross-library
+renderIcon({ library: 'MaterialIcons', name: 'home' }, 'Feather', 24, theme.primary)
+renderIcon({ library: 'Ionicons', name: 'home' }, 'Feather', 24, theme.primary)`}
           >
             <View style={{ gap: spacing.md }}>
               <Typography variant="labelMedium" weight="medium">Sizes</Typography>
@@ -136,10 +146,17 @@ export default function IconsPage() {
             </View>
           </DemoSection>
 
-          {/* IconConfig Reference */}
           <DemoSection
             title="IconConfig Reference"
             description="Configuration interfaces for the icon system"
+            code={`// PlatformIcon — used with renderIcon()
+{ library?: IconLibrary; name: string }
+
+// NavigationIcon — used in navigation components
+{ web?: PlatformIcon | string; mobile?: PlatformIcon | string }
+
+// Button IconConfig — used with the Button icon prop
+{ library?: IconLibrary; name: string; size?: number; color?: string }`}
           >
             <View style={{ gap: spacing.sm }}>
               <Typography variant="labelLarge" weight="medium">PlatformIcon</Typography>
@@ -176,7 +193,6 @@ export default function IconsPage() {
             </View>
           </DemoSection>
 
-          {/* Common Feather Icons */}
           <DemoSection
             title="Common Feather Icons"
             description="Frequently used icons from the default Feather library"

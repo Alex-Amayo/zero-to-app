@@ -1,7 +1,7 @@
 PODS:
-  - EXConstants (55.0.2):
+  - EXConstants (55.0.7):
     - ExpoModulesCore
-  - Expo (55.0.0-preview.7):
+  - Expo (55.0.3):
     - ExpoModulesCore
     - hermes-engine
     - RCTRequired
@@ -26,19 +26,19 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - ExpoAsset (55.0.2):
+  - ExpoAsset (55.0.8):
     - ExpoModulesCore
   - ExpoDomWebView (0.2.8):
     - ExpoModulesCore
-  - ExpoFileSystem (55.0.3):
+  - ExpoFileSystem (55.0.10):
     - ExpoModulesCore
-  - ExpoFont (55.0.3):
+  - ExpoFont (55.0.4):
     - ExpoModulesCore
-  - ExpoKeepAwake (55.0.2):
+  - ExpoKeepAwake (55.0.4):
     - ExpoModulesCore
-  - ExpoLogBox (55.0.3):
+  - ExpoLogBox (55.0.7):
     - React-Core
-  - ExpoModulesCore (55.0.5):
+  - ExpoModulesCore (55.0.13):
     - ExpoModulesJSI
     - hermes-engine
     - RCTRequired
@@ -62,9 +62,10 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - ExpoModulesJSI (55.0.5):
+  - ExpoModulesJSI (55.0.13):
     - hermes-engine
     - React-Core
+    - React-runtimescheduler
     - ReactCommon
   - FBLazyVector (0.83.1)
   - hermes-engine (0.14.0):
@@ -2105,16 +2106,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  EXConstants: eca5ffaef862c3f0884b189393a3da58b0e7f8dd
-  Expo: f9747dd3d1b4b24a5d365c6972a1bdca5b3e0c7e
-  ExpoAsset: afaa23466e93da462b918bff8d6a9fe15c646dc8
+  EXConstants: b3c63be5f8648e4ab8e6ff5099b62f629247f969
+  Expo: cdbfefe5771a083c56798912e068fdb58eb796b5
+  ExpoAsset: bdc7bc21fe25d197c3aa7547e14c12c42087d9c9
   ExpoDomWebView: d82055ac57c98a2e419f39bf86a15bf7be6adea5
-  ExpoFileSystem: f435dfe55fcf5825884e8ba204055bd95d68e257
-  ExpoFont: f01db35a4e4efef9c0d06fdbadee21c889cb13cb
-  ExpoKeepAwake: 101e3e70d6e082813949e31c966e10783f87dddb
-  ExpoLogBox: 2ebdd5aa25525a9697d79832360a798960b77382
-  ExpoModulesCore: ff73f06b4b073edec3fbbb83f99aa9c799fce6f9
-  ExpoModulesJSI: 27e7c270e29f21056043c7c5930b953be86b914c
+  ExpoFileSystem: e1a42d7f69f7faae33f4d7d01708f7861f7bd757
+  ExpoFont: 1aa465cf9f8ac6b670405becba8b15473581b2dd
+  ExpoKeepAwake: 7f3b28c361c37389b18841bb52a58003b39fcb33
+  ExpoLogBox: 89b634d5a8a64c4a6a7caad8f9985a28463c7002
+  ExpoModulesCore: f1dc204fffe783c4ea2d6c37503b6b97a1df44bc
+  ExpoModulesJSI: 59a126dc51164e603242ee9a38c19339c5c79da0
   FBLazyVector: 3a7ea85f6009224ad89f7daeda516f189e6b5759
   hermes-engine: 2e006abeb3df226c045235b0c53651aba7287e06
   RCTDeprecation: a93fe21ed2fd99e13bf3b011390d1e9769c83d23

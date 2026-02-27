@@ -21,7 +21,10 @@ platform :ios, podfile_properties['ios.deploymentTarget'] || '15.1'
 prepare_react_native_project!
 
 target 'zerotoappmonorepo' do
-  use_expo_modules!
+  # Point autolinking at the demo app so all its native modules get linked
+  # into this shell project (which runs the demo JS bundle).
+  demo_root = File.join(__dir__, '..', 'apps', 'demo')
+  use_expo_modules!(projectRoot: demo_root)
 
   if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
     config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
@@ -35,7 +38,9 @@ target 'zerotoappmonorepo' do
       'react-native-config',
       '--json',
       '--platform',
-      'ios'
+      'ios',
+      '--project-root',
+      demo_root
     ]
   end
 

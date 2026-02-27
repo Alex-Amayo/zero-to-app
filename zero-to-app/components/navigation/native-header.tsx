@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import { useTheme } from '../../theme';
 
@@ -25,6 +26,8 @@ export const NativeHeader = ({
   onLeftPress,
 }: NativeHeaderProps) => {
   const theme = useTheme();
+
+  if (Platform.OS !== 'ios') return null;
 
   return (
     <>

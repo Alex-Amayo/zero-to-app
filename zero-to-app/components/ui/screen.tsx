@@ -53,14 +53,18 @@ export const Screen: React.FC<ScreenProps> = ({
   const insets = useSafeAreaInsets();
   const theme = useTheme();
 
-  // 80dp is intentional: iOS tab bars vary in height and react-navigation doesn't expose
-  // a reliable metric here. This static value clears the standard tab bar + home indicator.
-  // Android: SafeAreaView handles the inset — no extra padding needed.
-  const bottomPadding = edges.includes('bottom') && Platform.OS === 'ios' ? 80 : 0;
+  // Strip 'bottom' from SafeAreaView edges — we manage bottom padding directly.
+  // With NativeTabs on Android, insets.bottom inside a tab screen is 0 (the native tab bar
+  // already constrains the content frame), so SafeAreaView's 'bottom' edge would double-apply
+  // the nav bar inset. Stripping it and using 0 on Android fixes that bug.
+  // On iOS, insets.bottom does not reflect the tab bar height, so we use a fixed 80dp to clear
+  // the standard tab bar (~46dp) + home indicator (~34dp).
+  const safeAreaEdges = edges.filter((e): e is Edge => e !== 'bottom');
+  const bottomPadding = edges.includes('bottom') ? (Platform.OS === 'ios' ? 100 : 24)  : 0;
 
   return (
     <ThemedView variant={variant} rounded={false} style={styles.container}>
-      <SafeAreaView style={styles.safeArea} edges={edges} testID={testID}>
+      <SafeAreaView style={styles.safeArea} edges={safeAreaEdges} testID={testID}>
         {scrollable ? (
           <ScrollView
             style={styles.scrollView}

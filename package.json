@@ -31,7 +31,8 @@
   },
   "pnpm": {
     "overrides": {
-      "react-docgen-typescript": "2.2.2"
+      "react-docgen-typescript": "2.2.2",
+      "@types/react": "19.2.14"
     }
   },
   "devDependencies": {

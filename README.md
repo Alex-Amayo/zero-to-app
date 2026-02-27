@@ -2,7 +2,10 @@
 
 Material Design 3 component library for React Native and Expo. Supports iOS, Android, and Web.
 
-🌐 **[Live Demo](https://zero-to-app.expo.app)**
+🌐 **[Live Demo](https://demo-zero-to-app--lbqs9orlsl.expo.app)**
+
+
+📦 **[NPM Package](https://www.npmjs.com/package/zero-to-app)**
 
 ---
 
@@ -194,7 +197,7 @@ pnpm release              # Publish to npm
 
 ## Resources
 
-- [Live Demo](https://zero-to-app.expo.app)
+- [Live Demo](https://demo-zero-to-app--lbqs9orlsl.expo.app)
 - [Material Design 3](https://m3.material.io)
 - [NPM Package](https://www.npmjs.com/package/zero-to-app)
 - [GitHub](https://github.com/Alex-Amayo/zero-to-app)

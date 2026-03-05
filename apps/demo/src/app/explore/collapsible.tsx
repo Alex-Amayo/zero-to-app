@@ -115,7 +115,7 @@ export default function CollapsiblePage() {
           <Button
             title={controlledOpen ? 'Close' : 'Open'}
             variant="tonal"
-            size="xs"
+            size="small"
             onPress={() => setControlledOpen(!controlledOpen)}
           />
           <Typography variant="bodySmall" muted>

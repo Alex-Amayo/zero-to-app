@@ -118,7 +118,7 @@ export const MyComponent = ({ title, size = 'medium' }: MyComponentProps) => {
    }
    ```
 2. Add to `apps/demo/src/config/nav.ts` in `NAV_SECTIONS` — sidebar and pagination update automatically.
-3. Add a `<Stack.Screen>` entry in `explore/_layout.native.tsx`.
+3. Add a `<Stack.Screen>` entry in `explore/_layout.ios.tsx`.
 
 ### DocsPage props
 | Prop | Type | Default | Description |

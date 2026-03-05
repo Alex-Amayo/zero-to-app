@@ -2,9 +2,16 @@
 export { AppTabs } from './app-tabs';
 export type { AppTabsProps, AppTabConfig, AppTabsExternalLink } from './app-tabs';
 
-// NativeHeader (iOS-only Stack.Toolbar wrapper)
+// NativeHeader — screen-level header buttons for iOS (Stack.Toolbar) and Android (headerLeft/headerRight)
 export { NativeHeader } from './native-header';
 export type { NativeHeaderProps } from './native-header';
+
+// ThemedStack — Stack wrapper with automatic theme token header styling
+export { ThemedStack } from './themed-stack';
+
+// Drawer — low-level animated side drawer (used by Sidebar and AppTabs)
+export { Drawer } from './drawer/drawer';
+export type { DrawerProps } from './drawer/drawer';
 
 // Sidebar components
 export {

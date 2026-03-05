@@ -20,9 +20,9 @@ const buttonProps: PropDefinition[] = [
   },
   {
     name: 'size',
-    type: "'xs' | 's' | 'm' | 'l' | 'xl'",
-    default: "'s'",
-    description: 'Button size affecting height (32/40/56/96/136dp)',
+    type: "'small' | 'medium' | 'large'",
+    default: "'medium'",
+    description: 'Button size affecting height (32/40/56dp)',
   },
   {
     name: 'icon',
@@ -101,21 +101,15 @@ export default function ButtonPage() {
 
       <DemoSection
         title="Sizes"
-        description="Five size options from extra small to extra large"
-        code={`<Button title="XS" size="xs" variant="tonal" onPress={() => {}} />
-<Button title="S (default)" size="s" variant="tonal" onPress={() => {}} />
-<Button title="M" size="m" variant="tonal" onPress={() => {}} />
-<Button title="Large" size="l" variant="tonal" onPress={() => {}} />
-<Button title="Extra Large" size="xl" variant="tonal" onPress={() => {}} />`}
+        description="Three size options for different contexts"
+        code={`<Button title="Small" size="small" variant="tonal" onPress={() => {}} />
+<Button title="Medium (default)" size="medium" variant="tonal" onPress={() => {}} />
+<Button title="Large" size="large" variant="tonal" onPress={() => {}} />`}
       >
         <View style={rowStyle}>
-          <Button title="XS" size="xs" variant="tonal" onPress={() => { }} />
-          <Button title="S (default)" size="s" variant="tonal" onPress={() => { }} />
-          <Button title="M" size="m" variant="tonal" onPress={() => { }} />
-        </View>
-        <View style={rowStyle}>
-          <Button title="Large" size="l" variant="tonal" onPress={() => { }} />
-          <Button title="Extra Large" size="xl" variant="tonal" onPress={() => { }} />
+          <Button title="Small" size="small" variant="tonal" onPress={() => { }} />
+          <Button title="Medium (default)" size="medium" variant="tonal" onPress={() => { }} />
+          <Button title="Large" size="large" variant="tonal" onPress={() => { }} />
         </View>
       </DemoSection>
 

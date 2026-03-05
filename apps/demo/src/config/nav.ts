@@ -37,7 +37,19 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: 'Typography', route: '/explore/typography' },
       { label: 'ThemedImage', route: '/explore/themed-image' },
       { label: 'Button', route: '/explore/button' },
+      { label: 'FAB', route: '/explore/fab' },
       { label: 'Collapsible', route: '/explore/collapsible' },
+    ],
+  },
+  {
+    title: 'Navigation',
+    icon: { library: 'Feather', name: 'navigation' },
+    items: [
+      { label: 'AppTabs', route: '/explore/app-tabs' },
+      { label: 'Sidebar', route: '/explore/sidebar' },
+      { label: 'Drawer', route: '/explore/drawer' },
+      { label: 'ThemedStack', route: '/explore/themed-stack' },
+      { label: 'NativeHeader', route: '/explore/native-header' },
     ],
   },
 ];

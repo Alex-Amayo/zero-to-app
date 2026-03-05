@@ -8,6 +8,49 @@ description: Use when working with zero-to-app UI components like Button, Typogr
 
 ---
 
+## Standard Screen Layout
+
+**Always use this pattern as the default structure for any screen.** Every screen should start with `Screen > Container > ThemedView(card)`.
+
+```tsx
+import { Screen, Container, ThemedView, Typography, Button } from 'zero-to-app';
+
+export default function MyScreen() {
+  return (
+    <Screen scrollable variant="background" edges={['bottom']}>
+      <Container>
+        <ThemedView variant="card" style={{ gap: 16, padding: 24 }}>
+          <Typography variant="headlineMedium">Title</Typography>
+          <Typography variant="bodyMedium" muted>Description</Typography>
+          <Button title="Action" variant="filled" onPress={() => {}} />
+        </ThemedView>
+      </Container>
+    </Screen>
+  );
+}
+```
+
+- `Screen` — safe area, scroll, background color
+- `Container` — centers content, constrains max width, adds horizontal padding
+- `ThemedView variant="card"` — themed card surface for content sections
+
+Multiple sections on one screen:
+```tsx
+<Screen scrollable variant="background" edges={['bottom']}>
+  <Container>
+    <ThemedView variant="card" style={{ gap: 16, padding: 24 }}>
+      <Typography variant="headlineMedium">Section 1</Typography>
+    </ThemedView>
+
+    <ThemedView variant="card" style={{ gap: 12, padding: 24, marginTop: 16 }}>
+      <Typography variant="titleMedium">Section 2</Typography>
+    </ThemedView>
+  </Container>
+</Screen>
+```
+
+---
+
 ## Button
 
 ```tsx

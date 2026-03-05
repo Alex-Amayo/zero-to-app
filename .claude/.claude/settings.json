@@ -1,0 +1,6 @@
+{
+  "enabledPlugins": {
+    "upgrading-expo@expo-plugins": true,
+    "expo-deployment@expo-plugins": true
+  }
+}

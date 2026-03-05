@@ -1,5 +1,5 @@
 import { Screen, Typography, NativeHeader, useSidebar, useTheme } from 'zero-to-app';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { CodeBlock } from '../../components/code-block';
 import { DocsPagination } from '../../components/docs-pagination';
 
@@ -9,17 +9,19 @@ export default function GettingStartedPage() {
 
   return (
     <>
-      <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
+      <NativeHeader rightIcon="sidebar.left" onRightPress={open} androidRightIcon="menu" />
       <Screen scrollable variant="background" edges={['bottom']}>
         <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
-          <View style={{ gap: spacing.xs }}>
-            <Typography variant="headlineMedium" weight="bold">
-              Getting Started
-            </Typography>
-            <Typography variant="bodyMedium" muted>
-              Add Zero To App to your Expo project in two steps.
-            </Typography>
-          </View>
+          {Platform.OS !== 'android' && (
+            <View style={{ gap: spacing.xs }}>
+              <Typography variant="headlineMedium" weight="bold">
+                Getting Started
+              </Typography>
+              <Typography variant="bodyMedium" muted>
+                Add Zero To App to your Expo project in two steps.
+              </Typography>
+            </View>
+          )}
 
           <View style={{ gap: spacing.md }}>
             <Typography variant="titleLarge" weight="bold">

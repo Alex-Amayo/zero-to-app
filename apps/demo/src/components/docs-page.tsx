@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Typography, Screen, NativeHeader, useSidebar, useTheme } from 'zero-to-app';
 
 interface DocsPageProps {
@@ -16,17 +16,19 @@ export function DocsPage({ title, description, sidebarIcon = 'left', children }:
 
   return (
     <>
-      <NativeHeader rightIcon={`sidebar.${sidebarIcon}`} onRightPress={open} />
+      <NativeHeader rightIcon={`sidebar.${sidebarIcon}`} onRightPress={open} androidRightIcon="menu" />
       <Screen scrollable variant="background" edges={['bottom']}>
         <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
-          <View style={{ gap: spacing.xs }}>
-            <Typography variant="headlineMedium" weight="bold">
-              {title}
-            </Typography>
-            <Typography variant="bodyMedium" muted>
-              {description}
-            </Typography>
-          </View>
+          {Platform.OS !== 'android' && (
+            <View style={{ gap: spacing.xs }}>
+              <Typography variant="headlineMedium" weight="bold">
+                {title}
+              </Typography>
+              <Typography variant="bodyMedium" muted>
+                {description}
+              </Typography>
+            </View>
+          )}
           {children}
         </View>
       </Screen>

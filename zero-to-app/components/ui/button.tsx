@@ -127,14 +127,12 @@ export interface ButtonProps extends Omit<InteractiveComponentProps, 'onPress'>,
   backgroundColor?: string;
   /**
    * Button size affecting height.
-   * - `xs`: 32dp
-   * - `s`: 40dp (default)
-   * - `m`: 56dp
-   * - `l`: 96dp
-   * - `xl`: 136dp
-   * @default 's'
+   * - `small`: 32dp
+   * - `medium`: 40dp (default)
+   * - `large`: 56dp
+   * @default 'medium'
    */
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
+  size?: 'small' | 'medium' | 'large';
 }
 
 // 3. COMPONENT
@@ -163,7 +161,7 @@ const Button = forwardRef<View, ButtonProps>(({
   accessibilityHint,
   color,
   backgroundColor,
-  size = 's',
+  size = 'medium',
 }, ref) => {
   const theme = useTheme();
   const tokens = theme.tokens;
@@ -191,14 +189,12 @@ const Button = forwardRef<View, ButtonProps>(({
 
   // Visual heights in dp per size token
   const sizeMap: Record<string, number> = {
-    xs: 32,
-    s: 40,
-    m: 56,
-    l: 96,
-    xl: 136,
+    small: 32,
+    medium: 40,
+    large: 56,
   };
-  // default to 's' if not provided via props
-  const visualHeight = sizeMap[size] ?? sizeMap.s;
+  // default to 'medium' if not provided via props
+  const visualHeight = sizeMap[size] ?? sizeMap.medium;
   // Ensure a minimum touch target of 48dp
   const touchHeight = Math.max(48, visualHeight);
 

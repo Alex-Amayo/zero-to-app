@@ -88,6 +88,11 @@ export interface ThemeValuesType {
       background: string;
       text: string;
     };
+    slider: {
+      activeTrack: string;
+      inactiveTrack: string;
+      thumb: string;
+    };
     chip: {
       // Filled variant
       filledBg: string;
@@ -258,6 +263,11 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         disabledText: c.onSurfaceVariant,
         disabledBorder: c.outlineVariant ?? c.outline,
       },
+      slider: {
+        activeTrack: c.primary,
+        inactiveTrack: c.surfaceContainerHighest,
+        thumb: c.primary,
+      },
       sidebar: {
         background: c.surface,
         itemText: c.onSurface,
@@ -409,6 +419,11 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         disabledBg: c.surfaceContainerLow,
         disabledText: c.onSurfaceVariant,
         disabledBorder: c.outlineVariant ?? c.outline,
+      },
+      slider: {
+        activeTrack: c.primary,
+        inactiveTrack: c.surfaceContainerHighest,
+        thumb: c.primary,
       },
       sidebar: {
         background: c.surface,

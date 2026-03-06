@@ -79,6 +79,11 @@ export function createHighContrastLightTheme(brand: Brand): ThemeValuesType {
         disabledText: '#666666',
         disabledBorder: '#999999',
       },
+      slider: {
+        activeTrack: highContrastColors.primary,
+        inactiveTrack: '#E0E0E0',
+        thumb: highContrastColors.primary,
+      },
       sidebar: {
         background: highContrastColors.surfaceContainer,
         itemText: '#000000',
@@ -201,6 +206,11 @@ export function createHighContrastDarkTheme(brand: Brand): ThemeValuesType {
         disabledBg: '#1A1A1A',
         disabledText: '#999999',
         disabledBorder: '#666666',
+      },
+      slider: {
+        activeTrack: highContrastColors.primary,
+        inactiveTrack: '#1A1A1A',
+        thumb: highContrastColors.primary,
       },
       sidebar: {
         background: highContrastColors.surfaceContainer,

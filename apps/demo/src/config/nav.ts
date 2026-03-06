@@ -38,6 +38,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: 'ThemedImage', route: '/explore/themed-image' },
       { label: 'Button', route: '/explore/button' },
       { label: 'Chip', route: '/explore/chip' },
+      { label: 'Slider', route: '/explore/slider' },
       { label: 'FAB', route: '/explore/fab' },
       { label: 'Collapsible', route: '/explore/collapsible' },
     ],

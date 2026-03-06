@@ -83,6 +83,7 @@
   },
   "peerDependencies": {
     "@expo/vector-icons": "*",
+    "@react-native-community/slider": "*",
     "expo-image": "*",
     "expo-router": "*",
     "react": ">=18.0.0",
@@ -92,6 +93,9 @@
   },
   "peerDependenciesMeta": {
     "@expo/vector-icons": {
+      "optional": true
+    },
+    "@react-native-community/slider": {
       "optional": true
     },
     "expo-image": {

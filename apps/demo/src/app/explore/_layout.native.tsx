@@ -54,6 +54,7 @@ export default function ExploreLayout() {
                 <Stack.Screen name="themed-image" options={{ title: 'ThemedImage' }} />
                 <Stack.Screen name="button" options={{ title: 'Button' }} />
                 <Stack.Screen name="chip" options={{ title: 'Chip' }} />
+                <Stack.Screen name="slider" options={{ title: 'Slider' }} />
                 <Stack.Screen name="fab" options={{ title: 'FAB' }} />
                 <Stack.Screen name="collapsible" options={{ title: 'Collapsible' }} />
                 <Stack.Screen name="app-tabs" options={{ title: 'AppTabs' }} />

@@ -3,6 +3,11 @@ export { Button } from './button';
 export type { ButtonProps, ButtonVariant, IconConfig } from './button';
 export { ButtonVariants } from './button';
 
+// Chip
+export { Chip } from './chip';
+export type { ChipProps, ChipVariant, ChipIconConfig } from './chip';
+export { ChipVariants } from './chip';
+
 // FAB
 export { FAB } from './fab';
 export type { FABProps, FABVariant, FABSize } from './fab';

@@ -117,6 +117,41 @@ Extends `ThemedView` — all `ThemedViewProps` are available.
 
 ---
 
+## Chip
+
+```tsx
+// Outlined (default) — border, transparent background
+<Chip label="Design" onPress={() => {}} />
+
+// Filled — solid secondaryContainer background, no border
+<Chip label="TypeScript" variant="filled" onPress={() => {}} />
+
+// Filter chip — selected prop shows leading checkmark
+<Chip label="Wireless" selected={on} onPress={() => setOn(v => !v)} />
+
+// Trailing icon (decorative)
+<Chip label="Favourite" icon={{ name: 'star' }} />
+
+// Trailing icon with independent press handler
+<Chip label="React Native" variant="filled" icon={{ name: 'x' }} onIconPress={() => remove()} />
+```
+
+**Variants:** `outlined` (default), `filled`
+**Shape:** M3 CornerSmall — 8dp border radius
+**Size:** 32dp height, 48dp touch target via `hitSlop={8}`, `minWidth: 56`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | — | Chip label text |
+| `variant` | `'filled' \| 'outlined'` | `'outlined'` | Visual style |
+| `selected` | `boolean` | `false` | Shows leading checkmark, uses selectedBg |
+| `icon` | `ChipIconConfig` | — | Trailing icon (right of label) |
+| `onPress` | `() => void` | — | Press handler for the whole chip |
+| `onIconPress` | `() => void` | — | Makes trailing icon a separate pressable target |
+| `disabled` | `boolean` | `false` | Disables interaction, reduces opacity |
+
+---
+
 ## FAB (Floating Action Button)
 
 ```tsx

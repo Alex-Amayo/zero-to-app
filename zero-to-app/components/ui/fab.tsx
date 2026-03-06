@@ -14,6 +14,7 @@ import { Typography } from './typography';
 import { useTheme } from '../../theme';
 import { renderIcon, type IconLibrary } from '../../icons';
 import type { InteractiveComponentProps } from '../shared/types';
+import { blurOnWeb } from '../shared/utils';
 import type { IconConfig } from './button';
 
 // 2. TYPES
@@ -194,7 +195,10 @@ const FAB = forwardRef<View, FABProps>(({
     <Pressable
       ref={ref}
       testID={testID}
-      onPress={disabled ? undefined : onPress}
+      onPress={disabled ? undefined : (e) => {
+        blurOnWeb(e);
+        onPress?.(e);
+      }}
       disabled={disabled}
       style={getContainerStyle}
       onHoverIn={() => setHovered(true)}

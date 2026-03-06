@@ -68,6 +68,17 @@ export function createHighContrastLightTheme(brand: Brand): ThemeValuesType {
         background: highContrastColors.primary,
         text: '#FFFFFF',
       },
+      chip: {
+        filledBg: highContrastColors.secondaryContainer,
+        filledText: '#000000',
+        outlinedBorder: '#000000',
+        outlinedText: '#000000',
+        selectedBg: highContrastColors.secondaryContainer,
+        selectedText: '#000000',
+        disabledBg: '#F5F5F5',
+        disabledText: '#666666',
+        disabledBorder: '#999999',
+      },
       sidebar: {
         background: highContrastColors.surfaceContainer,
         itemText: '#000000',
@@ -179,6 +190,17 @@ export function createHighContrastDarkTheme(brand: Brand): ThemeValuesType {
       badge: {
         background: highContrastColors.primary,
         text: '#000000',
+      },
+      chip: {
+        filledBg: highContrastColors.secondaryContainer,
+        filledText: '#FFFFFF',
+        outlinedBorder: '#FFFFFF',
+        outlinedText: '#FFFFFF',
+        selectedBg: highContrastColors.secondaryContainer,
+        selectedText: '#FFFFFF',
+        disabledBg: '#1A1A1A',
+        disabledText: '#999999',
+        disabledBorder: '#666666',
       },
       sidebar: {
         background: highContrastColors.surfaceContainer,

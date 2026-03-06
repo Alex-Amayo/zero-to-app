@@ -88,6 +88,21 @@ export interface ThemeValuesType {
       background: string;
       text: string;
     };
+    chip: {
+      // Filled variant
+      filledBg: string;
+      filledText: string;
+      // Outlined variant
+      outlinedBorder: string;
+      outlinedText: string;
+      // Selected state (filter behavior — both variants)
+      selectedBg: string;
+      selectedText: string;
+      // Disabled
+      disabledBg: string;
+      disabledText: string;
+      disabledBorder: string;
+    };
     sidebar: {
       background: string;
       itemText: string;
@@ -232,6 +247,17 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         background: c.primary,
         text: c.onPrimary,
       },
+      chip: {
+        filledBg: c.secondaryContainer,
+        filledText: c.onSecondaryContainer,
+        outlinedBorder: c.outline,
+        outlinedText: c.onSurface,
+        selectedBg: c.secondaryContainer,
+        selectedText: c.onSecondaryContainer,
+        disabledBg: c.surfaceContainerLow,
+        disabledText: c.onSurfaceVariant,
+        disabledBorder: c.outlineVariant ?? c.outline,
+      },
       sidebar: {
         background: c.surface,
         itemText: c.onSurface,
@@ -372,6 +398,17 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
       badge: {
         background: c.primary,
         text: c.onPrimary,
+      },
+      chip: {
+        filledBg: c.secondaryContainer,
+        filledText: c.onSecondaryContainer,
+        outlinedBorder: c.outline,
+        outlinedText: c.onSurface,
+        selectedBg: c.secondaryContainer,
+        selectedText: c.onSecondaryContainer,
+        disabledBg: c.surfaceContainerLow,
+        disabledText: c.onSurfaceVariant,
+        disabledBorder: c.outlineVariant ?? c.outline,
       },
       sidebar: {
         background: c.surface,

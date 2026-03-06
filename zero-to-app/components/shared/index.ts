@@ -4,3 +4,5 @@ export type {
   LoadableComponentProps,
   ContainerComponentProps,
 } from './types';
+
+export { blurOnWeb } from './utils';

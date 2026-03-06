@@ -15,6 +15,7 @@ import { Typography } from './typography';
 import { useTheme } from '../../theme';
 import { renderIcon, type IconLibrary } from '../../icons';
 import type { InteractiveComponentProps, LoadableComponentProps } from '../shared/types';
+import { blurOnWeb } from '../shared/utils';
 
 // 2. TYPES
 
@@ -365,9 +366,7 @@ const Button = forwardRef<View, ButtonProps>(({
       ref={ref}
       testID={testID}
       onPress={disabled ? undefined : (e) => {
-        if (Platform.OS === 'web') {
-          (e.currentTarget as any)?.blur?.();
-        }
+        blurOnWeb(e);
         onPress?.(e);
       }}
       disabled={disabled}

@@ -345,6 +345,36 @@ User `screenOptions` are merged on top of the defaults and always win. Both obje
 
 ---
 
+## Slider
+
+> **Requires optional peer dep:** `@react-native-community/slider`
+> Install with: `npx expo install @react-native-community/slider`
+> If not installed, renders will throw a clear error message at runtime.
+
+```tsx
+<Slider value={0.5} onValueChange={setValue} />
+
+// With step and range
+<Slider value={volume} minimumValue={0} maximumValue={100} step={10} onValueChange={setVolume} />
+
+// Disabled
+<Slider value={0.3} disabled />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | Current slider value |
+| `minimumValue` | `number` | `0` | Minimum value |
+| `maximumValue` | `number` | `1` | Maximum value |
+| `step` | `number` | `0` | Step increment (0 = continuous) |
+| `onValueChange` | `(v: number) => void` | — | Called continuously while sliding |
+| `onSlidingComplete` | `(v: number) => void` | — | Called when user releases |
+| `disabled` | `boolean` | `false` | Disables interaction |
+
+Colors: active track + thumb = `theme.tokens.slider.activeTrack` (`primary`), inactive track = `slider.inactiveTrack` (`surfaceContainerHighest`).
+
+---
+
 ## NativeHeader
 
 Screen-level header buttons for iOS and Android. Renders nothing on web — safe to include unconditionally.

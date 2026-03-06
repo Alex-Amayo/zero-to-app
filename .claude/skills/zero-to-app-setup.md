@@ -8,6 +8,32 @@ description: Use when setting up zero-to-app in a new or existing React Native/E
 
 ---
 
+## Scaffolding a New Expo App
+
+Always use this exact command to create new projects:
+
+```bash
+npx create-expo-app@latest --template default@sdk-55
+```
+
+This sets up:
+- Expo Router with a tab navigator (basic navigation out of the box)
+- TypeScript configured by default
+- Multi-platform support (iOS, Android, web)
+- Expo CLI and recommended tooling included
+
+After scaffolding, **no complex setup file editing is required** — just remove or replace boilerplate files.
+
+> **Note:** `create-expo-app` creates files using the project name you provide as the folder. Run the command from the **parent** directory where you want the project folder created, not inside a pre-created folder.
+
+```bash
+# From the parent directory (e.g. ~/projects):
+npx create-expo-app@latest --template default@sdk-55
+# When prompted, enter the app name — the folder is created automatically
+```
+
+---
+
 ## Provider Setup
 
 ```tsx
@@ -81,5 +107,6 @@ const brand = createBrand({
 |-------|----------|
 | `useBrandConfig must be used within <ZeroToApp>` | Wrap app root with `<ZeroToApp brand={brand}>` |
 | `Module not found: expo-router` | `npx expo install expo-router @expo/vector-icons` |
+| `[zero-to-app] <Slider> requires @react-native-community/slider` | `npx expo install @react-native-community/slider` |
 | Icons show as boxes | Check icon library name (case-sensitive: `'Feather'`, not `'feather'`) |
 | Theme not updating | Use `useTheme()` inside component, not at module level |

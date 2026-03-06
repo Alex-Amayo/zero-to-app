@@ -1,8 +1,14 @@
 // 1. IMPORTS
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import RNSlider from '@react-native-community/slider';
 import { useTheme } from '../../theme';
+
+let RNSlider: React.ComponentType<any> | null = null;
+try {
+  RNSlider = require('@react-native-community/slider').default;
+} catch {
+  // optional peer dependency not installed
+}
 import type { BaseComponentProps } from '../shared/types';
 
 // 2. TYPES
@@ -62,6 +68,13 @@ const Slider = ({
   testID,
   accessibilityLabel,
 }: SliderProps) => {
+  if (!RNSlider) {
+    throw new Error(
+      '[zero-to-app] <Slider> requires @react-native-community/slider. ' +
+        'Install it with: npx expo install @react-native-community/slider',
+    );
+  }
+
   const theme = useTheme();
   const t = theme.tokens.slider;
 

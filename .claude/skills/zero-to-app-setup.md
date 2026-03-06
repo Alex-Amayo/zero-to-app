@@ -22,7 +22,21 @@ This sets up:
 - Multi-platform support (iOS, Android, web)
 - Expo CLI and recommended tooling included
 
-After scaffolding, **no complex setup file editing is required** — just remove or replace boilerplate files.
+After scaffolding, add a `babel.config.js` at the project root — **this is required** for `react-native-worklets` (used by zero-to-app animations) to initialize correctly on native:
+
+```js
+// babel.config.js
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: ['react-native-worklets/plugin'],
+  };
+};
+```
+
+> Without this, iOS/Android will throw **"react-native-worklets has not been initialized"** at runtime.
+> After adding/changing `babel.config.js`, always restart Metro with `--clear`: `npm start -- --clear`
 
 > **Note:** `create-expo-app` creates files using the project name you provide as the folder. Run the command from the **parent** directory where you want the project folder created, not inside a pre-created folder.
 
@@ -108,5 +122,7 @@ const brand = createBrand({
 | `useBrandConfig must be used within <ZeroToApp>` | Wrap app root with `<ZeroToApp brand={brand}>` |
 | `Module not found: expo-router` | `npx expo install expo-router @expo/vector-icons` |
 | `[zero-to-app] <Slider> requires @react-native-community/slider` | `npx expo install @react-native-community/slider` |
+| `react-native-worklets has not been initialized` | Add `babel.config.js` with `plugins: ['react-native-worklets/plugin']` and restart with `--clear` |
+| `useCompositionOption must be used within a RouterCompositionOptionsProvider` | `NativeHeader` requires a Stack context — don't use it directly inside NativeTabs tab screens |
 | Icons show as boxes | Check icon library name (case-sensitive: `'Feather'`, not `'feather'`) |
 | Theme not updating | Use `useTheme()` inside component, not at module level |

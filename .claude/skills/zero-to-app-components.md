@@ -115,6 +115,8 @@ Extends `ThemedView` — all `ThemedViewProps` are available.
 - `contentContainerStyle` — styles for ScrollView content (when scrollable). Applied after `padded`, so can override padding
 - `showsVerticalScrollIndicator` — default `true`
 
+> **Safe area rule:** `Screen` defaults to `edges={['bottom']}`, assuming a native header covers the top. Tab screens inside NativeTabs (AppTabs) have **no native top bar**, so you must pass `edges={['top', 'bottom']}` explicitly or content will underlap the notch. Push screens inside a Stack navigator are fine with the default.
+
 ---
 
 ## Chip

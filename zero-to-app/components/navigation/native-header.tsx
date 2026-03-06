@@ -38,6 +38,7 @@ export const NativeHeader = ({
   if (Platform.OS === 'ios') {
     return (
       <>
+        <Stack.Screen options={{ headerShadowVisible: false }} />
         {rightIcon && (
           <Stack.Toolbar placement="right">
             <Stack.Toolbar.Button

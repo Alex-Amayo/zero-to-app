@@ -119,9 +119,10 @@ export function generateLightColors(options: PaletteOptions): Colors {
   // Build light theme using M3 tone mappings
   // Reference: https://m3.material.io/styles/color/the-color-system/tokens
   return {
-    // Primary
-    primary: hexFromArgb(primaryPalette.tone(40)),
-    onPrimary: hexFromArgb(primaryPalette.tone(100)),
+    // Primary — use the exact seed color so the brand color is preserved exactly.
+    // onPrimary is computed from contrast (white or black) against that exact color.
+    primary: options.primary,
+    onPrimary: pickOnColor(options.primary),
     primaryContainer: hexFromArgb(primaryPalette.tone(90)),
     onPrimaryContainer: hexFromArgb(primaryPalette.tone(10)),
 
@@ -197,9 +198,9 @@ export function generateDarkColors(options: PaletteOptions): Colors {
   // Build dark theme using M3 tone mappings
   // Dark theme uses inverted tone values
   return {
-    // Primary
-    primary: hexFromArgb(primaryPalette.tone(80)),
-    onPrimary: hexFromArgb(primaryPalette.tone(20)),
+    // Primary — same exact brand color in dark mode; onPrimary adapts via contrast.
+    primary: options.primary,
+    onPrimary: pickOnColor(options.primary),
     primaryContainer: hexFromArgb(primaryPalette.tone(30)),
     onPrimaryContainer: hexFromArgb(primaryPalette.tone(90)),
 
@@ -246,6 +247,15 @@ export function generateDarkColors(options: PaletteOptions): Colors {
     scrim: hexFromArgb(neutralPalette.tone(0)),
     shadow: hexFromArgb(neutralPalette.tone(0)),
   };
+}
+
+/**
+ * Pick white or black as the on-color for a given background, based on contrast.
+ */
+function pickOnColor(background: string): string {
+  return contrastRatio('#FFFFFF', background) >= contrastRatio('#000000', background)
+    ? '#FFFFFF'
+    : '#000000';
 }
 
 /**

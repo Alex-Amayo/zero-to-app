@@ -119,10 +119,9 @@ export function generateLightColors(options: PaletteOptions): Colors {
   // Build light theme using M3 tone mappings
   // Reference: https://m3.material.io/styles/color/the-color-system/tokens
   return {
-    // Primary — use the exact seed color so the brand color is preserved exactly.
-    // onPrimary is computed from contrast (white or black) against that exact color.
-    primary: options.primary,
-    onPrimary: pickOnColor(options.primary),
+    // Primary — M3 tone 40 for light theme
+    primary: hexFromArgb(primaryPalette.tone(40)),
+    onPrimary: hexFromArgb(primaryPalette.tone(100)),
     primaryContainer: hexFromArgb(primaryPalette.tone(90)),
     onPrimaryContainer: hexFromArgb(primaryPalette.tone(10)),
 
@@ -198,9 +197,9 @@ export function generateDarkColors(options: PaletteOptions): Colors {
   // Build dark theme using M3 tone mappings
   // Dark theme uses inverted tone values
   return {
-    // Primary — same exact brand color in dark mode; onPrimary adapts via contrast.
-    primary: options.primary,
-    onPrimary: pickOnColor(options.primary),
+    // Primary — M3 tone 80 for dark theme
+    primary: hexFromArgb(primaryPalette.tone(80)),
+    onPrimary: hexFromArgb(primaryPalette.tone(20)),
     primaryContainer: hexFromArgb(primaryPalette.tone(30)),
     onPrimaryContainer: hexFromArgb(primaryPalette.tone(90)),
 

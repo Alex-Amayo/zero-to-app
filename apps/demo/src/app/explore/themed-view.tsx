@@ -29,6 +29,11 @@ const themedViewProps: PropDefinition[] = [
     description: 'Gap between items when columns is set',
   },
   {
+    name: 'elevation',
+    type: '0 | 1 | 2 | 3 | 4 | 5',
+    description: 'M3 elevation level. Card variant defaults to 1, all others default to 0.',
+  },
+  {
     name: 'rounded',
     type: 'boolean',
     default: 'true',
@@ -200,6 +205,33 @@ export default function ThemedViewPage() {
               <Typography variant="labelSmall">surfaceContainer (nested)</Typography>
             </ThemedView>
           </ThemedView>
+        </View>
+      </DemoSection>
+
+      <DemoSection
+        title="Elevation"
+        description="M3 elevation levels 0–5. The card variant defaults to level 1."
+        code={`<ThemedView variant="card" elevation={0} style={{ padding: 16 }}>
+  <Typography>Level 0 — flat</Typography>
+</ThemedView>
+<ThemedView variant="card" elevation={1} style={{ padding: 16 }}>
+  <Typography>Level 1 — default card</Typography>
+</ThemedView>
+<ThemedView variant="card" elevation={3} style={{ padding: 16 }}>
+  <Typography>Level 3 — dialog</Typography>
+</ThemedView>`}
+      >
+        <View style={rowStyle}>
+          {([0, 1, 2, 3, 4, 5] as const).map((level) => (
+            <ThemedView
+              key={level}
+              variant="card"
+              elevation={level}
+              style={{ padding: spacing.lg, borderRadius: spacing.md, minWidth: 100, alignItems: 'center', gap: spacing.xs }}
+            >
+              <Typography variant="labelMedium" weight="medium">Level {level}</Typography>
+            </ThemedView>
+          ))}
         </View>
       </DemoSection>
 

@@ -4,6 +4,7 @@ import { useTheme } from '../../theme';
 import { useDimensions, breakpoints } from '../../hooks';
 
 export type ThemedViewVariant = 'surface' | 'surfaceContainer' | 'card' | 'appbar' | 'primary' | 'background';
+export type ElevationLevel = 0 | 1 | 2 | 3 | 4 | 5;
 
 export interface ThemedViewProps extends ViewProps {
   /** Variant selects a semantic background from the theme */
@@ -12,13 +13,40 @@ export interface ThemedViewProps extends ViewProps {
   color?: string;
   /** Apply border radius from theme. @default true */
   rounded?: boolean;
+  /** M3 elevation level (0–5). Card variant defaults to 1. */
+  elevation?: ElevationLevel;
   /** Number of columns on medium+ screens (1 column on small). Enables responsive grid layout. */
   columns?: number;
   /** Gap between items when columns is set */
   gap?: number;
 }
 
-export const ThemedView = ({ variant = 'surface', color, rounded = true, columns, gap, style, children, onLayout, ...rest }: ThemedViewProps) => {
+// Shadow opacity and radius per M3 elevation level
+const ELEVATION_SHADOW: Record<ElevationLevel, { opacity: number; radius: number; offsetY: number }> = {
+  0: { opacity: 0,    radius: 0,  offsetY: 0 },
+  1: { opacity: 0.15, radius: 2,  offsetY: 1 },
+  2: { opacity: 0.20, radius: 4,  offsetY: 2 },
+  3: { opacity: 0.25, radius: 8,  offsetY: 4 },
+  4: { opacity: 0.28, radius: 10, offsetY: 6 },
+  5: { opacity: 0.32, radius: 14, offsetY: 8 },
+};
+
+function elevationStyle(level: ElevationLevel, shadowColor: string): ViewStyle {
+  if (level === 0) return {};
+  const { opacity, radius, offsetY } = ELEVATION_SHADOW[level];
+  if (Platform.OS === 'web') {
+    return { boxShadow: `0px ${offsetY}px ${radius * 2}px rgba(0,0,0,${opacity})` } as ViewStyle;
+  }
+  return {
+    shadowColor,
+    shadowOffset: { width: 0, height: offsetY },
+    shadowOpacity: opacity,
+    shadowRadius: radius,
+    elevation: level === 1 ? 1 : level === 2 ? 3 : level === 3 ? 6 : level === 4 ? 8 : 12,
+  };
+}
+
+export const ThemedView = ({ variant = 'surface', color, rounded = true, elevation, columns, gap, style, children, onLayout, ...rest }: ThemedViewProps) => {
   const theme = useTheme();
   const { width } = useDimensions();
   const isMid = width >= breakpoints.medium;
@@ -35,9 +63,13 @@ export const ThemedView = ({ variant = 'surface', color, rounded = true, columns
 
   const backgroundColor = color ?? variantMap[variant] ?? theme.surface;
 
+  // Card defaults to elevation level 1; others default to 0
+  const resolvedElevation: ElevationLevel = elevation ?? (variant === 'card' ? 1 : 0);
+
   const viewStyle: ViewStyle[] = [
     { backgroundColor },
     ...(rounded ? [{ borderRadius: theme.shape.surfaceBorderRadius }] : []),
+    elevationStyle(resolvedElevation, theme.shadow),
   ];
 
   // Handle responsive grid layout

@@ -10,6 +10,7 @@ const meta = {
   args: {
     variant: 'surface',
     color: undefined,
+    elevation: undefined,
   },
   argTypes: {
     variant: {
@@ -17,6 +18,11 @@ const meta = {
       options: ['surface', 'surfaceContainer', 'card', 'appbar', 'primary', 'background'],
     },
     color: { control: 'color' },
+    elevation: {
+      control: 'select',
+      options: [undefined, 0, 1, 2, 3, 4, 5],
+      description: 'M3 elevation level (0–5). Card variant defaults to 1.',
+    },
   },
   decorators: [(Story: any) => <View style={styles.container}><Story /></View>],
 } as unknown as Meta<typeof ThemedView>;
@@ -41,6 +47,18 @@ export const Variants: Story = {
       <ThemedView variant="card" rounded style={styles.gap}><Typography>Card</Typography></ThemedView>
       <ThemedView variant="appbar" rounded style={styles.gap}><Typography>Appbar</Typography></ThemedView>
       <ThemedView variant="primary" rounded style={styles.gap}><Typography color='#FFFFFF'>Primary</Typography></ThemedView>
+    </View>
+  ),
+};
+
+export const Elevation: Story = {
+  render: () => (
+    <View style={styles.row}>
+      {([0, 1, 2, 3, 4, 5] as const).map((level) => (
+        <ThemedView key={level} variant="card" elevation={level} rounded style={styles.gap}>
+          <Typography variant="labelMedium">Level {level}</Typography>
+        </ThemedView>
+      ))}
     </View>
   ),
 };

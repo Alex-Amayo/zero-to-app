@@ -52,10 +52,16 @@ export default function ExploreLayout() {
                 <Stack.Screen name="themed-view" options={{ title: 'ThemedView' }} />
                 <Stack.Screen name="typography" options={{ title: 'Typography' }} />
                 <Stack.Screen name="themed-image" options={{ title: 'ThemedImage' }} />
+                <Stack.Screen name="avatar" options={{ title: 'Avatar' }} />
                 <Stack.Screen name="button" options={{ title: 'Button' }} />
                 <Stack.Screen name="chip" options={{ title: 'Chip' }} />
+                <Stack.Screen name="divider" options={{ title: 'Divider' }} />
                 <Stack.Screen name="slider" options={{ title: 'Slider' }} />
                 <Stack.Screen name="fab" options={{ title: 'FAB' }} />
+                <Stack.Screen name="list" options={{ title: 'List' }} />
+                <Stack.Screen name="modal" options={{ title: 'Modal' }} />
+                <Stack.Screen name="progress-indicator" options={{ title: 'ProgressIndicator' }} />
+                <Stack.Screen name="text-input" options={{ title: 'TextInput' }} />
                 <Stack.Screen name="collapsible" options={{ title: 'Collapsible' }} />
                 <Stack.Screen name="app-tabs" options={{ title: 'AppTabs' }} />
                 <Stack.Screen name="sidebar" options={{ title: 'Sidebar' }} />

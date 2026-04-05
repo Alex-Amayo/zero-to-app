@@ -1,5 +1,5 @@
 ---
-description: Use when working with zero-to-app UI components like Button, Typography, ThemedView, Collapsible, etc.
+description: Use when working with zero-to-app UI components like Button, Typography, ThemedView, Avatar, TextInput, List, Modal, ProgressIndicator, Divider, etc.
 ---
 
 # zero-to-app Components
@@ -214,6 +214,178 @@ Wraps `expo-image`'s `Image` and automatically switches between light/dark sourc
 - `lightSource` — `ImageSource` shown in light mode
 - `darkSource` — `ImageSource` shown in dark mode
 - All other `ImageProps` from `expo-image` are spread through (`style`, `contentFit`, `transition`, `placeholder`, etc.)
+
+---
+
+## Avatar
+
+```tsx
+<Avatar name="Alex Amayo" />
+<Avatar name="Jane Doe" size="lg" />
+<Avatar name="Alex" src="https://example.com/photo.jpg" />
+<Avatar name="Alex" color="#FF6B35" textColor="#fff" />
+```
+
+**Sizes:** `sm` (32dp), `md` (40dp, default), `lg` (56dp)
+Color is derived deterministically from `name` when `color` is not provided. Falls back to initials when `src` fails to load.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | — | Display name — used for initials and color derivation |
+| `src` | `string` | — | Image URI. Falls back to initials on error |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Avatar diameter |
+| `color` | `string` | — | Override background color |
+| `textColor` | `string` | — | Override initials text color |
+
+---
+
+## Divider
+
+```tsx
+<Divider />
+<Divider orientation="vertical" style={{ marginHorizontal: 12 }} />
+<Divider inset="start" />
+<Divider inset="middle" />
+```
+
+**Props:** `orientation` (`'horizontal'` default | `'vertical'`), `inset` (`'none'` default | `'start'` | `'middle'`), `color`, `style`.
+
+`inset="start"` adds left margin (for use after a leading avatar/icon in a list). `inset="middle"` adds margin on both sides.
+
+---
+
+## List / ListItem
+
+```tsx
+<List>
+  <ListItem title="Inbox" />
+  <Divider />
+  <ListItem title="Sent" subtitle="3 messages" />
+  <Divider inset="start" />
+  <ListItem
+    title="Alex Amayo"
+    subtitle="Product Designer"
+    leading={<Avatar name="Alex Amayo" size="sm" />}
+    trailing={<Typography variant="labelSmall" muted>9:41 AM</Typography>}
+    selected
+    onPress={() => {}}
+  />
+</List>
+```
+
+**ListItem props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | — | Primary text |
+| `subtitle` | `string` | — | Secondary text |
+| `leading` | `ReactNode` | — | Left slot — icon, avatar, image |
+| `trailing` | `ReactNode` | — | Right slot — icon, text, action |
+| `selected` | `boolean` | `false` | Highlights with selectedBg/selectedText |
+| `disabled` | `boolean` | `false` | Disables interaction |
+| `onPress` | `() => void` | — | Makes item pressable |
+
+`List` is a thin wrapper that applies `tokens.list.background` and `accessibilityRole="list"`.
+
+---
+
+## Modal
+
+```tsx
+const [visible, setVisible] = useState(false);
+
+<Button title="Open" onPress={() => setVisible(true)} />
+
+<Modal
+  visible={visible}
+  onDismiss={() => setVisible(false)}
+  title="Confirm action"
+  actions={
+    <>
+      <Button title="Cancel" variant="text" onPress={() => setVisible(false)} />
+      <Button title="Confirm" onPress={() => setVisible(false)} />
+    </>
+  }
+>
+  <Typography>Are you sure?</Typography>
+</Modal>
+```
+
+**Platform behaviour:**
+- **Mobile** — bottom sheet (slides up from bottom, rounded top corners)
+- **Tablet / desktop (≥768dp)** — centered dialog
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `visible` | `boolean` | — | Controls visibility |
+| `onDismiss` | `() => void` | — | Called on scrim tap or X button |
+| `title` | `string` | — | Header title + X button. Omit for content-only modal |
+| `children` | `ReactNode` | — | Body content |
+| `actions` | `ReactNode` | — | Footer row (right-aligned) |
+| `dismissable` | `boolean` | `true` | Scrim tap dismisses. Set `false` for required actions |
+| `style` | `ViewStyle` | — | Override container style |
+
+---
+
+## ProgressIndicator
+
+```tsx
+{/* Linear determinate */}
+<ProgressIndicator variant="linear" value={0.6} />
+
+{/* Linear indeterminate */}
+<ProgressIndicator variant="linear" />
+
+{/* Circular */}
+<ProgressIndicator variant="circular" value={0.75} />
+<ProgressIndicator variant="circular" size={32} strokeWidth={3} />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'linear' \| 'circular'` | `'linear'` | Shape |
+| `value` | `number` | — | Progress 0–1. Omit for indeterminate |
+| `color` | `string` | `theme.primary` | Indicator color |
+| `trackColor` | `string` | `theme.surfaceContainerHighest` | Track background |
+| `size` | `number` | `48` | Circular only — diameter dp |
+| `strokeWidth` | `number` | `4` | Circular only — stroke dp |
+
+> **iOS note:** The indeterminate linear animation uses `useNativeDriver: false` because the `translateX` interpolation outputs percentage strings. Native driver only supports numeric values.
+
+---
+
+## ThemedTextInput
+
+```tsx
+<ThemedTextInput label="Email" placeholder="name@example.com" />
+<ThemedTextInput variant="outlined" label="Password" secureTextEntry />
+<ThemedTextInput label="Search" leadingIcon={{ name: 'search' }} />
+<ThemedTextInput label="Amount" trailingIcon={{ name: 'dollar-sign' }} />
+<ThemedTextInput label="Username" helperText="3–20 characters" />
+<ThemedTextInput label="Email" error="Invalid email address" />
+<ThemedTextInput label="Disabled" disabled />
+```
+
+**Variants:** `filled` (default), `outlined`
+
+Label is a static `labelMedium` text rendered above the input box — not a floating/animated label.
+
+Focus state: border color shifts to `tokens.input.focusBorder` and width increases 1→2px. Web native outline is suppressed via `outlineStyle: 'none'` (RNW longhand — `outline` shorthand is stripped by RNW's style validator).
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'filled' \| 'outlined'` | `'filled'` | Visual style |
+| `label` | `string` | — | Label above the input |
+| `helperText` | `string` | — | Helper text below |
+| `error` | `string` | — | Error message — replaces helperText, activates error state |
+| `leadingIcon` | `IconConfig` | — | Icon on the left |
+| `trailingIcon` | `IconConfig` | — | Icon on the right |
+| `disabled` | `boolean` | `false` | Disables input |
+| `style` | `ViewStyle` | — | Outer container styles |
+
+All `TextInputProps` from React Native are supported via spread (`value`, `onChangeText`, `secureTextEntry`, `keyboardType`, etc.).
+
+> **Works with react-hook-form:** wrap in `<Controller>` and pass `value`, `onChangeText`, `onBlur` via `field`. No additional integration needed — `forwardRef` is implemented.
 
 ---
 

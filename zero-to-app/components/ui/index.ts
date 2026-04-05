@@ -20,7 +20,7 @@ export type { CollapsibleProps } from './collapsible';
 export { Typography } from './typography';
 export type { TypographyProps, TypographyVariant, TypographyWeight, TypographyAlign } from './typography';
 export { ThemedView } from './themed-view';
-export type { ThemedViewProps, ThemedViewVariant } from './themed-view';
+export type { ThemedViewProps, ThemedViewVariant, ElevationLevel } from './themed-view';
 
 // Screen
 export { Screen } from './screen';

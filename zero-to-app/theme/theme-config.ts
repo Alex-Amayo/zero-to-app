@@ -74,6 +74,25 @@ export interface ThemeValuesType {
       text: string;
       border: string;
       placeholder: string;
+      labelColor: string;
+      labelFocusedColor: string;
+      errorColor: string;
+      focusBorder: string;
+    };
+    list: {
+      background: string;
+      itemText: string;
+      itemSubtextColor: string;
+      divider: string;
+      selectedBg: string;
+      selectedText: string;
+      pressedBg: string;
+    };
+    modal: {
+      background: string;
+      scrim: string;
+      text: string;
+      headerBorder: string;
     };
     appbar: {
       background: string;
@@ -238,6 +257,25 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         text: c.onSurface,
         border: c.outlineVariant ?? c.outline,
         placeholder: c.onSurfaceVariant,
+        labelColor: c.onSurfaceVariant,
+        labelFocusedColor: c.primary,
+        errorColor: c.error,
+        focusBorder: c.primary,
+      },
+      list: {
+        background: 'transparent',
+        itemText: c.onSurface,
+        itemSubtextColor: c.onSurfaceVariant,
+        divider: c.outlineVariant ?? c.outline,
+        selectedBg: c.secondaryContainer,
+        selectedText: c.onSecondaryContainer,
+        pressedBg: c.surfaceContainerHigh,
+      },
+      modal: {
+        background: c.surfaceContainerHigh,
+        scrim: 'rgba(0,0,0,0.5)',
+        text: c.onSurface,
+        headerBorder: c.outlineVariant ?? c.outline,
       },
       appbar: {
         background: c.surface,
@@ -395,6 +433,25 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         text: c.onSurface,
         border: c.outlineVariant ?? c.outline,
         placeholder: c.onSurfaceVariant,
+        labelColor: c.onSurfaceVariant,
+        labelFocusedColor: c.primary,
+        errorColor: c.error,
+        focusBorder: c.primary,
+      },
+      list: {
+        background: 'transparent',
+        itemText: c.onSurface,
+        itemSubtextColor: c.onSurfaceVariant,
+        divider: c.outlineVariant ?? c.outline,
+        selectedBg: c.secondaryContainer,
+        selectedText: c.onSecondaryContainer,
+        pressedBg: c.surfaceContainerHigh,
+      },
+      modal: {
+        background: c.surfaceContainerHigh,
+        scrim: 'rgba(0,0,0,0.5)',
+        text: c.onSurface,
+        headerBorder: c.outlineVariant ?? c.outline,
       },
       appbar: {
         background: c.surface,

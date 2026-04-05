@@ -31,7 +31,7 @@ const ELEVATION_SHADOW: Record<ElevationLevel, { opacity: number; radius: number
   5: { opacity: 0.32, radius: 14, offsetY: 8 },
 };
 
-function elevationStyle(level: ElevationLevel, shadowColor: string): ViewStyle {
+export function elevationStyle(level: ElevationLevel, shadowColor: string): ViewStyle {
   if (level === 0) return {};
   const { opacity, radius, offsetY } = ELEVATION_SHADOW[level];
   if (Platform.OS === 'web') {

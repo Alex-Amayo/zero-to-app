@@ -1,23 +1,26 @@
 import { useTheme, useThemeMode, Screen, Container, ThemedView, Typography, Button, renderIcon } from 'zero-to-app';
 import { router } from "expo-router";
-import { Image, ImageBackground, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const FEATURES = [
   {
+    title: 'Claude Skills',
+    icon: { name: 'zap', library: 'Feather' as const },
+    description: 'Built-in skills give Claude the full context of your design system — so it generates components that match your tokens, not generic boilerplate.',
+    accent: true,
+  },
+  {
     title: 'Material Design 3',
     icon: { name: 'layers', library: 'Feather' as const },
-    description: 'A complete implementation of Google\'s design system. Semantic tokens keep color, spacing, and typography consistent across every component.',
+    description: 'Semantic color tokens, type scale, and spacing that stay consistent across every component and screen.',
+    accent: false,
   },
   {
     title: 'Cross-platform',
     icon: { name: 'smartphone', library: 'Feather' as const },
     description: 'iOS, Android, and web from a single component tree. No platform forks, no duplicated styles.',
-  },
-  {
-    title: 'Claude Skills',
-    icon: { name: 'zap', library: 'Feather' as const },
-    description: 'AI-assisted development that understands your design tokens and primitives. Generate components and flows that match your codebase, not generic boilerplate.',
+    accent: false,
   },
 ];
 
@@ -27,95 +30,84 @@ export default function HomeScreen() {
   const { mode, toggleTheme } = useThemeMode();
 
   return (
-    <Screen
-      scrollable
-      variant="background"
-      edges={['bottom']}
-      padded={false}
-    >
-      {/* Head Section — Image Background with Title + Rocket */}
-      <ImageBackground
-        source={require('../../assets/images/gradient_background.png')}
-        resizeMode="cover"
-        style={styles.headerBackground}
-        imageStyle={styles.headerImage}
-      >
-        <SafeAreaView style={{ alignItems: 'center', gap: spacing.lg, paddingVertical: spacing.xxl }}>
-          <Image
-            source={require('../../assets/images/rocket.png')}
-            style={styles.rocketImage}
-            resizeMode="contain"
+    <Screen scrollable variant="background" edges={['bottom']} padded={false}>
+      {/* Hero */}
+      <SafeAreaView style={[styles.hero, { paddingHorizontal: spacing.xl, paddingTop: 80, paddingBottom: spacing.xxl, gap: spacing.xl }]}>
+        <Image
+          source={
+            mode === 'dark'
+              ? require('../../assets/images/rocket_logo_white.png')
+              : require('../../assets/images/rocket_logo_black.png')
+          }
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <View style={[styles.heroText, { gap: spacing.md }]}>
+          <Typography variant="displaySmall" weight="bold" align="center">
+            The React Native UI library{'\n'}built for AI development
+          </Typography>
+          <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
+            Components that Claude understands.{'\n'}Ship consistent, accessible, theme-aware apps — faster.
+          </Typography>
+        </View>
+        <View style={[styles.ctaRow, { gap: spacing.md }]}>
+          <Button
+            title="Get Started"
+            variant="filled"
+            icon={{ name: 'arrow-right' }}
+            onPress={() => router.push('/explore')}
           />
-          <View style={{ alignItems: 'center', gap: spacing.md }}>
-            <Typography variant="displayLarge" weight="bold" color={"white"}>
-              Zero To App
-            </Typography>
-            <Typography variant="headlineSmall" align="center" color={"white"}>
-              React Native components built on Material Design 3.
-            </Typography>
-          </View>
-          <View style={{ flexDirection: 'row', gap: spacing.md }}>
-            <Button
-              title="Get Started"
-              variant="filled"
-              icon={{ name: 'arrow-right' }}
-              onPress={() => router.push('/explore')}
-            />
-            <Button
-              title={mode === 'dark' ? 'Light Mode' : 'Dark Mode'}
-              variant="tonal"
-              icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
-              onPress={toggleTheme}
-            />
-          </View>
-        </SafeAreaView>
-      </ImageBackground>
+          <Button
+            title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
+            variant="outlined"
+            icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
+            onPress={toggleTheme}
+          />
+        </View>
+      </SafeAreaView>
 
-      <Container style={{ gap: spacing.xl, justifyContent: 'center', paddingVertical: spacing.xl }}>
-        <Typography variant="displaySmall" weight="bold" align="center">
-          Build consistent cross-platform experiences.
-        </Typography>
-
-      </Container>
-
-      <Container>
-        <ThemedView columns={2} gap={spacing.xl}>
-          {/* Left Column — Title, Introduction, Installation */}
-          <ThemedView style={{ gap: spacing.xxl }}>
-
-            <ThemedView style={{ gap: spacing.lg }}>
-              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-                Zero to App uses semantic Material 3 tokens and standard React Native Stylesheets to deliver a performant, unified design system consistently across platforms.
+      {/* Features */}
+      <Container style={{ paddingVertical: spacing.xxl }}>
+        <ThemedView columns={3} gap={spacing.lg}>
+          {FEATURES.map((feature, index) => (
+            <ThemedView
+              key={index}
+              variant={feature.accent ? 'surfaceContainer' : 'surface'}
+              style={[
+                styles.card,
+                {
+                  padding: spacing.lg,
+                  gap: spacing.sm,
+                  borderRadius: theme.borderRadius.md,
+                  borderWidth: 1,
+                  borderColor: feature.accent ? theme.primary + '40' : theme.outlineVariant,
+                },
+              ]}
+            >
+              <View
+                style={[
+                  styles.iconWrap,
+                  {
+                    backgroundColor: feature.accent ? theme.primaryContainer : theme.surfaceContainerHigh,
+                    borderRadius: theme.borderRadius.sm,
+                  },
+                ]}
+              >
+                {renderIcon(
+                  feature.icon,
+                  'Feather',
+                  16,
+                  feature.accent ? theme.onPrimaryContainer : theme.onSurfaceVariant,
+                )}
+              </View>
+              <Typography variant="titleSmall" weight="bold">
+                {feature.title}
               </Typography>
-              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>Generate accessible color palettes from a single brand color. Start with one hex — refine
-                individual colors when you&#39;re ready.</Typography>
-              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-                Large Language Models (LLMs) perform best with structure. Included Claude Skills provide the context needed for AI to generate consistent, theme-aware flows and components — not just generic code snippets.
+              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>
+                {feature.description}
               </Typography>
             </ThemedView>
-
-          </ThemedView>
-
-          {/* Right Column — Feature Cards */}
-          <ThemedView style={{ gap: spacing.md }}>
-            {FEATURES.map((feature, index) => (
-              <ThemedView
-                key={index}
-                variant="surfaceContainer"
-                style={[styles.card, { padding: spacing.lg, gap: spacing.sm, borderRadius: theme.borderRadius.lg }]}
-              >
-                <View style={[styles.iconCircle, { backgroundColor: theme.primaryContainer }]}>
-                  {renderIcon(feature.icon, 'Feather', 22, theme.onPrimaryContainer)}
-                </View>
-                <Typography variant="titleMedium" weight="bold">
-                  {feature.title}
-                </Typography>
-                <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
-                  {feature.description}
-                </Typography>
-              </ThemedView>
-            ))}
-          </ThemedView>
+          ))}
         </ThemedView>
       </Container>
     </Screen>
@@ -123,28 +115,26 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  headerBackground: {
-    width: '100%',
-    overflow: 'hidden',
+  hero: {
+    alignItems: 'center',
   },
-  headerImage: {
-    resizeMode: 'cover',
+  heroText: {
+    alignItems: 'center',
+    maxWidth: 520,
   },
-  rocketImage: {
-    width: 160,
-    height: 160,
+  logo: {
+    width: 64,
+    height: 64,
   },
-  card: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
+  ctaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
-  iconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 9999,
+  card: {},
+  iconWrap: {
+    width: 36,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
   },

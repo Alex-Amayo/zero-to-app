@@ -1,18 +1,27 @@
 # zero-to-app
 
-Material Design 3 component library for React Native and Expo. Supports iOS, Android, and Web.
+The React Native UI library built for AI development.
 
-🌐 **[Live Demo](https://demo-zero-to-app--lbqs9orlsl.expo.app)**
+Material Design 3 components for Expo — with built-in Claude Skills that give AI the context to generate consistent, theme-aware code instead of generic boilerplate.
 
+🌐 **[Live Demo](https://demo-zero-to-app--lbqs9orlsl.expo.app)** &nbsp;·&nbsp; 📦 **[NPM](https://www.npmjs.com/package/zero-to-app)**
 
-📦 **[NPM Package](https://www.npmjs.com/package/zero-to-app)**
+---
+
+## Why zero-to-app
+
+LLMs produce better code when they understand your design system. Zero-to-app ships with Claude Skills — structured context files that teach Claude your tokens, component API, and conventions. The result is generated code that looks like it was written by hand, not pasted from a tutorial.
+
+- **Claude Skills** — AI generates components that match your theme, not generic snippets
+- **Material Design 3** — semantic color tokens, type scale, and spacing across every component
+- **Cross-platform** — iOS, Android, and web from a single component tree
 
 ---
 
 ## Installation
 
 ```bash
-npm install zero-to-app
+npx expo install zero-to-app
 
 # Required peer dependencies
 npx expo install react-native-reanimated react-native-gesture-handler react-native-safe-area-context react-native-screens expo-router @expo/vector-icons
@@ -31,7 +40,6 @@ import { ZeroToApp, createBrand } from 'zero-to-app';
 const brand = createBrand({
   name: 'My App',
   colors: { colorSeed: { primary: '#6750A4' } }, // Auto-generates M3 palette
-  fontSizes: { small: 14, medium: 16, large: 20, xlarge: 25 },
   spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },
   borderRadius: 8,
 });
@@ -58,6 +66,18 @@ function MyScreen() {
 
 ---
 
+## Claude Skills
+
+Claude Skills are context files included with the package. Load them in Claude Code to unlock theme-aware code generation:
+
+```bash
+/skills   # lists available zero-to-app skills in Claude Code
+```
+
+Skills cover components, theming, navigation patterns, and responsive layout — so Claude generates code that uses your actual tokens and follows your conventions from the first prompt.
+
+---
+
 ## Components
 
 ### Button
@@ -65,33 +85,32 @@ function MyScreen() {
 <Button title="Primary" variant="filled" onPress={handlePress} />
 <Button title="Save" icon={{ library: 'Feather', name: 'save' }} />
 ```
-**Variants:** `filled`, `tonal`, `outlined`, `text`, `elevated` | **Sizes:** `xs`, `s`, `m`, `l`, `xl`
+**Variants:** `filled` · `tonal` · `outlined` · `text` · `elevated`
 
 ### Typography
 ```tsx
 <Typography variant="headlineMedium" weight="bold">Title</Typography>
 <Typography variant="bodyMedium" muted>Description</Typography>
 ```
-**Variants:** `display{Large|Medium|Small}`, `headline{...}`, `title{...}`, `body{...}`, `label{...}`
+**Variants:** `display{Large|Medium|Small}` · `headline{...}` · `title{...}` · `body{...}` · `label{...}`
 
 ### ThemedView
 ```tsx
-<ThemedView variant="card" style={{ padding: 16 }}>{content}</ThemedView>
+<ThemedView variant="card" columns={2} gap={16}>{content}</ThemedView>
 ```
-**Variants:** `background`, `surface`, `surfaceContainer`, `card`, `appbar`, `primary`
-
-### Container
-```tsx
-<Container columns={2} gap={16}>{children}</Container>  // Responsive grid
-<Container maxWidth={800}>{content}</Container>         // Constrained width
-```
+**Variants:** `background` · `surface` · `surfaceContainer` · `card` · `appbar` · `primary`
 
 ### Screen
 ```tsx
 <Screen variant="background" scrollable>{content}</Screen>
 ```
 
-### AppTabs (expo-router)
+### Container
+```tsx
+<Container maxWidth={800}>{content}</Container>
+```
+
+### AppTabs
 ```tsx
 <AppTabs
   brandName="My App"
@@ -101,7 +120,7 @@ function MyScreen() {
 
 ### Sidebar
 ```tsx
-const { open, toggle } = useSidebar();
+const { open } = useSidebar();
 <Sidebar header={<SidebarHeader title="App" />}>
   <SidebarItem label="Home" onPress={() => {}} />
 </Sidebar>
@@ -111,50 +130,15 @@ const { open, toggle } = useSidebar();
 
 ## Hooks
 
-### Theme & Brand
 ```tsx
-const theme = useTheme();                    // Colors, spacing, tokens
+const theme = useTheme();                     // Colors, spacing, tokens
 const { mode, toggleTheme } = useThemeMode(); // Light/dark control
-const brand = useBrandConfig();              // Brand name, logo
+const { width } = useDimensions();            // Responsive layout
+const isLarge = useBreakpoint('large');        // Breakpoint helper
+const { isOpen, open, toggle } = useSidebar();
 ```
 
-### Responsive
-```tsx
-// Prefer the lightweight primitives we export:
-const { width } = useDimensions();
-const isMobile = width < breakpoints.large; // compare to exported breakpoints
-// Or use the breakpoint helper:
-const isLarge = useBreakpoint('large');
-```
-
-### Layout & Sidebar
-
-```tsx
-const { isOpen, open, close, toggle } = useSidebar();
-const { appBarHeight } = useLayout();
-```
-
-Mount the canonical `Sidebar` inside your root layout and have `AppTabs` only trigger it:
-
-```tsx
-// app/_layout.tsx
-import { Sidebar, SidebarHeader } from 'zero-to-app';
-
-function RootLayout() {
-  return (
-    <ZeroToApp brand={brand}>
-      <Sidebar header={<SidebarHeader title="App" />}>
-        {/* SidebarItem links or a shared AppTabsMenu */}
-      </Sidebar>
-      <Outlet />
-    </ZeroToApp>
-  );
-}
-```
-
-In your `AppTabs` (AppBar) component, call `useSidebar().open()` when the hamburger is pressed — do not render a separate drawer locally.
-
-**Breakpoints:** `small` (<768px), `medium` (≥768px), `large` (≥1024px), `xlarge` (≥1280px)
+**Breakpoints:** `small` (<768px) · `medium` (≥768px) · `large` (≥1024px) · `xlarge` (≥1280px)
 
 ---
 
@@ -163,16 +147,16 @@ In your `AppTabs` (AppBar) component, call `useSidebar().open()` when the hambur
 ```tsx
 const theme = useTheme();
 
-// Palette tokens
-theme.primary, theme.onPrimary, theme.surface, theme.onSurface, theme.error
+theme.primary          // Palette tokens
+theme.surface
+theme.onSurfaceVariant
 
-// Semantic tokens
-theme.tokens.button.filledBg
+theme.tokens.button.filledBg   // Semantic tokens
 theme.tokens.card.background
 theme.tokens.input.border
 
-// Layout
-theme.spacing.lg, theme.borderRadius
+theme.spacing.lg       // Layout
+theme.borderRadius.md
 ```
 
 ---
@@ -181,7 +165,7 @@ theme.spacing.lg, theme.borderRadius
 
 ```bash
 pnpm install              # Install deps
-pnpm dev:storybook:web    # UI component dev
+pnpm dev:storybook:web    # Component development
 pnpm dev:demo             # Full app testing
 pnpm typecheck            # Type check
 pnpm build                # Build package
@@ -189,9 +173,9 @@ pnpm release              # Publish to npm
 ```
 
 **Structure:**
-- `zero-to-app/` - Component library (npm package)
-- `apps/storybook/` - Isolated component development
-- `apps/demo/` - Integrated testing with expo-router
+- `zero-to-app/` — Component library (npm package)
+- `apps/storybook/` — Isolated component development
+- `apps/demo/` — Integrated testing with expo-router
 
 ---
 

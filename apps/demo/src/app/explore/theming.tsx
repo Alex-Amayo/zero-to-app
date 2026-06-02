@@ -20,7 +20,7 @@ export default function ThemingPage() {
         description="Pass a Brand object to ZeroToApp at the root of your app. Everything in the design system reads from it."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"import { ZeroToApp, createBrand } from 'zero-to-app';\n\nconst brand = createBrand({ ... });\n\nexport default function RootLayout() {\n  return (\n    <ZeroToApp brand={brand}>\n      <Stack />\n    </ZeroToApp>\n  );\n}"}
         />
       </DemoSection>
@@ -67,7 +67,7 @@ export default function ThemingPage() {
               {'colorSeed accepts optional secondary, tertiary, and neutral overrides if you need precise control. Start with just primary — add overrides later when your brand is defined.'}
             </Typography>
             <CodeBlock
-              multiline
+              variant="code"
               code={"colors: {\n  colorSeed: {\n    primary: '#6750A4',\n    secondary: '#B0C4DE', // optional\n    tertiary: '#E8A87C',  // optional\n  },\n}"}
             />
           </ThemedView>
@@ -79,7 +79,7 @@ export default function ThemingPage() {
         description="Provide a single primary hex color. Zero To App generates all 26 M3 color tokens for both light and dark themes automatically — contrast ratios guaranteed."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"const brand = createBrand({\n  name: 'My App',\n  colors: {\n    colorSeed: {\n      primary: '#6750A4',\n    },\n  },\n  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 40 },\n  borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },\n});"}
         />
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.md }}>
@@ -106,7 +106,7 @@ export default function ThemingPage() {
         description="Provide all 26 M3 color tokens directly. Use this when you have an existing design system or need precise control over every color."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"const brand = createBrand({\n  name: 'My App',\n  colors: {\n    primary: '#6750A4',\n    onPrimary: '#FFFFFF',\n    primaryContainer: '#EADDFF',\n    onPrimaryContainer: '#21005D',\n    // ... all 26 tokens required\n  },\n  // Optionally provide separate dark colors:\n  darkColors: {\n    primary: '#D0BCFF',\n    // ...\n  },\n  spacing: { ... },\n  borderRadius: { ... },\n});"}
         />
       </DemoSection>
@@ -116,7 +116,7 @@ export default function ThemingPage() {
         description="shape controls the two most common border radii. Use theme.shape in your components rather than the full borderRadius scale for consistent rounding."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"createBrand({\n  // ...\n  shape: {\n    surfaceBorderRadius: 12, // cards, containers, collapsibles\n    buttonBorderRadius: 8,   // buttons, interactive elements\n  },\n});"}
         />
         <View style={{ flexDirection: 'row', gap: spacing.lg, marginTop: spacing.md }}>
@@ -138,7 +138,7 @@ export default function ThemingPage() {
         description="Seven named steps used throughout the system. Override to match your design grid."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"createBrand({\n  // ...\n  spacing: {\n    xs: 4,\n    sm: 8,\n    md: 12,\n    lg: 16,\n    xl: 20,\n    xxl: 24,\n    xxxl: 40,\n  },\n});"}
         />
         <View style={{ marginTop: spacing.md, gap: spacing.sm }}>
@@ -157,7 +157,7 @@ export default function ThemingPage() {
         description="Dark theme is generated automatically from the same seed. Toggle at runtime using useThemeMode()."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"import { useThemeMode } from 'zero-to-app';\n\nconst { mode, toggleTheme } = useThemeMode();\n// mode: 'light' | 'dark'"}
         />
       </DemoSection>
@@ -167,7 +167,7 @@ export default function ThemingPage() {
         description="Zero To App ships a ready-to-use brand using M3 reference purple (#6750A4). Import it directly to get started without any configuration."
       >
         <CodeBlock
-          multiline
+          variant="code"
           code={"import { ZeroToApp, defaultBrand } from 'zero-to-app';\n\n<ZeroToApp brand={defaultBrand}>\n  <Stack />\n</ZeroToApp>"}
         />
       </DemoSection>

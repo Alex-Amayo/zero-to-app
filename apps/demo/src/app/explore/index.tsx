@@ -30,7 +30,7 @@ export default function GettingStartedPage() {
             <Typography variant="bodyMedium" muted>
               Install the package using Expo&apos;s install command to ensure SDK version compatibility.
             </Typography>
-            <CodeBlock code="npx expo install zero-to-app" />
+            <CodeBlock variant="shell" code="npx expo install zero-to-app" />
           </View>
 
           <View style={{ gap: spacing.md }}>
@@ -41,7 +41,8 @@ export default function GettingStartedPage() {
               Wrap your root layout with the <Typography variant="bodyMedium" style={{ fontFamily: 'monospace' }}>ZeroToApp</Typography> provider. This sets up theming, spacing, and context for all components.
             </Typography>
             <CodeBlock
-              multiline
+              variant="code"
+              filename="app/_layout.tsx"
               code={"import { ZeroToApp } from 'zero-to-app';\n\nexport default function RootLayout() {\n  return (\n    <ZeroToApp>\n      <Stack />\n    </ZeroToApp>\n  );\n}"}
             />
           </View>

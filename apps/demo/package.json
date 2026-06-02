@@ -14,6 +14,7 @@
     "lint": "expo lint"
   },
   "dependencies": {
+    "@expo/ui": "~56.0.15",
     "@expo/vector-icons": "^15.0.2",
     "@react-native-community/slider": "5.2.0",
     "expo": "~56.0.8",

@@ -5,21 +5,27 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const FEATURES = [
   {
-    title: 'Claude Skills',
+    title: 'AI Integration',
     icon: { name: 'zap', library: 'Feather' as const },
-    description: 'Built-in skills give Claude the full context of your design system — so it generates components that match your tokens, not generic boilerplate.',
+    description: 'Structured context files teach Claude your design system — tokens, component API, and conventions. Generated code uses the right values from the first prompt.',
     accent: true,
+  },
+  {
+    title: 'Native-first',
+    icon: { name: 'cpu', library: 'Feather' as const },
+    description: 'Key components render in SwiftUI on iOS and Jetpack Compose on Android via Expo UI. Platform-native feel and performance — not JavaScript approximations.',
+    accent: false,
   },
   {
     title: 'Material Design 3',
     icon: { name: 'layers', library: 'Feather' as const },
-    description: 'Semantic color tokens, type scale, and spacing that stay consistent across every component and screen.',
+    description: 'Semantic color tokens, type scale, elevation, and shape across every component. One seed color generates your entire M3 palette.',
     accent: false,
   },
   {
-    title: 'Cross-platform',
-    icon: { name: 'smartphone', library: 'Feather' as const },
-    description: 'iOS, Android, and web from a single component tree. No platform forks, no duplicated styles.',
+    title: 'Accessible by default',
+    icon: { name: 'eye', library: 'Feather' as const },
+    description: 'Every interactive component ships with ARIA roles, states, and labels. Focus management, reduced-motion handling, and screen reader support — built in.',
     accent: false,
   },
 ];
@@ -44,10 +50,10 @@ export default function HomeScreen() {
         />
         <View style={[styles.heroText, { gap: spacing.md }]}>
           <Typography variant="displaySmall" weight="bold" align="center">
-            The React Native UI library{'\n'}built for AI development
+            The Expo UI library{'\n'}built for the AI era
           </Typography>
           <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
-            Components that Claude understands.{'\n'}Ship consistent, accessible, theme-aware apps — faster.
+            Native components on iOS and Android. M3 everywhere.{'\n'}Claude Skills teach AI your design system — so generated code fits from the first prompt.
           </Typography>
         </View>
         <View style={[styles.ctaRow, { gap: spacing.md }]}>
@@ -68,7 +74,7 @@ export default function HomeScreen() {
 
       {/* Features */}
       <Container style={{ paddingVertical: spacing.xxl }}>
-        <ThemedView columns={3} gap={spacing.lg}>
+        <ThemedView columns={2} gap={spacing.lg}>
           {FEATURES.map((feature, index) => (
             <ThemedView
               key={index}

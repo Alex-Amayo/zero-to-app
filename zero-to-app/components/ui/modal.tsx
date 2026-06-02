@@ -172,10 +172,18 @@ Modal.displayName = 'Modal';
 // 4. STYLES
 const styles = StyleSheet.create({
   scrim: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   positioner: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
     pointerEvents: 'box-none',
   } as ViewStyle,
   dialogPositioner: {

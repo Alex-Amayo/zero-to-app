@@ -32,7 +32,11 @@
   "pnpm": {
     "overrides": {
       "react-docgen-typescript": "2.2.2",
-      "@types/react": "19.2.14"
+      "@types/react": "19.2.14",
+      "react": "19.2.3",
+      "react-native": "0.85.3",
+      "react-native-reanimated": "4.3.1",
+      "react-native-safe-area-context": "5.7.0"
     }
   },
   "devDependencies": {
@@ -48,9 +52,9 @@
     ]
   },
   "dependencies": {
-    "@expo/metro-runtime": "~55.0.6",
-    "expo": "~55.0.3",
-    "react": "19.2.0",
-    "react-native": "0.83.1"
+    "@expo/metro-runtime": "~56.0.13",
+    "expo": "~56.0.8",
+    "react": "19.2.3",
+    "react-native": "0.85.3"
   }
 }

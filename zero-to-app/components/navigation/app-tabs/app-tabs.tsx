@@ -81,7 +81,7 @@ export default function AppTabs({
           {(tab.sfSymbol || tab.materialIcon) && (
             <NativeTabs.Trigger.Icon
               sf={tab.sfSymbol as any}
-              md={tab.materialIcon}
+              md={tab.materialIcon as any}
             />
           )}
           <NativeTabs.Trigger.Label>{tab.label}</NativeTabs.Trigger.Label>

@@ -1,25 +1,28 @@
 import React, { ReactNode } from 'react';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import type { SFSymbol } from 'sf-symbols-typescript';
+import type { AndroidSymbol } from 'expo-symbols';
 import { useThemeContext } from '../../../theme';
 
-/**
- * SF Symbol icon configuration for iOS
- */
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+/** SF Symbol names for default and selected tab states (iOS) */
 export interface SFSymbolIcon {
-  /** Default state SF Symbol name */
   default: string;
-  /** Selected state SF Symbol name */
   selected: string;
 }
 
 /**
- * Material Design icon name for Android
+ * Android Material icon for a tab.
+ * Pass a plain string for a single icon, or `{ default, selected }` to use
+ * distinct icons for unselected / selected states (requires RN Screens 4.25+,
+ * available from SDK 56).
  */
-export type MaterialIconName = string;
+export type MaterialIconName =
+  | string
+  | { default?: string; selected: string };
 
-/**
- * Tab configuration for AppTabs
- */
+/** Tab route configuration */
 export interface AppTabConfig {
   /** Unique tab name (used for routing) */
   name: string;
@@ -27,61 +30,90 @@ export interface AppTabConfig {
   href: string;
   /** Tab display label */
   label: string;
-  /** Optional iOS SF Symbol icon configuration (must include both default and selected states) */
+  /** iOS SF Symbol icons — default and selected states */
   sfSymbol?: SFSymbolIcon;
-  /** Optional Android Material Design icon name */
+  /**
+   * Android Material icon.
+   * Plain string uses the same icon for both states.
+   * Object form `{ default, selected }` shows a different icon when the tab is active.
+   */
   materialIcon?: MaterialIconName;
-  /** Optional web icon (web only) */
+  /** Web icon (web only) */
   webIcon?: any;
 }
 
-/**
- * External link configuration (web only)
- */
+/** External link shown in the app bar (web only) */
 export interface AppTabsExternalLink {
   label: string;
   href: string;
   icon?: any;
 }
 
-/**
- * Props for AppTabs component
- */
+/** Props for the AppTabs component */
 export interface AppTabsProps {
-  /** Brand or app name to display */
+  /** Brand or app name */
   brandName?: string;
   /** Optional logo image */
   logoImage?: ReactNode;
-  /** Array of tab configurations */
+  /** Tab route configurations */
   tabs: AppTabConfig[];
   /** External links shown in the app bar (web only) */
   externalLinks?: AppTabsExternalLink[];
   /** App bar height in pixels (web only) */
   height?: number;
-  /** Called when hamburger is pressed (native only) */
+  /** Called when the hamburger button is pressed (native only) */
   onPrimaryMenuPress?: () => void;
+  /**
+   * When true, iPadOS and macOS promote the tab bar to a collapsible sidebar.
+   * Has no effect on iPhone. Requires iOS 18+.
+   * @platform iOS
+   */
+  sidebarAdaptable?: boolean;
 }
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/** Normalize materialIcon to the shape NativeTabs.Trigger.Icon expects for `md`. */
+function normalizeMd(
+  materialIcon: MaterialIconName | undefined,
+): AndroidSymbol | { default?: AndroidSymbol; selected: AndroidSymbol } | undefined {
+  if (!materialIcon) return undefined;
+  if (typeof materialIcon === 'string') return materialIcon as AndroidSymbol;
+  return {
+    default: materialIcon.default as AndroidSymbol | undefined,
+    selected: materialIcon.selected as AndroidSymbol,
+  };
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 /**
  * Native platform tabs for mobile (iOS/Android).
- * Uses true native tabs with liquid glass effect on iOS.
- * For web, see app-tabs.web.tsx
+ * Uses true native tabs via expo-router/unstable-native-tabs.
+ * For the web variant see app-tabs.web.tsx.
  */
-export default function AppTabs({
-  tabs,
-}: AppTabsProps) {
+export default function AppTabs({ tabs, sidebarAdaptable }: AppTabsProps) {
   const { values: theme } = useThemeContext();
 
   return (
     <NativeTabs
       tintColor={theme.primary}
-      iconColor={theme.onSurfaceVariant}>
+      iconColor={theme.onSurfaceVariant}
+      sidebarAdaptable={sidebarAdaptable}
+    >
       {tabs.map((tab) => (
         <NativeTabs.Trigger key={tab.name} name={tab.name}>
           {(tab.sfSymbol || tab.materialIcon) && (
             <NativeTabs.Trigger.Icon
-              sf={tab.sfSymbol as any}
-              md={tab.materialIcon as any}
+              sf={
+                tab.sfSymbol
+                  ? ({
+                      default: tab.sfSymbol.default as SFSymbol,
+                      selected: tab.sfSymbol.selected as SFSymbol,
+                    } as { default?: SFSymbol; selected: SFSymbol })
+                  : undefined
+              }
+              md={normalizeMd(tab.materialIcon)}
             />
           )}
           <NativeTabs.Trigger.Label>{tab.label}</NativeTabs.Trigger.Label>

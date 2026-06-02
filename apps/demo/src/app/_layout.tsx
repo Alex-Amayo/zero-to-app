@@ -50,17 +50,18 @@ function TabLayoutInner() {
             href: '/',
             label: 'Home',
             sfSymbol: { default: 'house', selected: 'house.fill' },
-            materialIcon: 'home',
+            materialIcon: { default: 'home', selected: 'home' },
           },
           {
             name: 'explore',
             href: '/explore',
             label: 'Explore',
             sfSymbol: { default: 'safari', selected: 'safari.fill' },
-            materialIcon: 'explore',
+            materialIcon: { default: 'explore', selected: 'explore' },
           },
         ]}
         externalLinks={externalLinks}
+        sidebarAdaptable
         {...(Platform.OS !== 'web' ? { onPrimaryMenuPress: toggle } : {})}
       />
     </View>

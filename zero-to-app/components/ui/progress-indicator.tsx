@@ -1,6 +1,6 @@
 // 1. IMPORTS
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, Platform, View, StyleSheet, type ViewStyle, type StyleProp } from 'react-native';
+import { Animated, Easing, View, StyleSheet, type ViewStyle, type StyleProp } from 'react-native';
 import { useTheme } from '../../theme';
 
 // 2. TYPES
@@ -171,6 +171,7 @@ interface CircularProps {
   style?: StyleProp<ViewStyle>;
 }
 
+// Web-only: SVG circular indicator
 const CircularIndicator = ({ value, color, trackColor, size, strokeWidth, reduceMotion, style }: CircularProps) => {
   const rotation = useRef(new Animated.Value(0)).current;
   const isIndeterminate = value === undefined;
@@ -190,127 +191,34 @@ const CircularIndicator = ({ value, color, trackColor, size, strokeWidth, reduce
   }, [isIndeterminate, reduceMotion, rotation]);
 
   const spin = rotation.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
-
-  if (Platform.OS === 'web') {
-    const r = (size - strokeWidth) / 2;
-    const cx = size / 2;
-    const circumference = 2 * Math.PI * r;
-    const progress = isIndeterminate ? 0.75 : (value ?? 0);
-    const offset = circumference * (1 - progress);
-
-    return (
-      <Animated.View
-        style={[{ width: size, height: size }, style, isIndeterminate && { transform: [{ rotate: spin }] }]}
-        accessibilityRole="progressbar"
-        accessibilityValue={isIndeterminate ? undefined : { min: 0, max: 100, now: Math.round((value ?? 0) * 100) }}
-      >
-        {/* @ts-ignore — svg renders fine on web via react-native-web */}
-        <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
-          {/* @ts-ignore */}
-          <circle cx={cx} cy={cx} r={r} fill="none" stroke={trackColor} strokeWidth={strokeWidth} />
-          {/* @ts-ignore */}
-          <circle
-            cx={cx} cy={cx} r={r}
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeDasharray={circumference}
-            strokeDashoffset={offset}
-            strokeLinecap="round"
-          />
-        </svg>
-      </Animated.View>
-    );
-  }
-
-  // Native: use a rotating view with a visible arc via overflow + border trick
-  const outerSize = size;
-  const innerSize = size - strokeWidth * 2;
-
-  if (isIndeterminate) {
-    return (
-      <Animated.View
-        style={[{ width: outerSize, height: outerSize, transform: [{ rotate: spin }] }, style]}
-        accessibilityRole="progressbar"
-      >
-        <View
-          style={{
-            width: outerSize,
-            height: outerSize,
-            borderRadius: outerSize / 2,
-            borderWidth: strokeWidth,
-            borderColor: trackColor,
-            borderTopColor: color,
-          }}
-        />
-      </Animated.View>
-    );
-  }
-
-  // Determinate native: clip-based arc — split into two halves
-  const clampedValue = Math.min(1, Math.max(0, value ?? 0));
-  const halfRotation = clampedValue <= 0.5 ? clampedValue * 360 : 180;
-  const secondHalfRotation = clampedValue > 0.5 ? (clampedValue - 0.5) * 360 : 0;
+  const r = (size - strokeWidth) / 2;
+  const cx = size / 2;
+  const circumference = 2 * Math.PI * r;
+  const progress = isIndeterminate ? 0.75 : (value ?? 0);
+  const offset = circumference * (1 - progress);
 
   return (
-    <View
-      style={[{ width: outerSize, height: outerSize }, style]}
+    <Animated.View
+      style={[{ width: size, height: size }, style, isIndeterminate && { transform: [{ rotate: spin }] }]}
       accessibilityRole="progressbar"
-      accessibilityValue={{ min: 0, max: 100, now: Math.round(clampedValue * 100) }}
+      accessibilityValue={isIndeterminate ? undefined : { min: 0, max: 100, now: Math.round((value ?? 0) * 100) }}
     >
-      {/* Track ring */}
-      <View
-        style={[StyleSheet.absoluteFill, {
-          borderRadius: outerSize / 2,
-          borderWidth: strokeWidth,
-          borderColor: trackColor,
-        }]}
-      />
-      {/* Left half */}
-      <View style={[StyleSheet.absoluteFill, { overflow: 'hidden' }]}>
-        <View style={{ width: outerSize / 2, height: outerSize, overflow: 'hidden', position: 'absolute', left: 0 }}>
-          <View
-            style={{
-              width: outerSize,
-              height: outerSize,
-              borderRadius: outerSize / 2,
-              borderWidth: strokeWidth,
-              borderColor: color,
-              borderRightColor: 'transparent',
-              borderBottomColor: 'transparent',
-              transform: [{ rotate: `${halfRotation - 45}deg` }],
-            }}
-          />
-        </View>
-        {/* Right half — only visible when > 50% */}
-        {clampedValue > 0.5 && (
-          <View style={{ width: outerSize / 2, height: outerSize, overflow: 'hidden', position: 'absolute', right: 0 }}>
-            <View
-              style={{
-                width: outerSize,
-                height: outerSize,
-                borderRadius: outerSize / 2,
-                borderWidth: strokeWidth,
-                borderColor: color,
-                borderLeftColor: 'transparent',
-                borderBottomColor: 'transparent',
-                position: 'absolute',
-                right: 0,
-                transform: [{ rotate: `${secondHalfRotation - 45}deg` }],
-              }}
-            />
-          </View>
-        )}
-      </View>
-      {/* Inner mask to hollow out */}
-      <View
-        style={[StyleSheet.absoluteFill, {
-          margin: strokeWidth,
-          borderRadius: innerSize / 2,
-          backgroundColor: 'transparent',
-        }]}
-      />
-    </View>
+      {/* @ts-ignore — svg renders fine on web via react-native-web */}
+      <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
+        {/* @ts-ignore */}
+        <circle cx={cx} cy={cx} r={r} fill="none" stroke={trackColor} strokeWidth={strokeWidth} />
+        {/* @ts-ignore */}
+        <circle
+          cx={cx} cy={cx} r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+        />
+      </svg>
+    </Animated.View>
   );
 };
 

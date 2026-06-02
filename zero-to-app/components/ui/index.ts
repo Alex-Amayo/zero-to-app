@@ -64,3 +64,7 @@ export type { ListItemProps } from './list-item';
 // Modal
 export { Modal } from './modal';
 export type { ModalProps } from './modal';
+
+// Switch
+export { Switch } from './switch';
+export type { SwitchProps } from './switch';

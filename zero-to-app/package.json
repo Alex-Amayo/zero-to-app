@@ -82,6 +82,7 @@
     "@material/material-color-utilities": "^0.4.0"
   },
   "peerDependencies": {
+    "@expo/ui": "*",
     "@expo/vector-icons": "*",
     "@react-native-community/slider": "*",
     "expo-image": "*",
@@ -92,6 +93,9 @@
     "react-native-safe-area-context": "*"
   },
   "peerDependenciesMeta": {
+    "@expo/ui": {
+      "optional": false
+    },
     "@expo/vector-icons": {
       "optional": true
     },

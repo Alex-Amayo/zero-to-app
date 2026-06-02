@@ -192,6 +192,56 @@ const Chip = ({
     return base;
   };
 
+  const ripple =
+    !disabled && Platform.OS === 'android'
+      ? { color: theme.secondary + '40', borderless: false }
+      : undefined;
+
+  const checkmark = selected && (
+    <View style={styles.iconWrapper}>
+      {renderIcon({ name: 'check' }, 'Feather', 16, textColor)}
+    </View>
+  );
+
+  // When the trailing icon has its own action, a nested <Pressable accessibilityRole="button">
+  // inside the outer <Pressable accessibilityRole="button"> produces invalid HTML
+  // (<button> cannot contain <button>). Lift the icon out so both pressables are siblings.
+  if (icon && onIconPress) {
+    return (
+      <View style={getInnerStyle()}>
+        <Pressable
+          testID={testID}
+          onPress={disabled ? undefined : (e) => { blurOnWeb(e); onPress?.(); }}
+          disabled={disabled}
+          style={styles.chipBody}
+          onHoverIn={() => setHovered(true)}
+          onHoverOut={() => setHovered(false)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          accessibilityRole="button"
+          accessibilityLabel={accessibilityLabel ?? label}
+          accessibilityHint={accessibilityHint}
+          accessibilityState={{ disabled, selected }}
+          android_ripple={ripple}
+        >
+          {checkmark}
+          <Typography variant="labelLarge" color={textColor} numberOfLines={1}>
+            {label}
+          </Typography>
+        </Pressable>
+        <Pressable
+          onPress={disabled ? undefined : (e) => { blurOnWeb(e); onIconPress(); }}
+          style={[styles.iconWrapper, styles.iconPressable]}
+          accessibilityRole="button"
+          accessibilityLabel={`${label} action`}
+          hitSlop={4}
+        >
+          {renderIcon(icon, icon.library ?? 'Feather', icon.size ?? 18, icon.color ?? textColor)}
+        </Pressable>
+      </View>
+    );
+  }
+
   return (
     <Pressable
       testID={testID}
@@ -210,45 +260,17 @@ const Chip = ({
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled, selected }}
-      android_ripple={
-        !disabled && Platform.OS === 'android'
-          ? { color: theme.secondary + '40', borderless: false }
-          : undefined
-      }
+      android_ripple={ripple}
     >
-      {/* Visual chip — 32dp height, styled separately from the touch target */}
       <View style={getInnerStyle()}>
-        {/* Leading checkmark when selected */}
-        {selected && (
-          <View style={styles.iconWrapper}>
-            {renderIcon({ name: 'check' }, 'Feather', 16, textColor)}
-          </View>
-        )}
-
+        {checkmark}
         <Typography variant="labelLarge" color={textColor} numberOfLines={1}>
           {label}
         </Typography>
-
-        {/* Trailing icon — independently pressable when onIconPress is provided */}
         {icon && (
-          onIconPress ? (
-            <Pressable
-              onPress={disabled ? undefined : (e) => {
-                blurOnWeb(e);
-                onIconPress?.();
-              }}
-              style={styles.iconWrapper}
-              accessibilityRole="button"
-              accessibilityLabel={`${label} action`}
-              hitSlop={4}
-            >
-              {renderIcon(icon, icon.library ?? 'Feather', icon.size ?? 18, icon.color ?? textColor)}
-            </Pressable>
-          ) : (
-            <View style={styles.iconWrapper}>
-              {renderIcon(icon, icon.library ?? 'Feather', icon.size ?? 18, icon.color ?? textColor)}
-            </View>
-          )
+          <View style={styles.iconWrapper}>
+            {renderIcon(icon, icon.library ?? 'Feather', icon.size ?? 18, icon.color ?? textColor)}
+          </View>
         )}
       </View>
     </Pressable>
@@ -274,6 +296,18 @@ const styles = StyleSheet.create({
   iconWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  // Label area inside the split chip (when onIconPress is provided)
+  chipBody: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    gap: 8,
+  },
+  // Icon Pressable in the split chip — full chip height for a comfortable tap target
+  iconPressable: {
+    alignSelf: 'stretch',
   },
   disabled: {
     opacity: 0.38,

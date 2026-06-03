@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Typography, useTheme, renderIcon, SegmentedControl } from 'zero-to-app';
 import { Highlight, themes } from 'prism-react-renderer';
 import * as Clipboard from 'expo-clipboard';
@@ -18,20 +18,9 @@ interface DemoSectionProps {
 
 type Tab = 'preview' | 'code';
 
-// Dot-grid background — web uses CSS radial-gradient, native falls back to a
-// slightly distinct surface so the preview area is still visually framed.
-function dotGridStyle(isDark: boolean) {
-  if (Platform.OS !== 'web') return {};
-  const dot = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.09)';
-  return {
-    backgroundImage: `radial-gradient(circle, ${dot} 1px, transparent 1px)`,
-    backgroundSize: '22px 22px',
-  } as any;
-}
-
 export function DemoSection({ title, description, children, code }: DemoSectionProps) {
   const theme = useTheme();
-  const { spacing, shape, surfaceContainerLow, surfaceContainerHigh, outline, primary, onPrimary, onSurfaceVariant, isDark } = theme;
+  const { spacing, shape, outlineVariant, surfaceContainerHigh, primary, onSurfaceVariant, isDark } = theme;
   const [tab, setTab] = useState<Tab>('preview');
   const [copied, setCopied] = useState(false);
 
@@ -42,7 +31,8 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const borderColor = outline;
+  // Preview: pure white in light, dark editor surface in dark — maximum contrast
+  const previewBg = isDark ? '#161b22' : '#ffffff';
   const codeBg = isDark ? '#0d1117' : '#f6f8fa';
   const codeHeaderBg = isDark ? '#161b22' : '#eef0f3';
   const codeBorderColor = isDark ? '#30363d' : '#d0d7de';
@@ -54,10 +44,11 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
         <Typography variant="bodyMedium" muted>{description}</Typography>
       )}
 
-      <View style={[styles.card, { borderRadius: shape.surfaceBorderRadius, borderColor }]}>
-        {/* Segmented tab bar */}
+      <View style={[styles.card, { borderRadius: shape.surfaceBorderRadius, borderColor: outlineVariant }]}>
+
+        {/* Tab bar — sits on page background, no fill */}
         {code && (
-          <View style={[styles.tabBar, { borderBottomColor: borderColor, backgroundColor: surfaceContainerLow }]}>
+          <View style={[styles.tabBar, { borderBottomColor: outlineVariant, backgroundColor: theme.surface }]}>
             <SegmentedControl
               options={TAB_OPTIONS}
               value={tab}
@@ -66,15 +57,9 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
           </View>
         )}
 
-        {/* Preview pane — dot-grid canvas */}
+        {/* Preview canvas — white/dark surface, generous padding, no dot-grid */}
         {(!code || tab === 'preview') && (
-          <View
-            style={[
-              styles.preview,
-              { padding: spacing.xl, gap: spacing.lg, backgroundColor: surfaceContainerLow },
-              dotGridStyle(isDark),
-            ]}
-          >
+          <View style={[styles.preview, { backgroundColor: previewBg, gap: spacing.lg }]}>
             {children}
           </View>
         )}
@@ -82,7 +67,6 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
         {/* Code pane */}
         {code && tab === 'code' && (
           <View>
-            {/* Code pane header with copy button */}
             <View style={[styles.codeHeader, { backgroundColor: codeHeaderBg, borderBottomColor: codeBorderColor }]}>
               <View style={[styles.langBadge, { backgroundColor: isDark ? '#21262d' : '#dce0e5' }]}>
                 <Text style={[styles.langText, { color: onSurfaceVariant }]}>tsx</Text>
@@ -158,12 +142,16 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   tabBar: {
+    height: 52,
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 1,
   },
   preview: {
-    minHeight: 80,
+    minHeight: 120,
+    paddingHorizontal: 32,
+    paddingVertical: 40,
   },
   codeHeader: {
     flexDirection: 'row',

@@ -1,12 +1,14 @@
 import {
   useTheme,
   useThemeMode,
+  useDimensions,
   Screen,
   Container,
   ThemedView,
   Typography,
   Button,
   Chip,
+  Divider,
   renderIcon,
 } from 'zero-to-app';
 import { router } from 'expo-router';
@@ -105,6 +107,7 @@ export default function HomeScreen() {
   const theme = useTheme();
   const { spacing, borderRadius } = theme;
   const { mode, toggleTheme } = useThemeMode();
+  const { height: windowHeight } = useDimensions();
   const stars = useGithubStars();
   const downloads = useNpmDownloads();
 
@@ -124,9 +127,9 @@ export default function HomeScreen() {
 
       {/* ── Hero: web split, mobile centered ── */}
       {Platform.OS === 'web' ? (
-        <SafeAreaView style={[styles.heroWeb, { paddingHorizontal: spacing.xxl, paddingTop: 80, paddingBottom: spacing.xxl }]}>
+        <SafeAreaView style={[styles.heroWeb, { paddingHorizontal: spacing.xxl, paddingVertical: spacing.xxl, gap: spacing.xxl, minHeight: windowHeight }]}>
           {/* Left: copy */}
-          <View style={[styles.heroLeft, { gap: spacing.xl, paddingRight: spacing.xxl }]}>
+          <View style={[styles.heroLeft, { gap: spacing.xl }]}>
             <Image source={logoSource} style={styles.logo} resizeMode="contain" />
             <View style={{ gap: spacing.md }}>
               <Typography variant="displaySmall" weight="bold">
@@ -155,40 +158,59 @@ export default function HomeScreen() {
             </Typography>
           </View>
 
-          {/* Right: live component showcase */}
-          <ThemedView
-            variant="surfaceContainer"
-            style={[
-              styles.heroRight,
-              { borderRadius: borderRadius.lg, padding: spacing.xl, gap: spacing.xl },
-            ]}>
-            <View style={{ gap: spacing.sm }}>
-              <Typography variant="labelSmall" weight="medium" muted>BUTTONS</Typography>
+          {/* Right: live UI showcase — three real-looking cards */}
+          <View style={[styles.heroRight, { gap: spacing.md }]}>
+
+            {/* Card 1: app bar */}
+            <ThemedView
+              variant="appbar"
+              elevation={1}
+              style={{ borderRadius: borderRadius.md, paddingHorizontal: spacing.lg, paddingVertical: spacing.md }}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                <View style={[styles.avatarPlaceholder, { backgroundColor: theme.primaryContainer, borderRadius: borderRadius.full }]}>
+                  <Typography variant="labelSmall" weight="bold" color={theme.onPrimaryContainer}>ZA</Typography>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Typography variant="titleSmall" weight="medium">zero-to-app</Typography>
+                  <Typography variant="labelSmall" muted>React Native UI for the AI era</Typography>
+                </View>
+                {renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 18, theme.onSurfaceVariant)}
+              </View>
+            </ThemedView>
+
+            {/* Card 2: filter chips + action buttons */}
+            <ThemedView
+              variant="card"
+              elevation={1}
+              style={{ borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.lg }}>
               <View style={{ gap: spacing.sm }}>
-                <Button title="Filled" variant="filled" onPress={() => {}} />
-                <Button title="Tonal" variant="tonal" onPress={() => {}} />
-                <Button title="Outlined" variant="outlined" onPress={() => {}} />
-                <Button title="Text" variant="text" onPress={() => {}} />
+                <Typography variant="titleMedium" weight="bold">Components</Typography>
+                <View style={[styles.row, { gap: spacing.sm, flexWrap: 'wrap' }]}>
+                  <Chip label="M3 Design" variant="filled" selected onPress={() => {}} />
+                  <Chip label="Native" variant="outlined" onPress={() => {}} />
+                  <Chip label="AI-ready" variant="outlined" selected onPress={() => {}} />
+                  <Chip label="Cross-platform" variant="outlined" onPress={() => {}} />
+                </View>
               </View>
-            </View>
-
-            <View style={{ gap: spacing.xs }}>
-              <Typography variant="labelSmall" weight="medium" muted>TYPOGRAPHY</Typography>
-              <Typography variant="headlineMedium">Headline Medium</Typography>
-              <Typography variant="titleLarge">Title Large</Typography>
-              <Typography variant="bodyMedium">Body — the quick brown fox jumps over the lazy dog</Typography>
-              <Typography variant="labelSmall" muted>Label Small</Typography>
-            </View>
-
-            <View style={{ gap: spacing.sm }}>
-              <Typography variant="labelSmall" weight="medium" muted>CHIPS</Typography>
+              <Divider />
               <View style={[styles.row, { gap: spacing.sm, flexWrap: 'wrap' }]}>
-                <Chip label="Selected" variant="outlined" selected onPress={() => {}} />
-                <Chip label="Action" variant="filled" onPress={() => {}} />
-                <Chip label="Filter" variant="outlined" onPress={() => {}} />
+                <Button title="Primary" variant="filled" onPress={() => {}} />
+                <Button title="Secondary" variant="tonal" onPress={() => {}} />
+                <Button title="Cancel" variant="outlined" onPress={() => {}} />
               </View>
-            </View>
-          </ThemedView>
+            </ThemedView>
+
+            {/* Card 3: typography in context */}
+            <ThemedView
+              variant="surfaceContainer"
+              style={{ borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.xs }}>
+              <Typography variant="headlineMedium" weight="bold">Build faster</Typography>
+              <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
+                One seed color generates your entire M3 palette — light, dark, and high contrast. Theme-aware from the first component.
+              </Typography>
+            </ThemedView>
+
+          </View>
         </SafeAreaView>
       ) : (
         <SafeAreaView
@@ -418,6 +440,7 @@ const styles = StyleSheet.create({
   heroWeb: { flexDirection: 'row', alignItems: 'center' },
   heroLeft: { flex: 1, justifyContent: 'center' },
   heroRight: { flex: 1 },
+  avatarPlaceholder: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
   logo: { width: 64, height: 64 },
   ctaRow: { flexDirection: 'row', flexWrap: 'wrap' },
   statCard: { alignItems: 'center', gap: 4 },

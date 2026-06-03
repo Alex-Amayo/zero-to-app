@@ -31,6 +31,7 @@ export const NAV_SECTIONS: NavSection[] = [
     items: [
       { label: 'Overview', route: '/explore/theming' },
       { label: 'Tokens', route: '/explore/tokens' },
+      { label: 'Icons', route: '/explore/icons' },
     ],
   },
   {
@@ -42,13 +43,6 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: 'Sidebar', route: '/explore/nav-sidebar' },
       { label: 'Stack & Headers', route: '/explore/nav-stack' },
       { label: 'Hooks', route: '/explore/nav-hooks' },
-    ],
-  },
-  {
-    title: 'Foundation',
-    icon: { library: 'Feather', name: 'book-open' },
-    items: [
-      { label: 'Icons', route: '/explore/icons' },
     ],
   },
   {

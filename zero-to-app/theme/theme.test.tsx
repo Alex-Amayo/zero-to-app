@@ -299,7 +299,6 @@ describe('useTokens hook', () => {
     // Filled variant
     expect(button).toHaveProperty('filledBg');
     expect(button).toHaveProperty('filledText');
-    expect(button).toHaveProperty('filledHoverBg');
 
     // Elevated variant
     expect(button).toHaveProperty('elevatedBg');

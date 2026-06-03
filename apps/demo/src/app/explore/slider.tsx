@@ -103,20 +103,20 @@ export default function SliderPage() {
 
       <DemoSection
         title="Theming"
-        description="Slider colors come from the token system."
-        code={`// From theme.tokens.slider:\n// activeTrack: primary\n// inactiveTrack: surfaceContainerHighest\n// thumb: primary`}
+        description="Slider colors come directly from the palette."
+        code={`// Active track + thumb: theme.primary\n// Inactive track: theme.surfaceContainerHighest`}
       >
         <View style={{ gap: spacing.md }}>
           <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
             <Typography variant="labelLarge" weight="medium">Active Track</Typography>
             <Typography variant="bodySmall" muted>
-              Uses theme.tokens.slider.activeTrack (primary color).
+              Uses theme.primary.
             </Typography>
           </ThemedView>
           <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
             <Typography variant="labelLarge" weight="medium">Inactive Track</Typography>
             <Typography variant="bodySmall" muted>
-              Uses theme.tokens.slider.inactiveTrack (surfaceContainerHighest).
+              Uses theme.surfaceContainerHighest.
             </Typography>
           </ThemedView>
         </View>

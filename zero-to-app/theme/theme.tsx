@@ -127,30 +127,11 @@ export const useThemeContext = (): ThemeContextType => {
  * Convenience hook to access theme tokens directly without drilling through `values.tokens`.
  * Must be used within a `<ZeroToApp>` provider.
  *
- * @returns The theme tokens object containing button, card, input, typography, elevation, etc.
+ * @returns The theme tokens object containing button, input, chip, sidebar, elevation, focusRing etc.
  * @throws Error if used outside of a ZeroToApp provider
  *
  * @example
  * ```tsx
- * function MyCard() {
- *   const tokens = useTokens();
- *
- *   return (
- *     <View style={{
- *       backgroundColor: tokens.card.background,
- *       shadowOffset: { width: 0, height: tokens.elevation.level2 },
- *     }}>
- *       <Text style={{ fontSize: tokens.typography.bodyMedium }}>
- *         Card content
- *       </Text>
- *     </View>
- *   );
- * }
- * ```
- *
- * @example
- * ```tsx
- * // Access specific token groups
  * function MyButton() {
  *   const { button, focusRing } = useTokens();
  *

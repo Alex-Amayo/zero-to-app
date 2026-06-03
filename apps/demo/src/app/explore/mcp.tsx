@@ -36,7 +36,7 @@ const CLAUDE_DESKTOP_CONFIG = `{
 export default function McpPage() {
   return (
     <DocsPage
-      title="AI Tools"
+      title="MCP and Skills"
       description="Install Claude Skills or connect the MCP server to give Claude accurate knowledge of your design system."
     >
       <View style={{ gap: 12 }}>

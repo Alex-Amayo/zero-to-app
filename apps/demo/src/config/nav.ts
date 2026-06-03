@@ -16,21 +16,27 @@ export const NAV_SECTIONS: NavSection[] = [
     icon: { library: 'Feather', name: 'code' },
     items: [
       { label: 'Installation', route: '/explore', exact: true },
-      { label: 'Theming', route: '/explore/theming' },
     ],
   },
   {
     title: 'AI Integration',
     icon: { library: 'Feather', name: 'zap' },
     items: [
-      { label: 'MCP Server', route: '/explore/mcp' },
+      { label: 'MCP and Skills', route: '/explore/mcp' },
+    ],
+  },
+  {
+    title: 'Theming',
+    icon: { library: 'Feather', name: 'droplet' },
+    items: [
+      { label: 'Overview', route: '/explore/theming' },
+      { label: 'Tokens', route: '/explore/tokens' },
     ],
   },
   {
     title: 'Foundation',
     icon: { library: 'Feather', name: 'book-open' },
     items: [
-      { label: 'Tokens', route: '/explore/tokens' },
       { label: 'Icons', route: '/explore/icons' },
     ],
   },

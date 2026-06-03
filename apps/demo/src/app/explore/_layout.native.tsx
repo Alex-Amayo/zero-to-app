@@ -43,7 +43,7 @@ export default function ExploreLayout() {
             </Sidebar>
 
             <ThemedStack>
-                <Stack.Screen name="mcp" options={{ title: 'MCP Server' }} />
+                <Stack.Screen name="mcp" options={{ title: 'MCP and Skills' }} />
                 <Stack.Screen name="index" options={{ title: 'Installation' }} />
                 <Stack.Screen name="theming" options={{ title: 'Theming' }} />
                 <Stack.Screen name="tokens" options={{ title: 'Tokens' }} />

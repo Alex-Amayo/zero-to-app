@@ -11,59 +11,68 @@ description: Use when working with zero-to-app theming, design tokens, colors, s
 ## Core Hooks
 
 ### useTheme()
-Full theme object with palette colors, semantic tokens, spacing, and layout values.
+Full theme object — palette colors, type scale, semantic tokens, spacing, shape.
 
 ```tsx
 const theme = useTheme();
 
-// Palette tokens
-theme.primary, theme.onPrimary, theme.surface, theme.onSurface
-theme.primaryContainer, theme.secondaryContainer, theme.tertiaryContainer
-theme.surfaceContainer, theme.surfaceContainerHigh, theme.outline
+// Palette — M3 color roles
+theme.primary, theme.onPrimary, theme.primaryContainer, theme.onPrimaryContainer
+theme.secondary, theme.onSecondary, theme.secondaryContainer, theme.onSecondaryContainer
+theme.surface, theme.onSurface, theme.onSurfaceVariant
+theme.surfaceContainerLowest, theme.surfaceContainerLow, theme.surfaceContainer
+theme.surfaceContainerHigh, theme.surfaceContainerHighest
+theme.outline, theme.outlineVariant
+theme.error, theme.onError
 
-// Semantic tokens
-theme.tokens.button.filledBg
-theme.tokens.card.background
-theme.tokens.input.border
+// Surfaces are achromatic neutral grays — no hue bleed regardless of seed color.
+// Accent colors (primary, secondary, tertiary) carry the brand hue.
+
+// Type scale — top-level, not inside tokens
+theme.typography.bodyMedium    // 14
+theme.typography.titleLarge    // 22
+theme.typography.labelSmall    // 11
+theme.typography.weightMedium  // 500
+theme.typography.lineHeightNormal // 1.5
+// Full scale: display{Large|Medium|Small}, headline{...}, title{...}, body{...}, label{...}
 
 // Spacing scale
-theme.spacing.xs       // 4px
-theme.spacing.sm       // 8px
-theme.spacing.md       // 12px
-theme.spacing.lg       // 16px
-theme.spacing.xl       // 20px
-theme.spacing.xxl      // 24px
-theme.spacing.xxxl     // 40px
+theme.spacing.xs   // 4     theme.spacing.xl   // 20
+theme.spacing.sm   // 8     theme.spacing.xxl  // 24
+theme.spacing.md   // 12    theme.spacing.xxxl // 40
+theme.spacing.lg   // 16
 
-// Shape — preferred for standard components
-// Use these first; they reflect the design system's intended rounding
-theme.shape.surfaceBorderRadius      // 12px — cards, containers, collapsibles
-theme.shape.buttonBorderRadius       // 9999 (pill) — buttons, interactive elements
+// Shape — use these first for standard components
+theme.shape.surfaceBorderRadius  // 10 — cards, containers, inputs
+theme.shape.buttonBorderRadius   // 10 — buttons, interactive elements
 
-// Border radius scale — use when a component needs multiple tiers (e.g. FAB sizes)
-// or when shape tokens don't fit the use case
-theme.borderRadius.xs    // 4px  — chips, small badges
-theme.borderRadius.sm    // 8px  — buttons, inputs, tabs
-theme.borderRadius.md    // 12px — collapsible, small FAB
-theme.borderRadius.lg    // 16px — cards, medium FAB
-theme.borderRadius.xl    // 28px — large FAB, sheets
-theme.borderRadius.full  // 9999 — pills, circles
+// Border radius scale — for multi-tier sizing (FAB variants, etc.)
+theme.borderRadius.xs   // 4     theme.borderRadius.lg   // 16
+theme.borderRadius.sm   // 8     theme.borderRadius.xl   // 28
+theme.borderRadius.md   // 12    theme.borderRadius.full // 9999
 
-theme.isDark           // boolean
+theme.isDark  // boolean
 ```
 
 ### useTokens()
-Convenience hook — returns `theme.tokens` directly.
+Convenience hook — returns `theme.tokens` directly (component-specific decisions).
 
 ```tsx
-const { button, card, focusRing } = useTokens();
+const { button, input, focusRing } = useTokens();
 
-const bg = button.filledBg;
-const cardBg = card.background;
+// Button variants
+button.filledBg, button.filledText
+button.elevatedBg, button.elevatedText
+button.tonalBg, button.tonalText
+button.outlinedBorder, button.outlinedText
+button.textColor
+button.disabledBg, button.disabledText
+
+// Input
+input.background, input.border, input.focusBorder, input.errorColor
 ```
 
 ### useThemeMode()
-Light/dark mode switching.
 
 ```tsx
 const { mode, toggleTheme } = useThemeMode();
@@ -74,28 +83,53 @@ const { mode, toggleTheme } = useThemeMode();
 
 ## Semantic Token Map
 
-```tsx
-tokens.button    // filledBg, filledText, filledHoverBg, filledPressedBg,
-                 // elevatedBg, elevatedText, elevatedHoverBg,
-                 // tonalBg, tonalText, tonalHoverBg,
-                 // outlinedBorder, outlinedText, outlinedHoverBorder,
-                 // textColor, textHoverColor, disabledBg, disabledText
+Tokens encode non-obvious component-specific decisions. For straightforward palette
+values (e.g. `onSurface` for body text) use `theme.*` directly.
 
-tokens.card      // background, text
-tokens.input     // background, text, border, placeholder
-tokens.appbar    // background, text
-tokens.link      // text, hover
-tokens.badge     // background, text
+```tsx
+tokens.button    // filledBg, filledText,
+                 // elevatedBg, elevatedText,
+                 // tonalBg, tonalText,
+                 // outlinedBorder, outlinedText,
+                 // textColor,
+                 // disabledBg, disabledText
+
+tokens.input     // background, text, border, placeholder,
+                 // labelColor, labelFocusedColor, errorColor, focusBorder
+
+tokens.list      // itemText, itemSubtextColor, divider,
+                 // selectedBg, selectedText, pressedBg
+
+tokens.modal     // background, scrim, headerBorder
+
+tokens.appbar    // background, border
+
+tokens.chip      // filledBg, filledText, outlinedBorder, outlinedText,
+                 // selectedBg, selectedText, disabledBg, disabledText, disabledBorder
 
 tokens.sidebar   // background, itemText, itemActiveText, itemActiveBg,
                  // itemHoverBg, divider, width (280)
 
 tokens.elevation // level0(0), level1(1), level2(3), level3(6), level4(8), level5(12)
 tokens.focusRing // color, width(2), offset(2)
+```
 
-tokens.typography // displayLarge(57)..labelSmall(11),
-                  // weightLight(300), weightRegular(400), weightMedium(500), weightBold(700),
-                  // lineHeightTight(1.2), lineHeightNormal(1.5), lineHeightRelaxed(1.75)
+> `theme.typography` lives at the top level, not inside `tokens`.
+> `tokens.card`, `tokens.link`, `tokens.badge`, `tokens.slider` were removed —
+> use `theme.surfaceContainer`, `theme.primary`, etc. directly.
+
+---
+
+## Palette Generation
+
+Surfaces (`surface`, `surfaceContainer*`, `outline*`) are generated as **achromatic neutral grays** (chroma 0) — no hue bleed regardless of the seed color. Brand color is carried only by primary/secondary/tertiary roles.
+
+```tsx
+const brand = createBrand({
+  colors: { colorSeed: { primary: '#4f46e5' } }, // seed drives the whole palette
+  // darkColors auto-generated unless provided
+  ...
+});
 ```
 
 ---
@@ -106,14 +140,13 @@ tokens.typography // displayLarge(57)..labelSmall(11),
 import { createHighContrastLightTheme, createHighContrastDarkTheme } from 'zero-to-app';
 ```
 
-Alternative theme creators for accessibility. Same `ThemeValuesType` shape.
+Same `ThemeValuesType` shape — swap in via `ZeroToApp brand` prop.
 
 ---
 
 ## Responsive Hooks
 
 ### useDimensions()
-Window dimensions and computed breakpoint.
 
 ```tsx
 const { width, height, breakpoint } = useDimensions();
@@ -121,29 +154,23 @@ const { width, height, breakpoint } = useDimensions();
 ```
 
 ### useBreakpoint()
-Single breakpoint check — returns `true` if width >= breakpoint value.
 
 ```tsx
-const isLargeScreen = useBreakpoint('large'); // width >= 1024
+const isLarge = useBreakpoint('large'); // width >= 1024
 ```
 
-### Breakpoint Values
-| Name | Min Width |
-|------|-----------|
+| Breakpoint | Min width |
+|------------|-----------|
 | `small` | 480px |
 | `medium` | 768px |
 | `large` | 1024px |
 | `xlarge` | 1280px |
 
-### Responsive Pattern
 ```tsx
-import { Platform } from 'react-native';
-const { width, breakpoint } = useDimensions();
-
 // Size-based decisions
 const columns = breakpoint === 'small' ? 1 : 3;
 
-// Platform-specific logic (use Platform.OS, not hooks)
+// Platform logic uses Platform.OS, not hooks
 if (Platform.OS === 'web' && breakpoint === 'small') { ... }
 ```
 
@@ -151,16 +178,7 @@ if (Platform.OS === 'web' && breakpoint === 'small') { ... }
 
 ## Context Hooks
 
-### useLayout()
-App-level layout dimensions. Provided by `ZeroToApp`.
-
 ```tsx
-const { appBarHeight, setAppBarHeight } = useLayout();
-```
-
-### useScrollContext()
-Shared scroll position (reanimated `SharedValue<number>`). Requires `ScrollProvider`.
-
-```tsx
-const scrollY = useScrollContext();
+const { appBarHeight, setAppBarHeight } = useLayout();     // app bar height
+const scrollY = useScrollContext();                         // shared scroll SharedValue
 ```

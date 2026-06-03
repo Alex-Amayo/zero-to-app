@@ -1,155 +1,81 @@
 ---
-description: Use when working with zero-to-app navigation components like AppBar, Sidebar, Tabs, or expo-router layouts
+description: Use when working with zero-to-app navigation — AppTabs, Sidebar, ThemedStack, NativeHeader, or expo-router layouts
 ---
 
 # zero-to-app Navigation
 
-**Context:** Assisting users with `zero-to-app` navigation components (requires expo-router).
+**Context:** Helping build navigation with `zero-to-app` (requires `expo-router`).
 
 ---
 
-## Canonical App Structure
+## Navigation components at a glance
 
-This is the proven layout for an app with tabs, native headers, and push screens:
+| Component | What it does |
+|-----------|-------------|
+| `AppTabs` | Root tab navigator — native on iOS/Android, custom top bar on web |
+| `ThemedStack` | expo-router Stack with automatic header theming |
+| `NativeHeader` | SF Symbol / Feather icon buttons in the native header bar |
+| `Sidebar` | Persistent panel (desktop web) or slide-in drawer (mobile web + native) |
+| `useSidebar()` | Open/close state for the nearest Sidebar |
+| `useRouteNavigation()` | `isActive()` + `navigateTo()` helpers |
+
+---
+
+## Scenario 1 — Simple tabs (most common)
+
+Flat tab routes at the root. Use when tabs are self-contained and don't need push navigation.
 
 ```
 src/app/
-  index.tsx                  ← Redirect to first tab (see below)
-  _layout.tsx                ← ZeroToApp + root Stack
-  (tabs)/
-    _layout.tsx              ← AppTabs (tab bar definition)
-    meetings/                ← Tab with its own Stack (enables NativeHeader + push screens)
-      _layout.native.tsx     ← ThemedStack
-      _layout.tsx            ← Slot (web fallback)
-      index.tsx              ← List screen + NativeHeader
-      new.tsx                ← Push screen within tab stack
-      [id].tsx               ← Push screen within tab stack
-    settings.tsx             ← Flat tab page (no Stack needed)
+  _layout.tsx          ← ZeroToApp provider + AppTabs
+  index.tsx            ← Home tab content
+  explore.tsx          ← Explore tab content
+  settings.tsx         ← Settings tab content
 ```
 
-### Root `_layout.tsx`
-
+**`_layout.tsx`:**
 ```tsx
-import { Stack } from 'expo-router';
-import { ZeroToApp, createBrand, useTheme } from 'zero-to-app';
+import { ZeroToApp, AppTabs, createBrand } from 'zero-to-app';
 
 const brand = createBrand({ ... });
 
-function RootStack() {
-  return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false, title: 'AppName' }} />
-    </Stack>
-  );
-}
-
-export default function RootLayout() {
+export default function Layout() {
   return (
     <ZeroToApp brand={brand}>
-      <RootStack />
+      <AppTabs
+        brandName="My App"
+        tabs={[
+          {
+            name: 'index',
+            href: '/',
+            label: 'Home',
+            sfSymbol: { default: 'house', selected: 'house.fill' },
+            materialIcon: { default: 'home', selected: 'home' },
+          },
+          {
+            name: 'explore',
+            href: '/explore',
+            label: 'Explore',
+            sfSymbol: { default: 'safari', selected: 'safari.fill' },
+            materialIcon: { default: 'explore', selected: 'explore' },
+          },
+          {
+            name: 'settings',
+            href: '/settings',
+            label: 'Settings',
+            sfSymbol: { default: 'gearshape', selected: 'gearshape.fill' },
+            materialIcon: { default: 'settings', selected: 'settings' },
+          },
+        ]}
+      />
     </ZeroToApp>
   );
 }
 ```
 
-> Set `title: 'AppName'` on the `(tabs)` Stack.Screen — without it the route group name `(tabs)` leaks into the web page title.
-
-### Root `index.tsx` — redirect to first tab
-
-When tabs don't live at `/`, add a redirect so the app has a valid entry point:
-
+**Flat tab screen — must include top safe area since there is no Stack header:**
 ```tsx
-import { Redirect } from 'expo-router';
-export default function Index() {
-  return <Redirect href="/meetings" />;
-}
-```
-
-### `(tabs)/_layout.tsx` — AppTabs
-
-```tsx
-import { AppTabs } from 'zero-to-app';
-
-export default function TabsLayout() {
-  return (
-    <AppTabs
-      brandName="My App"
-      tabs={[
-        {
-          name: 'meetings',       // matches folder name inside (tabs)/
-          href: '/meetings',
-          label: 'Meetings',
-          sfSymbol: { default: 'calendar', selected: 'calendar.fill' },
-          materialIcon: 'event',
-        },
-        {
-          name: 'settings',      // matches (tabs)/settings.tsx
-          href: '/settings',
-          label: 'Settings',
-          sfSymbol: { default: 'gearshape', selected: 'gearshape.fill' },
-          materialIcon: 'settings',
-        },
-      ]}
-    />
-  );
-}
-```
-
----
-
-## Two Tab Screen Patterns
-
-### Pattern A — Tab with nested Stack (NativeHeader + push screens)
-
-Use when the tab needs native header buttons or its own push navigation.
-
-**`(tabs)/meetings/_layout.native.tsx`:**
-```tsx
-import { Stack } from 'expo-router';
-import { ThemedStack } from 'zero-to-app';
-
-export default function MeetingsLayout() {
-  return (
-    <ThemedStack>
-      <Stack.Screen name="index" options={{ title: 'Meetings' }} />
-      <Stack.Screen name="new" options={{ title: 'New Meeting' }} />
-      <Stack.Screen name="[id]" options={{ title: 'Meeting' }} />
-    </ThemedStack>
-  );
-}
-```
-
-> **Do NOT use `headerShown: false` on the index screen.** On Android, `NativeHeader` injects into `headerRight`/`headerLeft` — it requires the header bar to be visible. On iOS, `Stack.Toolbar` works regardless, but a consistent title in the header is correct native UX on both platforms.
-
-**`(tabs)/meetings/_layout.tsx` (web fallback — required):**
-```tsx
-import { Slot } from 'expo-router';
-export default function MeetingsLayout() {
-  return <Slot />;
-}
-```
-
-**`(tabs)/meetings/index.tsx`:**
-```tsx
-// ThemedStack header is visible (title: 'Meetings') — NativeHeader adds buttons to it
-// Screen edges={['bottom']} (default) — ThemedStack header covers the top safe area
-<Screen variant="background" padded={false} edges={['bottom']}>
-  <NativeHeader
-    rightIcon="plus"
-    onRightPress={() => router.push('/meetings/new')}
-    androidRightIcon="plus"
-  />
-  <FlatList ... />
-</Screen>
-```
-
-### Pattern B — Flat tab page (no Stack)
-
-Use for simple pages like Settings that don't need push navigation or NativeHeader.
-
-```tsx
-// edges={['top', 'bottom']} required — no native header covers the top safe area
+// settings.tsx
 <Screen variant="background" edges={['top', 'bottom']}>
   <Container>
     <Typography variant="headlineMedium">Settings</Typography>
@@ -159,41 +85,304 @@ Use for simple pages like Settings that don't need push navigation or NativeHead
 
 ---
 
-## Safe Area Rules
+## Scenario 2 — Tabs + Sidebar (native hamburger menu)
 
-| Screen type | `edges` to use | Reason |
-|-------------|---------------|--------|
-| Tab with nested Stack (`index` inside ThemedStack) | `['bottom']` (default) | ThemedStack header handles top |
-| Push screen inside tab Stack | `['bottom']` (default) | ThemedStack header handles top |
-| Flat tab page (no Stack) | `['top', 'bottom']` | Nothing handles top — notch conflict |
+The most common production pattern: native tab bar on mobile with a slide-in sidebar for secondary navigation, custom app bar on web with optional persistent sidebar.
+
+```
+src/app/
+  _layout.tsx          ← ZeroToApp + AppTabs + Sidebar
+  index.tsx
+  explore.tsx
+```
+
+**`_layout.tsx`:**
+```tsx
+import { ZeroToApp, AppTabs, createBrand, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useSidebar, useRouteNavigation } from 'zero-to-app';
+import { Platform, View } from 'react-native';
+
+const brand = createBrand({ ... });
+
+function AppLayout() {
+  const { toggle } = useSidebar();
+  const { isActive, navigateTo } = useRouteNavigation();
+
+  return (
+    <View style={{ flex: 1 }}>
+      {/* Sidebar only renders on native — web handles it through AppTabs */}
+      {Platform.OS !== 'web' && (
+        <Sidebar
+          anchor="right"
+          header={<SidebarHeader title="My App" onPress={() => navigateTo('/')} />}
+        >
+          <SidebarSection title="Main">
+            <SidebarItem label="Home" active={isActive('/', { exact: true })} onPress={() => navigateTo('/')} />
+            <SidebarItem label="Explore" active={isActive('/explore')} onPress={() => navigateTo('/explore')} />
+          </SidebarSection>
+        </Sidebar>
+      )}
+
+      <AppTabs
+        brandName="My App"
+        tabs={[
+          {
+            name: 'index',
+            href: '/',
+            label: 'Home',
+            sfSymbol: { default: 'house', selected: 'house.fill' },
+            materialIcon: { default: 'home', selected: 'home' },
+          },
+          {
+            name: 'explore',
+            href: '/explore',
+            label: 'Explore',
+            sfSymbol: { default: 'safari', selected: 'safari.fill' },
+            materialIcon: { default: 'explore', selected: 'explore' },
+          },
+        ]}
+        onPrimaryMenuPress={toggle}   // wires hamburger → sidebar on native
+      />
+    </View>
+  );
+}
+
+export default function Layout() {
+  return (
+    <ZeroToApp brand={brand}>
+      <AppLayout />
+    </ZeroToApp>
+  );
+}
+```
+
+> `useSidebar()` requires being inside `ZeroToApp`, so `AppLayout` must be a separate inner component.
 
 ---
 
-## NativeHeader
+## Scenario 3 — Tabs with nested Stack (push screens + NativeHeader)
 
-Adds icon buttons to the native navigation bar. **Requires a Stack context.**
+Use when a tab needs its own screen stack (list → detail, push navigation, NativeHeader buttons).
+
+```
+src/app/
+  _layout.tsx                    ← ZeroToApp + AppTabs
+  (tabs)/
+    _layout.tsx                  ← expo-router route group (no content)
+    items/
+      _layout.native.tsx         ← ThemedStack (native: gives the tab a Stack context)
+      _layout.tsx                ← Slot (web fallback — required)
+      index.tsx                  ← List screen
+      [id].tsx                   ← Detail push screen
+    settings.tsx                 ← Flat tab (no nested Stack needed)
+```
+
+**`(tabs)/items/_layout.native.tsx`:**
+```tsx
+import { Stack } from 'expo-router';
+import { ThemedStack } from 'zero-to-app';
+
+export default function ItemsLayout() {
+  return (
+    <ThemedStack>
+      <Stack.Screen name="index" options={{ title: 'Items' }} />
+      <Stack.Screen name="[id]" options={{ title: 'Item' }} />
+    </ThemedStack>
+  );
+}
+```
+
+**`(tabs)/items/_layout.tsx` — web fallback, always required alongside `.native.tsx`:**
+```tsx
+import { Slot } from 'expo-router';
+export default function ItemsLayout() {
+  return <Slot />;
+}
+```
+
+**`(tabs)/items/index.tsx`:**
+```tsx
+import { Screen, NativeHeader } from 'zero-to-app';
+import { useRouter } from 'expo-router';
+
+export default function ItemsScreen() {
+  const router = useRouter();
+  return (
+    // ThemedStack handles top safe area — only bottom needed here
+    <Screen variant="background" edges={['bottom']}>
+      <NativeHeader
+        rightIcon="plus"
+        onRightPress={() => router.push('/items/new')}
+        androidRightIcon="plus"
+      />
+      {/* list content */}
+    </Screen>
+  );
+}
+```
+
+> **CRITICAL:** `NativeHeader` must be used inside a screen that is within a Stack navigator. Using it in a tab screen that has **no** nested `ThemedStack` will throw: `useCompositionOption must be used within a RouterCompositionOptionsProvider`. If a tab doesn't have a nested Stack, do not use `NativeHeader` in it.
+
+> **Do NOT use `headerShown: false` on Stack screens that use `NativeHeader` on Android.** Android injects buttons via `headerRight`/`headerLeft` — the header must be visible.
+
+---
+
+## Scenario 4 — Nested-route sidebar layout (docs, settings, admin)
+
+Persistent sidebar on web desktop, drawer on mobile/native. Use for secondary-level navigation within a section (e.g. docs, settings, profile sections).
+
+```
+src/app/
+  docs/
+    _layout.tsx          ← Sidebar + content row layout (all platforms)
+    _layout.native.tsx   ← ThemedStack inside sidebar layout (native only)
+    index.tsx
+    getting-started.tsx
+    api.tsx
+```
+
+**`docs/_layout.tsx` — works on all platforms:**
+```tsx
+import { Sidebar, SidebarHeader, SidebarSection, SidebarItem, ThemedView, useRouteNavigation } from 'zero-to-app';
+import { useDimensions, breakpoints } from 'zero-to-app';
+import { View, StyleSheet } from 'react-native';
+import { Slot } from 'expo-router';
+import { NAV_ITEMS } from '../config/nav';
+
+export default function DocsLayout() {
+  const { width } = useDimensions();
+  const isDesktop = width >= breakpoints.large;
+  const { isActive, navigateTo } = useRouteNavigation();
+
+  return (
+    <View style={styles.container}>
+      <Sidebar
+        header={<SidebarHeader title="Docs" onPress={() => navigateTo('/docs')} />}
+      >
+        <SidebarSection title="Getting Started">
+          <SidebarItem
+            label="Introduction"
+            active={isActive('/docs', { exact: true })}
+            onPress={() => navigateTo('/docs')}
+          />
+          <SidebarItem
+            label="API Reference"
+            active={isActive('/docs/api')}
+            onPress={() => navigateTo('/docs/api')}
+          />
+        </SidebarSection>
+      </Sidebar>
+
+      <ThemedView
+        variant="background"
+        rounded={false}
+        style={[styles.content, isDesktop && styles.contentWithSidebar]}
+      >
+        <Slot />
+      </ThemedView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, flexDirection: 'row' },
+  content: { flex: 1 },
+  contentWithSidebar: { marginLeft: 280 }, // matches sidebar width token
+});
+```
+
+**`docs/_layout.native.tsx` — native screens need ThemedStack for headers:**
+```tsx
+import { Stack } from 'expo-router';
+import { ThemedStack, Sidebar, SidebarHeader, SidebarSection, SidebarItem, useRouteNavigation } from 'zero-to-app';
+import { NAV_ITEMS } from '../config/nav';
+
+export default function DocsNativeLayout() {
+  const { isActive, navigateTo } = useRouteNavigation();
+
+  return (
+    <>
+      <Sidebar header={<SidebarHeader title="Docs" />}>
+        {/* same nav items as web layout */}
+      </Sidebar>
+      <ThemedStack>
+        <Stack.Screen name="index" options={{ title: 'Introduction' }} />
+        <Stack.Screen name="api" options={{ title: 'API Reference' }} />
+      </ThemedStack>
+    </>
+  );
+}
+```
+
+---
+
+## Scenario 5 — Auth / modal stack (no tabs)
+
+Full-screen stack for login, onboarding, or modal flows. No tab bar.
+
+```
+src/app/
+  _layout.tsx         ← ZeroToApp + ThemedStack
+  index.tsx           ← Login / onboarding entry
+  verify.tsx          ← Push screen
+```
+
+**`_layout.tsx`:**
+```tsx
+import { ZeroToApp, ThemedStack, createBrand } from 'zero-to-app';
+import { Stack } from 'expo-router';
+
+const brand = createBrand({ ... });
+
+export default function AuthLayout() {
+  return (
+    <ZeroToApp brand={brand}>
+      <ThemedStack>
+        <Stack.Screen name="index" options={{ title: 'Sign In', headerShown: false }} />
+        <Stack.Screen name="verify" options={{ title: 'Verify' }} />
+      </ThemedStack>
+    </ZeroToApp>
+  );
+}
+```
+
+---
+
+## AppTabs reference
 
 ```tsx
-<NativeHeader
-  rightIcon="plus"           // iOS SF Symbol
-  onRightPress={handleAdd}
-  androidRightIcon="plus"    // Android Feather icon
-  leftIcon="chevron.left"
-  onLeftPress={() => router.back()}
+<AppTabs
+  brandName="My App"
+  logoImage={<Image source={...} />}          // shown in top bar (web) and hamburger drawer
+  tabs={tabs}
+  externalLinks={[{ label: 'Docs', href: '...' }]}  // web top bar only
+  onPrimaryMenuPress={toggle}                        // native hamburger → useSidebar
+  sidebarAdaptable                                   // iPadOS 18+: promotes to sidebar
 />
 ```
 
-- **iOS** — `Stack.Toolbar` + SF Symbol buttons
-- **Android** — `headerRight`/`headerLeft` Pressable buttons (Feather icons)
-- **Web** — renders nothing (safe to include unconditionally)
+### AppTabConfig
 
-> **CRITICAL:** `NativeHeader` must only be used inside screens that are within a Stack navigator. Using it directly in a NativeTabs tab screen (without a nested Stack) throws `useCompositionOption must be used within a RouterCompositionOptionsProvider`.
+| Field | Type | Notes |
+|-------|------|-------|
+| `name` | `string` | Must match the route file/folder name |
+| `href` | `string` | Tab route path |
+| `label` | `string` | Display label |
+| `sfSymbol` | `{ default: string, selected: string }` | iOS SF Symbol names |
+| `materialIcon` | `string \| { default?: string, selected: string }` | Android — string uses same icon for both states; object form shows distinct selected icon (requires RN Screens 4.25+, available from SDK 56) |
+| `webIcon` | `PlatformIcon \| string` | Web top bar icon only |
+
+**Platform behaviour:**
+- **iOS** — NativeTabs via `expo-router/unstable-native-tabs`. Real native UITabBarController with Liquid Glass effect on iOS 26+. Hamburger button appears when `onPrimaryMenuPress` is provided.
+- **Android** — NativeTabs, Material 3 navigation bar. Distinct selected icons supported from SDK 56.
+- **Web** — Fixed top app bar. Desktop: tab links inline. Mobile: hamburger → `Drawer` overlay.
+
+> `NativeTabs` provides no Stack context. All push navigation must come from a per-tab nested `ThemedStack` or the root Stack.
 
 ---
 
-## ThemedStack
+## ThemedStack reference
 
-Wraps expo-router's `Stack` with automatic header theming. Use in `_layout.native.tsx` **inside a tab folder** to give that tab its own Stack context.
+Wraps expo-router `Stack` with automatic token-based header styling (background, tint colour, back button).
 
 ```tsx
 <ThemedStack>
@@ -202,77 +391,71 @@ Wraps expo-router's `Stack` with automatic header theming. Use in `_layout.nativ
 </ThemedStack>
 ```
 
-> **Always pair with a `_layout.tsx` sibling** (Slot or plain Stack) as the web/default fallback — expo-router requires a non-platform layout file.
+**Rules:**
+- Use in `_layout.native.tsx` files when a route group needs its own Stack context
+- **Always pair** with a `_layout.tsx` sibling (`<Slot />`) as the web fallback — expo-router requires a non-platform-suffixed layout file
+- Override individual screen options via `<Stack.Screen>` children — they merge with the theme defaults
 
 ---
 
-## AppTabs
+## NativeHeader reference
+
+Adds icon buttons to the native navigation bar. Place inside screen files, not layouts.
 
 ```tsx
-<AppTabs
-  brandName="My App"
-  tabs={[{ name, href, label, sfSymbol, materialIcon }]}
-  externalLinks={[{ label: 'Docs', href: '...' }]}   // web only
-  onPrimaryMenuPress={toggle}                          // native hamburger → useSidebar
+<NativeHeader
+  rightIcon="plus"            // iOS: SF Symbol name
+  onRightPress={handleAdd}
+  leftIcon="chevron.left"
+  onLeftPress={() => router.back()}
+  androidRightIcon="plus"     // Android: Feather icon name
+  androidLeftIcon="arrow-left"
 />
 ```
 
-**Platform behaviour:**
-- **iOS/Android:** Native tabs via `expo-router/unstable-native-tabs` (NativeTabs) — pure tab bar, **no Stack for push screens**
-- **Web:** Fixed top app bar with brand name, tab links, external links
+| Platform | Behaviour |
+|----------|-----------|
+| iOS | `Stack.Toolbar` + SF Symbol buttons |
+| Android | `headerRight` / `headerLeft` Pressable with Feather icons |
+| Web | Renders nothing — safe to include unconditionally |
 
-> `NativeTabs` is a tab-only navigator. It provides no Stack context for push screens. All push navigation must come from either the root Stack or a per-tab nested `ThemedStack`.
+> **Must be used inside a Stack context.** If the screen has no `ThemedStack` ancestor, `NativeHeader` will throw at runtime.
 
-### AppTabConfig
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | `string` | Route name (used for routing) |
-| `href` | `string` | Tab route path |
-| `label` | `string` | Display label |
-| `sfSymbol` | `{ default, selected }` | iOS SF Symbol icons |
-| `materialIcon` | `string` | Android Material icon name |
-| `webIcon` | `PlatformIcon \| string` | Web-only icon |
-
-Additional `AppTabsProps`: `logoImage`, `height` (web app bar height), `onPrimaryMenuPress` (native hamburger callback).
+> **Android:** The Stack header must be visible (`headerShown` must not be `false`) for `headerRight`/`headerLeft` to appear.
 
 ---
 
-## Sidebar
+## Sidebar reference
 
 ```tsx
 <Sidebar
-  anchor="left"
-  header={<SidebarHeader title="My App" subtitle="v1.0" logo={logoImage} />}
-  footer={<SidebarFooter><Typography muted>Footer</Typography></SidebarFooter>}
+  anchor="left"                         // 'left' (default) | 'right'
+  header={<SidebarHeader title="App" subtitle="v1" onPress={() => navigateTo('/')} />}
+  footer={<SidebarFooter><Typography muted>v1.0.0</Typography></SidebarFooter>}
 >
-  <SidebarSection title="Main">
-    <SidebarItem icon={{ library: 'Feather', name: 'home' }} label="Home" active onPress={...} />
-    <SidebarItem icon={{ name: 'settings' }} label="Settings" onPress={...} />
+  <SidebarSection title="Main" icon={{ library: 'Feather', name: 'grid' }}>
+    <SidebarItem
+      label="Home"
+      icon={{ library: 'Feather', name: 'home' }}
+      active={isActive('/', { exact: true })}
+      onPress={() => navigateTo('/')}
+    />
   </SidebarSection>
 </Sidebar>
 ```
 
-**Platform behavior (web):**
-- **Desktop (>=1024px):** Persistent sidebar, fixed below AppBar
-- **Mobile (<1024px):** FAB trigger button + animated Drawer overlay
+**Platform behaviour:**
+| Context | Behaviour |
+|---------|-----------|
+| Web desktop (≥1024px) | Persistent panel, fixed below app bar |
+| Web mobile (<1024px) | Hidden; FAB trigger opens animated drawer overlay |
+| iOS / Android | Modal drawer; controlled by `useSidebar()` |
 
-**Props:** `header`, `footer`, `children`, `anchor` (`'left'` | `'right'`, default `'left'`), `style`.
-
-Route scoping: Sidebar captures the route segment on mount and only renders when that route is active (prevents ghost sidebars on cached tabs).
-
-### SidebarItem
-- `label`, `icon` (`{ library?, name, size? }`), `active`, `disabled`, `onPress`
-- On mobile, automatically closes sidebar on press
-
-### SidebarSection
-- `title` (optional uppercase header), `icon`, `children`
-- Renders a divider after items
-
-### SidebarHeader
-- `title`, `subtitle`, `logo` (image source), `onPress`, or custom `children`
-
-### SidebarFooter
-- `children`, `style` — bordered top content area
+**Sub-components:**
+- `SidebarItem` — `label`, `icon`, `active`, `disabled`, `onPress`
+- `SidebarSection` — `title`, `icon`, `children` (renders divider after)
+- `SidebarHeader` — `title`, `subtitle`, `logo`, `onPress`, or custom `children`
+- `SidebarFooter` — `children`, `style` (top-bordered content area)
 
 ---
 
@@ -282,40 +465,42 @@ Route scoping: Sidebar captures the route segment on mount and only renders when
 const { isOpen, open, close, toggle } = useSidebar();
 ```
 
-Controls sidebar/drawer open state. Provided automatically by `ZeroToApp`.
+Controls the nearest `Sidebar`. Provided by `ZeroToApp`. Requires being inside `ZeroToApp` — if you need it alongside `AppTabs`, create an inner component so the hook can resolve the context.
 
 ---
 
 ## useRouteNavigation()
 
-Combines `usePathname` + `useRouter` into reusable helpers for sidebar and nav components.
-
 ```tsx
 const { isActive, navigateTo, pathname } = useRouteNavigation();
 
-// startsWith match (default) — /meetings matches /meetings/new
-isActive('/meetings')
-
-// Exact match — use for index routes that are a prefix of sub-routes
-isActive('/meetings', { exact: true })
-
-navigateTo('/meetings/new')
+isActive('/items')                 // true on /items AND /items/new (startsWith)
+isActive('/items', { exact: true }) // true only on /items
+navigateTo('/items/new')
 ```
 
-**Typical sidebar usage:**
-```tsx
-const { isActive, navigateTo } = useRouteNavigation();
+Use `exact: true` for index routes that would otherwise stay highlighted on every sub-page.
 
-<SidebarItem
-  label="Meetings"
-  active={isActive('/meetings', { exact: true })}
-  onPress={() => navigateTo('/meetings')}
-/>
-<SidebarItem
-  label="New Meeting"
-  active={isActive('/meetings/new')}
-  onPress={() => navigateTo('/meetings/new')}
-/>
-```
+---
 
-Use `{ exact: true }` for index routes where the default startsWith match would highlight the item on every sub-page.
+## Safe area rules
+
+| Screen type | `edges` | Reason |
+|------------|---------|--------|
+| Tab screen with nested Stack (`index` inside `ThemedStack`) | `['bottom']` (default) | ThemedStack header handles top |
+| Push screen inside a tab Stack | `['bottom']` (default) | Stack header handles top |
+| Flat tab (no Stack) | `['top', 'bottom']` | Nothing handles top — notch conflict |
+| Auth/modal screen with `headerShown: false` | `['top', 'bottom']` | No header, must handle top manually |
+
+---
+
+## Common mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| `NativeHeader` in a tab screen with no `ThemedStack` | Add `_layout.native.tsx` with `ThemedStack` inside the tab folder |
+| `headerShown: false` on Android screen using `NativeHeader` | Remove `headerShown: false` — Android header must be visible |
+| Missing `_layout.tsx` alongside `_layout.native.tsx` | Add `export default () => <Slot />` as web fallback |
+| Flat tab screen missing top safe area | Use `edges={['top', 'bottom']}` on `Screen` |
+| `useSidebar()` called directly in root layout | Move to an inner component rendered inside `<ZeroToApp>` |
+| Tab `name` doesn't match the file/folder | `name` must exactly match the route name (e.g. `name: 'index'` for `index.tsx`) |

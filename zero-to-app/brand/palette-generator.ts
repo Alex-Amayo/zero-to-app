@@ -68,8 +68,8 @@ function generateTertiaryPalette(primaryColor: string): TonalPalette {
 function generateNeutralPalette(primaryColor: string): TonalPalette {
   const argb = argbFromHex(primaryColor);
   const hct = Hct.fromInt(argb);
-  // Chroma 1 keeps barely-perceptible warmth while surfaces read as clean neutral whites/grays
-  return TonalPalette.fromHueAndChroma(hct.hue, 1);
+  // Chroma 0 = pure achromatic gray — no hue bleed into surfaces regardless of seed
+  return TonalPalette.fromHueAndChroma(hct.hue, 0);
 }
 
 /**

@@ -1,54 +1,36 @@
-import { Screen, Typography, NativeHeader, useSidebar, useTheme } from 'zero-to-app';
-import { Platform, View } from 'react-native';
+import { Typography } from 'zero-to-app';
+import { View } from 'react-native';
 import { CodeBlock } from '../../components/code-block';
 import { DocsPagination } from '../../components/docs-pagination';
+import { DocsPage } from '../../components/docs-page';
 
 export default function GettingStartedPage() {
-  const { open } = useSidebar();
-  const { spacing } = useTheme();
-
   return (
-    <>
-      <NativeHeader rightIcon="sidebar.left" onRightPress={open} androidRightIcon="menu" />
-      <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
-          {Platform.OS !== 'android' && (
-            <View style={{ gap: spacing.xs }}>
-              <Typography variant="headlineMedium" weight="bold">
-                Getting Started
-              </Typography>
-              <Typography variant="bodyMedium" muted>
-                Add Zero To App to your Expo project in two steps.
-              </Typography>
-            </View>
-          )}
+    <DocsPage
+      title="Getting Started"
+      description="Add Zero To App to your Expo project in two steps."
+    >
+      <View style={{ gap: 12 }}>
+        <Typography variant="titleLarge" weight="bold">Installation</Typography>
+        <Typography variant="bodyMedium" muted>
+          Install the package using Expo&apos;s install command to ensure SDK version compatibility.
+        </Typography>
+        <CodeBlock variant="shell" code="npx expo install zero-to-app" />
+      </View>
 
-          <View style={{ gap: spacing.md }}>
-            <Typography variant="titleLarge" weight="bold">
-              Installation
-            </Typography>
-            <Typography variant="bodyMedium" muted>
-              Install the package using Expo&apos;s install command to ensure SDK version compatibility.
-            </Typography>
-            <CodeBlock variant="shell" code="npx expo install zero-to-app" />
-          </View>
+      <View style={{ gap: 12 }}>
+        <Typography variant="titleLarge" weight="bold">Usage</Typography>
+        <Typography variant="bodyMedium" muted>
+          Wrap your root layout with the <Typography variant="bodyMedium" style={{ fontFamily: 'monospace' }}>ZeroToApp</Typography> provider. This sets up theming, spacing, and context for all components.
+        </Typography>
+        <CodeBlock
+          variant="code"
+          filename="app/_layout.tsx"
+          code={"import { ZeroToApp } from 'zero-to-app';\n\nexport default function RootLayout() {\n  return (\n    <ZeroToApp>\n      <Stack />\n    </ZeroToApp>\n  );\n}"}
+        />
+      </View>
 
-          <View style={{ gap: spacing.md }}>
-            <Typography variant="titleLarge" weight="bold">
-              Usage
-            </Typography>
-            <Typography variant="bodyMedium" muted>
-              Wrap your root layout with the <Typography variant="bodyMedium" style={{ fontFamily: 'monospace' }}>ZeroToApp</Typography> provider. This sets up theming, spacing, and context for all components.
-            </Typography>
-            <CodeBlock
-              variant="code"
-              filename="app/_layout.tsx"
-              code={"import { ZeroToApp } from 'zero-to-app';\n\nexport default function RootLayout() {\n  return (\n    <ZeroToApp>\n      <Stack />\n    </ZeroToApp>\n  );\n}"}
-            />
-          </View>
-          <DocsPagination />
-        </View>
-      </Screen>
-    </>
+      <DocsPagination />
+    </DocsPage>
   );
 }

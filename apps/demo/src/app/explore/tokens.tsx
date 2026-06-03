@@ -147,12 +147,12 @@ export default function TokensPage() {
     <>
       <NativeHeader rightIcon="sidebar.left" onRightPress={open} />
       <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
-          <View style={{ gap: spacing.xs }}>
-            <Typography variant="headlineMedium" weight="bold">
+        <View style={{ paddingHorizontal: spacing.xxl, paddingTop: spacing.xl, paddingBottom: spacing.xxxl, gap: spacing.xxl, maxWidth: 760, alignSelf: 'center', width: '100%' }}>
+          <View style={{ gap: spacing.xs, paddingBottom: spacing.xl, borderBottomWidth: 1, borderBottomColor: theme.outlineVariant }}>
+            <Typography variant="headlineLarge" weight="bold">
               Design Tokens
             </Typography>
-            <Typography variant="bodyMedium" muted>
+            <Typography variant="bodyLarge" muted>
               Live reference of all theme tokens. Values update automatically with the current theme.
             </Typography>
           </View>

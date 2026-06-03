@@ -1,7 +1,8 @@
-import { Screen, Typography, NativeHeader, useSidebar, useTheme } from 'zero-to-app';
-import { Platform, View } from 'react-native';
+import { Typography } from 'zero-to-app';
+import { View } from 'react-native';
 import { CodeBlock } from '../../components/code-block';
 import { DocsPagination } from '../../components/docs-pagination';
+import { DocsPage } from '../../components/docs-page';
 
 const CLAUDE_CODE_CONFIG = `{
   "mcpServers": {
@@ -31,26 +32,12 @@ const CLAUDE_DESKTOP_CONFIG = `{
 }`;
 
 export default function McpPage() {
-  const { open } = useSidebar();
-  const { spacing } = useTheme();
-
   return (
-    <>
-      <NativeHeader rightIcon="sidebar.left" onRightPress={open} androidRightIcon="menu" />
-      <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
-          {Platform.OS !== 'android' && (
-            <View style={{ gap: spacing.xs }}>
-              <Typography variant="headlineMedium" weight="bold">
-                MCP Server
-              </Typography>
-              <Typography variant="bodyMedium" muted>
-                Give Claude live access to component props, theme tokens, and code generation — no docs tab required.
-              </Typography>
-            </View>
-          )}
-
-          <View style={{ gap: spacing.md }}>
+    <DocsPage
+      title="MCP Server"
+      description="Give Claude live access to component props, theme tokens, and code generation — no docs tab required."
+    >
+          <View style={{ gap: 12 }}>
             <Typography variant="titleLarge" weight="bold">
               What it does
             </Typography>
@@ -59,7 +46,7 @@ export default function McpPage() {
             </Typography>
           </View>
 
-          <View style={{ gap: spacing.md }}>
+          <View style={{ gap: 12 }}>
             <Typography variant="titleLarge" weight="bold">
               Claude Code setup
             </Typography>
@@ -73,7 +60,7 @@ export default function McpPage() {
             <CodeBlock variant="code" filename=".mcp.json" language="json" code={LOCAL_CONFIG} />
           </View>
 
-          <View style={{ gap: spacing.md }}>
+          <View style={{ gap: 12 }}>
             <Typography variant="titleLarge" weight="bold">
               Claude Desktop setup
             </Typography>
@@ -83,7 +70,7 @@ export default function McpPage() {
             <CodeBlock variant="code" filename="claude_desktop_config.json" language="json" code={CLAUDE_DESKTOP_CONFIG} />
           </View>
 
-          <View style={{ gap: spacing.md }}>
+          <View style={{ gap: 12 }}>
             <Typography variant="titleLarge" weight="bold">
               Available tools
             </Typography>
@@ -100,7 +87,7 @@ export default function McpPage() {
               { name: 'generate_brand_config', desc: 'Output a complete createBrand() configuration from a name and primary color.' },
               { name: 'generate_navigation', desc: 'Scaffold flat tabs, tabs + sidebar, or tabs + nested stack — wired to expo-router.' },
             ].map((tool) => (
-              <View key={tool.name} style={{ gap: spacing.xs }}>
+              <View key={tool.name} style={{ gap: 6 }}>
                 <Typography variant="labelLarge" style={{ fontFamily: 'monospace' }}>
                   {tool.name}
                 </Typography>
@@ -111,7 +98,7 @@ export default function McpPage() {
             ))}
           </View>
 
-          <View style={{ gap: spacing.md }}>
+          <View style={{ gap: 12 }}>
             <Typography variant="titleLarge" weight="bold">
               Resources
             </Typography>
@@ -132,9 +119,7 @@ export default function McpPage() {
             ))}
           </View>
 
-          <DocsPagination />
-        </View>
-      </Screen>
-    </>
+      <DocsPagination />
+    </DocsPage>
   );
 }

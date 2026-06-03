@@ -23,7 +23,7 @@ export function DocsPage({ title, description, importLine, category, sidebarIcon
     <>
       <NativeHeader rightIcon={`sidebar.${sidebarIcon}`} onRightPress={open} androidRightIcon="menu" />
       <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={[styles.content, { paddingHorizontal: spacing.xxl, paddingTop: spacing.xl, paddingBottom: spacing.xxxl, gap: spacing.xxl, maxWidth: 760 }]}>
+        <View style={[styles.content, { paddingHorizontal: spacing.xxl, paddingTop: spacing.xl, paddingBottom: spacing.xxxl, gap: spacing.xxl, maxWidth: 760, alignSelf: 'center' }]}>
           {Platform.OS !== 'android' && (
             <View style={[styles.header, { gap: spacing.md, paddingBottom: spacing.xl, borderBottomColor: theme.outlineVariant }]}>
               {category && (

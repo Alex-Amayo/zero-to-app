@@ -13,7 +13,7 @@ description: Use when setting up zero-to-app in a new or existing React Native/E
 Always use this exact command to create new projects:
 
 ```bash
-npx create-expo-app@latest --template default@sdk-55
+npx create-expo-app@latest --template default@sdk-56
 ```
 
 This sets up:
@@ -42,7 +42,7 @@ module.exports = function (api) {
 
 ```bash
 # From the parent directory (e.g. ~/projects):
-npx create-expo-app@latest --template default@sdk-55
+npx create-expo-app@latest --template default@sdk-56
 # When prompted, enter the app name — the folder is created automatically
 ```
 

@@ -4,8 +4,7 @@ description: Use to discover what UI components zero-to-app provides. For detail
 
 # zero-to-app Components
 
-> For navigation components (AppTabs, Sidebar, ThemedStack, NativeHeader) load the **zero-to-app-navigation** skill.
-> For adding a new component load the **zero-to-app-contributing** skill.
+> Navigation components (AppTabs, Sidebar, ThemedStack, NativeHeader) are in the **zero-to-app-navigation** skill.
 
 All components are imported from `'zero-to-app'`.
 

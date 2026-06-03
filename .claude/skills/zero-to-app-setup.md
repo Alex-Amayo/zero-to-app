@@ -4,25 +4,15 @@ description: Use when setting up zero-to-app in a new or existing React Native/E
 
 # zero-to-app Setup Guide
 
-**Context:** Assisting users setting up `zero-to-app` in React Native/Expo projects.
-
 ---
 
 ## Scaffolding a New Expo App
-
-Always use this exact command to create new projects:
 
 ```bash
 npx create-expo-app@latest --template default@sdk-56
 ```
 
-This sets up:
-- Expo Router with a tab navigator (basic navigation out of the box)
-- TypeScript configured by default
-- Multi-platform support (iOS, Android, web)
-- Expo CLI and recommended tooling included
-
-After scaffolding, add a `babel.config.js` at the project root — **this is required** for `react-native-worklets` (used by zero-to-app animations) to initialize correctly on native:
+After scaffolding, add a `babel.config.js` at the project root — **required** for `react-native-worklets` (used by zero-to-app animations) on native:
 
 ```js
 // babel.config.js
@@ -36,15 +26,7 @@ module.exports = function (api) {
 ```
 
 > Without this, iOS/Android will throw **"react-native-worklets has not been initialized"** at runtime.
-> After adding/changing `babel.config.js`, always restart Metro with `--clear`: `npm start -- --clear`
-
-> **Note:** `create-expo-app` creates files using the project name you provide as the folder. Run the command from the **parent** directory where you want the project folder created, not inside a pre-created folder.
-
-```bash
-# From the parent directory (e.g. ~/projects):
-npx create-expo-app@latest --template default@sdk-56
-# When prompted, enter the app name — the folder is created automatically
-```
+> After adding/changing `babel.config.js`, restart Metro with `--clear`: `npm start -- --clear`
 
 ---
 
@@ -87,31 +69,16 @@ const brand = createBrand({
 
 ## Palette Generation
 
-### Seed-based (recommended)
+Provide a seed color and the full M3 palette is generated automatically:
 ```tsx
-// Provide one or more seed colors — full M3 palette is generated automatically
 const brand = createBrand({
   colors: { colorSeed: { primary: '#6750A4' } },
-  // darkColors auto-generated from same seed
+  // darkColors auto-derived from same seed unless provided explicitly
   ...
 });
 ```
 
-### Manual colors
-```tsx
-// Provide every M3 color token explicitly
-const brand = createBrand({
-  colors: {
-    primary: '#6750A4',
-    onPrimary: '#FFFFFF',
-    primaryContainer: '#EADDFF',
-    onPrimaryContainer: '#21005D',
-    // ... all M3 tokens
-  },
-  darkColors: { /* dark variants */ },
-  ...
-});
-```
+To override individual palette roles manually, pass `colors` as a flat object with all M3 token keys instead of `colorSeed`.
 
 ---
 

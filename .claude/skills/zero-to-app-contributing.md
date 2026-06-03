@@ -61,7 +61,7 @@ chip: {
 },
 ```
 
-Common palette color names: `primary`, `onPrimary`, `primaryContainer`, `onPrimaryContainer`, `secondary`, `onSecondary`, `secondaryContainer`, `onSecondaryContainer`, `tertiary`, `onTertiary`, `tertiaryContainer`, `onTertiaryContainer`, `surface`, `onSurface`, `onSurfaceVariant`, `surfaceContainer`, `surfaceContainerLow`, `surfaceContainerHigh`, `surfaceContainerHighest`, `outline`, `outlineVariant`, `shadow`, `scrim`.
+Key palette names (M3 naming convention — see `theme/theme-config.ts` for the full list): `primary`, `onPrimary`, `primaryContainer`, `onPrimaryContainer`, `secondaryContainer`, `onSecondaryContainer`, `surface`, `onSurface`, `onSurfaceVariant`, `surfaceContainerLow/High/Highest`, `outline`, `outlineVariant`.
 
 ---
 

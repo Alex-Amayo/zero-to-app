@@ -14,11 +14,13 @@ interface DemoSectionProps {
   description?: string;
   children: React.ReactNode;
   code?: string;
+  /** Remove preview padding — use for layout components (Container, Screen) that need edge-to-edge display. @default true */
+  padded?: boolean;
 }
 
 type Tab = 'preview' | 'code';
 
-export function DemoSection({ title, description, children, code }: DemoSectionProps) {
+export function DemoSection({ title, description, children, code, padded = true }: DemoSectionProps) {
   const theme = useTheme();
   const { spacing, shape, outlineVariant, surfaceContainerHigh, primary, onSurfaceVariant, isDark } = theme;
   const [tab, setTab] = useState<Tab>('preview');
@@ -59,7 +61,11 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
 
         {/* Preview canvas — white/dark surface, generous padding, no dot-grid */}
         {(!code || tab === 'preview') && (
-          <View style={[styles.preview, { backgroundColor: previewBg, gap: spacing.lg }]}>
+          <View style={[
+            styles.preview,
+            { backgroundColor: previewBg, gap: spacing.lg },
+            !padded && styles.previewFlush,
+          ]}>
             {children}
           </View>
         )}
@@ -152,6 +158,10 @@ const styles = StyleSheet.create({
     minHeight: 120,
     paddingHorizontal: 32,
     paddingVertical: 40,
+  },
+  previewFlush: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
   },
   codeHeader: {
     flexDirection: 'row',

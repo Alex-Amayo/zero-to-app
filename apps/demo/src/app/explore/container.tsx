@@ -67,11 +67,12 @@ export default function ContainerPage() {
       <DemoSection
         title="Default (maxWidth 1000)"
         description="Content is constrained and centered. On narrow screens it fills the available width."
+        padded={false}
         code={`<Container>
   <Typography>Content constrained to 1000px max width</Typography>
 </Container>`}
       >
-        <Container style={{ gap: 12, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
+        <Container style={{ gap: 12, paddingVertical: 24 }}>
           <Placeholder label="Content" />
           <Placeholder label="Content" />
         </Container>
@@ -80,11 +81,12 @@ export default function ContainerPage() {
       <DemoSection
         title="Custom maxWidth"
         description="Useful for narrow reading columns or tighter layouts."
+        padded={false}
         code={`<Container maxWidth={480}>
   <Typography>Narrow content (480px max)</Typography>
 </Container>`}
       >
-        <Container maxWidth={480} style={{ gap: 12, borderWidth: 1, borderColor: '#6750A430', borderRadius: shape.surfaceBorderRadius }}>
+        <Container maxWidth={480} style={{ gap: 12, paddingVertical: 24 }}>
           <Placeholder label="Narrow content (480px max)" />
         </Container>
       </DemoSection>
@@ -92,6 +94,7 @@ export default function ContainerPage() {
       <DemoSection
         title="Responsive grid"
         description="Inherits ThemedView's columns prop. Single column on small screens, multi-column on medium+ (≥768px)."
+        padded={false}
         code={`<Container columns={2} gap={16}>
   <Placeholder label="Col 1" />
   <Placeholder label="Col 2" />
@@ -103,11 +106,11 @@ export default function ContainerPage() {
   <Placeholder label="Col 3" />
 </Container>`}
       >
-        <Container columns={2} gap={12}>
+        <Container columns={2} gap={12} style={{ paddingVertical: 24 }}>
           <Placeholder label="Col 1" />
           <Placeholder label="Col 2" />
         </Container>
-        <Container columns={3} gap={12} style={{ marginTop: 12 }}>
+        <Container columns={3} gap={12} style={{ paddingVertical: 16 }}>
           <Placeholder label="Col 1" />
           <Placeholder label="Col 2" />
           <Placeholder label="Col 3" />
@@ -117,6 +120,7 @@ export default function ContainerPage() {
       <DemoSection
         title="Full-bleed layout pattern"
         description="Use padded={false} on Screen with Container inside to get a hero image edge-to-edge while keeping content constrained."
+        padded={false}
         code={`<Screen scrollable variant="background" padded={false}>
   {/* Full-bleed hero — no Container */}
   <HeroImage />
@@ -127,14 +131,12 @@ export default function ContainerPage() {
   </Container>
 </Screen>`}
       >
-        <ThemedView variant="surfaceContainer" style={{ borderRadius: shape.surfaceBorderRadius, overflow: 'hidden' }}>
-          <View style={{ height: 64, backgroundColor: '#6750A420', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="labelMedium" muted>Full-bleed hero (no Container)</Typography>
-          </View>
-          <Container style={{ paddingVertical: 16, gap: 8 }}>
-            <Placeholder label="Constrained content" />
-          </Container>
-        </ThemedView>
+        <View style={{ backgroundColor: '#6750A420', height: 64, alignItems: 'center', justifyContent: 'center' }}>
+          <Typography variant="labelMedium" muted>Full-bleed hero (no Container)</Typography>
+        </View>
+        <Container style={{ paddingVertical: 16, gap: 8 }}>
+          <Placeholder label="Constrained content" />
+        </Container>
       </DemoSection>
 
       <ApiSection props={containerProps} />

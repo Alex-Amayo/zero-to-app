@@ -5,9 +5,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const FEATURES = [
   {
-    title: 'AI Integration',
+    title: 'MCP Server',
     icon: { name: 'zap', library: 'Feather' as const },
-    description: 'Structured context files teach Claude your design system — tokens, component API, and conventions. Generated code uses the right values from the first prompt.',
+    description: 'Claude calls live tools for component props, theme tokens, and code generation mid-conversation. No docs tab — just accurate code from the first prompt.',
     accent: true,
   },
   {
@@ -53,7 +53,7 @@ export default function HomeScreen() {
             The Expo UI library{'\n'}built for the AI era
           </Typography>
           <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
-            Native components on iOS and Android. M3 everywhere.{'\n'}Claude Skills teach AI your design system — so generated code fits from the first prompt.
+            Native components on iOS and Android. M3 everywhere.{'\n'}MCP server + Claude Skills — so AI generates code that fits from the first prompt.
           </Typography>
         </View>
         <View style={[styles.ctaRow, { gap: spacing.md }]}>

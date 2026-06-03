@@ -11,5 +11,5 @@
     "lib": ["esnext", "dom"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "dist"]
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "dist", "mcp"]
 }

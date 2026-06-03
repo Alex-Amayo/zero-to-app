@@ -15,6 +15,7 @@ export const NAV_SECTIONS: NavSection[] = [
     title: 'Getting Started',
     icon: { library: 'Feather', name: 'code' },
     items: [
+      { label: 'MCP Server', route: '/explore/mcp' },
       { label: 'Installation', route: '/explore', exact: true },
       { label: 'Theming', route: '/explore/theming' },
     ],

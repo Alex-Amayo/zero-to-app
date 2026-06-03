@@ -2,18 +2,67 @@
 
 The React Native UI library built for AI development.
 
-Material Design 3 components for Expo — with built-in Claude Skills that give AI the context to generate consistent, theme-aware code instead of generic boilerplate.
+Material Design 3 components for Expo — with a built-in MCP server and Claude Skills that give AI the context to generate consistent, theme-aware code instead of generic boilerplate.
 
 🌐 **[Live Demo](https://demo-zero-to-app--lbqs9orlsl.expo.app)** &nbsp;·&nbsp; 📦 **[NPM](https://www.npmjs.com/package/zero-to-app)**
 
 ---
 
+## MCP Server
+
+zero-to-app ships an MCP server that gives Claude live access to component props, theme tokens, and code generation — no docs tab required.
+
+### Setup
+
+Add to your Claude Code `.mcp.json` or Claude Desktop config:
+
+```json
+{
+  "mcpServers": {
+    "zero-to-app": {
+      "command": "npx",
+      "args": ["zero-to-app", "mcp"]
+    }
+  }
+}
+```
+
+Or if zero-to-app is already installed locally:
+
+```json
+{
+  "mcpServers": {
+    "zero-to-app": {
+      "command": "node",
+      "args": ["./node_modules/zero-to-app/dist/mcp/server.mjs"]
+    }
+  }
+}
+```
+
+### Tools
+
+| Tool | What Claude can do |
+|------|--------------------|
+| `list_components` | Browse all components by category |
+| `get_component` | Get real props, variants, and examples for any component |
+| `search_components` | Find the right component by use case |
+| `get_theme_tokens` | Look up semantic token names for any component |
+| `generate_palette` | Generate a full M3 palette from a hex seed color |
+| `generate_brand_config` | Output a complete `createBrand()` snippet |
+| `generate_navigation` | Scaffold flat tabs, tabs + sidebar, or tabs + stack |
+
+Skill docs (setup, components, theme, navigation) are also exposed as resources Claude reads automatically.
+
+---
+
 ## Why zero-to-app
 
-LLMs produce better code when they understand your design system. Zero-to-app ships with Claude Skills — structured context files that teach Claude your tokens, component API, and conventions. The result is generated code that looks like it was written by hand, not pasted from a tutorial.
+LLMs produce better code when they understand your design system. Zero-to-app ships with an MCP server and Claude Skills — live tools and structured context that teach Claude your tokens, component API, and conventions. Generated code uses the right values from the first prompt.
 
-- **Claude Skills** — AI generates components that match your theme, not generic snippets
-- **Material Design 3** — semantic color tokens, type scale, and spacing across every component
+- **MCP Server** — Claude calls live tools for props, tokens, and code generation mid-conversation
+- **Claude Skills** — Structured context files for components, theming, and navigation patterns
+- **Material Design 3** — Semantic color tokens, type scale, and spacing across every component
 - **Cross-platform** — iOS, Android, and web from a single component tree
 
 ---

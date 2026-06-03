@@ -41,6 +41,8 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: 'Chip', route: '/explore/chip' },
       { label: 'Divider', route: '/explore/divider' },
       { label: 'Slider', route: '/explore/slider' },
+      { label: 'Switch', route: '/explore/switch' },
+      { label: 'SegmentedControl', route: '/explore/segmented-control' },
       { label: 'FAB', route: '/explore/fab' },
       { label: 'List', route: '/explore/list' },
       { label: 'Modal', route: '/explore/modal' },

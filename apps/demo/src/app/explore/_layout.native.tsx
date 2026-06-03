@@ -57,6 +57,8 @@ export default function ExploreLayout() {
                 <Stack.Screen name="chip" options={{ title: 'Chip' }} />
                 <Stack.Screen name="divider" options={{ title: 'Divider' }} />
                 <Stack.Screen name="slider" options={{ title: 'Slider' }} />
+                <Stack.Screen name="switch" options={{ title: 'Switch' }} />
+                <Stack.Screen name="segmented-control" options={{ title: 'SegmentedControl' }} />
                 <Stack.Screen name="fab" options={{ title: 'FAB' }} />
                 <Stack.Screen name="list" options={{ title: 'List' }} />
                 <Stack.Screen name="modal" options={{ title: 'Modal' }} />

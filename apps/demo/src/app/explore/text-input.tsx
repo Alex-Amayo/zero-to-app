@@ -10,7 +10,7 @@ const inputProps: PropDefinition[] = [
   {
     name: 'variant',
     type: "'filled' | 'outlined'",
-    default: "'filled'",
+    default: "'outlined'",
     description: 'Visual style variant',
   },
   {
@@ -64,7 +64,7 @@ export default function TextInputPage() {
     >
       <DemoSection
         title="Filled"
-        description="Default variant with a filled background and bottom border"
+        description="Filled background with a bottom border indicator"
         code={`<ThemedTextInput variant="filled" label="Email" placeholder="name@example.com" />`}
       >
         <View style={{ gap: spacing.md, width: '100%' }}>

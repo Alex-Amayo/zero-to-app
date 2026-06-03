@@ -8,11 +8,19 @@ Material Design 3 components for Expo — with a built-in MCP server and Claude 
 
 ---
 
-## MCP Server
+## MCP Server & Claude Skills
 
-zero-to-app ships an MCP server that gives Claude live access to component props, theme tokens, and code generation — no docs tab required.
+zero-to-app ships a CLI with two AI tools: an MCP server that gives Claude live access to component props, tokens, and code generation, and a skills installer that drops context files into your project for Claude Code to pick up automatically.
 
-### Setup
+### Install Claude Skills
+
+```bash
+npx zero-to-app skills
+```
+
+Copies 7 skill files into `.claude/skills/` in your project. Claude Code reads these automatically — no further configuration needed. Re-run after upgrading zero-to-app to get updated skills.
+
+### MCP Server
 
 Add to your Claude Code `.mcp.json` or Claude Desktop config:
 
@@ -34,7 +42,7 @@ Or if zero-to-app is already installed locally:
   "mcpServers": {
     "zero-to-app": {
       "command": "node",
-      "args": ["./node_modules/zero-to-app/dist/mcp/server.mjs"]
+      "args": ["./node_modules/zero-to-app/dist/mcp/cli.mjs", "mcp"]
     }
   }
 }
@@ -117,13 +125,13 @@ function MyScreen() {
 
 ## Claude Skills
 
-Claude Skills are context files included with the package. Load them in Claude Code to unlock theme-aware code generation:
+Claude Skills are context files that teach Claude your design system. Install them with:
 
 ```bash
-/skills   # lists available zero-to-app skills in Claude Code
+npx zero-to-app skills
 ```
 
-Skills cover components, theming, navigation patterns, and responsive layout — so Claude generates code that uses your actual tokens and follows your conventions from the first prompt.
+Skills cover components, theming, navigation patterns, and responsive layout — so Claude generates code that uses your actual tokens and follows your conventions from the first prompt. Run the command once after install, and again after any upgrade.
 
 ---
 

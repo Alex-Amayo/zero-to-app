@@ -95,5 +95,7 @@ server.tool(
   }),
 );
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+export async function startMcpServer() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}

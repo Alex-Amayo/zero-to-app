@@ -2,9 +2,13 @@
 description: How to use the zero-to-app MCP server tools to answer questions and generate code accurately
 ---
 
-# zero-to-app MCP Tools
+# zero-to-app AI Tools
 
-The zero-to-app MCP server exposes 7 tools and 6 resources. Use them proactively — do not guess component props or token names from memory.
+zero-to-app ships two AI tools via its CLI:
+- `npx zero-to-app skills` — installs 7 Claude Skill files into `.claude/skills/` (Claude Code reads these automatically)
+- `npx zero-to-app mcp` — starts the MCP server for live tool access mid-conversation
+
+The MCP server exposes 7 tools and 6 resources. Use them proactively — do not guess component props or token names from memory.
 
 ---
 

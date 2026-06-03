@@ -34,6 +34,17 @@ export const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
+    title: 'Navigation',
+    icon: { library: 'Feather', name: 'navigation' },
+    items: [
+      { label: 'Overview', route: '/explore/nav-overview' },
+      { label: 'Tabs', route: '/explore/nav-tabs' },
+      { label: 'Sidebar', route: '/explore/nav-sidebar' },
+      { label: 'Stack & Headers', route: '/explore/nav-stack' },
+      { label: 'Hooks', route: '/explore/nav-hooks' },
+    ],
+  },
+  {
     title: 'Foundation',
     icon: { library: 'Feather', name: 'book-open' },
     items: [
@@ -62,17 +73,6 @@ export const NAV_SECTIONS: NavSection[] = [
       { label: 'ProgressIndicator', route: '/explore/progress-indicator' },
       { label: 'TextInput', route: '/explore/text-input' },
       { label: 'Collapsible', route: '/explore/collapsible' },
-    ],
-  },
-  {
-    title: 'Navigation',
-    icon: { library: 'Feather', name: 'navigation' },
-    items: [
-      { label: 'AppTabs', route: '/explore/app-tabs' },
-      { label: 'Sidebar', route: '/explore/sidebar' },
-      { label: 'Drawer', route: '/explore/drawer' },
-      { label: 'ThemedStack', route: '/explore/themed-stack' },
-      { label: 'NativeHeader', route: '/explore/native-header' },
     ],
   },
 ];

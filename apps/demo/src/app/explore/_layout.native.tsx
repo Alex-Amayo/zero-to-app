@@ -45,6 +45,11 @@ export default function ExploreLayout() {
             <ThemedStack>
                 <Stack.Screen name="mcp" options={{ title: 'MCP and Skills' }} />
                 <Stack.Screen name="index" options={{ title: 'Installation' }} />
+                <Stack.Screen name="nav-overview" options={{ title: 'Navigation' }} />
+                <Stack.Screen name="nav-tabs" options={{ title: 'Tabs' }} />
+                <Stack.Screen name="nav-sidebar" options={{ title: 'Sidebar' }} />
+                <Stack.Screen name="nav-stack" options={{ title: 'Stack & Headers' }} />
+                <Stack.Screen name="nav-hooks" options={{ title: 'Navigation Hooks' }} />
                 <Stack.Screen name="theming" options={{ title: 'Theming' }} />
                 <Stack.Screen name="tokens" options={{ title: 'Tokens' }} />
                 <Stack.Screen name="icons" options={{ title: 'Icons' }} />

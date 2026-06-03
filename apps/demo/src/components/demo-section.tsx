@@ -48,10 +48,10 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
   const codeBorderColor = isDark ? '#30363d' : '#d0d7de';
 
   return (
-    <View style={{ gap: spacing.sm }}>
-      <Typography variant="titleMedium" weight="medium">{title}</Typography>
+    <View style={{ gap: spacing.sm, paddingTop: spacing.sm }}>
+      <Typography variant="titleLarge" weight="bold">{title}</Typography>
       {description && (
-        <Typography variant="bodySmall" muted>{description}</Typography>
+        <Typography variant="bodyMedium" muted>{description}</Typography>
       )}
 
       <View style={[styles.card, { borderRadius: shape.surfaceBorderRadius, borderColor }]}>

@@ -4,6 +4,7 @@ import { Typography, ThemedView, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const appTabsProps: PropDefinition[] = [
@@ -201,11 +202,9 @@ export default function RootLayout() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">AppTabs Props</Typography>
-      <PropsTable props={appTabsProps} />
+      <ApiSection props={appTabsProps} />
 
-      <Typography variant="titleLarge" weight="medium">AppTabConfig</Typography>
-      <PropsTable props={tabConfigProps} />
+      <ApiSection props={tabConfigProps} />
 
       <DocsPagination />
     </DocsPage>

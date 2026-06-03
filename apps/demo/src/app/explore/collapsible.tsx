@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Typography, Collapsible, Button } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { DocsPage } from '../../components/docs-page';
 
@@ -192,8 +193,7 @@ export default function CollapsiblePage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={collapsibleProps} />
+      <ApiSection props={collapsibleProps} />
       <DocsPagination />
     </DocsPage>
   );

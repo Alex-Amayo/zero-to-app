@@ -1,32 +1,51 @@
 import React from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Typography, Screen, NativeHeader, useSidebar, useTheme } from 'zero-to-app';
 
 interface DocsPageProps {
   title: string;
   description: string;
+  /** Import statement shown below description, e.g. "import { Button } from 'zero-to-app'" */
+  importLine?: string;
+  /** Category label above the title, e.g. "Component", "Navigation", "Foundation" */
+  category?: string;
   /** Which side the sidebar icon appears. @default 'left' */
   sidebarIcon?: 'left' | 'right';
   children: React.ReactNode;
 }
 
-export function DocsPage({ title, description, sidebarIcon = 'left', children }: DocsPageProps) {
+export function DocsPage({ title, description, importLine, category, sidebarIcon = 'left', children }: DocsPageProps) {
   const { open } = useSidebar();
-  const { spacing } = useTheme();
+  const theme = useTheme();
+  const { spacing } = theme;
 
   return (
     <>
       <NativeHeader rightIcon={`sidebar.${sidebarIcon}`} onRightPress={open} androidRightIcon="menu" />
       <Screen scrollable variant="background" edges={['bottom']}>
-        <View style={{ paddingHorizontal: spacing.xxl, gap: spacing.xxl }}>
+        <View style={[styles.content, { paddingHorizontal: spacing.xxl, paddingTop: spacing.xl, paddingBottom: spacing.xxxl, gap: spacing.xxl, maxWidth: 760 }]}>
           {Platform.OS !== 'android' && (
-            <View style={{ gap: spacing.xs }}>
-              <Typography variant="headlineMedium" weight="bold">
+            <View style={[styles.header, { gap: spacing.md, paddingBottom: spacing.xl, borderBottomColor: theme.outlineVariant }]}>
+              {category && (
+                <Typography variant="labelSmall" color={theme.primary} style={{ letterSpacing: 1.5 }}>
+                  {category.toUpperCase()}
+                </Typography>
+              )}
+              <Typography variant="headlineLarge" weight="bold">
                 {title}
               </Typography>
-              <Typography variant="bodyMedium" muted>
+              <Typography variant="bodyLarge" muted>
                 {description}
               </Typography>
+              {importLine && (
+                <View style={[styles.importLine, { backgroundColor: theme.surfaceContainerLow, borderColor: theme.outlineVariant, borderRadius: theme.borderRadius.md }]}>
+                  <Text style={[styles.importText, { color: theme.onSurfaceVariant }]}>
+                    <Text style={{ color: theme.primary }}>import</Text>
+                    {' '}
+                    <Text style={{ color: theme.onSurface }}>{importLine.replace(/^import\s+/, '')}</Text>
+                  </Text>
+                </View>
+              )}
             </View>
           )}
           {children}
@@ -35,3 +54,23 @@ export function DocsPage({ title, description, sidebarIcon = 'left', children }:
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  content: {
+    width: '100%',
+  },
+  header: {
+    borderBottomWidth: 1,
+  },
+  importLine: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    marginTop: 4,
+  },
+  importText: {
+    fontFamily: 'monospace',
+    fontSize: 13,
+    lineHeight: 20,
+  },
+});

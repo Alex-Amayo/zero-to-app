@@ -4,6 +4,7 @@ import { Button, Drawer, Typography, ThemedView, SidebarHeader, useTheme } from 
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const drawerProps: PropDefinition[] = [
@@ -148,8 +149,7 @@ export default function DrawerPage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={drawerProps} />
+      <ApiSection props={drawerProps} />
       <DocsPagination />
     </DocsPage>
   );

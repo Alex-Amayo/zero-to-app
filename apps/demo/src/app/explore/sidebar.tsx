@@ -4,6 +4,7 @@ import { Typography, ThemedView, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const sidebarProps: PropDefinition[] = [
@@ -259,17 +260,13 @@ export default function Layout() {
         </ThemedView>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Sidebar Props</Typography>
-      <PropsTable props={sidebarProps} />
+      <ApiSection props={sidebarProps} />
 
-      <Typography variant="titleLarge" weight="medium">SidebarHeader Props</Typography>
-      <PropsTable props={sidebarHeaderProps} />
+      <ApiSection props={sidebarHeaderProps} />
 
-      <Typography variant="titleLarge" weight="medium">SidebarSection Props</Typography>
-      <PropsTable props={sidebarSectionProps} />
+      <ApiSection props={sidebarSectionProps} />
 
-      <Typography variant="titleLarge" weight="medium">SidebarItem Props</Typography>
-      <PropsTable props={sidebarItemProps} />
+      <ApiSection props={sidebarItemProps} />
 
       <DocsPagination />
     </DocsPage>

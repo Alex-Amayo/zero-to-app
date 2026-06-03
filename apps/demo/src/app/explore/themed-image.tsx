@@ -4,6 +4,7 @@ import { Typography, Button, useTheme, useThemeMode, ThemedImage } from 'zero-to
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const themedImageProps: PropDefinition[] = [
@@ -129,8 +130,7 @@ export default function ThemedImagePage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={themedImageProps} />
+      <ApiSection props={themedImageProps} />
       <DocsPagination />
     </DocsPage>
   );

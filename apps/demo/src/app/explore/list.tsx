@@ -4,6 +4,7 @@ import { List, ListItem, Divider, Avatar, Typography } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const listItemProps: PropDefinition[] = [
@@ -166,8 +167,7 @@ export default function ListPage() {
         </List>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">ListItem Props</Typography>
-      <PropsTable props={listItemProps} />
+      <ApiSection props={listItemProps} />
       <DocsPagination />
     </DocsPage>
   );

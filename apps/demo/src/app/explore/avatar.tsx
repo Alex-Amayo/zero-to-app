@@ -4,6 +4,7 @@ import { Avatar, Typography, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const avatarProps: PropDefinition[] = [
@@ -98,8 +99,7 @@ export default function AvatarPage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={avatarProps} />
+      <ApiSection props={avatarProps} />
       <DocsPagination />
     </DocsPage>
   );

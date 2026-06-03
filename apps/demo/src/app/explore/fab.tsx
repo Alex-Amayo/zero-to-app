@@ -4,6 +4,7 @@ import { FAB, Typography, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const fabProps: PropDefinition[] = [
@@ -111,8 +112,7 @@ export default function FABPage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={fabProps} />
+      <ApiSection props={fabProps} />
       <DocsPagination />
     </DocsPage>
   );

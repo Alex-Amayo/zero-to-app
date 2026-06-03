@@ -4,6 +4,7 @@ import { Divider, Typography, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const dividerProps: PropDefinition[] = [
@@ -88,8 +89,7 @@ export default function DividerPage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={dividerProps} />
+      <ApiSection props={dividerProps} />
       <DocsPagination />
     </DocsPage>
   );

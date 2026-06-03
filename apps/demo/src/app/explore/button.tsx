@@ -4,6 +4,7 @@ import { Typography, Button } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const buttonProps: PropDefinition[] = [
@@ -197,8 +198,7 @@ export default function ButtonPage() {
         </View>
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={buttonProps} />
+      <ApiSection props={buttonProps} />
       <DocsPagination />
     </DocsPage>
   );

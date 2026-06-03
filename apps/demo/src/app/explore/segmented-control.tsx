@@ -4,6 +4,7 @@ import { SegmentedControl, Typography, useTheme } from 'zero-to-app';
 import { DemoSection } from '../../components/demo-section';
 import { DocsPagination } from '../../components/docs-pagination';
 import { PropsTable, type PropDefinition } from '../../components/props-table';
+import { ApiSection } from '../../components/api-section';
 import { DocsPage } from '../../components/docs-page';
 
 const segmentedControlProps: PropDefinition[] = [
@@ -94,8 +95,7 @@ export default function SegmentedControlPage() {
         />
       </DemoSection>
 
-      <Typography variant="titleLarge" weight="medium">Props</Typography>
-      <PropsTable props={segmentedControlProps} />
+      <ApiSection props={segmentedControlProps} />
       <DocsPagination />
     </DocsPage>
   );

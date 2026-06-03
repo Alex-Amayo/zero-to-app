@@ -115,51 +115,116 @@ export default function HomeScreen() {
     { value: 'iOS · Android · Web', label: 'Platforms' },
   ];
 
+  const logoSource = mode === 'dark'
+    ? require('../../assets/images/rocket_logo_white.png')
+    : require('../../assets/images/rocket_logo_black.png');
+
   return (
     <Screen scrollable variant="background" edges={['bottom']} padded={false}>
 
-      {/* ── Hero ── */}
-      <SafeAreaView
-        style={[
-          styles.hero,
-          { paddingHorizontal: spacing.xl, paddingTop: 80, paddingBottom: spacing.xxl, gap: spacing.xl },
-        ]}>
-        <Image
-          source={
-            mode === 'dark'
-              ? require('../../assets/images/rocket_logo_white.png')
-              : require('../../assets/images/rocket_logo_black.png')
-          }
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <View style={[styles.centered, { gap: spacing.md }]}>
-          <Typography variant="displaySmall" weight="bold" align="center">
-            The Expo UI library{'\n'}built for the AI era
+      {/* ── Hero: web split, mobile centered ── */}
+      {Platform.OS === 'web' ? (
+        <SafeAreaView style={[styles.heroWeb, { paddingHorizontal: spacing.xxl, paddingTop: 80, paddingBottom: spacing.xxl }]}>
+          {/* Left: copy */}
+          <View style={[styles.heroLeft, { gap: spacing.xl, paddingRight: spacing.xxl }]}>
+            <Image source={logoSource} style={styles.logo} resizeMode="contain" />
+            <View style={{ gap: spacing.md }}>
+              <Typography variant="displaySmall" weight="bold">
+                The Expo UI library{'\n'}built for the AI era
+              </Typography>
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+                Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills — so AI generates code that fits from the first prompt.
+              </Typography>
+            </View>
+            <View style={[styles.ctaRow, { gap: spacing.md }]}>
+              <Button
+                title="Get Started"
+                variant="filled"
+                icon={{ name: 'arrow-right' }}
+                onPress={() => router.push('/explore')}
+              />
+              <Button
+                title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
+                variant="outlined"
+                icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
+                onPress={toggleTheme}
+              />
+            </View>
+            <Typography variant="labelSmall" color={theme.onSurfaceVariant}>
+              This site is built entirely with zero-to-app
+            </Typography>
+          </View>
+
+          {/* Right: live component showcase */}
+          <ThemedView
+            variant="surfaceContainer"
+            style={[
+              styles.heroRight,
+              { borderRadius: borderRadius.lg, padding: spacing.xl, gap: spacing.xl },
+            ]}>
+            <View style={{ gap: spacing.sm }}>
+              <Typography variant="labelSmall" weight="medium" muted>BUTTONS</Typography>
+              <View style={{ gap: spacing.sm }}>
+                <Button title="Filled" variant="filled" onPress={() => {}} />
+                <Button title="Tonal" variant="tonal" onPress={() => {}} />
+                <Button title="Outlined" variant="outlined" onPress={() => {}} />
+                <Button title="Text" variant="text" onPress={() => {}} />
+              </View>
+            </View>
+
+            <View style={{ gap: spacing.xs }}>
+              <Typography variant="labelSmall" weight="medium" muted>TYPOGRAPHY</Typography>
+              <Typography variant="headlineMedium">Headline Medium</Typography>
+              <Typography variant="titleLarge">Title Large</Typography>
+              <Typography variant="bodyMedium">Body — the quick brown fox jumps over the lazy dog</Typography>
+              <Typography variant="labelSmall" muted>Label Small</Typography>
+            </View>
+
+            <View style={{ gap: spacing.sm }}>
+              <Typography variant="labelSmall" weight="medium" muted>CHIPS</Typography>
+              <View style={[styles.row, { gap: spacing.sm, flexWrap: 'wrap' }]}>
+                <Chip label="Selected" variant="outlined" selected onPress={() => {}} />
+                <Chip label="Action" variant="filled" onPress={() => {}} />
+                <Chip label="Filter" variant="outlined" onPress={() => {}} />
+              </View>
+            </View>
+          </ThemedView>
+        </SafeAreaView>
+      ) : (
+        <SafeAreaView
+          style={[
+            styles.hero,
+            { paddingHorizontal: spacing.xl, paddingTop: 80, paddingBottom: spacing.xxl, gap: spacing.xl },
+          ]}>
+          <Image source={logoSource} style={styles.logo} resizeMode="contain" />
+          <View style={[styles.centered, { gap: spacing.md }]}>
+            <Typography variant="displaySmall" weight="bold" align="center">
+              The Expo UI library{'\n'}built for the AI era
+            </Typography>
+            <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
+              Native components on iOS and Android. M3 everywhere.{'\n'}
+              MCP server + Claude Skills — so AI generates code that fits from the first prompt.
+            </Typography>
+          </View>
+          <View style={[styles.ctaRow, { gap: spacing.md }]}>
+            <Button
+              title="Get Started"
+              variant="filled"
+              icon={{ name: 'arrow-right' }}
+              onPress={() => router.push('/explore')}
+            />
+            <Button
+              title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
+              variant="outlined"
+              icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
+              onPress={toggleTheme}
+            />
+          </View>
+          <Typography variant="labelSmall" color={theme.onSurfaceVariant} align="center">
+            This site is built entirely with zero-to-app
           </Typography>
-          <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
-            Native components on iOS and Android. M3 everywhere.{'\n'}
-            MCP server + Claude Skills — so AI generates code that fits from the first prompt.
-          </Typography>
-        </View>
-        <View style={[styles.ctaRow, { gap: spacing.md }]}>
-          <Button
-            title="Get Started"
-            variant="filled"
-            icon={{ name: 'arrow-right' }}
-            onPress={() => router.push('/explore')}
-          />
-          <Button
-            title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
-            variant="outlined"
-            icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
-            onPress={toggleTheme}
-          />
-        </View>
-        <Typography variant="labelSmall" color={theme.onSurfaceVariant} align="center">
-          This site is built entirely with zero-to-app
-        </Typography>
-      </SafeAreaView>
+        </SafeAreaView>
+      )}
 
       {/* ── Stats row ── */}
       <Container style={{ paddingVertical: spacing.xxl }}>
@@ -179,77 +244,6 @@ export default function HomeScreen() {
           ))}
         </ThemedView>
       </Container>
-
-      {/* ── Live component preview (web only) ── */}
-      {Platform.OS === 'web' && (
-        <Container style={{ paddingVertical: spacing.xxl }}>
-          <View style={{ gap: spacing.lg }}>
-            <View style={{ gap: spacing.sm }}>
-              <Typography variant="headlineMedium" weight="bold">
-                28 production-ready components
-              </Typography>
-              <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
-                Every component is theme-aware and cross-platform. What you see below is rendered by the same library you install — no mock-ups.
-              </Typography>
-            </View>
-
-            <ThemedView columns={3} gap={spacing.md}>
-
-              {/* Panel A — Buttons */}
-              <ThemedView
-                variant="surfaceContainer"
-                style={[styles.previewPanel, { borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.md }]}>
-                <Typography variant="labelMedium" weight="medium" muted>
-                  BUTTONS
-                </Typography>
-                <View style={{ gap: spacing.sm }}>
-                  <Button title="Filled" variant="filled" onPress={() => {}} />
-                  <Button title="Tonal" variant="tonal" onPress={() => {}} />
-                  <Button title="Outlined" variant="outlined" onPress={() => {}} />
-                  <Button title="Text" variant="text" onPress={() => {}} />
-                  <Button title="Elevated" variant="elevated" onPress={() => {}} />
-                </View>
-              </ThemedView>
-
-              {/* Panel B — Typography */}
-              <ThemedView
-                variant="surfaceContainer"
-                style={[styles.previewPanel, { borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.md }]}>
-                <Typography variant="labelMedium" weight="medium" muted>
-                  TYPOGRAPHY
-                </Typography>
-                <View style={{ gap: spacing.xs }}>
-                  <Typography variant="displaySmall">Display</Typography>
-                  <Typography variant="headlineMedium">Headline</Typography>
-                  <Typography variant="titleLarge">Title Large</Typography>
-                  <Typography variant="bodyMedium">Body Medium — the quick brown fox</Typography>
-                  <Typography variant="labelSmall" muted>Label Small</Typography>
-                </View>
-              </ThemedView>
-
-              {/* Panel C — Controls */}
-              <ThemedView
-                variant="surfaceContainer"
-                style={[styles.previewPanel, { borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.lg }]}>
-                <Typography variant="labelMedium" weight="medium" muted>
-                  CONTROLS
-                </Typography>
-                <View style={{ gap: spacing.md }}>
-                  <View style={{ gap: spacing.xs }}>
-                    <Typography variant="labelSmall" muted>Chips</Typography>
-                    <View style={[styles.row, { gap: spacing.sm, flexWrap: 'wrap' }]}>
-                      <Chip label="Filter" variant="outlined" selected onPress={() => {}} />
-                      <Chip label="Action" variant="filled" onPress={() => {}} />
-                      <Chip label="Option" variant="outlined" onPress={() => {}} />
-                    </View>
-                  </View>
-                </View>
-              </ThemedView>
-
-            </ThemedView>
-          </View>
-        </Container>
-      )}
 
       {/* ── How it works ── */}
       <Container style={{ paddingVertical: spacing.xxl }}>
@@ -417,12 +411,16 @@ export default function HomeScreen() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
+  // Mobile hero — centered column
   hero: { alignItems: 'center' },
   centered: { alignItems: 'center', maxWidth: 520 },
+  // Web hero — side-by-side row
+  heroWeb: { flexDirection: 'row', alignItems: 'center' },
+  heroLeft: { flex: 1, justifyContent: 'center' },
+  heroRight: { flex: 1 },
   logo: { width: 64, height: 64 },
-  ctaRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+  ctaRow: { flexDirection: 'row', flexWrap: 'wrap' },
   statCard: { alignItems: 'center', gap: 4 },
-  previewPanel: {},
   row: { flexDirection: 'row' },
   stepCard: {},
   stepBadge: { width: 24, height: 24, alignItems: 'center', justifyContent: 'center' },

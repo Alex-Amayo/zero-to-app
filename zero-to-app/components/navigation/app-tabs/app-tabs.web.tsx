@@ -36,7 +36,7 @@ export interface SFSymbolIcon {
   selected: string;
 }
 
-export type MaterialIconName = string;
+export type MaterialIconName = string | { default?: string; selected: string };
 
 /**
  * Tab configuration for AppTabs
@@ -124,7 +124,7 @@ export default function AppTabs({
             const icon = tab.webIcon
               ? (typeof tab.webIcon === 'string' ? { name: tab.webIcon } : tab.webIcon)
               : tab.materialIcon
-              ? { library: 'MaterialIcons' as const, name: tab.materialIcon }
+              ? { library: 'MaterialIcons' as const, name: resolveMaterialIconName(tab.materialIcon) }
               : undefined;
             const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/');
             return (
@@ -161,11 +161,16 @@ export default function AppTabs({
 
 // --- Tab bar button (desktop) ---
 
+function resolveMaterialIconName(icon: MaterialIconName): string {
+  if (typeof icon === 'string') return icon;
+  return icon.default ?? icon.selected;
+}
+
 interface TabButtonProps extends TabTriggerSlotProps {
   children: ReactNode;
   height?: number;
   webIcon?: PlatformIcon | string;
-  materialIcon?: string;
+  materialIcon?: MaterialIconName;
 }
 
 function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
@@ -173,7 +178,7 @@ function TabButton({ children, isFocused, height, webIcon, materialIcon, ...prop
   const spacing = theme.spacing;
   const [hovered, setHovered] = useState(false);
 
-  const iconToRender = webIcon || (materialIcon ? { library: 'MaterialIcons' as const, name: materialIcon } : undefined);
+  const iconToRender = webIcon || (materialIcon ? { library: 'MaterialIcons' as const, name: resolveMaterialIconName(materialIcon) } : undefined);
   const iconColor = isFocused || hovered ? theme.primary : theme.onSurfaceVariant;
 
   return (

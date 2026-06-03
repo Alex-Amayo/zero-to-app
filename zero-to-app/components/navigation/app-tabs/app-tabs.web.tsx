@@ -233,7 +233,7 @@ function CustomTabList({
       variant="appbar"
       rounded={false}
       style={[styles.appBar, { height, paddingHorizontal: spacing.xxl, borderBottomWidth: 1, borderBottomColor: theme.tokens.appbar.border }]}>
-      <View {...props} style={[styles.appBarContent, { height, gap: spacing.sm }]}>
+      <View {...props} style={[styles.appBarContent, { gap: spacing.sm }]}>
         <Link href="/" style={styles.brand}>
           <View style={[styles.brandContent, { gap: spacing.sm }]}>
             {logoImage}
@@ -326,9 +326,9 @@ function DrawerDivider() {
 // --- Styles ---
 
 const styles = StyleSheet.create({
-  appBar: { width: '100%', flexDirection: 'row' },
-  appBarContent: { flexDirection: 'row', alignItems: 'center', width: '100%' },
-  brand: { marginRight: 'auto' },
+  appBar: { width: '100%', flexDirection: 'row', alignItems: 'center' },
+  appBarContent: { flexDirection: 'row', alignItems: 'center', flex: 1 },
+  brand: { marginRight: 'auto', alignSelf: 'center' },
   brandContent: { flexDirection: 'row', alignItems: 'center' },
   tabs: { flexDirection: 'row', alignItems: 'center' },
   tabButton: { position: 'relative' },

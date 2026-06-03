@@ -117,31 +117,30 @@ export default function TokensPage() {
   const borderRadiusEntries = Object.entries(borderRadius) as [string, number][];
 
   const typographyVariants = [
-    { name: 'displayLarge', size: theme.tokens.typography.displayLarge },
-    { name: 'displayMedium', size: theme.tokens.typography.displayMedium },
-    { name: 'displaySmall', size: theme.tokens.typography.displaySmall },
-    { name: 'headlineLarge', size: theme.tokens.typography.headlineLarge },
-    { name: 'headlineMedium', size: theme.tokens.typography.headlineMedium },
-    { name: 'headlineSmall', size: theme.tokens.typography.headlineSmall },
-    { name: 'titleLarge', size: theme.tokens.typography.titleLarge },
-    { name: 'titleMedium', size: theme.tokens.typography.titleMedium },
-    { name: 'titleSmall', size: theme.tokens.typography.titleSmall },
-    { name: 'bodyLarge', size: theme.tokens.typography.bodyLarge },
-    { name: 'bodyMedium', size: theme.tokens.typography.bodyMedium },
-    { name: 'bodySmall', size: theme.tokens.typography.bodySmall },
-    { name: 'labelLarge', size: theme.tokens.typography.labelLarge },
-    { name: 'labelMedium', size: theme.tokens.typography.labelMedium },
-    { name: 'labelSmall', size: theme.tokens.typography.labelSmall },
+    { name: 'displayLarge', size: theme.typography.displayLarge },
+    { name: 'displayMedium', size: theme.typography.displayMedium },
+    { name: 'displaySmall', size: theme.typography.displaySmall },
+    { name: 'headlineLarge', size: theme.typography.headlineLarge },
+    { name: 'headlineMedium', size: theme.typography.headlineMedium },
+    { name: 'headlineSmall', size: theme.typography.headlineSmall },
+    { name: 'titleLarge', size: theme.typography.titleLarge },
+    { name: 'titleMedium', size: theme.typography.titleMedium },
+    { name: 'titleSmall', size: theme.typography.titleSmall },
+    { name: 'bodyLarge', size: theme.typography.bodyLarge },
+    { name: 'bodyMedium', size: theme.typography.bodyMedium },
+    { name: 'bodySmall', size: theme.typography.bodySmall },
+    { name: 'labelLarge', size: theme.typography.labelLarge },
+    { name: 'labelMedium', size: theme.typography.labelMedium },
+    { name: 'labelSmall', size: theme.typography.labelSmall },
   ];
 
   const componentTokenGroups = [
     { section: 'Button', tokens: theme.tokens.button },
-    { section: 'Card', tokens: theme.tokens.card },
     { section: 'Input', tokens: theme.tokens.input },
     { section: 'Appbar', tokens: theme.tokens.appbar },
     { section: 'Sidebar', tokens: theme.tokens.sidebar },
-    { section: 'Link', tokens: theme.tokens.link },
-    { section: 'Badge', tokens: theme.tokens.badge },
+    { section: 'Chip', tokens: theme.tokens.chip },
+    { section: 'Modal', tokens: theme.tokens.modal },
   ];
 
   return (
@@ -247,7 +246,7 @@ export default function TokensPage() {
                   {group.section}
                 </Typography>
                 {Object.entries(group.tokens).map(([key, value]) => (
-                  <TokenRow key={key} label={key} value={value} />
+                  <TokenRow key={key} label={key} value={value as string | number} />
                 ))}
               </View>
             ))}

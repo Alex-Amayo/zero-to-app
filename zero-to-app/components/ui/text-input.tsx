@@ -18,7 +18,7 @@ import type { IconConfig } from './button';
 export type TextInputVariant = 'filled' | 'outlined';
 
 export interface ThemedTextInputProps extends Omit<RNTextInputProps, 'style'> {
-  /** Visual variant. @default 'filled' */
+  /** Visual variant. @default 'outlined' */
   variant?: TextInputVariant;
   /** Label shown above the input */
   label?: string;
@@ -37,7 +37,7 @@ export interface ThemedTextInputProps extends Omit<RNTextInputProps, 'style'> {
 
 // 3. COMPONENT
 const ThemedTextInput = forwardRef<RNTextInput, ThemedTextInputProps>(({
-  variant = 'filled',
+  variant = 'outlined',
   label,
   helperText,
   error,

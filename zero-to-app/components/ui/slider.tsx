@@ -76,7 +76,6 @@ const Slider = ({
   }
 
   const theme = useTheme();
-  const t = theme.tokens.slider;
 
   return (
     <View style={[styles.container, style]} testID={testID}>
@@ -88,9 +87,9 @@ const Slider = ({
         disabled={disabled}
         onValueChange={onValueChange}
         onSlidingComplete={onSlidingComplete}
-        minimumTrackTintColor={disabled ? theme.onSurfaceVariant : t.activeTrack}
-        maximumTrackTintColor={t.inactiveTrack}
-        thumbTintColor={disabled ? theme.onSurfaceVariant : t.thumb}
+        minimumTrackTintColor={disabled ? theme.onSurfaceVariant : theme.primary}
+        maximumTrackTintColor={theme.surfaceContainerHighest}
+        thumbTintColor={disabled ? theme.onSurfaceVariant : theme.primary}
         style={styles.slider}
         accessibilityLabel={accessibilityLabel}
       />

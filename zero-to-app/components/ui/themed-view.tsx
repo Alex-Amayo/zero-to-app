@@ -55,7 +55,7 @@ export const ThemedView = ({ variant = 'surface', color, rounded = true, elevati
   const variantMap: Record<ThemedViewVariant, string> = {
     surface: theme.surface,
     surfaceContainer: theme.surfaceContainer ?? theme.surface,
-    card: theme.tokens.card.background,
+    card: theme.surfaceContainer,
     appbar: theme.tokens.appbar.background,
     primary: theme.primary,
     background: theme.surface,

@@ -68,8 +68,8 @@ function generateTertiaryPalette(primaryColor: string): TonalPalette {
 function generateNeutralPalette(primaryColor: string): TonalPalette {
   const argb = argbFromHex(primaryColor);
   const hct = Hct.fromInt(argb);
-  // Neutral uses same hue with very low chroma (4 is M3 standard)
-  return TonalPalette.fromHueAndChroma(hct.hue, 4);
+  // Chroma 1 keeps barely-perceptible warmth while surfaces read as clean neutral whites/grays
+  return TonalPalette.fromHueAndChroma(hct.hue, 1);
 }
 
 /**
@@ -79,8 +79,8 @@ function generateNeutralPalette(primaryColor: string): TonalPalette {
 function generateNeutralVariantPalette(primaryColor: string): TonalPalette {
   const argb = argbFromHex(primaryColor);
   const hct = Hct.fromInt(argb);
-  // Neutral variant uses same hue with low chroma (8 is M3 standard)
-  return TonalPalette.fromHueAndChroma(hct.hue, 8);
+  // Chroma 3 keeps subtle tinting on outlines/muted text without washing surfaces
+  return TonalPalette.fromHueAndChroma(hct.hue, 3);
 }
 
 /**

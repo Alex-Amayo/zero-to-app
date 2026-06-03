@@ -32,7 +32,6 @@ const Slider = ({
   accessibilityLabel,
 }: SliderProps) => {
   const theme = useTheme();
-  const t = theme.tokens.slider;
 
   // Compose `steps` = count of discrete stops between min and max (excluding endpoints).
   // Our `step` prop is the increment size, so: steps = (range / increment) - 1.
@@ -50,9 +49,9 @@ const Slider = ({
           onValueChange={onValueChange}
           onValueChangeFinished={onSlidingComplete ? () => onSlidingComplete(value) : undefined}
           colors={{
-            activeTrackColor: disabled ? theme.onSurfaceVariant : t.activeTrack,
-            inactiveTrackColor: t.inactiveTrack,
-            thumbColor: disabled ? theme.onSurfaceVariant : t.thumb,
+            activeTrackColor: disabled ? theme.onSurfaceVariant : theme.primary,
+            inactiveTrackColor: theme.surfaceContainerHighest,
+            thumbColor: disabled ? theme.onSurfaceVariant : theme.primary,
           }}
           modifiers={[fillMaxWidth()]}
         />

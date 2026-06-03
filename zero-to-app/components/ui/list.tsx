@@ -14,7 +14,7 @@ const List = ({ children, style }: ListProps) => {
   const theme = useTheme();
   return (
     <View
-      style={[{ backgroundColor: theme.tokens.list.background }, style]}
+      style={style}
       accessibilityRole="list"
     >
       {children}

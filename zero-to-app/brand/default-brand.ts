@@ -15,7 +15,7 @@ export const defaultBrand = createBrand({
   // This automatically generates all 26 M3 color tokens and matching dark theme
   colors: {
     colorSeed: {
-      primary: '#6750A4', // Material purple reference
+      primary: '#4f46e5', // Modern indigo
     },
   },
   spacing: {
@@ -28,6 +28,6 @@ export const defaultBrand = createBrand({
     xxxl: 40,
   },
   borderRadius: { xs: 4, sm: 8, md: 12, lg: 16, xl: 28, full: 9999 },
-  shape: { surfaceBorderRadius: 10, buttonBorderRadius: 9999 },
+  shape: { surfaceBorderRadius: 10, buttonBorderRadius: 10 },
 });
 

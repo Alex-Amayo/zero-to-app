@@ -38,36 +38,45 @@ export interface ThemeValuesType {
   borderRadius: import('../brand').BorderRadius;
   shape: import('../brand').Shape;
   isDark: boolean;
-  // Semantic tokens for common component use
+  // Type scale — moved to top level, not a component token
+  typography: {
+    displayLarge: number;
+    displayMedium: number;
+    displaySmall: number;
+    headlineLarge: number;
+    headlineMedium: number;
+    headlineSmall: number;
+    titleLarge: number;
+    titleMedium: number;
+    titleSmall: number;
+    bodyLarge: number;
+    bodyMedium: number;
+    bodySmall: number;
+    labelLarge: number;
+    labelMedium: number;
+    labelSmall: number;
+    weightLight: number;
+    weightRegular: number;
+    weightMedium: number;
+    weightBold: number;
+    lineHeightTight: number;
+    lineHeightNormal: number;
+    lineHeightRelaxed: number;
+  };
+  // Semantic tokens — encode non-obvious component-specific colour decisions
   tokens: {
     button: {
-      // Filled (high emphasis)
       filledBg: string;
       filledText: string;
-      filledHoverBg: string;
-      filledPressedBg: string;
-      // Elevated
       elevatedBg: string;
       elevatedText: string;
-      elevatedHoverBg: string;
-      // Tonal
       tonalBg: string;
       tonalText: string;
-      tonalHoverBg: string;
-      // Outlined
       outlinedBorder: string;
       outlinedText: string;
-      outlinedHoverBorder: string;
-      // Text
       textColor: string;
-      textHoverColor: string;
-      // Disabled
       disabledBg: string;
       disabledText: string;
-    };
-    card: {
-      background: string;
-      text: string;
     };
     input: {
       background: string;
@@ -80,7 +89,6 @@ export interface ThemeValuesType {
       focusBorder: string;
     };
     list: {
-      background: string;
       itemText: string;
       itemSubtextColor: string;
       divider: string;
@@ -91,38 +99,19 @@ export interface ThemeValuesType {
     modal: {
       background: string;
       scrim: string;
-      text: string;
       headerBorder: string;
     };
     appbar: {
       background: string;
-      text: string;
       border: string;
     };
-    link: {
-      text: string;
-      hover: string;
-    };
-    badge: {
-      background: string;
-      text: string;
-    };
-    slider: {
-      activeTrack: string;
-      inactiveTrack: string;
-      thumb: string;
-    };
     chip: {
-      // Filled variant
       filledBg: string;
       filledText: string;
-      // Outlined variant
       outlinedBorder: string;
       outlinedText: string;
-      // Selected state (filter behavior — both variants)
       selectedBg: string;
       selectedText: string;
-      // Disabled
       disabledBg: string;
       disabledText: string;
       disabledBorder: string;
@@ -148,33 +137,6 @@ export interface ThemeValuesType {
       color: string;
       width: number;
       offset: number;
-    };
-    typography: {
-      // Font sizes
-      displayLarge: number;
-      displayMedium: number;
-      displaySmall: number;
-      headlineLarge: number;
-      headlineMedium: number;
-      headlineSmall: number;
-      titleLarge: number;
-      titleMedium: number;
-      titleSmall: number;
-      bodyLarge: number;
-      bodyMedium: number;
-      bodySmall: number;
-      labelLarge: number;
-      labelMedium: number;
-      labelSmall: number;
-      // Font weights
-      weightLight: number;
-      weightRegular: number;
-      weightMedium: number;
-      weightBold: number;
-      // Line heights
-      lineHeightTight: number;
-      lineHeightNormal: number;
-      lineHeightRelaxed: number;
     };
   };
 }
@@ -222,35 +184,28 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
     borderRadius: brand.borderRadius,
     shape: brand.shape,
     isDark: false,
+    typography: {
+      displayLarge: 57, displayMedium: 45, displaySmall: 36,
+      headlineLarge: 32, headlineMedium: 28, headlineSmall: 24,
+      titleLarge: 22, titleMedium: 16, titleSmall: 14,
+      bodyLarge: 16, bodyMedium: 14, bodySmall: 12,
+      labelLarge: 14, labelMedium: 12, labelSmall: 11,
+      weightLight: 300, weightRegular: 400, weightMedium: 500, weightBold: 700,
+      lineHeightTight: 1.2, lineHeightNormal: 1.5, lineHeightRelaxed: 1.75,
+    },
     tokens: {
       button: {
-        // Filled / high-emphasis (Material `filled`)
         filledBg: c.primary,
         filledText: c.onPrimary,
-        filledHoverBg: c.primaryContainer ?? c.primary,
-        filledPressedBg: c.primaryContainer ?? c.primary,
-        // Elevated (surface with elevation)
         elevatedBg: c.surfaceContainerHigh,
         elevatedText: c.onSurface,
-        elevatedHoverBg: c.surfaceContainerHighest,
-        // Tonal (Material `tonal`)
         tonalBg: c.secondaryContainer,
-        tonalText: c.onSecondary,
-        tonalHoverBg: c.secondaryContainer ?? c.secondary,
-        // Outlined
+        tonalText: c.onSecondaryContainer,
         outlinedBorder: c.outlineVariant ?? c.outline,
         outlinedText: c.primary,
-        outlinedHoverBorder: c.outlineVariant ?? c.outline,
-        // Text (low emphasis)
         textColor: c.primary,
-        textHoverColor: c.primary,
-        // Disabled
         disabledBg: c.surfaceContainerLow,
         disabledText: c.onSurfaceVariant,
-      },
-      card: {
-        background: c.surfaceContainer,
-        text: c.onSurface,
       },
       input: {
         background: c.surfaceContainerLow,
@@ -263,7 +218,6 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         focusBorder: c.primary,
       },
       list: {
-        background: 'transparent',
         itemText: c.onSurface,
         itemSubtextColor: c.onSurfaceVariant,
         divider: c.outlineVariant ?? c.outline,
@@ -274,21 +228,11 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
       modal: {
         background: c.surfaceContainerHigh,
         scrim: 'rgba(0,0,0,0.5)',
-        text: c.onSurface,
         headerBorder: c.outlineVariant ?? c.outline,
       },
       appbar: {
         background: c.surface,
-        text: c.onSurface,
         border: c.outlineVariant ?? c.outline,
-      },
-      link: {
-        text: c.primary,
-        hover: c.primary,
-      },
-      badge: {
-        background: c.primary,
-        text: c.onPrimary,
       },
       chip: {
         filledBg: c.secondaryContainer,
@@ -301,11 +245,6 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         disabledText: c.onSurfaceVariant,
         disabledBorder: c.outlineVariant ?? c.outline,
       },
-      slider: {
-        activeTrack: c.primary,
-        inactiveTrack: c.surfaceContainerHighest,
-        thumb: c.primary,
-      },
       sidebar: {
         background: c.surface,
         itemText: c.onSurface,
@@ -316,48 +255,12 @@ export const createLightTheme = (brand: Brand): ThemeValuesType => {
         width: 280,
       },
       elevation: {
-        level0: 0,
-        level1: 1,
-        level2: 3,
-        level3: 6,
-        level4: 8,
-        level5: 12,
+        level0: 0, level1: 1, level2: 3, level3: 6, level4: 8, level5: 12,
       },
       focusRing: {
         color: c.primary,
         width: 2,
         offset: 2,
-      },
-      typography: {
-        // M3 Display styles (largest)
-        displayLarge: 57,
-        displayMedium: 45,
-        displaySmall: 36,
-        // M3 Headline styles
-        headlineLarge: 32,
-        headlineMedium: 28,
-        headlineSmall: 24,
-        // M3 Title styles
-        titleLarge: 22,
-        titleMedium: 16,
-        titleSmall: 14,
-        // M3 Body styles
-        bodyLarge: 16,
-        bodyMedium: 14,
-        bodySmall: 12,
-        // M3 Label styles
-        labelLarge: 14,
-        labelMedium: 12,
-        labelSmall: 11,
-        // Font weights
-        weightLight: 300,
-        weightRegular: 400,
-        weightMedium: 500,
-        weightBold: 700,
-        // Line heights (multipliers)
-        lineHeightTight: 1.2,
-        lineHeightNormal: 1.5,
-        lineHeightRelaxed: 1.75,
       },
     },
   };
@@ -404,29 +307,28 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
     borderRadius: brand.borderRadius,
     shape: brand.shape,
     isDark: true,
+    typography: {
+      displayLarge: 57, displayMedium: 45, displaySmall: 36,
+      headlineLarge: 32, headlineMedium: 28, headlineSmall: 24,
+      titleLarge: 22, titleMedium: 16, titleSmall: 14,
+      bodyLarge: 16, bodyMedium: 14, bodySmall: 12,
+      labelLarge: 14, labelMedium: 12, labelSmall: 11,
+      weightLight: 300, weightRegular: 400, weightMedium: 500, weightBold: 700,
+      lineHeightTight: 1.2, lineHeightNormal: 1.5, lineHeightRelaxed: 1.75,
+    },
     tokens: {
       button: {
         filledBg: c.primary,
         filledText: c.onPrimary,
-        filledHoverBg: c.primaryContainer ?? c.primary,
-        filledPressedBg: c.primaryContainer ?? c.primary,
         elevatedBg: c.surfaceContainerHigh,
         elevatedText: c.onSurface,
-        elevatedHoverBg: c.surfaceContainerHighest,
         tonalBg: c.secondaryContainer,
-        tonalText: c.onSecondary,
-        tonalHoverBg: c.secondaryContainer ?? c.secondary,
+        tonalText: c.onSecondaryContainer,
         outlinedBorder: c.outlineVariant ?? c.outline,
         outlinedText: c.primary,
-        outlinedHoverBorder: c.outlineVariant ?? c.outline,
         textColor: c.primary,
-        textHoverColor: c.primary,
         disabledBg: c.surfaceContainerLow,
         disabledText: c.onSurfaceVariant,
-      },
-      card: {
-        background: c.surfaceContainer,
-        text: c.onSurface,
       },
       input: {
         background: c.surfaceContainerLow,
@@ -439,7 +341,6 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         focusBorder: c.primary,
       },
       list: {
-        background: 'transparent',
         itemText: c.onSurface,
         itemSubtextColor: c.onSurfaceVariant,
         divider: c.outlineVariant ?? c.outline,
@@ -450,21 +351,11 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
       modal: {
         background: c.surfaceContainerHigh,
         scrim: 'rgba(0,0,0,0.5)',
-        text: c.onSurface,
         headerBorder: c.outlineVariant ?? c.outline,
       },
       appbar: {
         background: c.surface,
-        text: c.onSurface,
         border: c.outlineVariant ?? c.outline,
-      },
-      link: {
-        text: c.primary,
-        hover: c.primary,
-      },
-      badge: {
-        background: c.primary,
-        text: c.onPrimary,
       },
       chip: {
         filledBg: c.secondaryContainer,
@@ -477,11 +368,6 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         disabledText: c.onSurfaceVariant,
         disabledBorder: c.outlineVariant ?? c.outline,
       },
-      slider: {
-        activeTrack: c.primary,
-        inactiveTrack: c.surfaceContainerHighest,
-        thumb: c.primary,
-      },
       sidebar: {
         background: c.surface,
         itemText: c.onSurface,
@@ -492,48 +378,12 @@ export const createDarkTheme = (brand: Brand): ThemeValuesType => {
         width: 280,
       },
       elevation: {
-        level0: 0,
-        level1: 1,
-        level2: 3,
-        level3: 6,
-        level4: 8,
-        level5: 12,
+        level0: 0, level1: 1, level2: 3, level3: 6, level4: 8, level5: 12,
       },
       focusRing: {
         color: c.primary,
         width: 2,
         offset: 2,
-      },
-      typography: {
-        // M3 Display styles (largest)
-        displayLarge: 57,
-        displayMedium: 45,
-        displaySmall: 36,
-        // M3 Headline styles
-        headlineLarge: 32,
-        headlineMedium: 28,
-        headlineSmall: 24,
-        // M3 Title styles
-        titleLarge: 22,
-        titleMedium: 16,
-        titleSmall: 14,
-        // M3 Body styles
-        bodyLarge: 16,
-        bodyMedium: 14,
-        bodySmall: 12,
-        // M3 Label styles
-        labelLarge: 14,
-        labelMedium: 12,
-        labelSmall: 11,
-        // Font weights
-        weightLight: 300,
-        weightRegular: 400,
-        weightMedium: 500,
-        weightBold: 700,
-        // Line heights (multipliers)
-        lineHeightTight: 1.2,
-        lineHeightNormal: 1.5,
-        lineHeightRelaxed: 1.75,
       },
     },
   };

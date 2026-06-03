@@ -147,7 +147,7 @@ export const Typography = forwardRef<Text, TypographyProps>(
     const theme = useTheme();
 
     const textStyle: TextStyle = useMemo(() => {
-      const tokens = theme.tokens.typography;
+      const tokens = theme.typography;
 
       // Resolve font size from variant
       const fontSize = (tokens as any)[variant] ?? tokens.bodyMedium;

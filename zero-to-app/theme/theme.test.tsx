@@ -17,8 +17,8 @@ const ThemeTestComponent = () => {
       <Text testID="surface">{values.surface}</Text>
       <Text testID="onSurface">{values.onSurface}</Text>
       <Text testID="buttonFilledBg">{values.tokens.button.filledBg}</Text>
-      <Text testID="cardBackground">{values.tokens.card.background}</Text>
-      <Text testID="typographyBodyMedium">{String(values.tokens.typography.bodyMedium)}</Text>
+      <Text testID="cardBackground">{values.surfaceContainer}</Text>
+      <Text testID="typographyBodyMedium">{String(values.typography.bodyMedium)}</Text>
       <Text testID="elevationLevel2">{String(values.tokens.elevation.level2)}</Text>
       <Text onPress={toggleTheme} testID="toggleTheme">Toggle</Text>
       <Text onPress={() => setMode('dark')} testID="setDark">Set Dark</Text>
@@ -30,13 +30,14 @@ const ThemeTestComponent = () => {
 // Test component for useTokens hook
 const TokensTestComponent = () => {
   const tokens = useTokens();
+  const theme = useTheme();
 
   return (
     <View>
       <Text testID="tokenButtonFilledBg">{tokens.button.filledBg}</Text>
-      <Text testID="tokenCardBackground">{tokens.card.background}</Text>
+      <Text testID="tokenCardBackground">{theme.surfaceContainer}</Text>
       <Text testID="tokenInputBorder">{tokens.input.border}</Text>
-      <Text testID="tokenTypographyHeadlineLarge">{String(tokens.typography.headlineLarge)}</Text>
+      <Text testID="tokenTypographyHeadlineLarge">{String(theme.typography.headlineLarge)}</Text>
       <Text testID="tokenElevationLevel3">{String(tokens.elevation.level3)}</Text>
       <Text testID="tokenFocusRingWidth">{String(tokens.focusRing.width)}</Text>
     </View>
@@ -285,14 +286,10 @@ describe('useTokens hook', () => {
     const tokens = result.current;
 
     expect(tokens).toHaveProperty('button');
-    expect(tokens).toHaveProperty('card');
     expect(tokens).toHaveProperty('input');
     expect(tokens).toHaveProperty('appbar');
-    expect(tokens).toHaveProperty('link');
-    expect(tokens).toHaveProperty('badge');
     expect(tokens).toHaveProperty('elevation');
     expect(tokens).toHaveProperty('focusRing');
-    expect(tokens).toHaveProperty('typography');
   });
 
   it('button tokens have all variants', () => {
@@ -322,8 +319,8 @@ describe('useTokens hook', () => {
   });
 
   it('typography tokens have M3 scale values', () => {
-    const { result } = renderHook(() => useTokens(), { wrapper });
-    const { typography } = result.current;
+    const { result } = renderHook(() => useTheme(), { wrapper });
+    const typography = result.current.typography;
 
     // Display sizes
     expect(typography.displayLarge).toBe(57);
@@ -400,7 +397,7 @@ describe('Theme Creation Functions', () => {
 
     // Same keys in nested token objects
     expect(Object.keys(lightTheme.tokens.button)).toEqual(Object.keys(darkTheme.tokens.button));
-    expect(Object.keys(lightTheme.tokens.typography)).toEqual(Object.keys(darkTheme.tokens.typography));
+    expect(Object.keys(lightTheme.typography)).toEqual(Object.keys(darkTheme.typography));
   });
 
   it('typography values are consistent between light and dark themes', () => {
@@ -408,8 +405,8 @@ describe('Theme Creation Functions', () => {
     const darkTheme = createDarkTheme(defaultBrand);
 
     // Typography sizes should not change between themes
-    expect(lightTheme.tokens.typography.bodyMedium).toBe(darkTheme.tokens.typography.bodyMedium);
-    expect(lightTheme.tokens.typography.headlineLarge).toBe(darkTheme.tokens.typography.headlineLarge);
+    expect(lightTheme.typography.bodyMedium).toBe(darkTheme.typography.bodyMedium);
+    expect(lightTheme.typography.headlineLarge).toBe(darkTheme.typography.headlineLarge);
   });
 
   it('elevation values are consistent between light and dark themes', () => {

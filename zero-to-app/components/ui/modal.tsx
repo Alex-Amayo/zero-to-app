@@ -47,6 +47,7 @@ const Modal = ({
 }: ModalProps) => {
   const theme = useTheme();
   const t = theme.tokens.modal;
+  const modalText = theme.onSurface;
   const { width } = useDimensions();
   const isDialog = width >= breakpoints.medium;
 
@@ -138,7 +139,7 @@ const Modal = ({
           {/* Header */}
           {(title !== undefined) && (
             <View style={[styles.header, { borderBottomColor: t.headerBorder, borderBottomWidth: 1 }]}>
-              <Typography variant="titleMedium" weight="medium" style={{ color: t.text, flex: 1 }}>
+              <Typography variant="titleMedium" weight="medium" style={{ color: modalText, flex: 1 }}>
                 {title}
               </Typography>
               <Pressable
@@ -147,7 +148,7 @@ const Modal = ({
                 accessibilityLabel="Close"
                 accessibilityRole="button"
               >
-                {renderIcon({ name: 'x' }, 'Feather', 20, t.text)}
+                {renderIcon({ name: 'x' }, 'Feather', 20, modalText)}
               </Pressable>
             </View>
           )}

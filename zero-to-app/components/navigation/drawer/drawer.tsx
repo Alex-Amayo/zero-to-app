@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Pressable, ScrollView, type StyleProp, type ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming, useSharedValue } from 'react-native-reanimated';
 import { useThemeContext } from '../../../theme';
+import { platformShadow } from '../../shared/utils';
 
 export interface DrawerProps {
   /** Whether the drawer is open */
@@ -78,11 +79,8 @@ export const Drawer: React.FC<DrawerProps> = ({
         style={[
           styles.drawer,
           side === 'left' ? styles.drawerLeft : styles.drawerRight,
-          {
-            width,
-            backgroundColor: tokens.background,
-            shadowColor: theme.shadow,
-          },
+          { width, backgroundColor: tokens.background },
+          platformShadow(theme.shadow, 2, 0, 0.15, 8),
           animatedDrawerStyle,
           style,
         ]}
@@ -117,9 +115,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     bottom: 0,
-    shadowOffset: { width: 2, height: 0 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
   },
   drawerLeft: {
     left: 0,

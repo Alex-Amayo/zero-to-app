@@ -14,7 +14,7 @@ import { Typography } from './typography';
 import { useTheme } from '../../theme';
 import { renderIcon, type IconLibrary } from '../../icons';
 import type { InteractiveComponentProps } from '../shared/types';
-import { blurOnWeb } from '../shared/utils';
+import { blurOnWeb, platformShadow } from '../shared/utils';
 import type { IconConfig } from './button';
 
 // 2. TYPES
@@ -162,13 +162,8 @@ const FAB = forwardRef<View, FABProps>(({
 
     // Elevation shadow
     if (!disabled && elevation > 0) {
-      baseStyle.push({
-        shadowColor: theme.shadow,
-        shadowOffset: { width: 0, height: Math.max(1, Math.floor(elevation / 2)) },
-        shadowOpacity: 0.08,
-        shadowRadius: Math.max(1, Math.floor(elevation / 2)),
-        elevation: elevation,
-      });
+      const h = Math.max(1, Math.floor(elevation / 2));
+      baseStyle.push(platformShadow(theme.shadow, 0, h, 0.08, h, elevation));
     }
 
     // Hover/press transforms

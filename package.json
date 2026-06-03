@@ -37,6 +37,9 @@
       "react-native": "0.85.3",
       "react-native-reanimated": "4.3.1",
       "react-native-safe-area-context": "5.7.0"
+    },
+    "patchedDependencies": {
+      "@expo/dom-webview@0.2.8": "patches/@expo__dom-webview@0.2.8.patch"
     }
   },
   "devDependencies": {

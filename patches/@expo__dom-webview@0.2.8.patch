@@ -1,0 +1,12 @@
+diff --git a/ios/DomWebView.swift b/ios/DomWebView.swift
+index b14c5b7c8a1cffd11f096cc36dbd41dbdae49697..d7ee5401753eebe65c303c5157c075c441850022 100644
+--- a/ios/DomWebView.swift
++++ b/ios/DomWebView.swift
+@@ -1,6 +1,7 @@
+ // Copyright 2015-present 650 Industries. All rights reserved.
+ 
+ import ExpoModulesCore
++import React
+ import WebKit
+ 
+ internal final class DomWebView: ExpoView, UIScrollViewDelegate, WKUIDelegate, WKScriptMessageHandler {

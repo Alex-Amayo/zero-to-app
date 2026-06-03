@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Typography, useTheme, renderIcon } from 'zero-to-app';
+import { Typography, useTheme, renderIcon, SegmentedControl } from 'zero-to-app';
 import { Highlight, themes } from 'prism-react-renderer';
 import * as Clipboard from 'expo-clipboard';
+
+const TAB_OPTIONS = [
+  { value: 'preview', label: 'Preview' },
+  { value: 'code', label: 'Code' },
+];
 
 interface DemoSectionProps {
   title: string;
@@ -50,30 +55,14 @@ export function DemoSection({ title, description, children, code }: DemoSectionP
       )}
 
       <View style={[styles.card, { borderRadius: shape.surfaceBorderRadius, borderColor }]}>
-        {/* Pill segment tab bar */}
+        {/* Segmented tab bar */}
         {code && (
           <View style={[styles.tabBar, { borderBottomColor: borderColor, backgroundColor: surfaceContainerLow }]}>
-            <View style={[styles.segmentTrack, { backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', borderRadius: 20 }]}>
-              {(['preview', 'code'] as Tab[]).map((t) => (
-                <Pressable
-                  key={t}
-                  onPress={() => setTab(t)}
-                  style={[
-                    styles.segmentPill,
-                    { borderRadius: 18 },
-                    tab === t && { backgroundColor: primary },
-                  ]}
-                >
-                  <Typography
-                    variant="labelSmall"
-                    weight={tab === t ? 'medium' : 'regular'}
-                    color={tab === t ? onPrimary : onSurfaceVariant}
-                  >
-                    {t === 'preview' ? 'Preview' : 'Code'}
-                  </Typography>
-                </Pressable>
-              ))}
-            </View>
+            <SegmentedControl
+              options={TAB_OPTIONS}
+              value={tab}
+              onChange={(v) => setTab(v as Tab)}
+            />
           </View>
         )}
 
@@ -169,20 +158,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   tabBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderBottomWidth: 1,
-  },
-  segmentTrack: {
-    flexDirection: 'row',
-    padding: 2,
-    gap: 2,
-  },
-  segmentPill: {
-    paddingVertical: 5,
-    paddingHorizontal: 14,
   },
   preview: {
     minHeight: 80,

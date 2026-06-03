@@ -68,3 +68,7 @@ export type { ModalProps } from './modal';
 // Switch
 export { Switch } from './switch';
 export type { SwitchProps } from './switch';
+
+// SegmentedControl
+export { SegmentedControl } from './segmented-control';
+export type { SegmentedControlProps, SegmentedControlOption } from './segmented-control';

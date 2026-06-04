@@ -122,8 +122,9 @@ export default function HomeScreen() {
     ? (viewportWidth - CONTAINER_MAX_WIDTH) / 2 + spacing.xl
     : spacing.xl;
 
-  // Each full section targets ≈90 % of the viewport height on web.
-  const sectionMinHeight = Platform.OS === 'web' ? viewportHeight * 0.7 : undefined;
+  // Landing page section vertical padding — content determines height, not viewport.
+  // 96px is the standard generous section padding used by Vercel, Linear, shadcn etc.
+  const SECTION_PAD = 96;
   const APPBAR_HEIGHT = 64;
 
   const logoSource = isDark
@@ -135,7 +136,7 @@ export default function HomeScreen() {
 
       {/* ── Hero ── */}
       {Platform.OS === 'web' ? (
-        <View style={[styles.heroWeb, { minHeight: viewportHeight - APPBAR_HEIGHT }]}>
+        <View style={[styles.heroWeb, { height: viewportHeight - APPBAR_HEIGHT }]}>
 
           {/* Left copy — left edge matches Container's computed inset */}
           <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: spacing.xl, paddingVertical: spacing.xxxl }]}>
@@ -224,56 +225,56 @@ export default function HomeScreen() {
                 </View>
               </ThemedView>
 
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.xs }]}>
-                <Typography variant="titleSmall" weight="bold">Quick access</Typography>
+              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden' }]}>
+                <Typography variant="titleSmall" weight="bold" style={{ paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.xs }}>Quick access</Typography>
                 {([
-                  { icon: 'home', label: 'Home', sub: 'Main workspace' },
-                  { icon: 'briefcase', label: 'Work', sub: '3 active projects' },
-                  { icon: 'user', label: 'Profile', sub: 'Alex Johnson' },
-                  { icon: 'settings', label: 'Settings', sub: 'Preferences' },
-                ] as const).map((item, i) => (
-                  <View key={item.icon}>
-                    <View style={[styles.row, { alignItems: 'center', gap: spacing.sm, paddingVertical: spacing.xs }]}>
-                      <View style={{ width: 32, height: 32, borderRadius: borderRadius.sm, backgroundColor: theme.primaryContainer, alignItems: 'center', justifyContent: 'center' }}>
+                  { icon: 'home' as const, label: 'Home', sub: 'Main workspace' },
+                  { icon: 'briefcase' as const, label: 'Work', sub: '3 active projects' },
+                  { icon: 'user' as const, label: 'Profile', sub: 'Alex Johnson' },
+                  { icon: 'settings' as const, label: 'Settings', sub: 'Preferences' },
+                ]).map((item) => (
+                  <ListItem
+                    key={item.icon}
+                    title={item.label}
+                    subtitle={item.sub}
+                    leading={
+                      <ThemedView variant="surfaceContainer" style={{ width: 32, height: 32, borderRadius: borderRadius.sm, alignItems: 'center', justifyContent: 'center' }}>
                         {renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.primary)}
-                      </View>
-                      <View style={{ flex: 1 }}>
-                        <Typography variant="labelMedium" weight="medium">{item.label}</Typography>
-                        <Typography variant="labelSmall" color={theme.onSurfaceVariant}>{item.sub}</Typography>
-                      </View>
-                      {renderIcon({ name: 'chevron-right', library: 'Feather' }, 'Feather', 14, theme.outlineVariant)}
-                    </View>
-                    {i < 3 && <Divider />}
-                  </View>
+                      </ThemedView>
+                    }
+                    trailing={renderIcon({ name: 'chevron-right', library: 'Feather' }, 'Feather', 14, theme.outlineVariant)}
+                    onPress={() => {}}
+                  />
                 ))}
               </ThemedView>
             </View>
 
             {/* Row 3 — intentionally taller than the panel; clipped at bottom */}
             <View style={[styles.row, { gap: spacing.sm }]}>
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, minHeight: 340 }]}>
-                <View style={[styles.row, { alignItems: 'center' }]}>
-                  {renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 16, theme.primary)}
-                  <Typography variant="titleSmall" weight="bold" style={{ flex: 1, marginLeft: spacing.sm }}>Notifications</Typography>
-                  <Switch value onValueChange={() => {}} />
-                </View>
+              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, minHeight: 340, overflow: 'hidden' }]}>
+                <ListItem
+                  title="Notifications"
+                  leading={renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 16, theme.primary)}
+                  trailing={<Switch value onValueChange={() => {}} />}
+                />
                 <Divider />
                 {([
-                  { icon: 'message-circle', label: 'Messages', value: true },
-                  { icon: 'refresh-cw', label: 'App updates', value: true },
-                  { icon: 'clock', label: 'Reminders', value: false },
-                  { icon: 'tag', label: 'Promotions', value: false },
-                  { icon: 'star', label: 'Highlights', value: true },
-                ] as const).map((item) => (
-                  <View key={item.label} style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                    {renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
-                    <Typography variant="bodySmall" style={{ flex: 1 }}>{item.label}</Typography>
-                    <Switch value={item.value} onValueChange={() => {}} />
-                  </View>
+                  { icon: 'message-circle' as const, label: 'Messages', value: true },
+                  { icon: 'refresh-cw' as const, label: 'App updates', value: true },
+                  { icon: 'clock' as const, label: 'Reminders', value: false },
+                  { icon: 'tag' as const, label: 'Promotions', value: false },
+                  { icon: 'star' as const, label: 'Highlights', value: true },
+                ]).map((item) => (
+                  <ListItem
+                    key={item.label}
+                    title={item.label}
+                    leading={renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
+                    trailing={<Switch value={item.value} onValueChange={() => {}} />}
+                  />
                 ))}
               </ThemedView>
 
-              <View style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, backgroundColor: theme.primary, minHeight: 340 }]}>
+              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, minHeight: 340 }]}>
                 <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
                   {renderIcon({ name: 'activity', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
                   <Typography variant="labelSmall" color={theme.onPrimary}>Performance</Typography>
@@ -296,7 +297,7 @@ export default function HomeScreen() {
                     </View>
                   ))}
                 </View>
-              </View>
+              </ThemedView>
             </View>
           </View>
         </View>
@@ -323,7 +324,7 @@ export default function HomeScreen() {
       )}
 
       {/* ── Feature cards ── */}
-      <Container style={{ paddingVertical: spacing.xxl, minHeight: sectionMinHeight, justifyContent: 'center' }}>
+      <Container style={{ paddingVertical: SECTION_PAD }}>
         <View style={{ gap: spacing.xl }}>
           <View style={{ gap: spacing.sm }}>
             <Typography variant="headlineMedium" weight="bold">What&apos;s inside</Typography>
@@ -356,7 +357,7 @@ export default function HomeScreen() {
       </Container>
 
       {/* ── Callout ── */}
-      <Container style={{ paddingVertical: spacing.xxl, minHeight: sectionMinHeight, justifyContent: 'center' }}>
+      <Container style={{ paddingVertical: SECTION_PAD }}>
         <ThemedView variant="primary" style={{ borderRadius: borderRadius.lg, padding: spacing.xxl, gap: spacing.md }}>
           <Typography variant="headlineSmall" weight="bold" color={theme.onPrimary}>
             Built with zero-to-app
@@ -369,7 +370,7 @@ export default function HomeScreen() {
       </Container>
 
       {/* ── GitHub contributions ── */}
-      <Container style={{ paddingVertical: spacing.xxl }}>
+      <Container style={{ paddingVertical: 64 }}>
         <View style={{ borderTopWidth: 1, borderTopColor: theme.outlineVariant, paddingTop: spacing.xxl, gap: spacing.xl, alignItems: 'center' }}>
           <Typography variant="labelMedium" color={theme.outlineVariant} align="center">
             OPEN SOURCE · MIT LICENSE

@@ -12,6 +12,8 @@ import {
   Switch,
   Slider,
   SegmentedControl,
+  Avatar,
+  ListItem,
   renderIcon,
 } from 'zero-to-app';
 import { router } from 'expo-router';
@@ -121,7 +123,7 @@ export default function HomeScreen() {
     : spacing.xl;
 
   // Each full section targets ≈90 % of the viewport height on web.
-  const sectionMinHeight = Platform.OS === 'web' ? viewportHeight * 0.9 : undefined;
+  const sectionMinHeight = Platform.OS === 'web' ? viewportHeight * 0.7 : undefined;
   const APPBAR_HEIGHT = 64;
 
   const logoSource = isDark
@@ -179,7 +181,7 @@ export default function HomeScreen() {
             <View style={[styles.row, { gap: spacing.sm }]}>
               <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
                 <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                  <Image source={logoSource} style={[styles.profileImage, { borderRadius: borderRadius.full }]} resizeMode="cover" />
+                  <Avatar name="Alex Johnson" size="md" />
                   <View style={{ flex: 1 }}>
                     <Typography variant="titleSmall" weight="bold">Alex Johnson</Typography>
                     <Typography variant="labelSmall" color={theme.onSurfaceVariant}>Product Designer · SF</Typography>
@@ -209,7 +211,7 @@ export default function HomeScreen() {
 
             {/* Row 2 */}
             <View style={[styles.row, { gap: spacing.sm }]}>
-              <View style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, backgroundColor: theme.primary }]}>
+              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
                 <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
                   {renderIcon({ name: 'thermometer', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
                   <Typography variant="labelSmall" color={theme.onPrimary}>Temperature</Typography>
@@ -220,7 +222,7 @@ export default function HomeScreen() {
                   <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>16°</Typography>
                   <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>32°</Typography>
                 </View>
-              </View>
+              </ThemedView>
 
               <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.xs }]}>
                 <Typography variant="titleSmall" weight="bold">Quick access</Typography>

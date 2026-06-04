@@ -141,8 +141,8 @@ export default function HomeScreen() {
         <View style={[styles.heroWeb, { height: viewportHeight - APPBAR_HEIGHT }]}>
 
           {/* Left copy — left edge matches Container's computed inset */}
-          <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: spacing.xl, paddingVertical: spacing.xxxl }]}>
-            <View style={{ gap: spacing.xl, maxWidth: 480 }}>
+          <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: 64, paddingVertical: spacing.xxxl }]}>
+            <View style={{ gap: spacing.xl, maxWidth: 420 }}>
               <View style={{ gap: spacing.md }}>
                 <Typography variant="displaySmall" weight="bold">
                   The Expo UI library{'\n'}built for the AI era
@@ -348,6 +348,56 @@ export default function HomeScreen() {
       {/* ─────────────────────────────────────────────────────────────────── */}
       <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
 
+      {/* ── GitHub / npm stats — compact strip, centred below hero ── */}
+      <Container style={{ paddingVertical: spacing.xxxl }}>
+        <View style={{ gap: spacing.lg, alignItems: 'center' }}>
+          <Typography variant="labelSmall" color={theme.outlineVariant} align="center">
+            OPEN SOURCE · MIT LICENSE
+          </Typography>
+          <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
+            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                <GitHubIcon size={14} color={theme.onSurfaceVariant} isDark={isDark} />
+                <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>Stars</Typography>
+            </View>
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                {Platform.OS === 'web' ? (
+                  <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 16, height: 16 }} />
+                ) : (
+                  renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)
+                )}
+                <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>Downloads / wk</Typography>
+            </View>
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
+                <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>Components</Typography>
+            </View>
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
+                {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 14, theme.onSurfaceVariant)}
+                {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>iOS · Android · Web</Typography>
+            </View>
+          </View>
+        </View>
+      </Container>
+
+      {/* ─────────────────────────────────────────────────────────────────── */}
+      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
+
       {/* ── Features + Callout (one section) ── */}
       <Container style={{ height: SECTION_HEIGHT, paddingVertical: SECTION_PAD, justifyContent: 'center' }}>
         <View style={{ gap: spacing.xxl }}>
@@ -390,57 +440,6 @@ export default function HomeScreen() {
             </Typography>
             <Button title="Explore the components" variant="tonal" icon={{ name: 'arrow-right' }} onPress={() => router.push('/explore')} />
           </ThemedView>
-        </View>
-      </Container>
-
-      {/* ─────────────────────────────────────────────────────────────────── */}
-      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
-
-      {/* ── GitHub contributions ── */}
-      <Container style={{ height: SECTION_HEIGHT, paddingVertical: 64, justifyContent: 'center' }}>
-        <View style={{ gap: spacing.xl, alignItems: 'center' }}>
-          <Typography variant="labelMedium" color={theme.outlineVariant} align="center">
-            OPEN SOURCE · MIT LICENSE
-          </Typography>
-          <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
-            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                <GitHubIcon size={16} color={theme.onSurfaceVariant} isDark={isDark} />
-                <Typography variant="headlineSmall" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>Stars</Typography>
-            </View>
-            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                {Platform.OS === 'web' ? (
-                  <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 20, height: 20 }} />
-                ) : (
-                  renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 16, theme.onSurfaceVariant)
-                )}
-                <Typography variant="headlineSmall" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>Weekly downloads</Typography>
-            </View>
-            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 16, theme.onSurfaceVariant)}
-                <Typography variant="headlineSmall" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>Components</Typography>
-            </View>
-            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 15, theme.onSurfaceVariant)}
-                {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 16, theme.onSurfaceVariant)}
-                {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 15, theme.onSurfaceVariant)}
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>iOS · Android · Web</Typography>
-            </View>
-          </View>
-          <Button title="Star on GitHub" variant="outlined" icon={{ name: 'star', library: 'Feather' }} iconPosition="left" onPress={() => Linking.openURL('https://github.com/Alex-Amayo/zero-to-app')} />
         </View>
       </Container>
 

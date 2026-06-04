@@ -140,7 +140,7 @@ export default function HomeScreen() {
       {Platform.OS === 'web' ? (
         <View>
           {/* Two-panel row — full width, showcase touches right viewport edge */}
-          <View style={styles.heroWeb}>
+          <View style={[styles.heroWeb, {paddingBottom: spacing.xxl}]}>
 
           {/* Left copy — left edge matches Container's computed inset */}
           <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: 64, paddingVertical: spacing.xxxl }]}>
@@ -335,39 +335,39 @@ export default function HomeScreen() {
               <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
                 <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
                   <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                    <GitHubIcon size={14} color={theme.onSurfaceVariant} isDark={isDark} />
-                    <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
+                    <GitHubIcon size={22} color={theme.onSurfaceVariant} isDark={isDark} />
+                    <Typography variant="headlineMedium" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
                   </View>
-                  <Typography variant="labelSmall" color={theme.outlineVariant}>Stars</Typography>
+                  <Typography variant="labelMedium" color={theme.outlineVariant}>Stars</Typography>
                 </View>
                 <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
                 <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
                   <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
                     {Platform.OS === 'web' ? (
-                      <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 16, height: 16 }} />
+                      <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 22, height: 22 }} />
                     ) : (
-                      renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)
+                      renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)
                     )}
-                    <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
+                    <Typography variant="headlineMedium" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
                   </View>
-                  <Typography variant="labelSmall" color={theme.outlineVariant}>Downloads / wk</Typography>
+                  <Typography variant="labelMedium" color={theme.outlineVariant}>Downloads / wk</Typography>
                 </View>
                 <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
                 <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
                   <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                    {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
-                    <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
+                    {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
+                    <Typography variant="headlineMedium" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
                   </View>
-                  <Typography variant="labelSmall" color={theme.outlineVariant}>Components</Typography>
+                  <Typography variant="labelMedium" color={theme.outlineVariant}>Components</Typography>
                 </View>
                 <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
                 <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
                   <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                    {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
-                    {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 14, theme.onSurfaceVariant)}
-                    {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
+                    {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
+                    {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 20, theme.onSurfaceVariant)}
+                    {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
                   </View>
-                  <Typography variant="labelSmall" color={theme.outlineVariant}>iOS · Android · Web</Typography>
+                  <Typography variant="labelMedium" color={theme.outlineVariant}>iOS · Android · Web</Typography>
                 </View>
               </View>
             </View>
@@ -481,6 +481,6 @@ const styles = StyleSheet.create({
   iconWrap: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
   statRow: { flexDirection: 'row', alignItems: 'center' },
   statTile: { minWidth: 80 },
-  statDivider: { width: 1, height: 40, opacity: 0.4 },
+  statDivider: { width: 1, height: 56, opacity: 0.4 },
   footer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
 });

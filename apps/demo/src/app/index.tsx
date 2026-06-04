@@ -171,8 +171,9 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          {/* Right showcase — clipping overflow is intentional (cards extend below fold) */}
+          {/* Right showcase — 80% section height, overflow clipped intentionally */}
           <View style={[styles.heroRight, {
+            height: (viewportHeight - APPBAR_HEIGHT) * 0.8,
             paddingTop: spacing.xxl,
             paddingHorizontal: spacing.lg,
             gap: spacing.sm,

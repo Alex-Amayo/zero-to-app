@@ -465,8 +465,8 @@ const styles = StyleSheet.create({
   logo: { width: 64, height: 64 },
   // Web hero — heroLeft uses dynamic paddingLeft computed inline
   heroWeb: { flexDirection: 'row', alignItems: 'stretch' },
-  heroLeft: { flex: 1, justifyContent: 'center' },
-  heroRight: { flex: 1 },
+  heroLeft: { width: '50%', justifyContent: 'center' },
+  heroRight: { width: '50%' },
   demoCard: { flex: 1 },
   progressTrack: { height: 3, width: '100%' },
   progressFill: { height: 3 },

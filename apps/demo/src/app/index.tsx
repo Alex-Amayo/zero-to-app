@@ -215,32 +215,35 @@ export default function HomeScreen() {
 
             {/* Row 2 */}
             <View style={[styles.row, { gap: spacing.sm }]}>
-              {/* Music player — compact horizontal layout */}
-              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
-                {/* Art + info side by side */}
-                <View style={[styles.row, { gap: spacing.md, alignItems: 'center' }]}>
-                  <Image
-                    source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=120&h=120&fit=crop' }}
-                    style={{ width: 64, height: 64, borderRadius: borderRadius.sm }}
-                    resizeMode="cover"
-                  />
-                  <View style={{ flex: 1, gap: 2 }}>
-                    <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
-                    <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave · 3:42</Typography>
+              {/* Music player */}
+              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden', gap: spacing.sm }]}>
+                {/* Full-width album art at controlled height */}
+                <Image
+                  source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=200&fit=crop' }}
+                  style={{ width: '100%', height: 120 }}
+                  resizeMode="cover"
+                />
+                <View style={{ paddingHorizontal: spacing.sm, paddingBottom: spacing.sm, gap: spacing.sm }}>
+                  {/* Track info */}
+                  <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                    <View style={{ flex: 1, gap: 2 }}>
+                      <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
+                      <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave · 3:42</Typography>
+                    </View>
+                    {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 15, theme.onPrimary)}
                   </View>
-                  {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
-                </View>
-                {/* Progress */}
-                <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
-                  <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 1 }]} />
-                </View>
-                {/* Controls */}
-                <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.xl }]}>
-                  {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 18, theme.onPrimary)}
-                  <ThemedView variant="surface" style={{ width: 40, height: 40, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
-                    {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 16, theme.primary)}
-                  </ThemedView>
-                  {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 18, theme.onPrimary)}
+                  {/* Progress */}
+                  <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
+                    <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 1 }]} />
+                  </View>
+                  {/* Controls */}
+                  <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.lg }]}>
+                    {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
+                    <ThemedView variant="surface" style={{ width: 36, height: 36, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
+                      {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 15, theme.primary)}
+                    </ThemedView>
+                    {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
+                  </View>
                 </View>
               </ThemedView>
 
@@ -470,7 +473,7 @@ const styles = StyleSheet.create({
   heroWeb: { flexDirection: 'row', alignItems: 'stretch' },
   heroLeft: { width: '50%', justifyContent: 'center' },
   heroRight: { width: '50%' },
-  demoCard: { flex: 1 },
+  demoCard: { flex: 1, minWidth: 0 },
   progressTrack: { height: 3, width: '100%' },
   progressFill: { height: 3 },
   profileImage: { width: 56, height: 56 },

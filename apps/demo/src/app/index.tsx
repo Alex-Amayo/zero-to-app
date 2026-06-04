@@ -139,8 +139,8 @@ export default function HomeScreen() {
       {/* ── Section 1: Hero + stats ── */}
       {Platform.OS === 'web' ? (
         <View>
-          {/* Two-panel row — max-width so it doesn't spread too wide */}
-          <View style={[styles.heroWeb, { maxWidth: 1400, alignSelf: 'center', width: '100%' }]}>
+          {/* Two-panel row — full width, showcase touches right viewport edge */}
+          <View style={styles.heroWeb}>
 
           {/* Left copy — left edge matches Container's computed inset */}
           <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: 64, paddingVertical: spacing.xxxl }]}>

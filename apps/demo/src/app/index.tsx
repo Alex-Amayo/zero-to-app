@@ -50,19 +50,412 @@ function useNpmDownloads() {
   return downloads;
 }
 
-// ─── GitHub icon — svgl on web, Feather fallback on native ───────────────────
+// ─── GitHub icon ──────────────────────────────────────────────────────────────
 
-function GitHubIcon({ size, color, isDark }: { size: number; color: string; isDark: boolean }) {
-  if (Platform.OS === 'web') {
-    const filterStyle = isDark ? { filter: 'invert(1)' } as any : {};
-    return (
-      <Image
-        source={{ uri: 'https://svgl.app/library/github.svg' }}
-        style={[{ width: size, height: size }, filterStyle]}
-      />
-    );
-  }
+function GitHubIcon({ size, color }: { size: number; color: string }) {
   return <>{renderIcon({ name: 'github', library: 'Feather' }, 'Feather', size, color)}</>;
+}
+
+// ─── Platform badges ──────────────────────────────────────────────────────────
+
+const PLATFORMS = [
+  { icon: { name: 'smartphone', library: 'Feather' as const }, label: 'iOS' },
+  { icon: { name: 'android', library: 'MaterialIcons' as const }, label: 'Android' },
+  { icon: { name: 'globe', library: 'Feather' as const }, label: 'Web' },
+];
+
+function PlatformBadges({ theme }: { theme: ReturnType<typeof useTheme> }) {
+  const { spacing } = theme;
+  return (
+    <View style={{ flexDirection: 'row', gap: spacing.xl }}>
+      {PLATFORMS.map(({ icon, label }) => (
+        <View key={label} style={{ alignItems: 'center', gap: spacing.sm }}>
+          {renderIcon(icon, icon.library, 30, theme.onSurfaceVariant)}
+          <Typography variant="labelLarge" color={theme.onSurfaceVariant}>{label}</Typography>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+// ─── Hero — narrow ────────────────────────────────────────────────────────────
+
+function HeroNarrow({
+  theme,
+  isDark,
+  toggleTheme,
+}: {
+  theme: ReturnType<typeof useTheme>;
+  isDark: boolean;
+  toggleTheme: () => void;
+}) {
+  const { spacing, borderRadius } = theme;
+  const logoSource = isDark
+    ? require('../../assets/images/rocket_logo_white.png')
+    : require('../../assets/images/rocket_logo_black.png');
+
+  return (
+    <SafeAreaView style={{ paddingTop: spacing.xxxl, paddingBottom: spacing.xxl, gap: spacing.xl }}>
+      {/* Copy */}
+      <View style={[styles.hero, { paddingHorizontal: spacing.xl, gap: spacing.xl }]}>
+        <Image source={logoSource} style={styles.logo} resizeMode="contain" />
+        <View style={[styles.centered, { gap: spacing.md }]}>
+          <Typography variant="displaySmall" weight="bold" align="center">
+            The React Native UI library{'\n'}built for the AI era
+          </Typography>
+          <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
+            Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills.
+          </Typography>
+        </View>
+        <PlatformBadges theme={theme} />
+        <View style={[styles.ctaRow, { gap: spacing.md }]}>
+          <Button title="Get Started" variant="filled" icon={{ name: 'arrow-right' }} onPress={() => router.push('/explore')} />
+          <Button title={isDark ? 'Light mode' : 'Dark mode'} variant="outlined" icon={{ name: isDark ? 'sun' : 'moon' }} onPress={toggleTheme} />
+        </View>
+      </View>
+
+      {/* Showcase — two-column card grid clipped at the bottom */}
+      <View style={{
+        marginHorizontal: spacing.xl,
+        backgroundColor: theme.primaryContainer,
+        borderRadius: borderRadius.xl,
+        overflow: 'hidden',
+        padding: spacing.md,
+        gap: spacing.sm,
+        maxHeight: 460,
+      }}>
+        {/* Row 1 */}
+        <View style={[styles.row, { gap: spacing.sm }]}>
+          <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
+            <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+              <Avatar name="Alex Johnson" size="md" />
+              <View style={{ flex: 1 }}>
+                <Typography variant="titleSmall" weight="bold">Alex Johnson</Typography>
+                <Typography variant="labelSmall" color={theme.onSurfaceVariant}>Product Designer · SF</Typography>
+              </View>
+            </View>
+            <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Building cross-platform apps with M3 design and AI tooling.</Typography>
+            <View style={[styles.row, { gap: spacing.xs }]}>
+              <Button title="Follow" variant="filled" onPress={() => {}} />
+              <Button title="Message" variant="tonal" onPress={() => {}} />
+            </View>
+          </ThemedView>
+
+          <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
+            <Typography variant="titleSmall" weight="bold">Schedule</Typography>
+            <SegmentedControl options={[{ label: 'Day', value: 'day' }, { label: 'Week', value: 'week' }, { label: 'Month', value: 'month' }]} value="week" onChange={() => {}} />
+            <View style={{ gap: spacing.xs }}>
+              <Typography variant="labelMedium" weight="medium">This week</Typography>
+              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Mon 3 – Sun 9 June · 4 events</Typography>
+            </View>
+            <View style={[styles.row, { gap: spacing.xs, flexWrap: 'wrap' }]}>
+              <Chip label="Design" variant="filled" selected onPress={() => {}} />
+              <Chip label="Dev" variant="outlined" onPress={() => {}} />
+              <Chip label="Review" variant="outlined" onPress={() => {}} />
+            </View>
+          </ThemedView>
+        </View>
+
+        {/* Row 2 */}
+        <View style={[styles.row, { gap: spacing.sm }]}>
+          <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden', gap: spacing.sm }]}>
+            <Image
+              source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=200&fit=crop' }}
+              style={{ width: '100%', height: 100 }}
+              resizeMode="cover"
+            />
+            <View style={{ paddingHorizontal: spacing.sm, paddingBottom: spacing.sm, gap: spacing.sm }}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                <View style={{ flex: 1, gap: 2 }}>
+                  <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
+                  <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave · 3:42</Typography>
+                </View>
+                {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 14, theme.onPrimary)}
+              </View>
+              <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
+                <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 1 }]} />
+              </View>
+              <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.lg }]}>
+                {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 14, theme.onPrimary)}
+                <ThemedView variant="surface" style={{ width: 32, height: 32, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
+                  {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 13, theme.primary)}
+                </ThemedView>
+                {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 14, theme.onPrimary)}
+              </View>
+            </View>
+          </ThemedView>
+
+          <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden' }]}>
+            <Typography variant="titleSmall" weight="bold" style={{ paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.xs }}>Quick access</Typography>
+            {([
+              { icon: 'home' as const, label: 'Home', sub: 'Main workspace' },
+              { icon: 'briefcase' as const, label: 'Work', sub: '3 active projects' },
+              { icon: 'user' as const, label: 'Profile', sub: 'Alex Johnson' },
+            ]).map((item) => (
+              <ListItem
+                key={item.icon}
+                title={item.label}
+                subtitle={item.sub}
+                leading={
+                  <ThemedView variant="surfaceContainer" style={{ width: 32, height: 32, borderRadius: borderRadius.sm, alignItems: 'center', justifyContent: 'center' }}>
+                    {renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.primary)}
+                  </ThemedView>
+                }
+                trailing={renderIcon({ name: 'chevron-right', library: 'Feather' }, 'Feather', 14, theme.outlineVariant)}
+                onPress={() => {}}
+              />
+            ))}
+          </ThemedView>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+// ─── Hero — wide ──────────────────────────────────────────────────────────────
+
+const APPBAR_HEIGHT = 64;
+
+type HeroWideProps = {
+  theme: ReturnType<typeof useTheme>;
+  isDark: boolean;
+  stars: string | null;
+  downloads: string | null;
+  viewportWidth: number;
+  viewportHeight: number;
+  containerLeftInset: number;
+  toggleTheme: () => void;
+};
+
+function HeroWide({
+  theme,
+  isDark,
+  stars,
+  downloads,
+  viewportWidth,
+  viewportHeight,
+  containerLeftInset,
+  toggleTheme,
+}: HeroWideProps) {
+  const { spacing, borderRadius } = theme;
+
+  return (
+    <View>
+      {/* Two-panel row — full width, showcase touches right viewport edge */}
+      <View style={[styles.heroWeb, { paddingBottom: spacing.xxl }]}>
+
+        {/* Left copy — left edge matches Container's computed inset */}
+        <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: 64, paddingVertical: spacing.xxxl }]}>
+          <View style={{ gap: spacing.xl, maxWidth: 420 }}>
+            <View style={{ gap: spacing.md }}>
+              <Typography variant="displaySmall" weight="bold">
+                The React Native UI library{'\n'}built for the AI era
+              </Typography>
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+                Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills — so AI generates code that fits from the first prompt.
+              </Typography>
+            </View>
+            <PlatformBadges theme={theme} />
+            <View style={[styles.ctaRow, { gap: spacing.md }]}>
+              <Button
+                title="Get Started"
+                variant="filled"
+                icon={{ name: 'arrow-right' }}
+                onPress={() => router.push('/explore')}
+              />
+              <Button
+                title={isDark ? 'Light mode' : 'Dark mode'}
+                variant="outlined"
+                icon={{ name: isDark ? 'sun' : 'moon' }}
+                onPress={toggleTheme}
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* Right showcase — 80% section height, overflow clipped intentionally */}
+        <View style={[styles.heroRight, {
+          height: (viewportHeight - APPBAR_HEIGHT) * 0.8,
+          paddingTop: spacing.xxl,
+          paddingHorizontal: spacing.lg,
+          gap: spacing.sm,
+          backgroundColor: theme.primaryContainer,
+          borderBottomLeftRadius: borderRadius.xl,
+          overflow: 'hidden',
+        }]}>
+          {/* Row 1 */}
+          <View style={[styles.row, { gap: spacing.sm }]}>
+            <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                <Avatar name="Alex Johnson" size="md" />
+                <View style={{ flex: 1 }}>
+                  <Typography variant="titleSmall" weight="bold">Alex Johnson</Typography>
+                  <Typography variant="labelSmall" color={theme.onSurfaceVariant}>Product Designer · SF</Typography>
+                </View>
+              </View>
+              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Building cross-platform apps with M3 design and AI tooling.</Typography>
+              <View style={[styles.row, { gap: spacing.xs }]}>
+                <Button title="Follow" variant="filled" onPress={() => {}} />
+                <Button title="Message" variant="tonal" onPress={() => {}} />
+              </View>
+            </ThemedView>
+
+            <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
+              <Typography variant="titleSmall" weight="bold">Schedule</Typography>
+              <SegmentedControl options={[{ label: 'Day', value: 'day' }, { label: 'Week', value: 'week' }, { label: 'Month', value: 'month' }]} value="week" onChange={() => {}} />
+              <View style={{ gap: spacing.xs }}>
+                <Typography variant="labelMedium" weight="medium">This week</Typography>
+                <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Mon 3 – Sun 9 June · 4 events</Typography>
+              </View>
+              <View style={[styles.row, { gap: spacing.xs, flexWrap: 'wrap' }]}>
+                <Chip label="Design" variant="filled" selected onPress={() => {}} />
+                <Chip label="Dev" variant="outlined" onPress={() => {}} />
+                <Chip label="Review" variant="outlined" onPress={() => {}} />
+              </View>
+            </ThemedView>
+          </View>
+
+          {/* Row 2 */}
+          <View style={[styles.row, { gap: spacing.sm }]}>
+            <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden', gap: spacing.sm }]}>
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=200&fit=crop' }}
+                style={{ width: '100%', height: 120 }}
+                resizeMode="cover"
+              />
+              <View style={{ paddingHorizontal: spacing.sm, paddingBottom: spacing.sm, gap: spacing.sm }}>
+                <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                  <View style={{ flex: 1, gap: 2 }}>
+                    <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
+                    <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave · 3:42</Typography>
+                  </View>
+                  {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 15, theme.onPrimary)}
+                </View>
+                <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
+                  <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 1 }]} />
+                </View>
+                <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.lg }]}>
+                  {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
+                  <ThemedView variant="surface" style={{ width: 36, height: 36, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
+                    {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 15, theme.primary)}
+                  </ThemedView>
+                  {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
+                </View>
+              </View>
+            </ThemedView>
+
+            <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden' }]}>
+              <Typography variant="titleSmall" weight="bold" style={{ paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.xs }}>Quick access</Typography>
+              {([
+                { icon: 'home' as const, label: 'Home', sub: 'Main workspace' },
+                { icon: 'briefcase' as const, label: 'Work', sub: '3 active projects' },
+                { icon: 'user' as const, label: 'Profile', sub: 'Alex Johnson' },
+              ]).map((item) => (
+                <ListItem
+                  key={item.icon}
+                  title={item.label}
+                  subtitle={item.sub}
+                  leading={
+                    <ThemedView variant="surfaceContainer" style={{ width: 32, height: 32, borderRadius: borderRadius.sm, alignItems: 'center', justifyContent: 'center' }}>
+                      {renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.primary)}
+                    </ThemedView>
+                  }
+                  trailing={renderIcon({ name: 'chevron-right', library: 'Feather' }, 'Feather', 14, theme.outlineVariant)}
+                  onPress={() => {}}
+                />
+              ))}
+            </ThemedView>
+          </View>
+
+          {/* Row 3 — intentionally taller than the panel; clipped at bottom */}
+          <View style={[styles.row, { gap: spacing.sm }]}>
+            <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, minHeight: 220, overflow: 'hidden' }]}>
+              <ListItem
+                title="Notifications"
+                leading={renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 16, theme.primary)}
+                trailing={<Switch value onValueChange={() => {}} />}
+              />
+              <Divider />
+              {([
+                { icon: 'message-circle' as const, label: 'Messages', value: true },
+                { icon: 'refresh-cw' as const, label: 'App updates', value: true },
+                { icon: 'clock' as const, label: 'Reminders', value: false },
+                { icon: 'tag' as const, label: 'Promotions', value: false },
+                { icon: 'star' as const, label: 'Highlights', value: true },
+              ]).map((item) => (
+                <ListItem
+                  key={item.label}
+                  title={item.label}
+                  leading={renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
+                  trailing={<Switch value={item.value} onValueChange={() => {}} />}
+                />
+              ))}
+            </ThemedView>
+
+            <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, minHeight: 220 }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                {renderIcon({ name: 'activity', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
+                <Typography variant="labelSmall" color={theme.onPrimary}>Performance</Typography>
+              </View>
+              <View>
+                <Typography variant="displaySmall" weight="bold" color={theme.onPrimary}>98.2%</Typography>
+                <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>↑ Uptime this month</Typography>
+              </View>
+              <View style={[styles.row, { alignItems: 'flex-end', gap: 4, height: 64 }]}>
+                {[0.5, 0.7, 0.6, 0.9, 0.75, 1.0, 0.85, 0.95, 0.8, 0.98].map((h, i) => (
+                  <View key={i} style={{ flex: 1, height: `${h * 100}%`, backgroundColor: theme.onPrimary, borderRadius: 3, opacity: 0.6 + h * 0.4 }} />
+                ))}
+              </View>
+              <Divider style={{ backgroundColor: theme.onPrimary, opacity: 0.2 }} />
+              <View style={{ gap: spacing.xs }}>
+                {[{ label: 'Avg response', val: '142ms' }, { label: 'Error rate', val: '0.02%' }, { label: 'Requests/s', val: '2.4k' }].map(s => (
+                  <View key={s.label} style={[styles.row, { justifyContent: 'space-between' }]}>
+                    <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>{s.label}</Typography>
+                    <Typography variant="labelSmall" weight="bold" color={theme.onPrimary}>{s.val}</Typography>
+                  </View>
+                ))}
+              </View>
+            </ThemedView>
+          </View>
+        </View>
+      </View>
+
+      {/* Stats strip */}
+      <Container style={{ paddingVertical: spacing.xxxl }}>
+        <View style={{ gap: spacing.xl, alignItems: 'center' }}>
+          <View style={[styles.statRow, { gap: spacing.xl, flexWrap: 'wrap', justifyContent: 'center' }]}>
+            <View style={[styles.statTile, { gap: spacing.xs, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                {renderIcon({ name: 'star', library: 'Feather' }, 'Feather', 26, theme.onSurface)}
+                <Typography variant="headlineMedium" weight="bold">{stars ?? '—'}</Typography>
+              </View>
+              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>GitHub Stars</Typography>
+            </View>
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+            <View style={[styles.statTile, { gap: spacing.xs, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                {Platform.OS === 'web' ? (
+                  <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 26, height: 26 }} />
+                ) : (
+                  renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 24, theme.onSurface)
+                )}
+                <Typography variant="headlineMedium" weight="bold">{downloads ?? '—'}</Typography>
+              </View>
+              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Downloads / wk</Typography>
+            </View>
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+            <View style={[styles.statTile, { gap: spacing.xs, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 24, theme.onSurface)}
+                <Typography variant="headlineMedium" weight="bold">28</Typography>
+              </View>
+              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Components</Typography>
+            </View>
+          </View>
+        </View>
+      </Container>
+    </View>
+  );
 }
 
 // ─── Feature cards ────────────────────────────────────────────────────────────
@@ -100,9 +493,8 @@ const FEATURES = [
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
 
-// Container uses maxWidth: 1000 and paddingHorizontal: spacing.xl.
-// At wide viewports it centres itself; heroLeft must match the same left edge.
 const CONTAINER_MAX_WIDTH = 1000;
+const HERO_BREAKPOINT = 768;
 
 // ─── Home screen ──────────────────────────────────────────────────────────────
 
@@ -114,286 +506,35 @@ export default function HomeScreen() {
   const isDark = mode === 'dark';
   const stars = useGithubStars();
   const downloads = useNpmDownloads();
+  const isWide = viewportWidth >= HERO_BREAKPOINT;
 
-  // Exact left offset that Container gives at the current viewport width.
-  // Matches (viewportWidth − maxWidth) / 2 + paddingHorizontal when wide,
-  // or just paddingHorizontal when narrow.
-  const containerLeftInset = Platform.OS === 'web' && viewportWidth > CONTAINER_MAX_WIDTH + spacing.xl * 2
+  const containerLeftInset = isWide && viewportWidth > CONTAINER_MAX_WIDTH + spacing.xl * 2
     ? (viewportWidth - CONTAINER_MAX_WIDTH) / 2 + spacing.xl
     : spacing.xl;
 
-  // All sections share the same height as the hero on web.
-  // Content is centred vertically within each section.
-  // On mobile sections revert to natural height with generous padding.
-  const SECTION_PAD = 96; // mobile fallback
-  const APPBAR_HEIGHT = 64;
-  const SECTION_HEIGHT = Platform.OS === 'web' ? viewportHeight - APPBAR_HEIGHT : undefined;
-
-  const logoSource = isDark
-    ? require('../../assets/images/rocket_logo_white.png')
-    : require('../../assets/images/rocket_logo_black.png');
+  const SECTION_PAD = 96;
 
   return (
     <Screen scrollable variant="background" edges={['bottom']} padded={false}>
 
       {/* ── Section 1: Hero + stats ── */}
-      {Platform.OS === 'web' ? (
-        <View>
-          {/* Two-panel row — full width, showcase touches right viewport edge */}
-          <View style={[styles.heroWeb, {paddingBottom: spacing.xxl}]}>
-
-          {/* Left copy — left edge matches Container's computed inset */}
-          <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: 64, paddingVertical: spacing.xxxl }]}>
-            <View style={{ gap: spacing.xl, maxWidth: 420 }}>
-              <View style={{ gap: spacing.md }}>
-                <Typography variant="displaySmall" weight="bold">
-                  A React Native UI library{'\n'}built for the AI era
-                </Typography>
-                <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
-                  Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills — so AI generates code that fits from the first prompt.
-                </Typography>
-              </View>
-              <View style={[styles.ctaRow, { gap: spacing.md }]}>
-                <Button
-                  title="Get Started"
-                  variant="filled"
-                  icon={{ name: 'arrow-right' }}
-                  onPress={() => router.push('/explore')}
-                />
-                <Button
-                  title={isDark ? 'Light mode' : 'Dark mode'}
-                  variant="outlined"
-                  icon={{ name: isDark ? 'sun' : 'moon' }}
-                  onPress={toggleTheme}
-                />
-              </View>
-              <Typography variant="labelSmall" color={theme.onSurfaceVariant}>
-                This site is built entirely with zero-to-app
-              </Typography>
-            </View>
-          </View>
-
-          {/* Right showcase — 80% section height, overflow clipped intentionally */}
-          <View style={[styles.heroRight, {
-            height: (viewportHeight - APPBAR_HEIGHT) * 0.8,
-            paddingTop: spacing.xxl,
-            paddingHorizontal: spacing.lg,
-            gap: spacing.sm,
-            backgroundColor: theme.primaryContainer,
-            borderBottomLeftRadius: borderRadius.xl,
-            overflow: 'hidden',
-          }]}>
-            {/* Row 1 */}
-            <View style={[styles.row, { gap: spacing.sm }]}>
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
-                <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                  <Avatar name="Alex Johnson" size="md" />
-                  <View style={{ flex: 1 }}>
-                    <Typography variant="titleSmall" weight="bold">Alex Johnson</Typography>
-                    <Typography variant="labelSmall" color={theme.onSurfaceVariant}>Product Designer · SF</Typography>
-                  </View>
-                </View>
-                <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Building cross-platform apps with M3 design and AI tooling.</Typography>
-                <View style={[styles.row, { gap: spacing.xs }]}>
-                  <Button title="Follow" variant="filled" onPress={() => {}} />
-                  <Button title="Message" variant="tonal" onPress={() => {}} />
-                </View>
-              </ThemedView>
-
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
-                <Typography variant="titleSmall" weight="bold">Schedule</Typography>
-                <SegmentedControl options={[{ label: 'Day', value: 'day' }, { label: 'Week', value: 'week' }, { label: 'Month', value: 'month' }]} value="week" onChange={() => {}} />
-                <View style={{ gap: spacing.xs }}>
-                  <Typography variant="labelMedium" weight="medium">This week</Typography>
-                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Mon 3 – Sun 9 June · 4 events</Typography>
-                </View>
-                <View style={[styles.row, { gap: spacing.xs, flexWrap: 'wrap' }]}>
-                  <Chip label="Design" variant="filled" selected onPress={() => {}} />
-                  <Chip label="Dev" variant="outlined" onPress={() => {}} />
-                  <Chip label="Review" variant="outlined" onPress={() => {}} />
-                </View>
-              </ThemedView>
-            </View>
-
-            {/* Row 2 */}
-            <View style={[styles.row, { gap: spacing.sm }]}>
-              {/* Music player */}
-              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden', gap: spacing.sm }]}>
-                {/* Full-width album art at controlled height */}
-                <Image
-                  source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=200&fit=crop' }}
-                  style={{ width: '100%', height: 120 }}
-                  resizeMode="cover"
-                />
-                <View style={{ paddingHorizontal: spacing.sm, paddingBottom: spacing.sm, gap: spacing.sm }}>
-                  {/* Track info */}
-                  <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                    <View style={{ flex: 1, gap: 2 }}>
-                      <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
-                      <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave · 3:42</Typography>
-                    </View>
-                    {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 15, theme.onPrimary)}
-                  </View>
-                  {/* Progress */}
-                  <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
-                    <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 1 }]} />
-                  </View>
-                  {/* Controls */}
-                  <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.lg }]}>
-                    {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
-                    <ThemedView variant="surface" style={{ width: 36, height: 36, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
-                      {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 15, theme.primary)}
-                    </ThemedView>
-                    {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
-                  </View>
-                </View>
-              </ThemedView>
-
-              {/* Quick access — 3 items */}
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden' }]}>
-                <Typography variant="titleSmall" weight="bold" style={{ paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.xs }}>Quick access</Typography>
-                {([
-                  { icon: 'home' as const, label: 'Home', sub: 'Main workspace' },
-                  { icon: 'briefcase' as const, label: 'Work', sub: '3 active projects' },
-                  { icon: 'user' as const, label: 'Profile', sub: 'Alex Johnson' },
-                ]).map((item) => (
-                  <ListItem
-                    key={item.icon}
-                    title={item.label}
-                    subtitle={item.sub}
-                    leading={
-                      <ThemedView variant="surfaceContainer" style={{ width: 32, height: 32, borderRadius: borderRadius.sm, alignItems: 'center', justifyContent: 'center' }}>
-                        {renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.primary)}
-                      </ThemedView>
-                    }
-                    trailing={renderIcon({ name: 'chevron-right', library: 'Feather' }, 'Feather', 14, theme.outlineVariant)}
-                    onPress={() => {}}
-                  />
-                ))}
-              </ThemedView>
-            </View>
-
-            {/* Row 3 — intentionally taller than the panel; clipped at bottom */}
-            <View style={[styles.row, { gap: spacing.sm }]}>
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, minHeight: 220, overflow: 'hidden' }]}>
-                <ListItem
-                  title="Notifications"
-                  leading={renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 16, theme.primary)}
-                  trailing={<Switch value onValueChange={() => {}} />}
-                />
-                <Divider />
-                {([
-                  { icon: 'message-circle' as const, label: 'Messages', value: true },
-                  { icon: 'refresh-cw' as const, label: 'App updates', value: true },
-                  { icon: 'clock' as const, label: 'Reminders', value: false },
-                  { icon: 'tag' as const, label: 'Promotions', value: false },
-                  { icon: 'star' as const, label: 'Highlights', value: true },
-                ]).map((item) => (
-                  <ListItem
-                    key={item.label}
-                    title={item.label}
-                    leading={renderIcon({ name: item.icon, library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
-                    trailing={<Switch value={item.value} onValueChange={() => {}} />}
-                  />
-                ))}
-              </ThemedView>
-
-              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, minHeight: 220 }]}>
-                <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                  {renderIcon({ name: 'activity', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
-                  <Typography variant="labelSmall" color={theme.onPrimary}>Performance</Typography>
-                </View>
-                <View>
-                  <Typography variant="displaySmall" weight="bold" color={theme.onPrimary}>98.2%</Typography>
-                  <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>↑ Uptime this month</Typography>
-                </View>
-                <View style={[styles.row, { alignItems: 'flex-end', gap: 4, height: 64 }]}>
-                  {[0.5, 0.7, 0.6, 0.9, 0.75, 1.0, 0.85, 0.95, 0.8, 0.98].map((h, i) => (
-                    <View key={i} style={{ flex: 1, height: `${h * 100}%`, backgroundColor: theme.onPrimary, borderRadius: 3, opacity: 0.6 + h * 0.4 }} />
-                  ))}
-                </View>
-                <Divider style={{ backgroundColor: theme.onPrimary, opacity: 0.2 }} />
-                <View style={{ gap: spacing.xs }}>
-                  {[{ label: 'Avg response', val: '142ms' }, { label: 'Error rate', val: '0.02%' }, { label: 'Requests/s', val: '2.4k' }].map(s => (
-                    <View key={s.label} style={[styles.row, { justifyContent: 'space-between' }]}>
-                      <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>{s.label}</Typography>
-                      <Typography variant="labelSmall" weight="bold" color={theme.onPrimary}>{s.val}</Typography>
-                    </View>
-                  ))}
-                </View>
-              </ThemedView>
-            </View>
-          </View>
-        </View>
-
-          {/* Stats strip — bottom row of section 1, inside max-width */}
-          <Container style={{ paddingVertical: spacing.xxxl }}>
-            <View style={{ gap: spacing.lg, alignItems: 'center' }}>
-              <Typography variant="labelSmall" color={theme.outlineVariant} align="center">
-                OPEN SOURCE · MIT LICENSE
-              </Typography>
-              <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
-                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-                  <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                    <GitHubIcon size={22} color={theme.onSurfaceVariant} isDark={isDark} />
-                    <Typography variant="headlineMedium" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
-                  </View>
-                  <Typography variant="labelMedium" color={theme.outlineVariant}>Stars</Typography>
-                </View>
-                <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-                  <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                    {Platform.OS === 'web' ? (
-                      <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 22, height: 22 }} />
-                    ) : (
-                      renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)
-                    )}
-                    <Typography variant="headlineMedium" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
-                  </View>
-                  <Typography variant="labelMedium" color={theme.outlineVariant}>Downloads / wk</Typography>
-                </View>
-                <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-                  <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                    {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
-                    <Typography variant="headlineMedium" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
-                  </View>
-                  <Typography variant="labelMedium" color={theme.outlineVariant}>Components</Typography>
-                </View>
-                <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-                  <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                    {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
-                    {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 20, theme.onSurfaceVariant)}
-                    {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
-                  </View>
-                  <Typography variant="labelMedium" color={theme.outlineVariant}>iOS · Android · Web</Typography>
-                </View>
-              </View>
-            </View>
-          </Container>
-        </View>
+      {isWide ? (
+        <HeroWide
+          theme={theme}
+          isDark={isDark}
+          stars={stars}
+          downloads={downloads}
+          viewportWidth={viewportWidth}
+          viewportHeight={viewportHeight}
+          containerLeftInset={containerLeftInset}
+          toggleTheme={toggleTheme}
+        />
       ) : (
-        <SafeAreaView style={[styles.hero, { paddingHorizontal: spacing.xl, paddingTop: 80, paddingBottom: spacing.xxl, gap: spacing.xl }]}>
-          <Image source={logoSource} style={styles.logo} resizeMode="contain" />
-          <View style={[styles.centered, { gap: spacing.md }]}>
-            <Typography variant="displaySmall" weight="bold" align="center">
-              The React Native UI library{'\n'}built for the AI era
-            </Typography>
-            <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
-              MCP server + Claude Skills — so AI generates predictable, accessible and consistent components.{'\n'}
-              Native iOS and Android components with EXPO UI.{'\n'}
-              Material 3 Theming system great for use with Native Components{'\n'}
-            </Typography>
-          </View>
-          <View style={[styles.ctaRow, { gap: spacing.md }]}>
-            <Button title="Get Started" variant="filled" icon={{ name: 'arrow-right' }} onPress={() => router.push('/explore')} />
-            <Button title={isDark ? 'Light mode' : 'Dark mode'} variant="outlined" icon={{ name: isDark ? 'sun' : 'moon' }} onPress={toggleTheme} />
-          </View>
-          <Typography variant="labelSmall" color={theme.onSurfaceVariant} align="center">
-            This site is built entirely with zero-to-app
-          </Typography>
-        </SafeAreaView>
+        <HeroNarrow
+          theme={theme}
+          isDark={isDark}
+          toggleTheme={toggleTheme}
+        />
       )}
 
       {/* ─────────────────────────────────────────────────────────────────── */}

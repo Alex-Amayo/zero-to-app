@@ -16,7 +16,7 @@ import { Image, Linking, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect, useState } from 'react';
 
-// ─── Stats ────────────────────────────────────────────────────────────────────
+// ─── Stats (fetched but displayed muted) ──────────────────────────────────────
 
 function formatStat(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
@@ -43,6 +43,21 @@ function useNpmDownloads() {
       .catch(() => setDownloads(null));
   }, []);
   return downloads;
+}
+
+// ─── GitHub icon — svgl on web, Feather fallback on native ───────────────────
+
+function GitHubIcon({ size, color, isDark }: { size: number; color: string; isDark: boolean }) {
+  if (Platform.OS === 'web') {
+    const filterStyle = isDark ? { filter: 'invert(1)' } as any : {};
+    return (
+      <Image
+        source={{ uri: 'https://svgl.app/library/github.svg' }}
+        style={[{ width: size, height: size }, filterStyle]}
+      />
+    );
+  }
+  return <>{renderIcon({ name: 'github', library: 'Feather' }, 'Feather', size, color)}</>;
 }
 
 // ─── Feature cards ────────────────────────────────────────────────────────────
@@ -108,17 +123,11 @@ export default function HomeScreen() {
   const { spacing, borderRadius } = theme;
   const { mode, toggleTheme } = useThemeMode();
   const { height: windowHeight } = useDimensions();
+  const isDark = mode === 'dark';
   const stars = useGithubStars();
   const downloads = useNpmDownloads();
 
-  const STATS = [
-    { value: stars ?? '—', label: 'GitHub Stars' },
-    { value: downloads ?? '—', label: 'Weekly Downloads' },
-    { value: '28', label: 'Components' },
-    { value: 'iOS · Android · Web', label: 'Platforms' },
-  ];
-
-  const logoSource = mode === 'dark'
+  const logoSource = isDark
     ? require('../../assets/images/rocket_logo_white.png')
     : require('../../assets/images/rocket_logo_black.png');
 
@@ -127,19 +136,17 @@ export default function HomeScreen() {
 
       {/* ── Hero: web split, mobile centered ── */}
       {Platform.OS === 'web' ? (
-        <SafeAreaView style={[styles.heroWeb, { paddingHorizontal: spacing.xxl, paddingVertical: spacing.xxl, gap: spacing.xxl, minHeight: windowHeight }]}>
-          {/* Left: copy */}
-          <View style={[styles.heroLeft, { gap: spacing.xl }]}>
-            <Image source={logoSource} style={styles.logo} resizeMode="contain" />
-            <View style={{ gap: spacing.md }}>
-              <Typography variant="displaySmall" weight="bold">
+        <SafeAreaView style={[styles.heroWeb, { gap: spacing.xxl }]}>
+          <View style={[styles.heroLeft, { gap: spacing.xl, paddingVertical: spacing.xxl }]}>
+            <View style={[styles.heroTextBlock, { gap: spacing.md }]}>
+              <Typography variant="displaySmall" weight="bold" align="center">
                 The Expo UI library{'\n'}built for the AI era
               </Typography>
-              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant} align="center">
                 Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills — so AI generates code that fits from the first prompt.
               </Typography>
             </View>
-            <View style={[styles.ctaRow, { gap: spacing.md }]}>
+            <View style={[styles.ctaRow, { gap: spacing.md, justifyContent: 'center' }]}>
               <Button
                 title="Get Started"
                 variant="filled"
@@ -147,40 +154,42 @@ export default function HomeScreen() {
                 onPress={() => router.push('/explore')}
               />
               <Button
-                title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
+                title={isDark ? 'Light mode' : 'Dark mode'}
                 variant="outlined"
-                icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
+                icon={{ name: isDark ? 'sun' : 'moon' }}
                 onPress={toggleTheme}
               />
             </View>
-            <Typography variant="labelSmall" color={theme.onSurfaceVariant}>
+            <Typography variant="labelSmall" color={theme.onSurfaceVariant} align="center">
               This site is built entirely with zero-to-app
             </Typography>
           </View>
 
-          {/* Right: live UI showcase — three real-looking cards */}
-          <View style={[styles.heroRight, { gap: spacing.md }]}>
-
-            {/* Card 1: app bar */}
+          {/* Right: live UI showcase */}
+          <View style={[styles.heroRight, { paddingVertical: spacing.xxl, gap: spacing.md }]}>
+            {/* Profile card */}
             <ThemedView
-              variant="appbar"
+              variant="card"
               elevation={1}
-              style={{ borderRadius: borderRadius.md, paddingHorizontal: spacing.lg, paddingVertical: spacing.md }}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                <View style={[styles.avatarPlaceholder, { backgroundColor: theme.primaryContainer, borderRadius: borderRadius.full }]}>
-                  <Typography variant="labelSmall" weight="bold" color={theme.onPrimaryContainer}>ZA</Typography>
+              style={{ borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.md }}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.md }]}>
+                <View style={[styles.profileImage, { backgroundColor: theme.tertiaryContainer, borderRadius: borderRadius.full }]}>
+                  <Typography variant="headlineSmall" weight="bold" color={theme.onTertiaryContainer}>AJ</Typography>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Typography variant="titleSmall" weight="medium">zero-to-app</Typography>
-                  <Typography variant="labelSmall" muted>React Native UI for the AI era</Typography>
+                <View style={{ flex: 1, gap: spacing.xs }}>
+                  <Typography variant="titleMedium" weight="bold">Alex Johnson</Typography>
+                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Product Designer · San Francisco</Typography>
                 </View>
-                {renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 18, theme.onSurfaceVariant)}
+              </View>
+              <View style={[styles.row, { gap: spacing.sm }]}>
+                <Button title="Follow" variant="filled" onPress={() => {}} />
+                <Button title="Message" variant="outlined" onPress={() => {}} />
               </View>
             </ThemedView>
 
-            {/* Card 2: filter chips + action buttons */}
+            {/* Components card */}
             <ThemedView
-              variant="card"
+              variant="surfaceContainer"
               elevation={1}
               style={{ borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.lg }}>
               <View style={{ gap: spacing.sm }}>
@@ -200,16 +209,32 @@ export default function HomeScreen() {
               </View>
             </ThemedView>
 
-            {/* Card 3: typography in context */}
+            {/* Media player card */}
             <ThemedView
-              variant="surfaceContainer"
-              style={{ borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.xs }}>
-              <Typography variant="headlineMedium" weight="bold">Build faster</Typography>
-              <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
-                One seed color generates your entire M3 palette — light, dark, and high contrast. Theme-aware from the first component.
-              </Typography>
+              variant="card"
+              elevation={1}
+              style={{ borderRadius: borderRadius.md, padding: spacing.lg, gap: spacing.lg }}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.md }]}>
+                <View style={[styles.albumArt, { backgroundColor: theme.primary, borderRadius: borderRadius.sm }]}>
+                  {renderIcon({ name: 'music', library: 'Feather' }, 'Feather', 22, theme.onPrimary)}
+                </View>
+                <View style={{ flex: 1, gap: spacing.xs }}>
+                  <Typography variant="titleSmall" weight="bold">Midnight Drive</Typography>
+                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>Synthwave Collection · 3:42</Typography>
+                </View>
+                {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 18, theme.primary)}
+              </View>
+              <View style={[styles.progressTrack, { backgroundColor: theme.outlineVariant, borderRadius: borderRadius.full }]}>
+                <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.primary, borderRadius: borderRadius.full }]} />
+              </View>
+              <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.xl }]}>
+                {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
+                <View style={[styles.playButton, { backgroundColor: theme.primary, borderRadius: borderRadius.full }]}>
+                  {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 20, theme.onPrimary)}
+                </View>
+                {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 20, theme.onSurfaceVariant)}
+              </View>
             </ThemedView>
-
           </View>
         </SafeAreaView>
       ) : (
@@ -236,9 +261,9 @@ export default function HomeScreen() {
               onPress={() => router.push('/explore')}
             />
             <Button
-              title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
+              title={isDark ? 'Light mode' : 'Dark mode'}
               variant="outlined"
-              icon={{ name: mode === 'dark' ? 'sun' : 'moon' }}
+              icon={{ name: isDark ? 'sun' : 'moon' }}
               onPress={toggleTheme}
             />
           </View>
@@ -248,23 +273,59 @@ export default function HomeScreen() {
         </SafeAreaView>
       )}
 
-      {/* ── Stats row ── */}
+      {/* ── Feature cards — first thing after hero ── */}
       <Container style={{ paddingVertical: spacing.xxl }}>
-        <ThemedView columns={4} gap={spacing.md}>
-          {STATS.map((s) => (
-            <ThemedView
-              key={s.label}
-              variant="surfaceContainer"
-              style={[styles.statCard, { borderRadius: borderRadius.md, padding: spacing.lg }]}>
-              <Typography variant="headlineLarge" weight="bold" align="center">
-                {s.value}
-              </Typography>
-              <Typography variant="labelMedium" muted align="center">
-                {s.label}
-              </Typography>
-            </ThemedView>
-          ))}
-        </ThemedView>
+        <View style={{ gap: spacing.xl }}>
+          <View style={{ gap: spacing.sm }}>
+            <Typography variant="headlineMedium" weight="bold">
+              What&apos;s inside
+            </Typography>
+            <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
+              Everything you need to build production-quality cross-platform apps.
+            </Typography>
+          </View>
+          <ThemedView columns={2} gap={spacing.lg}>
+            {FEATURES.map((feature, index) => (
+              <ThemedView
+                key={index}
+                variant={feature.accent ? 'surfaceContainer' : 'surface'}
+                style={[
+                  styles.featureCard,
+                  {
+                    padding: spacing.lg,
+                    gap: spacing.sm,
+                    borderRadius: borderRadius.md,
+                    borderWidth: 1,
+                    borderColor: feature.accent ? theme.primary + '40' : theme.outlineVariant,
+                  },
+                ]}>
+                <View
+                  style={[
+                    styles.iconWrap,
+                    {
+                      backgroundColor: feature.accent
+                        ? theme.primaryContainer
+                        : theme.surfaceContainerHigh,
+                      borderRadius: borderRadius.sm,
+                    },
+                  ]}>
+                  {renderIcon(
+                    feature.icon,
+                    'Feather',
+                    16,
+                    feature.accent ? theme.onPrimaryContainer : theme.onSurfaceVariant,
+                  )}
+                </View>
+                <Typography variant="titleSmall" weight="bold">
+                  {feature.title}
+                </Typography>
+                <Typography variant="bodySmall" color={theme.onSurfaceVariant}>
+                  {feature.description}
+                </Typography>
+              </ThemedView>
+            ))}
+          </ThemedView>
+        </View>
       </Container>
 
       {/* ── How it works ── */}
@@ -278,7 +339,6 @@ export default function HomeScreen() {
               From install to AI-accurate code in three steps.
             </Typography>
           </View>
-
           <ThemedView columns={3} gap={spacing.md}>
             {HOW_IT_WORKS.map((item) => (
               <ThemedView
@@ -298,10 +358,7 @@ export default function HomeScreen() {
                   <View
                     style={[
                       styles.stepBadge,
-                      {
-                        backgroundColor: theme.primaryContainer,
-                        borderRadius: borderRadius.full,
-                      },
+                      { backgroundColor: theme.primaryContainer, borderRadius: borderRadius.full },
                     ]}>
                     <Typography variant="labelSmall" weight="bold" color={theme.onPrimaryContainer}>
                       {item.step}
@@ -310,12 +367,8 @@ export default function HomeScreen() {
                   {renderIcon(item.icon, 'Feather', 16, theme.primary)}
                 </View>
                 <View style={{ gap: spacing.xs }}>
-                  <Typography variant="titleSmall" weight="bold">
-                    {item.title}
-                  </Typography>
-                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>
-                    {item.body}
-                  </Typography>
+                  <Typography variant="titleSmall" weight="bold">{item.title}</Typography>
+                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>{item.body}</Typography>
                 </View>
               </ThemedView>
             ))}
@@ -323,63 +376,11 @@ export default function HomeScreen() {
         </View>
       </Container>
 
-      {/* ── Feature cards ── */}
-      <Container style={{ paddingVertical: spacing.xxl }}>
-        <ThemedView columns={2} gap={spacing.lg}>
-          {FEATURES.map((feature, index) => (
-            <ThemedView
-              key={index}
-              variant={feature.accent ? 'surfaceContainer' : 'surface'}
-              style={[
-                styles.featureCard,
-                {
-                  padding: spacing.lg,
-                  gap: spacing.sm,
-                  borderRadius: borderRadius.md,
-                  borderWidth: 1,
-                  borderColor: feature.accent ? theme.primary + '40' : theme.outlineVariant,
-                },
-              ]}>
-              <View
-                style={[
-                  styles.iconWrap,
-                  {
-                    backgroundColor: feature.accent
-                      ? theme.primaryContainer
-                      : theme.surfaceContainerHigh,
-                    borderRadius: borderRadius.sm,
-                  },
-                ]}>
-                {renderIcon(
-                  feature.icon,
-                  'Feather',
-                  16,
-                  feature.accent ? theme.onPrimaryContainer : theme.onSurfaceVariant,
-                )}
-              </View>
-              <Typography variant="titleSmall" weight="bold">
-                {feature.title}
-              </Typography>
-              <Typography variant="bodySmall" color={theme.onSurfaceVariant}>
-                {feature.description}
-              </Typography>
-            </ThemedView>
-          ))}
-        </ThemedView>
-      </Container>
-
       {/* ── Built with zero-to-app callout ── */}
       <Container style={{ paddingVertical: spacing.xxl }}>
         <ThemedView
           variant="primary"
-          style={[
-            styles.callout,
-            {
-              borderRadius: borderRadius.lg,
-              padding: spacing.xxl,
-              gap: spacing.md,
-            },
-          ]}>
+          style={[styles.callout, { borderRadius: borderRadius.lg, padding: spacing.xxl, gap: spacing.md }]}>
           <Typography variant="headlineSmall" weight="bold" color={theme.onPrimary}>
             Built with zero-to-app
           </Typography>
@@ -395,30 +396,76 @@ export default function HomeScreen() {
         </ThemedView>
       </Container>
 
+      {/* ── GitHub & stats — muted, at the bottom ── */}
+      <Container style={{ paddingVertical: spacing.xxl }}>
+        <View
+          style={[
+            styles.githubSection,
+            {
+              borderTopWidth: 1,
+              borderTopColor: theme.outlineVariant,
+              paddingTop: spacing.xxl,
+              gap: spacing.lg,
+            },
+          ]}>
+          {/* Header row */}
+          <View style={[styles.row, { alignItems: 'center', gap: spacing.md }]}>
+            <GitHubIcon size={22} color={theme.onSurfaceVariant} isDark={isDark} />
+            <Typography variant="titleMedium" weight="medium" color={theme.onSurfaceVariant}>
+              Open source · MIT License
+            </Typography>
+          </View>
+
+          {/* Muted inline stats */}
+          <View style={[styles.row, { gap: spacing.xxl, flexWrap: 'wrap' }]}>
+            {[
+              { value: stars ?? '—', label: 'GitHub stars' },
+              { value: downloads ?? '—', label: 'weekly downloads' },
+              { value: '28', label: 'components' },
+              { value: 'iOS · Android · Web', label: 'platforms' },
+            ].map((s) => (
+              <View key={s.label} style={{ gap: 2 }}>
+                <Typography variant="titleSmall" weight="bold" color={theme.onSurfaceVariant}>
+                  {s.value}
+                </Typography>
+                <Typography variant="labelSmall" color={theme.outlineVariant}>
+                  {s.label}
+                </Typography>
+              </View>
+            ))}
+          </View>
+
+          {/* CTA */}
+          <Button
+            title="Star on GitHub"
+            variant="outlined"
+            icon={{ name: 'star', library: 'Feather' }}
+            iconPosition="left"
+            onPress={() => Linking.openURL('https://github.com/Alex-Amayo/zero-to-app')}
+          />
+        </View>
+      </Container>
+
       {/* ── Footer ── */}
       <Container>
         <View
           style={[
             styles.footer,
-            {
-              paddingVertical: spacing.xl,
-              borderTopWidth: 1,
-              borderTopColor: theme.outlineVariant,
-            },
+            { paddingVertical: spacing.xl, borderTopWidth: 1, borderTopColor: theme.outlineVariant },
           ]}>
           <Typography variant="bodySmall" color={theme.onSurfaceVariant}>
-            © 2025 zero-to-app · MIT License
+            © 2025 zero-to-app
           </Typography>
           <View style={[styles.row, { gap: spacing.lg }]}>
             <Typography
               variant="bodySmall"
-              color={theme.primary}
+              color={theme.onSurfaceVariant}
               onPress={() => Linking.openURL('https://github.com/Alex-Amayo/zero-to-app')}>
               GitHub
             </Typography>
             <Typography
               variant="bodySmall"
-              color={theme.primary}
+              color={theme.onSurfaceVariant}
               onPress={() => Linking.openURL('https://www.npmjs.com/package/zero-to-app')}>
               NPM
             </Typography>
@@ -433,22 +480,25 @@ export default function HomeScreen() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  // Mobile hero — centered column
   hero: { alignItems: 'center' },
   centered: { alignItems: 'center', maxWidth: 520 },
-  // Web hero — side-by-side row
-  heroWeb: { flexDirection: 'row', alignItems: 'center' },
-  heroLeft: { flex: 1, justifyContent: 'center' },
+  heroWeb: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 24 },
+  heroLeft: { flex: 1, alignItems: 'center' },
+  heroTextBlock: { maxWidth: 480, alignItems: 'center' },
   heroRight: { flex: 1 },
-  avatarPlaceholder: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
+  profileImage: { width: 56, height: 56, alignItems: 'center', justifyContent: 'center' },
+  albumArt: { width: 52, height: 52, alignItems: 'center', justifyContent: 'center' },
+  progressTrack: { height: 3, width: '100%' },
+  progressFill: { height: 3 },
+  playButton: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
   logo: { width: 64, height: 64 },
   ctaRow: { flexDirection: 'row', flexWrap: 'wrap' },
-  statCard: { alignItems: 'center', gap: 4 },
   row: { flexDirection: 'row' },
   stepCard: {},
   stepBadge: { width: 24, height: 24, alignItems: 'center', justifyContent: 'center' },
   featureCard: {},
   iconWrap: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
   callout: {},
+  githubSection: {},
   footer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
 });

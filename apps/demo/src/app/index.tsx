@@ -122,10 +122,12 @@ export default function HomeScreen() {
     ? (viewportWidth - CONTAINER_MAX_WIDTH) / 2 + spacing.xl
     : spacing.xl;
 
-  // Landing page section vertical padding — content determines height, not viewport.
-  // 96px is the standard generous section padding used by Vercel, Linear, shadcn etc.
-  const SECTION_PAD = 96;
+  // All sections share the same height as the hero on web.
+  // Content is centred vertically within each section.
+  // On mobile sections revert to natural height with generous padding.
+  const SECTION_PAD = 96; // mobile fallback
   const APPBAR_HEIGHT = 64;
+  const SECTION_HEIGHT = Platform.OS === 'web' ? viewportHeight - APPBAR_HEIGHT : undefined;
 
   const logoSource = isDark
     ? require('../../assets/images/rocket_logo_white.png')
@@ -340,35 +342,47 @@ export default function HomeScreen() {
       {/* ─────────────────────────────────────────────────────────────────── */}
       <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
 
-      {/* ── Feature cards ── */}
-      <Container style={{ paddingVertical: SECTION_PAD }}>
-        <View style={{ gap: spacing.xl }}>
-          <View style={{ gap: spacing.sm }}>
-            <Typography variant="headlineMedium" weight="bold">What&apos;s inside</Typography>
-            <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
-              Everything you need to build production-quality cross-platform apps.
-            </Typography>
+      {/* ── Features + Callout (one section) ── */}
+      <Container style={{ height: SECTION_HEIGHT, paddingVertical: SECTION_PAD, justifyContent: 'center' }}>
+        <View style={{ gap: spacing.xxl }}>
+          <View style={{ gap: spacing.xl }}>
+            <View style={{ gap: spacing.sm }}>
+              <Typography variant="headlineMedium" weight="bold">What&apos;s inside</Typography>
+              <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
+                Everything you need to build production-quality cross-platform apps.
+              </Typography>
+            </View>
+            <ThemedView columns={2} gap={spacing.lg}>
+              {FEATURES.map((feature, index) => (
+                <ThemedView
+                  key={index}
+                  variant="card"
+                  elevation={1}
+                  style={{
+                    padding: spacing.lg,
+                    gap: spacing.sm,
+                    borderRadius: borderRadius.md,
+                    borderWidth: 1,
+                    borderColor: theme.outlineVariant,
+                  }}>
+                  <View style={[styles.iconWrap, { backgroundColor: feature.iconAccent ? theme.primaryContainer : theme.surfaceContainerHigh, borderRadius: borderRadius.sm }]}>
+                    {renderIcon(feature.icon, 'Feather', 16, feature.iconAccent ? theme.onPrimaryContainer : theme.onSurfaceVariant)}
+                  </View>
+                  <Typography variant="titleSmall" weight="bold">{feature.title}</Typography>
+                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>{feature.description}</Typography>
+                </ThemedView>
+              ))}
+            </ThemedView>
           </View>
-          <ThemedView columns={2} gap={spacing.lg}>
-            {FEATURES.map((feature, index) => (
-              <ThemedView
-                key={index}
-                variant="card"
-                elevation={1}
-                style={{
-                  padding: spacing.lg,
-                  gap: spacing.sm,
-                  borderRadius: borderRadius.md,
-                  borderWidth: 1,
-                  borderColor: theme.outlineVariant,
-                }}>
-                <View style={[styles.iconWrap, { backgroundColor: feature.iconAccent ? theme.primaryContainer : theme.surfaceContainerHigh, borderRadius: borderRadius.sm }]}>
-                  {renderIcon(feature.icon, 'Feather', 16, feature.iconAccent ? theme.onPrimaryContainer : theme.onSurfaceVariant)}
-                </View>
-                <Typography variant="titleSmall" weight="bold">{feature.title}</Typography>
-                <Typography variant="bodySmall" color={theme.onSurfaceVariant}>{feature.description}</Typography>
-              </ThemedView>
-            ))}
+
+          <ThemedView variant="primary" style={{ borderRadius: borderRadius.lg, padding: spacing.xxl, gap: spacing.md }}>
+            <Typography variant="headlineSmall" weight="bold" color={theme.onPrimary}>
+              Built with zero-to-app
+            </Typography>
+            <Typography variant="bodyMedium" color={theme.onPrimary}>
+              Every component on this page — buttons, cards, navigation, typography — is rendered by the same library you install. What you see is what you ship.
+            </Typography>
+            <Button title="Explore the components" variant="tonal" icon={{ name: 'arrow-right' }} onPress={() => router.push('/explore')} />
           </ThemedView>
         </View>
       </Container>
@@ -376,24 +390,8 @@ export default function HomeScreen() {
       {/* ─────────────────────────────────────────────────────────────────── */}
       <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
 
-      {/* ── Callout ── */}
-      <Container style={{ paddingVertical: SECTION_PAD }}>
-        <ThemedView variant="primary" style={{ borderRadius: borderRadius.lg, padding: spacing.xxl, gap: spacing.md }}>
-          <Typography variant="headlineSmall" weight="bold" color={theme.onPrimary}>
-            Built with zero-to-app
-          </Typography>
-          <Typography variant="bodyMedium" color={theme.onPrimary}>
-            Every component on this page — buttons, cards, navigation, typography — is rendered by the same library you install. What you see is what you ship.
-          </Typography>
-          <Button title="Explore the components" variant="tonal" icon={{ name: 'arrow-right' }} onPress={() => router.push('/explore')} />
-        </ThemedView>
-      </Container>
-
-      {/* ─────────────────────────────────────────────────────────────────── */}
-      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
-
       {/* ── GitHub contributions ── */}
-      <Container style={{ paddingVertical: 64 }}>
+      <Container style={{ height: SECTION_HEIGHT, paddingVertical: 64, justifyContent: 'center' }}>
         <View style={{ gap: spacing.xl, alignItems: 'center' }}>
           <Typography variant="labelMedium" color={theme.outlineVariant} align="center">
             OPEN SOURCE · MIT LICENSE

@@ -136,9 +136,11 @@ export default function HomeScreen() {
   return (
     <Screen scrollable variant="background" edges={['bottom']} padded={false}>
 
-      {/* ── Hero ── */}
+      {/* ── Section 1: Hero + stats ── */}
       {Platform.OS === 'web' ? (
-        <View style={[styles.heroWeb, { height: viewportHeight - APPBAR_HEIGHT }]}>
+        <View>
+          {/* Two-panel row — max-width so it doesn't spread too wide */}
+          <View style={[styles.heroWeb, { maxWidth: 1400, alignSelf: 'center', width: '100%' }]}>
 
           {/* Left copy — left edge matches Container's computed inset */}
           <View style={[styles.heroLeft, { paddingLeft: containerLeftInset, paddingRight: 64, paddingVertical: spacing.xxxl }]}>
@@ -323,6 +325,54 @@ export default function HomeScreen() {
             </View>
           </View>
         </View>
+
+          {/* Stats strip — bottom row of section 1, inside max-width */}
+          <Container style={{ paddingVertical: spacing.xxxl }}>
+            <View style={{ gap: spacing.lg, alignItems: 'center' }}>
+              <Typography variant="labelSmall" color={theme.outlineVariant} align="center">
+                OPEN SOURCE · MIT LICENSE
+              </Typography>
+              <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
+                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+                  <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                    <GitHubIcon size={14} color={theme.onSurfaceVariant} isDark={isDark} />
+                    <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
+                  </View>
+                  <Typography variant="labelSmall" color={theme.outlineVariant}>Stars</Typography>
+                </View>
+                <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+                  <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                    {Platform.OS === 'web' ? (
+                      <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 16, height: 16 }} />
+                    ) : (
+                      renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)
+                    )}
+                    <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
+                  </View>
+                  <Typography variant="labelSmall" color={theme.outlineVariant}>Downloads / wk</Typography>
+                </View>
+                <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+                  <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                    {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
+                    <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
+                  </View>
+                  <Typography variant="labelSmall" color={theme.outlineVariant}>Components</Typography>
+                </View>
+                <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+                <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
+                  <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                    {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
+                    {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 14, theme.onSurfaceVariant)}
+                    {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
+                  </View>
+                  <Typography variant="labelSmall" color={theme.outlineVariant}>iOS · Android · Web</Typography>
+                </View>
+              </View>
+            </View>
+          </Container>
+        </View>
       ) : (
         <SafeAreaView style={[styles.hero, { paddingHorizontal: spacing.xl, paddingTop: 80, paddingBottom: spacing.xxl, gap: spacing.xl }]}>
           <Image source={logoSource} style={styles.logo} resizeMode="contain" />
@@ -348,58 +398,8 @@ export default function HomeScreen() {
       {/* ─────────────────────────────────────────────────────────────────── */}
       <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
 
-      {/* ── GitHub / npm stats — compact strip, centred below hero ── */}
-      <Container style={{ paddingVertical: spacing.xxxl }}>
-        <View style={{ gap: spacing.lg, alignItems: 'center' }}>
-          <Typography variant="labelSmall" color={theme.outlineVariant} align="center">
-            OPEN SOURCE · MIT LICENSE
-          </Typography>
-          <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
-            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                <GitHubIcon size={14} color={theme.onSurfaceVariant} isDark={isDark} />
-                <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{stars ?? '—'}</Typography>
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>Stars</Typography>
-            </View>
-            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                {Platform.OS === 'web' ? (
-                  <Image source={{ uri: 'https://svgl.app/library/npm.svg' }} style={{ width: 16, height: 16 }} />
-                ) : (
-                  renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)
-                )}
-                <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>{downloads ?? '—'}</Typography>
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>Downloads / wk</Typography>
-            </View>
-            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 14, theme.onSurfaceVariant)}
-                <Typography variant="titleMedium" weight="bold" color={theme.onSurfaceVariant}>28</Typography>
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>Components</Typography>
-            </View>
-            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
-            <View style={[styles.statTile, { gap: 4, alignItems: 'center' }]}>
-              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
-                {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
-                {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 14, theme.onSurfaceVariant)}
-                {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 13, theme.onSurfaceVariant)}
-              </View>
-              <Typography variant="labelSmall" color={theme.outlineVariant}>iOS · Android · Web</Typography>
-            </View>
-          </View>
-        </View>
-      </Container>
-
-      {/* ─────────────────────────────────────────────────────────────────── */}
-      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
-
-      {/* ── Features + Callout (one section) ── */}
-      <Container style={{ height: SECTION_HEIGHT, paddingVertical: SECTION_PAD, justifyContent: 'center' }}>
+      {/* ── Features + Callout (free height) ── */}
+      <Container style={{ paddingVertical: SECTION_PAD }}>
         <View style={{ gap: spacing.xxl }}>
           <View style={{ gap: spacing.xl }}>
             <View style={{ gap: spacing.sm }}>

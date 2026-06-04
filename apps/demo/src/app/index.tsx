@@ -147,7 +147,7 @@ export default function HomeScreen() {
             <View style={{ gap: spacing.xl, maxWidth: 420 }}>
               <View style={{ gap: spacing.md }}>
                 <Typography variant="displaySmall" weight="bold">
-                  The Expo UI library{'\n'}built for the AI era
+                  A React Native UI library{'\n'}built for the AI era
                 </Typography>
                 <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
                   Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills — so AI generates code that fits from the first prompt.

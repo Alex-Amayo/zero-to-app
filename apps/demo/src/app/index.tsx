@@ -93,28 +93,6 @@ const FEATURES = [
   },
 ];
 
-// ─── How it works steps ───────────────────────────────────────────────────────
-
-const HOW_IT_WORKS = [
-  {
-    step: '1',
-    icon: { name: 'terminal', library: 'Feather' as const },
-    title: 'Install & configure',
-    body: 'Run npx zero-to-app skills to drop context files into Claude Code — or add the MCP server for live tool access.',
-  },
-  {
-    step: '2',
-    icon: { name: 'zap', library: 'Feather' as const },
-    title: 'Ask Claude',
-    body: 'Describe what you want to build. Claude calls live tools for real props, correct token names, and working examples.',
-  },
-  {
-    step: '3',
-    icon: { name: 'check-circle', library: 'Feather' as const },
-    title: 'Ship',
-    body: 'Accurate, theme-aware code from the first prompt — not generic boilerplate that needs three rounds of fixes.',
-  },
-];
 
 // ─── Home screen ──────────────────────────────────────────────────────────────
 
@@ -139,14 +117,14 @@ export default function HomeScreen() {
         <SafeAreaView style={[styles.heroWeb, { gap: spacing.xxl }]}>
           <View style={[styles.heroLeft, { gap: spacing.xl, paddingVertical: spacing.xxl }]}>
             <View style={[styles.heroTextBlock, { gap: spacing.md }]}>
-              <Typography variant="displaySmall" weight="bold" align="center">
+              <Typography variant="displaySmall" weight="bold">
                 The Expo UI library{'\n'}built for the AI era
               </Typography>
-              <Typography variant="bodyLarge" color={theme.onSurfaceVariant} align="center">
+              <Typography variant="bodyLarge" color={theme.onSurfaceVariant}>
                 Native components on iOS and Android. M3 everywhere. MCP server + Claude Skills — so AI generates code that fits from the first prompt.
               </Typography>
             </View>
-            <View style={[styles.ctaRow, { gap: spacing.md, justifyContent: 'center' }]}>
+            <View style={[styles.ctaRow, { gap: spacing.md }]}>
               <Button
                 title="Get Started"
                 variant="filled"
@@ -160,13 +138,13 @@ export default function HomeScreen() {
                 onPress={toggleTheme}
               />
             </View>
-            <Typography variant="labelSmall" color={theme.onSurfaceVariant} align="center">
+            <Typography variant="labelSmall" color={theme.onSurfaceVariant}>
               This site is built entirely with zero-to-app
             </Typography>
           </View>
 
-          {/* Right: live UI showcase */}
-          <View style={[styles.heroRight, { paddingVertical: spacing.xxl, gap: spacing.md }]}>
+          {/* Right: live UI showcase with soft primary gradient */}
+          <View style={[styles.heroRight, { paddingVertical: spacing.xxl, paddingHorizontal: spacing.lg, gap: spacing.md, borderRadius: borderRadius.xl } as any, { background: `radial-gradient(ellipse at 60% 30%, ${theme.primaryContainer} 0%, transparent 70%)` }]}>
             {/* Profile card */}
             <ThemedView
               variant="card"
@@ -328,54 +306,6 @@ export default function HomeScreen() {
         </View>
       </Container>
 
-      {/* ── How it works ── */}
-      <Container style={{ paddingVertical: spacing.xxl }}>
-        <View style={{ gap: spacing.xl }}>
-          <View style={{ gap: spacing.sm }}>
-            <Typography variant="headlineMedium" weight="bold">
-              How it works
-            </Typography>
-            <Typography variant="bodyMedium" color={theme.onSurfaceVariant}>
-              From install to AI-accurate code in three steps.
-            </Typography>
-          </View>
-          <ThemedView columns={3} gap={spacing.md}>
-            {HOW_IT_WORKS.map((item) => (
-              <ThemedView
-                key={item.step}
-                variant="surface"
-                style={[
-                  styles.stepCard,
-                  {
-                    borderRadius: borderRadius.md,
-                    padding: spacing.lg,
-                    gap: spacing.md,
-                    borderWidth: 1,
-                    borderColor: theme.outlineVariant,
-                  },
-                ]}>
-                <View style={[styles.row, { gap: spacing.sm, alignItems: 'center' }]}>
-                  <View
-                    style={[
-                      styles.stepBadge,
-                      { backgroundColor: theme.primaryContainer, borderRadius: borderRadius.full },
-                    ]}>
-                    <Typography variant="labelSmall" weight="bold" color={theme.onPrimaryContainer}>
-                      {item.step}
-                    </Typography>
-                  </View>
-                  {renderIcon(item.icon, 'Feather', 16, theme.primary)}
-                </View>
-                <View style={{ gap: spacing.xs }}>
-                  <Typography variant="titleSmall" weight="bold">{item.title}</Typography>
-                  <Typography variant="bodySmall" color={theme.onSurfaceVariant}>{item.body}</Typography>
-                </View>
-              </ThemedView>
-            ))}
-          </ThemedView>
-        </View>
-      </Container>
-
       {/* ── Built with zero-to-app callout ── */}
       <Container style={{ paddingVertical: spacing.xxl }}>
         <ThemedView
@@ -396,43 +326,74 @@ export default function HomeScreen() {
         </ThemedView>
       </Container>
 
-      {/* ── GitHub & stats — muted, at the bottom ── */}
+      {/* ── GitHub contributions section ── */}
       <Container style={{ paddingVertical: spacing.xxl }}>
-        <View
-          style={[
-            styles.githubSection,
-            {
-              borderTopWidth: 1,
-              borderTopColor: theme.outlineVariant,
-              paddingTop: spacing.xxl,
-              gap: spacing.lg,
-            },
-          ]}>
-          {/* Header row */}
-          <View style={[styles.row, { alignItems: 'center', gap: spacing.md }]}>
-            <GitHubIcon size={22} color={theme.onSurfaceVariant} isDark={isDark} />
-            <Typography variant="titleMedium" weight="medium" color={theme.onSurfaceVariant}>
-              Open source · MIT License
-            </Typography>
-          </View>
+        <View style={[styles.githubSection, { borderTopWidth: 1, borderTopColor: theme.outlineVariant, paddingTop: spacing.xxl, gap: spacing.xl, alignItems: 'center' }]}>
 
-          {/* Muted inline stats */}
-          <View style={[styles.row, { gap: spacing.xxl, flexWrap: 'wrap' }]}>
-            {[
-              { value: stars ?? '—', label: 'GitHub stars' },
-              { value: downloads ?? '—', label: 'weekly downloads' },
-              { value: '28', label: 'components' },
-              { value: 'iOS · Android · Web', label: 'platforms' },
-            ].map((s) => (
-              <View key={s.label} style={{ gap: 2 }}>
-                <Typography variant="titleSmall" weight="bold" color={theme.onSurfaceVariant}>
-                  {s.value}
-                </Typography>
-                <Typography variant="labelSmall" color={theme.outlineVariant}>
-                  {s.label}
+          {/* License label */}
+          <Typography variant="labelMedium" color={theme.outlineVariant} align="center">
+            OPEN SOURCE · MIT LICENSE
+          </Typography>
+
+          {/* Stat tiles: GitHub stars, npm downloads, components, platforms */}
+          <View style={[styles.statRow, { gap: spacing.lg, flexWrap: 'wrap', justifyContent: 'center' }]}>
+
+            {/* GitHub stars */}
+            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                <GitHubIcon size={16} color={theme.onSurfaceVariant} isDark={isDark} />
+                <Typography variant="headlineSmall" weight="bold" color={theme.onSurfaceVariant}>
+                  {stars ?? '—'}
                 </Typography>
               </View>
-            ))}
+              <Typography variant="labelSmall" color={theme.outlineVariant}>Stars</Typography>
+            </View>
+
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+
+            {/* npm downloads */}
+            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                {Platform.OS === 'web' ? (
+                  <Image
+                    source={{ uri: 'https://svgl.app/library/npm.svg' }}
+                    style={{ width: 20, height: 20 }}
+                  />
+                ) : (
+                  renderIcon({ name: 'package', library: 'Feather' }, 'Feather', 16, theme.onSurfaceVariant)
+                )}
+                <Typography variant="headlineSmall" weight="bold" color={theme.onSurfaceVariant}>
+                  {downloads ?? '—'}
+                </Typography>
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>Weekly downloads</Typography>
+            </View>
+
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+
+            {/* Components */}
+            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
+                {renderIcon({ name: 'box', library: 'Feather' }, 'Feather', 16, theme.onSurfaceVariant)}
+                <Typography variant="headlineSmall" weight="bold" color={theme.onSurfaceVariant}>
+                  28
+                </Typography>
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>Components</Typography>
+            </View>
+
+            <View style={[styles.statDivider, { backgroundColor: theme.outlineVariant }]} />
+
+            {/* Platforms */}
+            <View style={[styles.statTile, { gap: spacing.sm, alignItems: 'center' }]}>
+              <View style={[styles.row, { alignItems: 'center', gap: spacing.sm }]}>
+                {renderIcon({ name: 'smartphone', library: 'Feather' }, 'Feather', 15, theme.onSurfaceVariant)}
+                {renderIcon({ name: 'android', library: 'MaterialIcons' }, 'MaterialIcons', 16, theme.onSurfaceVariant)}
+                {renderIcon({ name: 'globe', library: 'Feather' }, 'Feather', 15, theme.onSurfaceVariant)}
+              </View>
+              <Typography variant="labelSmall" color={theme.outlineVariant}>iOS · Android · Web</Typography>
+            </View>
+
           </View>
 
           {/* CTA */}
@@ -483,8 +444,8 @@ const styles = StyleSheet.create({
   hero: { alignItems: 'center' },
   centered: { alignItems: 'center', maxWidth: 520 },
   heroWeb: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 24 },
-  heroLeft: { flex: 1, alignItems: 'center' },
-  heroTextBlock: { maxWidth: 480, alignItems: 'center' },
+  heroLeft: { flex: 1, alignItems: 'flex-start' },
+  heroTextBlock: { maxWidth: 480 },
   heroRight: { flex: 1 },
   profileImage: { width: 56, height: 56, alignItems: 'center', justifyContent: 'center' },
   albumArt: { width: 52, height: 52, alignItems: 'center', justifyContent: 'center' },
@@ -494,11 +455,12 @@ const styles = StyleSheet.create({
   logo: { width: 64, height: 64 },
   ctaRow: { flexDirection: 'row', flexWrap: 'wrap' },
   row: { flexDirection: 'row' },
-  stepCard: {},
-  stepBadge: { width: 24, height: 24, alignItems: 'center', justifyContent: 'center' },
   featureCard: {},
   iconWrap: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
   callout: {},
   githubSection: {},
+  statRow: { flexDirection: 'row', alignItems: 'center' },
+  statTile: { minWidth: 80 },
+  statDivider: { width: 1, height: 40, opacity: 0.4 },
   footer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
 });

@@ -215,18 +215,20 @@ export default function HomeScreen() {
 
             {/* Row 2 */}
             <View style={[styles.row, { gap: spacing.sm }]}>
-              {/* Music player — primary */}
+              {/* Music player — compact horizontal layout */}
               <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
-                {/* Album art */}
-                <Image
-                  source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=300&h=300&fit=crop' }}
-                  style={{ width: '100%', aspectRatio: 1, borderRadius: borderRadius.md }}
-                  resizeMode="cover"
-                />
-                {/* Track info */}
-                <View style={{ gap: spacing.xs }}>
-                  <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
-                  <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave Collection · 3:42</Typography>
+                {/* Art + info side by side */}
+                <View style={[styles.row, { gap: spacing.md, alignItems: 'center' }]}>
+                  <Image
+                    source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=120&h=120&fit=crop' }}
+                    style={{ width: 64, height: 64, borderRadius: borderRadius.sm }}
+                    resizeMode="cover"
+                  />
+                  <View style={{ flex: 1, gap: 2 }}>
+                    <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
+                    <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave · 3:42</Typography>
+                  </View>
+                  {renderIcon({ name: 'heart', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
                 </View>
                 {/* Progress */}
                 <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
@@ -235,20 +237,20 @@ export default function HomeScreen() {
                 {/* Controls */}
                 <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.xl }]}>
                   {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 18, theme.onPrimary)}
-                  <ThemedView variant="surface" style={{ width: 44, height: 44, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
-                    {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 18, theme.primary)}
+                  <ThemedView variant="surface" style={{ width: 40, height: 40, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
+                    {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 16, theme.primary)}
                   </ThemedView>
                   {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 18, theme.onPrimary)}
                 </View>
               </ThemedView>
 
+              {/* Quick access — 3 items */}
               <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, overflow: 'hidden' }]}>
                 <Typography variant="titleSmall" weight="bold" style={{ paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.xs }}>Quick access</Typography>
                 {([
                   { icon: 'home' as const, label: 'Home', sub: 'Main workspace' },
                   { icon: 'briefcase' as const, label: 'Work', sub: '3 active projects' },
                   { icon: 'user' as const, label: 'Profile', sub: 'Alex Johnson' },
-                  { icon: 'settings' as const, label: 'Settings', sub: 'Preferences' },
                 ]).map((item) => (
                   <ListItem
                     key={item.icon}
@@ -268,7 +270,7 @@ export default function HomeScreen() {
 
             {/* Row 3 — intentionally taller than the panel; clipped at bottom */}
             <View style={[styles.row, { gap: spacing.sm }]}>
-              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, minHeight: 340, overflow: 'hidden' }]}>
+              <ThemedView variant="surface" elevation={1} style={[styles.demoCard, { borderRadius: borderRadius.md, minHeight: 220, overflow: 'hidden' }]}>
                 <ListItem
                   title="Notifications"
                   leading={renderIcon({ name: 'bell', library: 'Feather' }, 'Feather', 16, theme.primary)}
@@ -291,7 +293,7 @@ export default function HomeScreen() {
                 ))}
               </ThemedView>
 
-              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, minHeight: 340 }]}>
+              <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md, minHeight: 220 }]}>
                 <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
                   {renderIcon({ name: 'activity', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
                   <Typography variant="labelSmall" color={theme.onPrimary}>Performance</Typography>

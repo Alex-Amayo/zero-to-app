@@ -212,16 +212,30 @@ export default function HomeScreen() {
 
             {/* Row 2 */}
             <View style={[styles.row, { gap: spacing.sm }]}>
+              {/* Music player — primary */}
               <ThemedView variant="primary" style={[styles.demoCard, { borderRadius: borderRadius.md, padding: spacing.md, gap: spacing.md }]}>
-                <View style={[styles.row, { alignItems: 'center', gap: spacing.xs }]}>
-                  {renderIcon({ name: 'thermometer', library: 'Feather' }, 'Feather', 16, theme.onPrimary)}
-                  <Typography variant="labelSmall" color={theme.onPrimary}>Temperature</Typography>
+                {/* Album art */}
+                <Image
+                  source={{ uri: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=300&h=300&fit=crop' }}
+                  style={{ width: '100%', aspectRatio: 1, borderRadius: borderRadius.md }}
+                  resizeMode="cover"
+                />
+                {/* Track info */}
+                <View style={{ gap: spacing.xs }}>
+                  <Typography variant="titleSmall" weight="bold" color={theme.onPrimary}>Midnight Drive</Typography>
+                  <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>Synthwave Collection · 3:42</Typography>
                 </View>
-                <Typography variant="displaySmall" weight="bold" color={theme.onPrimary}>24°C</Typography>
-                <Slider value={0.6} minimumValue={0} maximumValue={1} onValueChange={() => {}} />
-                <View style={[styles.row, { justifyContent: 'space-between' }]}>
-                  <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>16°</Typography>
-                  <Typography variant="labelSmall" color={theme.onPrimary} style={{ opacity: 0.7 }}>32°</Typography>
+                {/* Progress */}
+                <View style={[styles.progressTrack, { backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 0.3 }]}>
+                  <View style={[styles.progressFill, { width: '45%', backgroundColor: theme.onPrimary, borderRadius: borderRadius.full, opacity: 1 }]} />
+                </View>
+                {/* Controls */}
+                <View style={[styles.row, { justifyContent: 'center', alignItems: 'center', gap: spacing.xl }]}>
+                  {renderIcon({ name: 'skip-back', library: 'Feather' }, 'Feather', 18, theme.onPrimary)}
+                  <ThemedView variant="surface" style={{ width: 44, height: 44, borderRadius: borderRadius.full, alignItems: 'center', justifyContent: 'center' }}>
+                    {renderIcon({ name: 'pause', library: 'Feather' }, 'Feather', 18, theme.primary)}
+                  </ThemedView>
+                  {renderIcon({ name: 'skip-forward', library: 'Feather' }, 'Feather', 18, theme.onPrimary)}
                 </View>
               </ThemedView>
 
@@ -323,6 +337,9 @@ export default function HomeScreen() {
         </SafeAreaView>
       )}
 
+      {/* ─────────────────────────────────────────────────────────────────── */}
+      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
+
       {/* ── Feature cards ── */}
       <Container style={{ paddingVertical: SECTION_PAD }}>
         <View style={{ gap: spacing.xl }}>
@@ -356,6 +373,9 @@ export default function HomeScreen() {
         </View>
       </Container>
 
+      {/* ─────────────────────────────────────────────────────────────────── */}
+      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
+
       {/* ── Callout ── */}
       <Container style={{ paddingVertical: SECTION_PAD }}>
         <ThemedView variant="primary" style={{ borderRadius: borderRadius.lg, padding: spacing.xxl, gap: spacing.md }}>
@@ -369,9 +389,12 @@ export default function HomeScreen() {
         </ThemedView>
       </Container>
 
+      {/* ─────────────────────────────────────────────────────────────────── */}
+      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
+
       {/* ── GitHub contributions ── */}
       <Container style={{ paddingVertical: 64 }}>
-        <View style={{ borderTopWidth: 1, borderTopColor: theme.outlineVariant, paddingTop: spacing.xxl, gap: spacing.xl, alignItems: 'center' }}>
+        <View style={{ gap: spacing.xl, alignItems: 'center' }}>
           <Typography variant="labelMedium" color={theme.outlineVariant} align="center">
             OPEN SOURCE · MIT LICENSE
           </Typography>
@@ -417,9 +440,12 @@ export default function HomeScreen() {
         </View>
       </Container>
 
+      {/* ─────────────────────────────────────────────────────────────────── */}
+      <View style={{ height: 1, backgroundColor: theme.outlineVariant }} />
+
       {/* ── Footer ── */}
       <Container>
-        <View style={[styles.footer, { paddingVertical: spacing.xl, borderTopWidth: 1, borderTopColor: theme.outlineVariant }]}>
+        <View style={[styles.footer, { paddingVertical: spacing.xl }]}>
           <Typography variant="bodySmall" color={theme.onSurfaceVariant}>© 2025 zero-to-app</Typography>
           <View style={[styles.row, { gap: spacing.lg }]}>
             <Typography variant="bodySmall" color={theme.onSurfaceVariant} onPress={() => Linking.openURL('https://github.com/Alex-Amayo/zero-to-app')}>GitHub</Typography>
@@ -444,6 +470,8 @@ const styles = StyleSheet.create({
   heroLeft: { flex: 1, justifyContent: 'center' },
   heroRight: { flex: 1 },
   demoCard: { flex: 1 },
+  progressTrack: { height: 3, width: '100%' },
+  progressFill: { height: 3 },
   profileImage: { width: 56, height: 56 },
   ctaRow: { flexDirection: 'row', flexWrap: 'wrap' },
   row: { flexDirection: 'row' },

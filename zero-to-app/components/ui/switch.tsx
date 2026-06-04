@@ -1,6 +1,7 @@
 // 1. IMPORTS
 import React from 'react';
 import {
+  Platform,
   Switch as RNSwitch,
   View,
   StyleSheet,
@@ -58,6 +59,7 @@ const Switch = ({
         thumbColor={value ? theme.onPrimary : theme.outline}
         testID={testID}
         accessibilityLabel={accessibilityLabel ?? label}
+        {...(Platform.OS === 'web' && { activeThumbColor: theme.onPrimary } as any)}
       />
     </View>
   );

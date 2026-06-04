@@ -378,11 +378,12 @@ export default function HomeScreen() {
           <Image source={logoSource} style={styles.logo} resizeMode="contain" />
           <View style={[styles.centered, { gap: spacing.md }]}>
             <Typography variant="displaySmall" weight="bold" align="center">
-              The Expo UI library{'\n'}built for the AI era
+              The React Native UI library{'\n'}built for the AI era
             </Typography>
             <Typography variant="bodyLarge" align="center" color={theme.onSurfaceVariant}>
-              Native components on iOS and Android. M3 everywhere.{'\n'}
-              MCP server + Claude Skills — so AI generates code that fits from the first prompt.
+              MCP server + Claude Skills — so AI generates predictable, accessible and consistent components.{'\n'}
+              Native iOS and Android components with EXPO UI.{'\n'}
+              Material 3 Theming system great for use with Native Components{'\n'}
             </Typography>
           </View>
           <View style={[styles.ctaRow, { gap: spacing.md }]}>

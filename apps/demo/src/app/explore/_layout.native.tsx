@@ -60,6 +60,7 @@ export default function ExploreLayout() {
                 <Stack.Screen name="themed-image" options={{ title: 'ThemedImage' }} />
                 <Stack.Screen name="avatar" options={{ title: 'Avatar' }} />
                 <Stack.Screen name="button" options={{ title: 'Button' }} />
+                <Stack.Screen name="icon-button" options={{ title: 'IconButton' }} />
                 <Stack.Screen name="chip" options={{ title: 'Chip' }} />
                 <Stack.Screen name="divider" options={{ title: 'Divider' }} />
                 <Stack.Screen name="slider" options={{ title: 'Slider' }} />

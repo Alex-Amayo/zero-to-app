@@ -102,7 +102,7 @@ export default function AppTabs({
           onMenuPress={() => setMenuOpen(true)}>
           {tabs.map((tab) => (
             <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-              <TabButton height={height} webIcon={tab.webIcon} materialIcon={tab.materialIcon}>
+              <TabButton webIcon={tab.webIcon} materialIcon={tab.materialIcon}>
                 {tab.label}
               </TabButton>
             </TabTrigger>
@@ -168,12 +168,11 @@ function resolveMaterialIconName(icon: MaterialIconName): string {
 
 interface TabButtonProps extends TabTriggerSlotProps {
   children: ReactNode;
-  height?: number;
   webIcon?: PlatformIcon | string;
   materialIcon?: MaterialIconName;
 }
 
-function TabButton({ children, isFocused, height, webIcon, materialIcon, ...props }: TabButtonProps) {
+function TabButton({ children, isFocused, webIcon, materialIcon, ...props }: TabButtonProps) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
   const [hovered, setHovered] = useState(false);
@@ -187,8 +186,7 @@ function TabButton({ children, isFocused, height, webIcon, materialIcon, ...prop
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
       style={({ pressed }: any) => [
-        styles.tabButton,
-        { paddingHorizontal: spacing.lg, height, justifyContent: 'center' },
+        { paddingHorizontal: spacing.lg, alignSelf: 'stretch', justifyContent: 'center' },
         pressed && { opacity: 0.7 },
       ]}>
       <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
@@ -247,7 +245,7 @@ function CustomTabList({
             {externalLinks.length > 0 && (
               <View style={[styles.tabs, { gap: spacing.xs, marginLeft: spacing.lg }]}>
                 {externalLinks.map((link, i) => (
-                  <ExternalLinkButton key={i} {...link} height={height} />
+                  <ExternalLinkButton key={i} {...link} />
                 ))}
               </View>
             )}
@@ -274,7 +272,7 @@ function CustomTabList({
 
 // --- Desktop external link button ---
 
-function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink & { height: number }) {
+function ExternalLinkButton({ href, label, icon }: AppTabsExternalLink) {
   const { values: theme } = useThemeContext();
   const spacing = theme.spacing;
   const [hovered, setHovered] = useState(false);
@@ -287,8 +285,7 @@ function ExternalLinkButton({ href, label, height, icon }: AppTabsExternalLink &
         onHoverIn={() => setHovered(true)}
         onHoverOut={() => setHovered(false)}
         style={({ pressed }: any) => [
-          styles.tabButton,
-          { paddingHorizontal: spacing.lg, height, justifyContent: 'center', borderRadius: theme.shape.buttonBorderRadius },
+          { paddingHorizontal: spacing.lg, alignSelf: 'stretch', justifyContent: 'center', borderRadius: theme.shape.buttonBorderRadius },
           pressed && { opacity: 0.7 },
         ]}>
         <View style={[styles.tabButtonContent, { gap: spacing.sm }]}>
@@ -327,11 +324,10 @@ function DrawerDivider() {
 
 const styles = StyleSheet.create({
   appBar: { width: '100%', flexDirection: 'row', alignItems: 'center' },
-  appBarContent: { flexDirection: 'row', alignItems: 'center', flex: 1 },
-  brand: { marginRight: 'auto', alignSelf: 'center' },
+  appBarContent: { flexDirection: 'row', alignItems: 'center', flex: 1, alignSelf: 'stretch' },
+  brand: { marginRight: 'auto' },
   brandContent: { flexDirection: 'row', alignItems: 'center' },
-  tabs: { flexDirection: 'row', alignItems: 'center' },
-  tabButton: { position: 'relative' },
+  tabs: { flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch' },
   tabButtonContent: { flexDirection: 'row', alignItems: 'center' },
   activeIndicator: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderTopLeftRadius: 2, borderTopRightRadius: 2 },
   iconButton: { alignItems: 'center', justifyContent: 'center' },

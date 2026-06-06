@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import type { SFSymbol } from 'sf-symbols-typescript';
 import type { AndroidSymbol } from 'expo-symbols';
 import { useThemeContext } from '../../../theme';
@@ -94,6 +93,10 @@ function normalizeMd(
  */
 export default function AppTabs({ tabs, sidebarAdaptable }: AppTabsProps) {
   const { values: theme } = useThemeContext();
+  // Deferred require prevents expo-router/unstable-native-tabs from being
+  // evaluated at barrel init time, which causes downstream exports to be
+  // undefined in Metro's synchronous module evaluation pass.
+  const { NativeTabs } = require('expo-router/unstable-native-tabs');
 
   return (
     <NativeTabs

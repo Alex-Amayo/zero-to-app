@@ -256,6 +256,7 @@ export default function DocsLayout() {
   return (
     <View style={styles.container}>
       <Sidebar
+        avoidAppBar
         header={<SidebarHeader title="Docs" onPress={() => navigateTo('/docs')} />}
       >
         <SidebarSection title="Getting Started">
@@ -464,7 +465,7 @@ const styles = StyleSheet.create({
 const isDesktop = width >= breakpoints.large;
 
 <View style={styles.container}>
-  <Sidebar>{/* nav */}</Sidebar>
+  <Sidebar avoidAppBar>{/* nav */}</Sidebar>
   <ThemedView style={[styles.content, isDesktop && styles.contentWithSidebar]}>
     <Slot />
   </ThemedView>
@@ -472,6 +473,11 @@ const isDesktop = width >= breakpoints.large;
 ```
 
 On mobile web and native, the sidebar is an overlay drawer — no `marginLeft` needed.
+
+**`avoidAppBar` prop:**
+- Default is `false` — sidebar fills `100vh` from `top: 0`
+- Pass `avoidAppBar` when `AppTabs` is present — reads `appBarHeight` from layout context and applies `top: appBarHeight` + `height: calc(100vh - appBarHeight)` so the sidebar starts below the bar and fills the remaining viewport
+- No-op on native (native sidebar is a modal overlay unaffected by app bar height)
 
 **Sub-components:**
 - `SidebarItem` — `label`, `icon`, `active`, `disabled`, `onPress`

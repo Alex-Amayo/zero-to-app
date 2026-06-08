@@ -21,6 +21,7 @@ export default function ExploreLayout() {
     return (
         <View style={styles.container}>
             <Sidebar
+                avoidAppBar
                 header={
                     <SidebarHeader
                         title="Docs"

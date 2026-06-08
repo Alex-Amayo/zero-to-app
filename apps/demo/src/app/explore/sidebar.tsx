@@ -23,6 +23,18 @@ const sidebarProps: PropDefinition[] = [
     type: 'React.ReactNode',
     description: 'Optional footer content — typically a SidebarFooter component',
   },
+  {
+    name: 'avoidAppBar',
+    type: 'boolean',
+    default: 'false',
+    description: 'Offsets the sidebar below the app bar and subtracts its height. Pass when AppTabs is present. No-op on native.',
+  },
+  {
+    name: 'anchor',
+    type: "'left' | 'right'",
+    default: "'left'",
+    description: 'Which side the sidebar anchors to (web desktop and mobile drawer)',
+  },
 ];
 
 const sidebarHeaderProps: PropDefinition[] = [
@@ -223,23 +235,25 @@ const { open, close, toggle, isOpen } = useSidebar();
       <DemoSection
         title="How content spacing works"
         description="On web desktop the sidebar is position: fixed — it does not participate in the flex layout and does not push content. The consuming layout is responsible for offsetting content by the sidebar width."
-        code={`// The sidebar is position: fixed below the app bar.
-// It renders outside the normal flex flow, so content behind it
-// must be manually offset by the sidebar width.
+        code={`// The sidebar is position: fixed and renders outside the normal flex flow.
+// Content behind it must be manually offset by the sidebar width (280dp).
+
+// Pass avoidAppBar when AppTabs is present — offsets the sidebar below the
+// app bar and subtracts its height so the sidebar fills the remaining viewport.
 
 const styles = StyleSheet.create({
   container: { flex: 1, flexDirection: 'row' },
   content: { flex: 1 },
   // marginLeft equals tokens.sidebar.width (280dp)
-  // Only applied at breakpoints.large (≥1024dp) where the persistent sidebar is visible
+  // Only applied at breakpoints.large (≥1024dp)
   contentWithSidebar: { marginLeft: 280 },
 });
 
-// In your layout:
 const isDesktop = width >= breakpoints.large;
 
+// With AppTabs:
 <View style={styles.container}>
-  <Sidebar header={...}>{/* nav items */}</Sidebar>
+  <Sidebar avoidAppBar header={...}>{/* nav items */}</Sidebar>
   <ThemedView
     variant="background"
     style={[styles.content, isDesktop && styles.contentWithSidebar]}
@@ -248,21 +262,31 @@ const isDesktop = width >= breakpoints.large;
   </ThemedView>
 </View>
 
-// On mobile (<1024dp) the sidebar becomes a Drawer overlay —
-// no marginLeft needed since it sits above the content.
-// On native it is always a Drawer overlay — same, no offset required.`}
+// Without AppTabs (sidebar fills 100vh from top: 0):
+<View style={styles.container}>
+  <Sidebar header={...}>{/* nav items */}</Sidebar>
+  <ThemedView style={[styles.content, isDesktop && styles.contentWithSidebar]}>
+    <Slot />
+  </ThemedView>
+</View>`}
       >
         <View style={{ gap: spacing.md }}>
           <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
-            <Typography variant="labelLarge" weight="medium">Desktop — fixed + marginLeft</Typography>
+            <Typography variant="labelLarge" weight="medium">Default — 100vh from top: 0</Typography>
             <Typography variant="bodySmall" muted>
-              Sidebar renders via position: fixed. The layout applies marginLeft: 280 to the content area to create visual separation. The sidebar has no knowledge of the content beside it.
+              Sidebar fills the full viewport height. Use when there is no app bar above it.
+            </Typography>
+          </ThemedView>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
+            <Typography variant="labelLarge" weight="medium">avoidAppBar — offset below app bar</Typography>
+            <Typography variant="bodySmall" muted>
+              Reads appBarHeight from layout context. Applies top: appBarHeight and height: calc(100vh - appBarHeight). Use whenever AppTabs is present.
             </Typography>
           </ThemedView>
           <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
             <Typography variant="labelLarge" weight="medium">Mobile / Native — overlay, no offset</Typography>
             <Typography variant="bodySmall" muted>
-              Drawer sits above the content at full viewport height. No marginLeft is applied — the content stays full width.
+              Drawer sits above the content. No marginLeft is applied — content stays full width. avoidAppBar is a no-op on native.
             </Typography>
           </ThemedView>
         </View>

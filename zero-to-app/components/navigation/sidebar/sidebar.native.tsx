@@ -30,6 +30,8 @@ export interface SidebarProps {
   style?: StyleProp<ViewStyle>;
   /** Test ID for testing */
   testID?: string;
+  /** No-op on native — accepted for cross-platform prop parity */
+  avoidAppBar?: boolean;
 }
 
 // 3. COMPONENT

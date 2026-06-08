@@ -33,6 +33,12 @@ export interface SidebarProps {
   testID?: string;
   /** Anchor side for the sidebar: 'left' | 'right' (desktop and mobile drawer) */
   anchor?: 'left' | 'right';
+  /**
+   * When true, offsets the sidebar below the app bar and subtracts its height
+   * from the sidebar height. Use when AppTabs is present.
+   * @default false
+   */
+  avoidAppBar?: boolean;
 }
 
 // 3. COMPONENT
@@ -49,6 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   style,
   testID,
   anchor = 'left',
+  avoidAppBar = false,
 }) => {
   const { values: theme } = useThemeContext();
   const { width } = useDimensions();
@@ -92,8 +99,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             borderRightColor: isRight ? 'transparent' : tokens.divider,
             borderLeftWidth: isRight ? 1 : 0,
             borderLeftColor: isRight ? tokens.divider : 'transparent',
-            top: appBarHeight,
-            height: `calc(100vh - ${appBarHeight}px)` as any,
+            top: avoidAppBar ? appBarHeight : 0,
+            height: avoidAppBar ? `calc(100vh - ${appBarHeight}px)` as any : '100vh' as any,
             left: isRight ? 'auto' as any : 0,
             right: isRight ? 0 : 'auto' as any,
           },

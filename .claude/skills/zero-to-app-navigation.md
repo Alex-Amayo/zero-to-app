@@ -447,9 +447,31 @@ Adds icon buttons to the native navigation bar. Place inside screen files, not l
 **Platform behaviour:**
 | Context | Behaviour |
 |---------|-----------|
-| Web desktop (≥1024px) | Persistent panel, fixed below app bar |
+| Web desktop (≥1024px) | Persistent panel, `position: fixed` below app bar |
 | Web mobile (<1024px) | Hidden; FAB trigger opens animated drawer overlay |
 | iOS / Android | Modal drawer; controlled by `useSidebar()` |
+
+**IMPORTANT — content offset on web desktop:**
+The web desktop sidebar uses `position: fixed`. It does **not** push content — it renders outside the normal flex flow entirely. The layout that contains the Sidebar is responsible for applying `marginLeft` equal to the sidebar width on the content area:
+
+```tsx
+const styles = StyleSheet.create({
+  container: { flex: 1, flexDirection: 'row' },
+  content: { flex: 1 },
+  contentWithSidebar: { marginLeft: 280 }, // tokens.sidebar.width = 280
+});
+
+const isDesktop = width >= breakpoints.large;
+
+<View style={styles.container}>
+  <Sidebar>{/* nav */}</Sidebar>
+  <ThemedView style={[styles.content, isDesktop && styles.contentWithSidebar]}>
+    <Slot />
+  </ThemedView>
+</View>
+```
+
+On mobile web and native, the sidebar is an overlay drawer — no `marginLeft` needed.
 
 **Sub-components:**
 - `SidebarItem` — `label`, `icon`, `active`, `disabled`, `onPress`

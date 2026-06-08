@@ -221,6 +221,54 @@ const { open, close, toggle, isOpen } = useSidebar();
       </DemoSection>
 
       <DemoSection
+        title="How content spacing works"
+        description="On web desktop the sidebar is position: fixed — it does not participate in the flex layout and does not push content. The consuming layout is responsible for offsetting content by the sidebar width."
+        code={`// The sidebar is position: fixed below the app bar.
+// It renders outside the normal flex flow, so content behind it
+// must be manually offset by the sidebar width.
+
+const styles = StyleSheet.create({
+  container: { flex: 1, flexDirection: 'row' },
+  content: { flex: 1 },
+  // marginLeft equals tokens.sidebar.width (280dp)
+  // Only applied at breakpoints.large (≥1024dp) where the persistent sidebar is visible
+  contentWithSidebar: { marginLeft: 280 },
+});
+
+// In your layout:
+const isDesktop = width >= breakpoints.large;
+
+<View style={styles.container}>
+  <Sidebar header={...}>{/* nav items */}</Sidebar>
+  <ThemedView
+    variant="background"
+    style={[styles.content, isDesktop && styles.contentWithSidebar]}
+  >
+    <Slot />
+  </ThemedView>
+</View>
+
+// On mobile (<1024dp) the sidebar becomes a Drawer overlay —
+// no marginLeft needed since it sits above the content.
+// On native it is always a Drawer overlay — same, no offset required.`}
+      >
+        <View style={{ gap: spacing.md }}>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
+            <Typography variant="labelLarge" weight="medium">Desktop — fixed + marginLeft</Typography>
+            <Typography variant="bodySmall" muted>
+              Sidebar renders via position: fixed. The layout applies marginLeft: 280 to the content area to create visual separation. The sidebar has no knowledge of the content beside it.
+            </Typography>
+          </ThemedView>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
+            <Typography variant="labelLarge" weight="medium">Mobile / Native — overlay, no offset</Typography>
+            <Typography variant="bodySmall" muted>
+              Drawer sits above the content at full viewport height. No marginLeft is applied — the content stays full width.
+            </Typography>
+          </ThemedView>
+        </View>
+      </DemoSection>
+
+      <DemoSection
         title="Layout Pattern"
         description="Place Sidebar alongside a Slot (web) or Stack (native) in your layout file."
         code={`// _layout.tsx (web/default)

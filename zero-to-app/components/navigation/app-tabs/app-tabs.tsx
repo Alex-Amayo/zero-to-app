@@ -68,6 +68,16 @@ export interface AppTabsProps {
    * @platform iOS
    */
   sidebarAdaptable?: boolean;
+  /**
+   * Background color of the tab bar.
+   * @platform iOS, Android
+   */
+  backgroundColor?: string;
+  /**
+   * iOS blur effect applied behind the tab bar (e.g. 'light', 'dark', 'regular').
+   * @platform iOS
+   */
+  blurEffect?: string;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -91,7 +101,7 @@ function normalizeMd(
  * Uses true native tabs via expo-router/unstable-native-tabs.
  * For the web variant see app-tabs.web.tsx.
  */
-export default function AppTabs({ tabs, sidebarAdaptable }: AppTabsProps) {
+export default function AppTabs({ tabs, sidebarAdaptable, backgroundColor, blurEffect }: AppTabsProps) {
   const { values: theme } = useThemeContext();
   // Deferred require prevents expo-router/unstable-native-tabs from being
   // evaluated at barrel init time, which causes downstream exports to be
@@ -103,6 +113,8 @@ export default function AppTabs({ tabs, sidebarAdaptable }: AppTabsProps) {
       tintColor={theme.primary}
       iconColor={theme.onSurfaceVariant}
       sidebarAdaptable={sidebarAdaptable}
+      backgroundColor={backgroundColor}
+      blurEffect={blurEffect}
     >
       {tabs.map((tab) => (
         <NativeTabs.Trigger key={tab.name} name={tab.name}>

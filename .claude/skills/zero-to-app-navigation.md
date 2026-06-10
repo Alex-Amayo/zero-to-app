@@ -358,6 +358,8 @@ export default function AuthLayout() {
   externalLinks={[{ label: 'Docs', href: '...' }]}  // web top bar only
   onPrimaryMenuPress={toggle}                        // native hamburger → useSidebar
   sidebarAdaptable                                   // iPadOS 18+: promotes to sidebar
+  backgroundColor="#1C1C1E"                          // native only — overrides tab bar bg
+  blurEffect="dark"                                  // iOS only — UIBlurEffectStyle value
 />
 ```
 
@@ -371,6 +373,13 @@ export default function AuthLayout() {
 | `sfSymbol` | `{ default: string, selected: string }` | iOS SF Symbol names |
 | `materialIcon` | `string \| { default?: string, selected: string }` | Android — string uses same icon for both states; object form shows distinct selected icon (requires RN Screens 4.25+, available from SDK 56) |
 | `webIcon` | `PlatformIcon \| string` | Web top bar icon only |
+
+**AppTabs appearance props (native only):**
+
+| Prop | Type | Notes |
+|------|------|-------|
+| `backgroundColor` | `string` | Overrides the system default tab bar background on iOS and Android. No-op on web. |
+| `blurEffect` | `string` | iOS only — `UIBlurEffectStyle` value (e.g. `'light'`, `'dark'`, `'regular'`, `'prominent'`, `'systemUltraThinMaterial'`). No-op on Android and web. |
 
 **Platform behaviour:**
 - **iOS** — NativeTabs via `expo-router/unstable-native-tabs`. Real native UITabBarController with Liquid Glass effect on iOS 26+. Hamburger button appears when `onPrimaryMenuPress` is provided.

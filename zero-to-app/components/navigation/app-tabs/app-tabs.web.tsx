@@ -61,6 +61,10 @@ export interface AppTabsProps {
   height?: number;
   /** Native-only: called when hamburger is pressed on native platforms */
   onPrimaryMenuPress?: () => void;
+  /** Native-only: background color of the tab bar */
+  backgroundColor?: string;
+  /** Native-only: iOS blur effect applied behind the tab bar */
+  blurEffect?: string;
 }
 
 /**

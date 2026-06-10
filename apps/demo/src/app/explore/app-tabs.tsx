@@ -39,6 +39,16 @@ const appTabsProps: PropDefinition[] = [
     type: '() => void',
     description: 'Called when the hamburger icon is pressed (native only)',
   },
+  {
+    name: 'backgroundColor',
+    type: 'string',
+    description: 'Background color of the native tab bar. Ignored on web. (iOS, Android)',
+  },
+  {
+    name: 'blurEffect',
+    type: 'string',
+    description: "iOS blur effect behind the tab bar (e.g. 'light', 'dark', 'regular'). Ignored on Android and web. (iOS)",
+  },
 ];
 
 const tabConfigProps: PropDefinition[] = [
@@ -197,6 +207,37 @@ export default function RootLayout() {
             <Typography variant="labelLarge" weight="medium">Icons are optional</Typography>
             <Typography variant="bodySmall" muted>
               Tabs render label-only if icon fields are omitted. You can mix icon and label-only tabs.
+            </Typography>
+          </ThemedView>
+        </View>
+      </DemoSection>
+
+      <DemoSection
+        title="Tab Bar Appearance (native only)"
+        description="Customise the native tab bar background colour and iOS blur effect. Both props are no-ops on web."
+        code={`<AppTabs
+  tabs={tabs}
+  // Solid colour background (overrides system default)
+  backgroundColor="#1C1C1E"
+
+  // iOS only — blur effect behind the bar
+  // Values: 'light' | 'dark' | 'regular' | 'prominent' | 'systemUltraThinMaterial' | etc.
+  blurEffect="dark"
+/>`}
+      >
+        <View style={{ gap: spacing.md }}>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
+            <Typography variant="labelLarge" weight="medium">backgroundColor</Typography>
+            <Typography variant="bodySmall" muted>
+              Accepts any CSS/React Native color string. When set, it overrides the system default tab bar background on iOS and Android.
+            </Typography>
+          </ThemedView>
+          <ThemedView variant="surfaceContainer" style={{ padding: spacing.lg, borderRadius: spacing.sm, gap: spacing.xs }}>
+            <Typography variant="labelLarge" weight="medium">blurEffect (iOS only)</Typography>
+            <Typography variant="bodySmall" muted>
+              Maps to UIBlurEffectStyle. Common values: &apos;light&apos;, &apos;dark&apos;, &apos;regular&apos;, &apos;prominent&apos;,
+              &apos;systemUltraThinMaterial&apos;, &apos;systemThinMaterial&apos;, &apos;systemMaterial&apos;, &apos;systemThickMaterial&apos;.
+              Has no effect on Android or web.
             </Typography>
           </ThemedView>
         </View>

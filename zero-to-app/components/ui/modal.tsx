@@ -1,10 +1,7 @@
 // 1. IMPORTS
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import {
-  Animated,
-  Easing,
   Modal as RNModal,
-  Platform,
   Pressable,
   View,
   StyleSheet,
@@ -51,45 +48,6 @@ const Modal = ({
   const { width } = useDimensions();
   const isDialog = width >= breakpoints.medium;
 
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const slideAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    let mounted = true;
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { AccessibilityInfo } = require('react-native');
-      AccessibilityInfo?.isReduceMotionEnabled?.().then((enabled: boolean) => {
-        if (mounted) setReduceMotion(!!enabled);
-      });
-    } catch (e) { /* ignore */ }
-    return () => { mounted = false; };
-  }, []);
-
-  useEffect(() => {
-    if (visible) {
-      if (reduceMotion) {
-        slideAnim.setValue(1);
-      } else {
-        Animated.timing(slideAnim, {
-          toValue: 1,
-          duration: 280,
-          easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
-        }).start();
-      }
-    } else {
-      slideAnim.setValue(0);
-    }
-  }, [visible, reduceMotion, slideAnim]);
-
-  const translateY = slideAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [isDialog ? -20 : 300, 0],
-  });
-
-  const opacity = slideAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 1] });
-
   const shadowStyle = elevationStyle(3, theme.shadow);
 
   const containerStyle: ViewStyle = isDialog
@@ -110,34 +68,28 @@ const Modal = ({
     <RNModal
       visible={visible}
       transparent
-      animationType="none"
+      animationType="fade"
       onRequestClose={onDismiss}
       statusBarTranslucent
     >
       {/* Scrim */}
-      <Animated.View style={[styles.scrim, { backgroundColor: t.scrim, opacity }]}>
-        <Pressable
-          style={StyleSheet.absoluteFill}
-          onPress={dismissable ? onDismiss : undefined}
-          accessibilityLabel="Close modal"
-        />
-      </Animated.View>
+      <Pressable
+        style={[styles.scrim, { backgroundColor: t.scrim }]}
+        onPress={dismissable ? onDismiss : undefined}
+        accessibilityLabel="Close modal"
+      />
 
       {/* Positioned container */}
       <View
         style={[styles.positioner, isDialog ? styles.dialogPositioner : styles.sheetPositioner]}
         pointerEvents="box-none"
       >
-        <Animated.View
-          style={[
-            containerStyle,
-            { backgroundColor: t.background, transform: [{ translateY }], opacity },
-            style,
-          ]}
+        <View
+          style={[containerStyle, { backgroundColor: t.background }, style]}
           accessibilityViewIsModal
         >
           {/* Header */}
-          {(title !== undefined) && (
+          {title !== undefined && (
             <View style={[styles.header, { borderBottomColor: t.headerBorder, borderBottomWidth: 1 }]}>
               <Typography variant="titleMedium" weight="medium" style={{ color: modalText, flex: 1 }}>
                 {title}
@@ -162,7 +114,7 @@ const Modal = ({
               {actions}
             </View>
           )}
-        </Animated.View>
+        </View>
       </View>
     </RNModal>
   );

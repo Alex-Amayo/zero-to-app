@@ -70,7 +70,7 @@ function TabLayoutInner() {
 
 export default function TabLayout() {
   return (
-    <ZeroToApp brand={defaultBrand}>
+    <ZeroToApp brand={defaultBrand} ssrWidth={1440} ssrHeight={900}>
       <TabLayoutInner />
     </ZeroToApp>
   );

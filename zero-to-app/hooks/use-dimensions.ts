@@ -1,4 +1,5 @@
 import { useWindowDimensions } from 'react-native';
+import { useLayout } from '../context/layout-context';
 
 /**
  * Breakpoints for responsive design (sizing only)
@@ -33,7 +34,15 @@ export interface DimensionsInfo {
  * if (Platform.OS === 'web' && dimensions.breakpoint === 'small') { ... }
  */
 export const useDimensions = (): DimensionsInfo => {
-  const { width, height } = useWindowDimensions();
+  const { width: rawWidth, height: rawHeight } = useWindowDimensions();
+  const { ssrWidth, ssrHeight } = useLayout();
+
+  // When rawWidth/rawHeight are 0 (SSR — no real browser window), fall back to
+  // the caller-supplied ssr values so the pre-rendered HTML already shows the
+  // correct layout. On real browsers both are always > 0, so ssr values never
+  // override real measurements.
+  const width = rawWidth || ssrWidth;
+  const height = rawHeight || ssrHeight;
 
   // Determine breakpoint based on width
   let breakpoint: Breakpoint = 'small';

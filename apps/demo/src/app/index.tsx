@@ -273,9 +273,9 @@ function HeroWide({
           </View>
         </View>
 
-        {/* Right showcase — 80% section height, overflow clipped intentionally */}
+        {/* Right showcase — half viewport height, overflow clipped intentionally */}
         <View style={[styles.heroRight, {
-          height: (viewportHeight - APPBAR_HEIGHT) * 0.8,
+          height: viewportHeight * 0.5,
           paddingTop: spacing.xxl,
           paddingHorizontal: spacing.lg,
           gap: spacing.sm,

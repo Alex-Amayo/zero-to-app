@@ -116,49 +116,47 @@ export default function AppTabs({
 
       <TabSlot style={{ flex: 1, overflow: 'hidden' }} />
 
-      {isMobile && (
-        <Drawer
-          isOpen={menuOpen}
-          onClose={() => setMenuOpen(false)}
-          side="right"
-          header={
-            <DrawerHeader brandName={brandName} logoImage={logoImage} />
-          }>
-          {tabs.map((tab) => {
-            const icon = tab.webIcon
-              ? (typeof tab.webIcon === 'string' ? { name: tab.webIcon } : tab.webIcon)
-              : tab.materialIcon
-              ? { library: 'MaterialIcons' as const, name: resolveMaterialIconName(tab.materialIcon) }
-              : undefined;
-            const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/');
-            return (
-              <SidebarItem
-                key={tab.name}
-                label={tab.label}
-                icon={icon}
-                active={isActive}
-                onPress={() => router.push(tab.href as any)}
-              />
-            );
-          })}
+      {isMobile && <Drawer
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        side="right"
+        header={
+          <DrawerHeader brandName={brandName} logoImage={logoImage} />
+        }>
+        {tabs.map((tab) => {
+          const icon = tab.webIcon
+            ? (typeof tab.webIcon === 'string' ? { name: tab.webIcon } : tab.webIcon)
+            : tab.materialIcon
+            ? { library: 'MaterialIcons' as const, name: resolveMaterialIconName(tab.materialIcon) }
+            : undefined;
+          const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/');
+          return (
+            <SidebarItem
+              key={tab.name}
+              label={tab.label}
+              icon={icon}
+              active={isActive}
+              onPress={() => router.push(tab.href as any)}
+            />
+          );
+        })}
 
-          {externalLinks.length > 0 && <DrawerDivider />}
+        {externalLinks.length > 0 && <DrawerDivider />}
 
-          {externalLinks.map((link, i) => {
-            const icon = link.icon
-              ? (typeof link.icon === 'string' ? { name: link.icon } : link.icon)
-              : undefined;
-            return (
-              <SidebarItem
-                key={i}
-                label={link.label}
-                icon={icon}
-                onPress={() => Linking.openURL(link.href)}
-              />
-            );
-          })}
-        </Drawer>
-      )}
+        {externalLinks.map((link, i) => {
+          const icon = link.icon
+            ? (typeof link.icon === 'string' ? { name: link.icon } : link.icon)
+            : undefined;
+          return (
+            <SidebarItem
+              key={i}
+              label={link.label}
+              icon={icon}
+              onPress={() => Linking.openURL(link.href)}
+            />
+          );
+        })}
+      </Drawer>}
     </Tabs>
   );
 }

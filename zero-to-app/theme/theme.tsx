@@ -24,9 +24,23 @@ const ThemeContext = createContext<ThemeContextType | typeof MISSING_PROVIDER>(M
 type ZeroToAppProps = {
   brand: Brand;
   children: React.ReactNode;
+  /**
+   * Assumed viewport width during SSR (when `useWindowDimensions` returns 0).
+   * Pass a desktop-sized value (e.g. 1440) to pre-render the desktop layout
+   * so visitors see the correct layout before the JS bundle loads.
+   * @default 0
+   */
+  ssrWidth?: number;
+  /**
+   * Assumed viewport height during SSR (when `useWindowDimensions` returns 0).
+   * Pass a typical desktop height (e.g. 900) so height-dependent layouts
+   * are pre-rendered at a reasonable size before the JS bundle loads.
+   * @default 0
+   */
+  ssrHeight?: number;
 };
 //Initialize ZeroToApp with a toggle function
-const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
+const ZeroToApp = ({ brand, children, ssrWidth, ssrHeight }: ZeroToAppProps) => {
   const lightTheme = useMemo(() => createLightTheme(brand), [brand]);
   // Use brand.darkColors if available, otherwise generate from brand.colors
   const darkTheme = useMemo(() => createDarkTheme(brand), [brand]);
@@ -44,7 +58,7 @@ const ZeroToApp = ({ brand, children }: ZeroToAppProps) => {
   return (
     <BrandProvider brand={brand}>
       <ThemeContext.Provider value={{ values, mode, setMode, toggleTheme }}>
-        <LayoutProvider>
+        <LayoutProvider ssrWidth={ssrWidth} ssrHeight={ssrHeight}>
           <SidebarProvider>
               {children}
           </SidebarProvider>
